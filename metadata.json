@@ -1,0 +1,6 @@
+{
+  "name": "Modern Fisheries",
+  "description": "An interactive Recirculating Aqua System (RAS), Biofloc, Aquaponics, and Hydroponics portal with custom calculators, aquaculture services, marketplace shopping, and expert training tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

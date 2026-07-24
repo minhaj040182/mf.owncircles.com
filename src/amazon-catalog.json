@@ -1,0 +1,102 @@
+[
+  {
+    "id": "amz-1",
+    "name": "Apera Instruments AI311 Premium pH Test Kit",
+    "description": "Professional-grade digital water tester with automatic temperature compensation (ATC), durable glass bulb sensor, and calibration buffers included. Perfect for RAS and biofloc ponds.",
+    "price": 79.50,
+    "category": "Water Quality",
+    "image": "https://images.unsplash.com/photo-1516715094727-ec48be335d79?auto=format&fit=crop&w=400&q=80",
+    "amazonUrl": "https://www.amazon.com/s?k=Apera+Instruments+AI311+pH+Kit",
+    "rating": 4.8
+  },
+  {
+    "id": "amz-2",
+    "name": "Active Aqua Commercial Air Pump (110W, 110 LPM)",
+    "description": "Industrial magnetic air pump with a 12-outlet copper manifold. Provides robust, continuous aeration to maintain safe Dissolved Oxygen levels in dense Tilapia and Catfish tanks.",
+    "price": 64.99,
+    "category": "Aeration",
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80",
+    "amazonUrl": "https://www.amazon.com/s?k=Active+Aqua+Commercial+Air+Pump+110W",
+    "rating": 4.7
+  },
+  {
+    "id": "amz-3",
+    "name": "API POND MASTER TEST KIT Water Test Set",
+    "description": "Essential multi-parameter water testing kit. Contains liquid reagents for checking pH, Ammonia (TAN), Nitrite (NO2-), and Phosphate with high-precision color charts.",
+    "price": 34.50,
+    "category": "Water Quality",
+    "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=400&q=80",
+    "amazonUrl": "https://www.amazon.com/s?k=API+POND+MASTER+TEST+KIT",
+    "rating": 4.9
+  },
+  {
+    "id": "amz-4",
+    "name": "LaMotte AQ-2 Commercial Aquaculture Test Kit",
+    "description": "Top-tier titration testing station for professional fish farms. Measures carbon dioxide, hardness, alkalinity, and un-ionized toxic ammonia chemistry.",
+    "price": 298.00,
+    "category": "Water Quality",
+    "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80",
+    "amazonUrl": "https://www.amazon.com/s?k=LaMotte+AQ-2+Aquaculture+Test+Kit",
+    "rating": 4.6
+  },
+  {
+    "id": "amz-5",
+    "name": "FishMate F14 Automatic Pond Fish Feeder",
+    "description": "Weatherproof quartz-timer commercial feeder supporting 1 to 14 meals daily. Keeps pellets fresh, dry, and protected from high humidity.",
+    "price": 44.95,
+    "category": "Feeding",
+    "image": "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=400&q=80",
+    "amazonUrl": "https://www.amazon.com/s?k=FishMate+F14+Pond+Feeder",
+    "rating": 4.5
+  },
+  {
+    "id": "amz-6",
+    "name": "Pondmaster PMK190 190 gph Pump & Filter Kit",
+    "description": "Eco-friendly underwater pump and physical sponge filter combo. Features bell-fountain aerator option for medium nursery and fingerling tanks.",
+    "price": 114.99,
+    "category": "Filters",
+    "image": "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=400&q=80",
+    "amazonUrl": "https://www.amazon.com/s?k=Pondmaster+PMK190+Filter+Kit",
+    "rating": 4.6
+  },
+  {
+    "id": "amz-7",
+    "name": "ECOPLUS Commercial Air Pump (80W, 88 LPM)",
+    "description": "Quiet, durable magnetic air compressor with custom copper nozzles. Delivers micro-bubbles for continuous aerobic biofloc digestion.",
+    "price": 52.00,
+    "category": "Aeration",
+    "image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=400&q=80",
+    "amazonUrl": "https://www.amazon.com/s?k=EcoPlus+Commercial+Air+Pump+80W",
+    "rating": 4.7
+  },
+  {
+    "id": "amz-8",
+    "name": "Lanyani Secchi Disk with Calibration Tape",
+    "description": "Classic black-and-white disk with 20m high-tensile fiberglass measuring tape. Essential tool to inspect algae density and water clarity.",
+    "price": 24.99,
+    "category": "Water Quality",
+    "image": "https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?auto=format&fit=crop&w=400&q=80",
+    "amazonUrl": "https://www.amazon.com/s?k=Lanyani+Secchi+Disk",
+    "rating": 4.8
+  },
+  {
+    "id": "amz-9",
+    "name": "Lifegard Aquatics Digital Temp & Water Thermometer",
+    "description": "High-accuracy double sensor system with temperature alarm. Monitors indoor and outdoor tank temperatures in real time to optimize feeding rates.",
+    "price": 18.99,
+    "category": "Water Quality",
+    "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
+    "amazonUrl": "https://www.amazon.com/s?k=Lifegard+Aquatics+Digital+Thermometer",
+    "rating": 4.7
+  },
+  {
+    "id": "amz-10",
+    "name": "Submersible Water Pump 3200 GPH Frequency Conversion",
+    "description": "Super energy-efficient water circulation pump with wear-resistant ceramic shaft. Ideal for constant flow filters and gravity drains in RAS loops.",
+    "price": 129.99,
+    "category": "Pumps",
+    "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80",
+    "amazonUrl": "https://www.amazon.com/s?k=3200+GPH+Submersible+Water+Pump",
+    "rating": 4.8
+  }
+]
