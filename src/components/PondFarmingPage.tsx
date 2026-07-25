@@ -8,6 +8,7 @@ import VideoCard from "./VideoCard";
 import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
 interface PondFarmingPageProps {
   onVideoClick?: (video: Video) => void;
@@ -96,27 +97,20 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
   ];
 
   return (
-    <div className="bg-slate-50 min-h-screen overflow-x-hidden">
+    <div className="bg-slate-50 min-h-screen">
+      
       {/* Hero Banner Container */}
-      <div className="relative bg-gradient-to-r from-emerald-900 to-green-950 text-white py-6 sm:py-12 px-3 sm:px-6 lg:px-8 overflow-hidden shadow-md">
+      <div className="relative bg-gradient-to-r from-emerald-900 to-green-950 text-white py-4 sm:py-8 px-3 sm:px-6 lg:px-8 overflow-hidden shadow-md">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(16,185,129,0.12),transparent_60%)]"></div>
-        <div className="max-w-7xl mx-auto relative flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 relative flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
           <div className="space-y-2.5 sm:space-y-3 max-w-2xl">
-            {onBackToDashboard && (
-              <button 
-                onClick={onBackToDashboard}
-                className="inline-flex items-center gap-1 text-emerald-300 hover:text-emerald-200 text-xs font-mono font-bold tracking-tight bg-white/5 border border-white/10 px-2.5 py-1.5 rounded-lg transition-all cursor-pointer"
-              >
-                <ChevronLeft className="w-3.5 h-3.5" />
-                Back to Dashboard
-              </button>
-            )}
+            
             <div className="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-[10px] sm:text-[10px] font-mono uppercase tracking-widest font-black px-2.5 py-1 rounded-full">
               <Sparkles className="w-3 h-3 animate-pulse" />
               Traditional Open-Water Aquaculture
             </div>
             <h1 className="text-2xl sm:text-4xl font-sans font-black tracking-tight text-white leading-tight">
-              Pond Fish Farming Masterclass
+              Pond Fish Farming
             </h1>
             <p className="text-emerald-100 text-xs sm:text-sm leading-relaxed max-w-xl">
               Understand the biological principles, structural standards, benefits, risks, and economic configurations of traditional earthen pond fisheries.
@@ -130,12 +124,21 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
         </div>
       </div>
 
-      {/* Dynamic Advertisement Banner */}
-      <AdBanner reloadKey="pond-main-ad" />
+        {/* Sticky Top Advertisement Banner */}
+        <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs -mx-3 sm:-mx-6 lg:-mx-8 px-3 sm:px-6 lg:px-8 w-auto">
+          <div className="max-w-[1440px] mx-auto">
+            <AdBanner reloadKey="feeding-main-ad" />
+          </div>
+        </div>
+
+        {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+        <div className="lg:hidden my-1">
+          <OwnCirclesAnnouncement mode="mobile" />
+        </div>
 
       {/* Tabs Menu Navigation */}
       <div className="sticky top-14 sm:top-16 z-40 bg-white border-b border-slate-200/80 shadow-xs">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex space-x-1 py-2 sm:py-3 overflow-x-auto scrollbar-none max-w-full -mx-3 px-3 sm:mx-0 sm:px-0">
             {[
               { id: "overview", label: "System Overview" },
@@ -161,7 +164,7 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
       </div>
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8 overflow-x-hidden">
+      <main className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8">
         <div className="flex flex-col xl:flex-row gap-6 sm:gap-8 items-start">
           <div className="flex-1 min-w-0 space-y-6 sm:space-y-12 w-full">
         
@@ -169,7 +172,7 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
         {activeTab === "overview" && (
           <div className="space-y-6 sm:space-y-8 animate-fade-in">
             {/* Introductory Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               <div className="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 space-y-2.5 sm:space-y-3 shadow-xs">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700">
                   <Droplet className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -376,7 +379,7 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
 
         {/* Tab 4: Interactive Lime & Fertilizer Calculator */}
         {activeTab === "calculator" && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 animate-fade-in">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 animate-fade-in">
             
             {/* Input Controls Panel */}
             <div className="lg:col-span-1 bg-white border border-slate-200/80 rounded-2xl sm:rounded-3xl p-4 sm:p-8 space-y-4 sm:space-y-6 shadow-xs self-start">
@@ -518,7 +521,7 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {pondVideos.map((video) => (
                 <VideoCard
                   key={video.id}

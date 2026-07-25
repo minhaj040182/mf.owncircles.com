@@ -13,6 +13,7 @@ import { fetchYouTubeChannelVideos } from "../youtubeFeed";
 import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
 const isVideoViral = (v: Video) => {
   const viewsStr = v.views.toLowerCase();
@@ -381,9 +382,10 @@ function ShortsCard({ video, onVideoClick }: { video: Video; onVideoClick: (v: V
 
 interface AquaponicsPageProps {
   onVideoClick?: (video: Video) => void;
+  onBackToDashboard?: () => void;
 }
 
-export default function AquaponicsPage({ onVideoClick }: AquaponicsPageProps) {
+export default function AquaponicsPage({ onVideoClick, onBackToDashboard }: AquaponicsPageProps) {
   // Tab Navigation: overview, science, designs, comparison, sandbox, guide, faq
   const [activeTab, setActiveTab] = useState<"overview" | "science" | "designs" | "comparison" | "sandbox" | "guide" | "faq">("overview");
 
@@ -694,20 +696,18 @@ export default function AquaponicsPage({ onVideoClick }: AquaponicsPageProps) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-10 space-y-6 sm:space-y-12 animate-fade-in overflow-x-hidden">
+    <div className="bg-slate-50 min-h-screen">  
       
       {/* Page Header Banner */}
-      <div className="relative bg-emerald-950 text-white p-4 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-emerald-900">
+      <div className="relative bg-emerald-950 text-white p-4 sm:p-8 md:p-12  overflow-hidden shadow-2xl border border-emerald-900">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-800/40 via-emerald-950 to-emerald-950"></div>
         <div className="absolute top-0 right-0 -mt-8 -mr-8 w-64 h-64 bg-emerald-600/10 rounded-full blur-3xl"></div>
         
         <div className="relative z-10 max-w-4xl space-y-3 sm:space-y-4">
+          
           <div className="flex flex-wrap gap-1.5 sm:gap-2">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-emerald-900/80 border border-emerald-700 text-emerald-300 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider">
               Ecological Symbiosis
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-slate-900/80 border border-slate-700 text-slate-300 text-[10px] sm:text-xs font-mono font-bold">
-              Engineering Manual
             </span>
           </div>
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-sans font-black tracking-tight leading-tight">
@@ -719,10 +719,19 @@ export default function AquaponicsPage({ onVideoClick }: AquaponicsPageProps) {
         </div>
       </div>
 
-      {/* Dynamic Advertisement Banner */}
-      <AdBanner reloadKey="aquaponics-main-ad" />
+        {/* Sticky Top Advertisement Banner */}
+        <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs -mx-3 sm:-mx-6 lg:-mx-8 px-3 sm:px-6 lg:px-8 w-auto">
+          <div className="max-w-[1440px] mx-auto">
+            <AdBanner reloadKey="feeding-main-ad" />
+          </div>
+        </div>
 
-      <div className="flex flex-col xl:flex-row gap-6 sm:gap-8 items-start">
+        {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+        <div className="lg:hidden my-1">
+          <OwnCirclesAnnouncement mode="mobile" />
+        </div>
+
+      <div className="bg-white border border-slate-200/80 p-1.5 rounded-2xl shadow-xs flex overflow-x-auto no-scrollbar gap-1.5 w-full min-w-0 scroll-smooth">
         <div className="flex-1 min-w-0 space-y-6 sm:space-y-12 w-full">
 
       {/* Main Tabbed Navigation bar */}
@@ -814,7 +823,7 @@ export default function AquaponicsPage({ onVideoClick }: AquaponicsPageProps) {
       </div>
 
       {/* Tab Contents Container */}
-      <div className="min-h-[500px]">
+      <div className="min-h-[500px] pl-12">
 
         {/* Tab 1: Overview */}
         {activeTab === "overview" && (
@@ -1425,28 +1434,28 @@ export default function AquaponicsPage({ onVideoClick }: AquaponicsPageProps) {
             {/* Species Compatibility Matrix */}
             <div className="space-y-3 sm:space-y-4 pt-6 border-t border-slate-100">
               <h3 className="font-sans font-black text-slate-900 text-base sm:text-lg">Biomicrobial Species Database</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 {suitableSpecies.map((species, idx) => (
-                  <div key={idx} className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 space-y-2.5 sm:space-y-3 shadow-xs">
+                  <div key={idx} className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 space-y-3 shadow-xs">
                     <div className="flex justify-between items-start gap-1">
-                      <span className="text-xs sm:text-sm font-sans font-black text-slate-800 leading-tight">{species.name}</span>
-                      <span className={`text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded-full shrink-0 ${
+                      <span className="text-base sm:text-lg font-sans font-black text-slate-800 leading-tight">{species.name}</span>
+                      <span className={`text-xs font-mono font-bold uppercase px-2.5 py-1 rounded-full shrink-0 ${
                         species.type === "Fish" ? "bg-blue-50 text-blue-800 border border-blue-100" : "bg-emerald-50 text-emerald-800 border border-emerald-100"
                       }`}>
                         {species.type}
                       </span>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs font-mono pt-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm font-mono pt-1">
                       <div>
-                        <span className="text-[9px] text-slate-400 block font-bold uppercase">Temperature Range</span>
-                        <span className="text-slate-700">{species.temp}</span>
+                        <span className="text-xs text-slate-500 block font-bold uppercase">Temperature Range</span>
+                        <span className="text-slate-800 font-bold">{species.temp}</span>
                       </div>
                       <div>
-                        <span className="text-[9px] text-slate-400 block font-bold uppercase">Ideal pH Range</span>
-                        <span className="text-slate-700">{species.ph}</span>
+                        <span className="text-xs text-slate-500 block font-bold uppercase">Ideal pH Range</span>
+                        <span className="text-slate-800 font-bold">{species.ph}</span>
                       </div>
                     </div>
-                    <p className="text-slate-500 text-[11px] leading-relaxed pt-2 border-t border-slate-100 font-sans">
+                    <p className="text-slate-600 text-base leading-relaxed pt-3 border-t border-slate-100 font-sans">
                       {species.notes}
                     </p>
                   </div>

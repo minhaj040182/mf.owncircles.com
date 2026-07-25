@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Briefcase, Calendar, ShieldCheck, CheckCircle2, Award, Clock, Users, Mail, AlertCircle, Phone } from "lucide-react";
+import { Briefcase, Calendar, ShieldCheck, CheckCircle2, Award, Clock, Users, Mail, AlertCircle, Phone, ChevronLeft } from "lucide-react";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
 interface ServiceItem {
   id: string;
@@ -39,7 +40,11 @@ const ALL_SERVICES: ServiceItem[] = [
   }
 ];
 
-export default function ServicesPage() {
+interface ServicesPageProps {
+  onBackToDashboard?: () => void;
+}
+
+export default function ServicesPage({ onBackToDashboard }: ServicesPageProps = {}) {
   const [selectedService, setSelectedService] = useState<string>("serv-1");
   const [bookingDate, setBookingDate] = useState<string>("2026-07-20");
   const [bookingTime, setBookingTime] = useState<string>("10:00 AM");
@@ -61,14 +66,14 @@ export default function ServicesPage() {
   const activeServiceDetails = ALL_SERVICES.find((s) => s.id === selectedService) || ALL_SERVICES[0];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+      <div className="bg-slate-50 min-h-screen">    
       
       {/* Banner */}
-      <div className="relative bg-emerald-950 text-white p-8 sm:p-12 rounded-3xl overflow-hidden shadow-xl">
+      <div className="relative bg-emerald-950 text-white p-8 sm:p-12 overflow-hidden shadow-xl">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-800/40 via-emerald-950 to-emerald-950"></div>
         <div className="absolute top-0 right-0 -mt-8 -mr-8 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
         
-        <div className="relative z-10 max-w-3xl space-y-4">
+        <div className="relative z-10 max-w-3xl space-y-4">         
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-800/60 border border-emerald-700 text-emerald-300 text-xs font-mono font-bold uppercase tracking-wider">
             Modern Fisheries Engineering Services
           </span>
@@ -81,14 +86,23 @@ export default function ServicesPage() {
         </div>
       </div>
 
-      {/* Dynamic Advertisement Banner */}
-      <AdBanner reloadKey="services-main-ad" />
+       {/* Sticky Top Advertisement Banner */}
+        <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs -mx-3 sm:-mx-6 lg:-mx-8 px-3 sm:px-6 lg:px-8 w-auto">
+          <div className="max-w-[1440px] mx-auto">
+            <AdBanner reloadKey="feeding-main-ad" />
+          </div>
+        </div>
 
-      <div className="flex flex-col xl:flex-row gap-8 items-start">
+        {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+        <div className="lg:hidden my-1">
+          <OwnCirclesAnnouncement mode="mobile" />
+        </div>
+
+      <div className="flex flex-col xl:flex-row gap-8 items-start p-12">
         <div className="flex-1 min-w-0 space-y-12">
 
       {/* Services Portfolio */}
-      <div className="space-y-6">
+      <div className="space-y-6 p-8">
         <div>
           <h2 className="font-sans font-extrabold text-slate-900 text-xl flex items-center gap-2">
             <Briefcase className="w-5 h-5 text-emerald-600" />
@@ -99,7 +113,7 @@ export default function ServicesPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {ALL_SERVICES.map((service) => (
             <div
               key={service.id}
@@ -112,20 +126,20 @@ export default function ServicesPage() {
             >
               <div className="space-y-3">
                 <div className="flex justify-between items-start gap-2">
-                  <h4 className="font-sans font-extrabold text-slate-800 text-sm leading-tight">
+                  <h4 className="font-sans font-extrabold text-slate-900 text-base sm:text-lg leading-tight">
                     {service.title}
                   </h4>
-                  <span className="font-mono text-xs font-black text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full shrink-0">
+                  <span className="font-mono text-xs sm:text-sm font-black text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full shrink-0">
                     {service.price}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-1.5 text-xs text-slate-400 font-mono">
-                  <Clock className="w-3.5 h-3.5" />
+                <div className="flex items-center gap-1.5 text-xs sm:text-sm text-slate-500 font-mono">
+                  <Clock className="w-4 h-4" />
                   <span>{service.duration}</span>
                 </div>
 
-                <p className="text-slate-500 text-[11px] leading-relaxed">
+                <p className="text-slate-600 text-base leading-relaxed">
                   {service.description}
                 </p>
               </div>

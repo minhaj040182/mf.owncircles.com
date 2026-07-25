@@ -4,6 +4,7 @@ import WaterDiagnosticWizard from "./WaterDiagnosticWizard";
 import TreatmentCalculator from "./TreatmentCalculator";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 import { 
   Calculator, 
   Scaling, 
@@ -19,12 +20,17 @@ import {
   TrendingUp, 
   Scale,
   HeartPulse,
-  FlaskConical
+  FlaskConical,
+  ChevronLeft
 } from "lucide-react";
 
 type CalculatorTab = "treatment" | "feed" | "water" | "stocking" | "volume" | "fcr" | "carbon" | "profit";
 
-export default function CalculatorsPage() {
+interface CalculatorsPageProps {
+  onBackToDashboard?: () => void;
+}
+
+export default function CalculatorsPage({ onBackToDashboard }: CalculatorsPageProps = {}) {
   const [activeTab, setActiveTab] = useState<CalculatorTab>("treatment");
 
   // 1. Stocking Density Calculator state
@@ -104,21 +110,40 @@ export default function CalculatorsPage() {
   const netProfit = grossRev - totalFeedCost - operatingOverhead;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div className="bg-slate-50 min-h-screen">    
       
       {/* Page Header */}
-      <div className="border-b border-green-150/50 pb-6 flex flex-col xl:flex-row xl:items-center justify-between gap-6 text-left">
-        <div>
-          <h1 className="font-sans font-black text-2xl sm:text-3xl text-green-950 tracking-tight flex items-center gap-2.5">
-            <Calculator className="w-8 h-8 text-emerald-600 animate-pulse" />
+      <div className="relative bg-gradient-to-br from-teal-950 via-slate-900 to-teal-900 text-white p-5 sm:p-10  overflow-hidden shadow-xl border border-teal-800/40">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-600/20 via-transparent to-transparent"></div>
+        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-72 h-72 bg-teal-500/10 blur-3xl pointer-events-none"></div>
+        
+        <div className="relative z-10 max-w-3xl space-y-3 sm:space-y-4">
+          
+           <h1 className="text-2xl sm:text-4xl lg:text-5xl font-sans font-black tracking-tight leading-tight">
+           
             <span>Modern Fisheries Calculations Lab</span>
           </h1>
           <p className="text-slate-500 text-xs sm:text-sm mt-1">
             Complete high-precision interactive calculators to schedule feed, evaluate water volume, dose molasses, and project net crop yield profit margins.
           </p>
         </div>
+      </div>
 
-        {/* Tab selector - Scrollable on mobile */}
+
+ {      /* Sticky Top Advertisement Banner */}
+        <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs -mx-3 sm:-mx-6 lg:-mx-8 px-3 sm:px-6 lg:px-8 w-auto">
+          <div className="max-w-[1440px] mx-auto">
+            <AdBanner reloadKey="feeding-main-ad" />
+          </div>
+        </div>
+
+        {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+        <div className="lg:hidden my-1">
+          <OwnCirclesAnnouncement mode="mobile" />
+        </div>
+        
+
+      {/* Tab selector - Scrollable on mobile */}
         <div className="flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200 overflow-x-auto scrollbar-none gap-1 max-w-full shrink-0">
           <button
             onClick={() => setActiveTab("treatment")}
@@ -187,10 +212,6 @@ export default function CalculatorsPage() {
             💰 Profit Projection
           </button>
         </div>
-      </div>
-
-      {/* Dynamic Advertisement Banner */}
-      <AdBanner reloadKey="calculators-main-ad" />
 
       <div className="flex flex-col xl:flex-row gap-8 items-start">
         <div className="flex-1 min-w-0 space-y-12">

@@ -460,7 +460,7 @@ export default function ProfessionalDashboard({ onVideoClick, onNavigate, trendi
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 w-full">
             {SPECIES.map((spec) => (
               <div 
                 key={spec.id} 
@@ -473,28 +473,28 @@ export default function ProfessionalDashboard({ onVideoClick, onNavigate, trendi
                       {spec.scientific.split(" ")[0]}
                     </span>
                   </div>
-                  <p className="text-[11px] sm:text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                  <p className="text-sm sm:text-base text-slate-600 line-clamp-2 leading-relaxed">
                     {spec.description}
                   </p>
                 </div>
 
                 {/* 4-Box Metric Property Grid */}
-                <div className="grid grid-cols-2 gap-2 bg-white p-2.5 sm:p-3 rounded-xl border border-slate-200 text-[10px] sm:text-[11px] font-sans w-full min-w-0">
+                <div className="grid grid-cols-2 gap-2.5 bg-white p-3 sm:p-3.5 rounded-xl border border-slate-200 font-sans w-full min-w-0">
                   <div className="space-y-0.5 min-w-0">
-                    <span className="text-slate-400 block font-bold uppercase text-[8px] sm:text-[9px] tracking-wider truncate">Stocking</span>
-                    <strong className="text-slate-800 block text-[11px] sm:text-xs font-mono leading-tight break-words">{spec.density}</strong>
+                    <span className="text-slate-500 block font-bold uppercase text-xs sm:text-[13px] tracking-wider truncate">Stocking</span>
+                    <strong className="text-slate-900 block text-base sm:text-lg font-mono font-bold leading-tight break-words">{spec.density}</strong>
                   </div>
                   <div className="space-y-0.5 min-w-0">
-                    <span className="text-slate-400 block font-bold uppercase text-[8px] sm:text-[9px] tracking-wider truncate">Growth Cycle</span>
-                    <strong className="text-slate-800 block text-[11px] sm:text-xs font-mono leading-tight break-words">{spec.growth}</strong>
+                    <span className="text-slate-500 block font-bold uppercase text-xs sm:text-[13px] tracking-wider truncate">Growth Cycle</span>
+                    <strong className="text-slate-900 block text-base sm:text-lg font-mono font-bold leading-tight break-words">{spec.growth}</strong>
                   </div>
                   <div className="space-y-0.5 min-w-0">
-                    <span className="text-slate-400 block font-bold uppercase text-[8px] sm:text-[9px] tracking-wider truncate">Protein Target</span>
-                    <strong className="text-slate-800 block text-[11px] sm:text-xs font-mono leading-tight break-words">{spec.protein}</strong>
+                    <span className="text-slate-500 block font-bold uppercase text-xs sm:text-[13px] tracking-wider truncate">Protein Target</span>
+                    <strong className="text-slate-900 block text-base sm:text-lg font-mono font-bold leading-tight break-words">{spec.protein}</strong>
                   </div>
                   <div className="space-y-0.5 min-w-0">
-                    <span className="text-slate-400 block font-bold uppercase text-[8px] sm:text-[9px] tracking-wider truncate">Est. Price</span>
-                    <strong className="text-emerald-700 block text-[11px] sm:text-xs font-mono leading-tight break-words">{spec.marketPrice}</strong>
+                    <span className="text-slate-500 block font-bold uppercase text-xs sm:text-[13px] tracking-wider truncate">Est. Price</span>
+                    <strong className="text-emerald-700 block text-base sm:text-lg font-mono font-bold leading-tight break-words">{spec.marketPrice}</strong>
                   </div>
                 </div>
 
@@ -958,34 +958,34 @@ export default function ProfessionalDashboard({ onVideoClick, onNavigate, trendi
               </button>
             </div>
 
-            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-sans font-medium">
+            <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-sans font-medium">
               {activeSpeciesModal.description}
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 bg-slate-50 p-3.5 rounded-2xl border border-slate-150 text-xs font-sans">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200 font-sans">
               <div>
-                <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Stocking Density</span>
-                <strong className="text-slate-800 font-mono text-xs">{activeSpeciesModal.density}</strong>
+                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Stocking Density</span>
+                <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.density}</strong>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Growth Sizing</span>
-                <strong className="text-slate-800 font-mono text-xs">{activeSpeciesModal.growth}</strong>
+                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Growth Sizing</span>
+                <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.growth}</strong>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Crude Protein Target</span>
-                <strong className="text-slate-800 font-mono text-xs">{activeSpeciesModal.protein}</strong>
+                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Crude Protein Target</span>
+                <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.protein}</strong>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Thermic Safe range</span>
-                <strong className="text-slate-800 font-mono text-xs">{activeSpeciesModal.temp}</strong>
+                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Thermic Safe range</span>
+                <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.temp}</strong>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Water Safe pH</span>
-                <strong className="text-slate-800 font-mono text-xs">{activeSpeciesModal.ph}</strong>
+                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Water Safe pH</span>
+                <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.ph}</strong>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Est. Wholesale Price</span>
-                <strong className="text-green-850 font-mono text-xs">{activeSpeciesModal.marketPrice}</strong>
+                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Est. Wholesale Price</span>
+                <strong className="text-emerald-700 font-mono text-base sm:text-lg block mt-0.5 font-bold">{activeSpeciesModal.marketPrice}</strong>
               </div>
             </div>
 

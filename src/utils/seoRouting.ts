@@ -27,16 +27,16 @@ export function createSlug(text: string): string {
 
 export const PAGE_SEO_PATHS: Record<PageType, string> = {
   home: "/",
-  ras: "/recirculating-aquaculture-system",
-  biofloc: "/biofloc-technology",
+  ras: "/aquaponic",
+  biofloc: "/bioflock",
   aquaponics: "/aquaponics-farming",
-  hydroponics: "/hydroponics-system",
+  hydroponics: "/hydroponic",
   pond: "/pond-farming",
   diseases: "/fish-diseases",
   feed: "/feeding-management",
-  calculators: "/aquaculture-calculators",
-  services: "/aquaculture-services",
-  about: "/about-us",
+  calculators: "/calculators",
+  services: "/ourservices",
+  about: "/calculators",
   privacy: "/privacy-policy",
   videos: "/farming-videos",
   faq: "/frequently-asked-questions",
@@ -72,15 +72,16 @@ export function parseUrlPath(pathname: string, allVideos: Video[]): { page: Page
 
   // Exact or legacy path matches
   if (normalized === "/" || normalized === "") return { page: "home", video: null };
+  if (normalized.includes("aquaponic") && !normalized.includes("aquaponics")) return { page: "ras", video: null };
   if (normalized.includes("recirculating") || normalized.includes("ras")) return { page: "ras", video: null };
-  if (normalized.includes("biofloc")) return { page: "biofloc", video: null };
+  if (normalized.includes("biofloc") || normalized.includes("bioflock")) return { page: "biofloc", video: null };
   if (normalized.includes("aquaponics")) return { page: "aquaponics", video: null };
-  if (normalized.includes("hydroponics")) return { page: "hydroponics", video: null };
+  if (normalized.includes("hydroponic")) return { page: "hydroponics", video: null };
   if (normalized.includes("pond")) return { page: "pond", video: null };
   if (normalized.includes("disease")) return { page: "diseases", video: null };
   if (normalized.includes("feed")) return { page: "feed", video: null };
   if (normalized.includes("calculator")) return { page: "calculators", video: null };
-  if (normalized.includes("service")) return { page: "services", video: null };
+  if (normalized.includes("ourservice") || normalized.includes("service")) return { page: "services", video: null };
   if (normalized.includes("about")) return { page: "about", video: null };
   if (normalized.includes("privacy")) return { page: "privacy", video: null };
   if (normalized.includes("video")) return { page: "videos", video: null };

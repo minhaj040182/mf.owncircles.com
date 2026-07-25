@@ -5,6 +5,7 @@ import { fetchYouTubeChannelVideos } from "../youtubeFeed";
 import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 import { 
   Waves, Cpu, RefreshCw, Layers, CheckCircle2, Sliders, Play, AlertCircle, 
   Info, Calculator, Droplet, DollarSign, Building, Sparkles, Phone, 
@@ -302,9 +303,10 @@ const OLD_RAS_YOUTUBE_VIDEOS: Video[] = [
 
 interface RasPageProps {
   onVideoClick?: (video: Video) => void;
+  onBackToDashboard?: () => void;
 }
 
-export default function RasPage({ onVideoClick }: RasPageProps) {
+export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProps) {
   // Page Navigation Tabs (for deep study/learning experience)
   const [activeTab, setActiveTab] = useState<"overview" | "components" | "works" | "feasibility" | "fishes" | "provider">("overview");
 
@@ -584,34 +586,37 @@ export default function RasPage({ onVideoClick }: RasPageProps) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-12 w-full overflow-hidden">
-      
-      {/* 1. Page Header */}
-      <div className="relative bg-gradient-to-br from-green-950 via-emerald-950 to-teal-950 text-white p-5 sm:p-10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-emerald-900/40">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-green-800/20 via-transparent to-transparent"></div>
-        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        
-        <div className="relative z-10 max-w-4xl space-y-3 sm:space-y-5">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-800/60 border border-emerald-700 text-emerald-300 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider">
-            ⭐ Advanced Tech Study Resource
-          </span>
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-sans font-black tracking-tight leading-tight">
-            Recirculating Aquaculture Systems <span className="text-emerald-400 font-mono font-light">(RAS)</span>
-          </h1>
-          <p className="text-emerald-100/90 text-xs sm:text-base leading-relaxed font-sans max-w-3xl">
-            As global demand for seafood rises, traditional open farming is hitting limits. Discover 
-            the science of <strong>RAS</strong>—the revolutionary technology-driven method that recycles 
-            up to 99% of culture water in a closed loop, ensuring biosecurity, explosive yields, and absolute sustainability.
-          </p>
+   <div className="bg-slate-50 min-h-screen">      
+
+      {/* Hero Banner Container */}
+      <div className="relative bg-gradient-to-r from-emerald-900 to-green-950 text-white py-4 sm:py-8 px-3 sm:px-6 lg:px-8 overflow-hidden shadow-md">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(16,185,129,0.12),transparent_60%)]"></div>
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 relative flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
+          <div className="space-y-2.5 sm:space-y-3 max-w-3xl">           
+            <h1 className="text-2xl sm:text-3xl font-sans font-black tracking-tight text-white leading-tight">
+              Recirculating Aquaculture Systems (RAS) 
+            </h1>
+            <p className="text-emerald-100 text-xs sm:text-sm leading-relaxed max-w-xl">
+              As global demand for seafood rises, traditional open farming is hitting limits. Discover the science of RAS—the revolutionary technology-driven method that recycles up to 99% of culture water in a closed loop, ensuring biosecurity, explosive yields, and absolute sustainability.
+            </p>
+          </div>         
         </div>
       </div>
 
-      {/* Dynamic Advertisement Banner */}
-      <AdBanner reloadKey="ras-main-ad" />
+        {/* Sticky Top Advertisement Banner */}
+        <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs -mx-3 sm:-mx-6 lg:-mx-8 px-3 sm:px-6 lg:px-8 w-auto">
+          <div className="max-w-[1440px] mx-auto">
+            <AdBanner reloadKey="feeding-main-ad" />
+          </div>
+        </div>
+
+        {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+        <div className="lg:hidden my-1">
+          <OwnCirclesAnnouncement mode="mobile" />
+        </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start w-full min-w-0">
-        <div className="lg:col-span-8 space-y-6 sm:space-y-12 w-full min-w-0">
+        <div className="lg:col-span-8 xl:col-span-9 space-y-6 sm:space-y-12 w-full min-w-0">
 
       {/* 2. Custom Navigation Tabs for the Study Center */}
       <div className="bg-white border border-slate-200/80 p-1.5 rounded-2xl shadow-xs flex overflow-x-auto no-scrollbar gap-1.5 w-full min-w-0 scroll-smooth">
@@ -783,7 +788,7 @@ export default function RasPage({ onVideoClick }: RasPageProps) {
               <p className="text-slate-500 text-sm">Why modern commercial entrepreneurs are shifting away from traditional ponds to recirculating loops.</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               
               <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-xs hover:border-emerald-200 transition-all space-y-4">
                 <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-800 flex items-center justify-center font-bold">1</div>
@@ -852,7 +857,7 @@ export default function RasPage({ onVideoClick }: RasPageProps) {
           </div>
 
           {/* YouTube RAS Slider Section */}
-          <div id="youtube-ras-slider" className="mt-12 pt-8 border-t border-slate-100 space-y-6">
+          <div id="youtube-ras-slider" className="mt-12 pt-8 px-4 sm:px-6 lg:px-8 border-t border-slate-100 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 text-emerald-700 font-mono text-xs font-bold uppercase tracking-widest mb-1">
@@ -1056,7 +1061,7 @@ export default function RasPage({ onVideoClick }: RasPageProps) {
             </div>
 
             {/* Scientific Breakdown Blocks */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-5 border-t border-slate-800">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-5 border-t border-slate-800">
               <div className="space-y-2">
                 <span className="text-cyan-400 font-mono text-xs font-bold uppercase">1. Mechanical Filtration</span>
                 <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-sans">
@@ -1082,7 +1087,7 @@ export default function RasPage({ onVideoClick }: RasPageProps) {
           <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-xs space-y-6">
             <h3 className="font-sans font-black text-xl text-slate-900">Standard Optimal Water Chemistry for RAS</h3>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
                 <span className="text-xs text-slate-400 font-mono block">Dissolved Oxygen (DO)</span>
                 <span className="text-xl font-mono font-bold text-slate-800 block mt-1">5.5 - 8.5 mg/L</span>
@@ -1612,7 +1617,7 @@ export default function RasPage({ onVideoClick }: RasPageProps) {
       )}
 
         </div>
-        <div className="lg:col-span-4 min-w-0 space-y-6 lg:sticky lg:top-20">
+        <div className="hidden lg:block lg:col-span-4 xl:col-span-3 min-w-0 space-y-6 lg:sticky lg:top-20">
           <RightSidebarAd reloadKey="ras-sidebar-ad" />
         </div>
       </div>

@@ -4,6 +4,7 @@ import VideosPage from "./components/VideosPage";
 import VideoDetailView from "./components/VideoDetailView";
 import AdBanner from "./components/AdBanner";
 import RightSidebarAd from "./components/RightSidebarAd";
+import OwnCirclesAnnouncement from "./components/OwnCirclesAnnouncement";
 
 // Import all newly created technology & services page modules
 import RasPage from "./components/RasPage";
@@ -117,28 +118,42 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/40 text-slate-800 flex flex-col font-sans selection:bg-green-100 selection:text-green-900 pb-16 md:pb-0 overflow-x-hidden w-full max-w-full">
+    <div className="min-h-screen bg-slate-50/40 text-slate-800 flex flex-col font-sans selection:bg-green-100 selection:text-green-900 pb-16 md:pb-0 w-full max-w-full">
       
       {/* Sticky Navigation Header */}
       <Header currentPage={currentPage} onPageChange={handlePageChange} />
 
       {/* Main Container Content */}
-      <main className="flex-1 w-full max-w-full overflow-x-hidden">
+      <main className="flex-1 w-full max-w-full">
         {selectedVideo ? (
           // Video Player Page takes priority with responsive sticky sidebar placement
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="flex flex-col xl:flex-row gap-8 items-start">
-              <div className="flex-1 min-w-0 space-y-6">
-                <VideoDetailView
-                  video={selectedVideo}
-                  relatedVideos={getRelatedVideos(selectedVideo)}
-                  onBack={handleBackToGallery}
-                  onSelectVideo={handleVideoSelect}
-                />
-                <AdBanner reloadKey={`video-${selectedVideo.id}`} />
+          <div className="w-full">
+            {/* Sticky Top Advertisement Banner */}
+            <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 border-b border-slate-200/80 shadow-xs transition-all">
+              <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
+                <AdBanner reloadKey={`video-top-${selectedVideo.id}`} />
               </div>
-              <div className="hidden xl:block shrink-0">
-                <RightSidebarAd reloadKey={`video-sidebar-${selectedVideo.id}`} />
+            </div>
+
+            {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+            <div className="lg:hidden max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pt-1">
+              <OwnCirclesAnnouncement mode="mobile" />
+            </div>
+
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+              <div className="flex flex-col xl:flex-row gap-8 items-start">
+                <div className="flex-1 min-w-0 space-y-6">
+                  <VideoDetailView
+                    video={selectedVideo}
+                    relatedVideos={getRelatedVideos(selectedVideo)}
+                    onBack={handleBackToGallery}
+                    onSelectVideo={handleVideoSelect}
+                  />
+                  <AdBanner reloadKey={`video-${selectedVideo.id}`} />
+                </div>
+                <div className="hidden xl:block shrink-0">
+                  <RightSidebarAd reloadKey={`video-sidebar-${selectedVideo.id}`} />
+                </div>
               </div>
             </div>
           </div>
@@ -146,7 +161,7 @@ export default function App() {
           // Sub-pages routing engine
           <>
             {currentPage === "home" && (
-              <div className="space-y-0 w-full overflow-x-hidden">
+              <div className="space-y-0 w-full">
                 
                 {/* 1. Immersive Modern Responsive Hero Banner */}
                 <section id="hero-showcase" className="relative bg-gradient-to-br from-emerald-950 via-slate-900 to-green-950 text-white overflow-hidden py-8 sm:py-12 border-b border-emerald-900/50">
@@ -161,7 +176,7 @@ export default function App() {
                     }}
                   />
                   
-                  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                  <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="max-w-3xl mx-auto space-y-4 text-center flex flex-col items-center justify-center">
                       
                       <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold tracking-wide">
@@ -223,7 +238,7 @@ export default function App() {
 
                 {/* 2. Responsive Social Strip */}
                 <div className="bg-slate-900 text-white py-2.5 px-4 border-b border-slate-800 shadow-sm w-full">
-                  <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs font-semibold">
+                  <div className="max-w-[1440px] mx-auto px-2 sm:px-4 flex flex-wrap items-center justify-between gap-3 text-xs font-semibold">
                     <span className="text-slate-400 text-[10px] sm:text-xs font-mono uppercase tracking-wider">
                       Trusted Aquaculture Knowledge & Innovation Network
                     </span>
@@ -243,15 +258,22 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* 3. Dynamic Advertisement Banner */}
-                <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-4">
-                  <AdBanner reloadKey="home-main" />
+                {/* 3. Top Advertisement Banner (Sticky under header on scroll) */}
+                <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all">
+                  <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-0.5">
+                    <AdBanner reloadKey="home-top-ad" />
+                  </div>
+                </div>
+
+                {/* Mobile Sliding Announcement (Not sticky - scrolls up naturally) */}
+                <div className="lg:hidden max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pt-1">
+                  <OwnCirclesAnnouncement mode="mobile" />
                 </div>
 
                 {/* Main Page Content Grid */}
-                <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 w-full overflow-hidden">
+                <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-5">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start w-full min-w-0">
-                    <div className="lg:col-span-8 min-w-0 space-y-8 sm:space-y-12">
+                    <div className="lg:col-span-8 xl:col-span-9 min-w-0 space-y-8 sm:space-y-12">
                       {/* Professional Dashboard Section */}
                       <ProfessionalDashboard
                         onVideoClick={handleVideoSelect}
@@ -267,7 +289,7 @@ export default function App() {
                       />
                     </div>
 
-                    <div className="lg:col-span-4 min-w-0 space-y-6 lg:sticky lg:top-20">
+                    <div className="hidden lg:block lg:col-span-4 xl:col-span-3 min-w-0 space-y-6 lg:sticky lg:top-20">
                       <RightSidebarAd reloadKey="home-sidebar" />
                     </div>
                   </div>
@@ -277,25 +299,39 @@ export default function App() {
             )}
 
             {/* Subpages Navigation Router */}
-            {currentPage === "ras" && <RasPage onVideoClick={handleVideoSelect} />}
-            {currentPage === "biofloc" && <BioflocPage onVideoClick={handleVideoSelect} />}
-            {currentPage === "aquaponics" && <AquaponicsPage onVideoClick={handleVideoSelect} />}
-            {currentPage === "hydroponics" && <HydroponicsPage onVideoClick={handleVideoSelect} />}
+            {currentPage === "ras" && <RasPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
+            {currentPage === "biofloc" && <BioflocPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
+            {currentPage === "aquaponics" && <AquaponicsPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
+            {currentPage === "hydroponics" && <HydroponicsPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
             {currentPage === "pond" && <PondFarmingPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
             {currentPage === "diseases" && <DiseasesPage onBackToDashboard={() => setCurrentPage("home")} />}
             {currentPage === "feed" && <FeedingPage onBackToDashboard={() => setCurrentPage("home")} />}
-            {currentPage === "calculators" && <CalculatorsPage />}
+            {currentPage === "calculators" && <CalculatorsPage onBackToDashboard={() => setCurrentPage("home")} />}
             {currentPage === "faq" && (
-              <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
-                <FaqSection onContactClick={() => setShowCallModal(true)} />
+              <div className="w-full">
+                {/* Sticky Top Advertisement Banner */}
+                <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 border-b border-slate-200/80 shadow-xs transition-all">
+                  <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
+                    <AdBanner reloadKey="faq-top-ad" />
+                  </div>
+                </div>
+
+                {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+                <div className="lg:hidden max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pt-1">
+                  <OwnCirclesAnnouncement mode="mobile" />
+                </div>
+
+                <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-5">
+                  <FaqSection onContactClick={() => setShowCallModal(true)} />
+                </div>
               </div>
             )}
-            {currentPage === "services" && <ServicesPage />}
-            {currentPage === "about" && <AboutUsPage />}
-            {currentPage === "privacy" && <PrivacyPolicyPage />}
+            {currentPage === "services" && <ServicesPage onBackToDashboard={() => setCurrentPage("home")} />}
+            {currentPage === "about" && <AboutUsPage onBackToDashboard={() => setCurrentPage("home")} />}
+            {currentPage === "privacy" && <PrivacyPolicyPage onBackToDashboard={() => setCurrentPage("home")} />}
 
             {currentPage === "videos" && (
-              <VideosPage onVideoSelect={handleVideoSelect} />
+              <VideosPage onVideoSelect={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />
             )}
           </>
         )}

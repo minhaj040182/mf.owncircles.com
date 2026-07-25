@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
 interface FeedingPageProps {
   onBackToDashboard?: () => void;
@@ -330,34 +331,10 @@ export default function FeedingPage({ onBackToDashboard }: FeedingPageProps) {
   const calcs = runCalibrations();
 
   return (
-    <div className="min-h-screen bg-slate-50/50 pb-16">
-      
-      {/* Header Bar */}
-      <div className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <button 
-            onClick={onBackToDashboard}
-            className="inline-flex items-center gap-2 text-slate-600 hover:text-green-700 font-sans font-bold text-xs sm:text-sm group transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>Back to Dashboard</span>
-          </button>
-
-          <div className="flex items-center gap-2 text-xs bg-emerald-50 text-emerald-800 px-3 py-1.5 rounded-full font-bold">
-            <ShieldCheck className="w-4 h-4" />
-            <span>Commercial Feed Protocol v3.8</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        
-        {/* Hero Section */}
-        <div className="bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950 rounded-3xl p-8 sm:p-10 text-white relative overflow-hidden shadow-xl mb-8">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-green-500/5 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none" />
-
+    <div className="bg-slate-50 min-h-screen">  
+    {/* Hero Section */}
+        <div className="relative bg-emerald-950 text-white p-4 sm:p-8 md:p-12  overflow-hidden shadow-2xl border border-emerald-900">
+ 
           <div className="relative z-10 max-w-3xl space-y-4 text-left">
             <span className="bg-yellow-400/20 text-yellow-300 font-mono text-[10px] sm:text-xs font-black tracking-widest uppercase px-3 py-1 rounded-full">
               ★ Technical Expert Factsheet
@@ -385,9 +362,23 @@ export default function FeedingPage({ onBackToDashboard }: FeedingPageProps) {
             </div>
           </div>
         </div>
+        
+      {/* Main Container */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4">
+        
+        
 
-        {/* Dynamic Advertisement Banner */}
-        <AdBanner reloadKey="feeding-main-ad" />
+        {/* Sticky Top Advertisement Banner */}
+        <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs -mx-3 sm:-mx-6 lg:-mx-8 px-3 sm:px-6 lg:px-8 w-auto">
+          <div className="max-w-[1440px] mx-auto">
+            <AdBanner reloadKey="feeding-main-ad" />
+          </div>
+        </div>
+
+        {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+        <div className="lg:hidden my-1">
+          <OwnCirclesAnnouncement mode="mobile" />
+        </div>
 
         <div className="flex flex-col xl:flex-row gap-8 items-start">
           <div className="flex-1 min-w-0">
@@ -479,26 +470,26 @@ export default function FeedingPage({ onBackToDashboard }: FeedingPageProps) {
                       </span>
                     </div>
 
-                    <p className="text-slate-600 text-xs leading-relaxed min-h-[48px]">
+                    <p className="text-slate-600 text-sm sm:text-base leading-relaxed min-h-[48px]">
                       {stage.description}
                     </p>
 
                     <div className="pt-2 border-t border-slate-200/60 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
                       <div>
-                        <span className="block text-[10px] text-slate-400 uppercase tracking-wide">Avg Fish Wt</span>
-                        <span className="font-extrabold text-slate-800 text-[11px]">{stage.averageWeight}</span>
+                        <span className="block text-xs sm:text-[13px] text-slate-500 font-bold uppercase tracking-wide">Avg Fish Wt</span>
+                        <span className="font-extrabold text-slate-900 text-base sm:text-lg">{stage.averageWeight}</span>
                       </div>
                       <div>
-                        <span className="block text-[10px] text-slate-400 uppercase tracking-wide">Pellet Size</span>
-                        <span className="font-extrabold text-slate-800 text-[11px]">{stage.pelletSize}</span>
+                        <span className="block text-xs sm:text-[13px] text-slate-500 font-bold uppercase tracking-wide">Pellet Size</span>
+                        <span className="font-extrabold text-slate-900 text-base sm:text-lg">{stage.pelletSize}</span>
                       </div>
-                      <div className="pt-2">
-                        <span className="block text-[10px] text-slate-400 uppercase tracking-wide">Protein Target</span>
-                        <span className="font-extrabold text-emerald-800 text-[11px]">{stage.proteinRequired}</span>
+                      <div className="pt-1">
+                        <span className="block text-xs sm:text-[13px] text-slate-500 font-bold uppercase tracking-wide">Protein Target</span>
+                        <span className="font-extrabold text-emerald-800 text-base sm:text-lg">{stage.proteinRequired}</span>
                       </div>
-                      <div className="pt-2">
-                        <span className="block text-[10px] text-slate-400 uppercase tracking-wide">Daily Feed Pct</span>
-                        <span className="font-extrabold text-blue-700 text-[11px]">{stage.feedRatePct}</span>
+                      <div className="pt-1">
+                        <span className="block text-xs sm:text-[13px] text-slate-500 font-bold uppercase tracking-wide">Daily Feed Pct</span>
+                        <span className="font-extrabold text-blue-700 text-base sm:text-lg">{stage.feedRatePct}</span>
                       </div>
                     </div>
 

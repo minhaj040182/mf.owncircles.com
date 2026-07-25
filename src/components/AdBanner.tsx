@@ -26,20 +26,15 @@ export default function AdBanner({ reloadKey }: AdBannerProps) {
   return (
     <div 
       id="advertisement-section"
-      className="w-full py-1.5 bg-slate-50 border-y border-slate-200/60 flex flex-col items-center justify-center select-none"
+      className="w-full py-0.5 bg-slate-50 flex flex-col items-center justify-center select-none"
     >
-      {/* Policy Compliant Ad Label */}
-      <span className="text-[9px] font-mono uppercase tracking-widest text-slate-400 font-bold mb-1">
-        — Advertisement —
-      </span>
-
       {/* Centered isolated sandboxed container matching the 728x90 leaderboard spec */}
       <div 
         id="ad-wrapper-728-90"
         className="w-full max-w-full flex items-center justify-center overflow-hidden px-2"
       >
         <div className="relative w-full max-w-[728px] aspect-[728/90] flex items-center justify-center overflow-hidden rounded-md bg-slate-100 border border-slate-200 shadow-xs">
-          <div className="absolute w-[728px] h-[90px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 origin-center transform scale-[0.38] min-[360px]:scale-[0.45] min-[420px]:scale-[0.55] sm:scale-[0.75] md:scale-[0.88] lg:scale-100 flex items-center justify-center">
+          <div className="absolute w-[728px] h-[90px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 origin-center transform scale-[0.42] min-[360px]:scale-[0.48] min-[420px]:scale-[0.58] sm:scale-[0.75] md:scale-[0.88] lg:scale-100 flex items-center justify-center">
             <iframe
               key={`${reloadKey}-${key}`}
               title="Advertisement"
@@ -87,3 +82,5 @@ export default function AdBanner({ reloadKey }: AdBannerProps) {
     </div>
   );
 }
+
+

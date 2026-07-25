@@ -54,7 +54,6 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
 
   const navItems = [
     { id: "home", label: "Home", icon: Home },
-    { id: "videos", label: "Videos", icon: Video },
     { id: "ras", label: "RAS Aqua", icon: Layers },
     { id: "biofloc", label: "Biofloc", icon: Waves },
     { id: "aquaponics", label: "Aquaponics", icon: Sprout },
@@ -70,7 +69,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-[100] bg-[#1877F2] text-white border-b border-blue-500 shadow-md w-full">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-2">
           
           {/* Brand Logo */}
@@ -108,7 +107,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-1 overflow-x-auto no-scrollbar py-1">
+          <nav className="hidden lg:flex items-center space-x-1 overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -183,7 +182,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
         </div>
 
         {/* Responsive Horizontal Scroll Navigation Pill Bar for Mobile/Tablet */}
-        <div className="lg:hidden py-2 border-t border-blue-400/30 overflow-x-auto no-scrollbar flex items-center gap-1.5 text-xs">
+        <div className="lg:hidden py-2 border-t border-blue-400/30 overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden flex items-center gap-1.5 text-xs">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (

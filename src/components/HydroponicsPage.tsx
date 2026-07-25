@@ -12,6 +12,7 @@ import { fetchYouTubeChannelVideos } from "../youtubeFeed";
 import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
 // Check if a video is considered "viral" or highly viewed
 const isVideoViral = (v: Video) => {
@@ -324,9 +325,10 @@ const REQUIRED_COMPONENTS_DATA = [
 
 interface HydroponicsPageProps {
   onVideoClick?: (video: Video) => void;
+  onBackToDashboard?: () => void;
 }
 
-export default function HydroponicsPage({ onVideoClick }: HydroponicsPageProps) {
+export default function HydroponicsPage({ onVideoClick, onBackToDashboard }: HydroponicsPageProps) {
   // Navigation & Tabs State
   const [activeTab, setActiveTab] = useState<"overview" | "systems" | "matrix" | "components" | "feasibility">("overview");
 
@@ -533,14 +535,15 @@ export default function HydroponicsPage({ onVideoClick }: HydroponicsPageProps) 
   const progressPercentage = Math.round((acquiredCount / totalComponents) * 100);
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-10 space-y-6 sm:space-y-12 bg-slate-50/30 overflow-x-hidden">
+    <div className="bg-slate-50 min-h-screen"> 
       
       {/* Banner */}
-      <div className="relative bg-teal-950 text-white p-4 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-teal-800">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-800/40 via-teal-950 to-teal-950"></div>
+      <div className="relative bg-teal-950 text-white p-4 sm:p-8 md:p-12 overflow-hidden shadow-xl border border-teal-800">
+        <div className="absolute inset-0  from-teal-800/40 via-teal-950 to-teal-950"></div>
         <div className="absolute top-0 right-0 -mt-8 -mr-8 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
         
         <div className="relative z-10 max-w-4xl space-y-3 sm:space-y-4">
+         
           <div className="flex flex-wrap gap-1.5 sm:gap-2 animate-fade-in">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-emerald-800/60 border border-emerald-700 text-emerald-300 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider">
               <Sprout className="w-3 sm:w-3.5 h-3 sm:h-3.5" /> Soil-less Precision Agriculture
@@ -558,8 +561,17 @@ export default function HydroponicsPage({ onVideoClick }: HydroponicsPageProps) 
         </div>
       </div>
 
-      {/* Dynamic Advertisement Banner */}
-      <AdBanner reloadKey="hydroponics-main-ad" />
+        {/* Sticky Top Advertisement Banner */}
+        <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs -mx-3 sm:-mx-6 lg:-mx-8 px-3 sm:px-6 lg:px-8 w-auto">
+          <div className="max-w-[1440px] mx-auto">
+            <AdBanner reloadKey="feeding-main-ad" />
+          </div>
+        </div>
+
+        {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+        <div className="lg:hidden my-1">
+          <OwnCirclesAnnouncement mode="mobile" />
+        </div>
 
       <div className="flex flex-col xl:flex-row gap-6 sm:gap-8 items-start">
         <div className="flex-1 min-w-0 space-y-6 sm:space-y-12 w-full">
@@ -624,7 +636,7 @@ export default function HydroponicsPage({ onVideoClick }: HydroponicsPageProps) 
       </div>
 
       {/* Tab Contents */}
-      <div className="min-h-[300px]">
+      <div className="min-h-[300px] p-12">
 
         {/* Tab 1: Soil-less Overview */}
         {activeTab === "overview" && (
@@ -718,7 +730,7 @@ export default function HydroponicsPage({ onVideoClick }: HydroponicsPageProps) 
                 <p className="text-slate-500 text-xs sm:text-sm">By delivering mineral water mixtures directly to the root zone, the plant can maximize its vegetative and fruit production.</p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-2">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 pt-2">
                 <div className="p-3.5 sm:p-5 bg-slate-50 rounded-2xl border border-slate-100 space-y-2 sm:space-y-3">
                   <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-teal-900 text-white flex items-center justify-center font-bold font-mono text-xs sm:text-sm">1</div>
                   <h4 className="font-sans font-bold text-slate-800 text-xs sm:text-sm">Nutrient Solution</h4>
@@ -1033,7 +1045,7 @@ export default function HydroponicsPage({ onVideoClick }: HydroponicsPageProps) 
             </div>
 
             {/* Checklist Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 max-w-6xl mx-auto">
               {REQUIRED_COMPONENTS_DATA.map((comp) => {
                 const isAcquired = !!checklist[comp.id];
                 return (
@@ -1145,7 +1157,7 @@ export default function HydroponicsPage({ onVideoClick }: HydroponicsPageProps) 
       </div>
 
       {/* YouTube Guide Carousel Slider Section */}
-      <div id="youtube-hydroponics-slider" className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-slate-100 space-y-4 sm:space-y-6 -mx-3 sm:mx-0 px-3 sm:px-0">
+      <div id="youtube-ras-slider" className="mt-12 pt-8 px-4 sm:px-6 lg:px-8 border-t border-slate-100 space-y-6 hidden">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div>
             <div className="flex items-center gap-2 text-teal-700 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1">

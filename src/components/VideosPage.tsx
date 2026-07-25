@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Video } from "../types";
 import { OWN_VIDEOS } from "../data";
 import VideoCard from "./VideoCard";
-import { Search, Tv, Sparkles, Youtube, Play, BookOpen, Flame } from "lucide-react";
+import { Search, Tv, Sparkles, Youtube, Play, BookOpen, Flame, ChevronLeft } from "lucide-react";
 import { fetchOwnChannelVideos } from "../youtubeFeed";
 import { getEnrichedVideosList } from "../utils/videoMetrics";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
 interface VideosPageProps {
   onVideoSelect: (video: Video) => void;
+  onBackToDashboard?: () => void;
 }
 
-export default function VideosPage({ onVideoSelect }: VideosPageProps) {
+export default function VideosPage({ onVideoSelect, onBackToDashboard }: VideosPageProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTopicCategory, setSelectedTopicCategory] = useState<string>("All");
   const [ownVideos, setOwnVideos] = useState<Video[]>(getEnrichedVideosList(OWN_VIDEOS));
@@ -61,11 +63,20 @@ export default function VideosPage({ onVideoSelect }: VideosPageProps) {
   const archiveVideos = filteredVideos.slice(1);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-5 space-y-4 sm:space-y-6">
       
       {/* Page Title & Search bar */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-green-100 pb-6">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-green-100 pb-3 sm:pb-4">
         <div>
+          {onBackToDashboard && (
+            <button 
+              onClick={onBackToDashboard}
+              className="inline-flex items-center gap-1.5 text-emerald-800 hover:text-emerald-900 text-xs font-sans font-bold tracking-tight bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow-2xs mb-2"
+            >
+              <ChevronLeft className="w-3.5 h-3.5 text-emerald-700" />
+              <span>&lt;- Back to Dashboard</span>
+            </button>
+          )}
           <h1 className="font-sans font-black text-2xl sm:text-3xl text-green-950 tracking-tight flex items-center gap-2">
             <Tv className="w-8 h-8 text-green-700 animate-pulse" />
             <span>Modern Fisheries Channel Archive</span>
@@ -91,8 +102,17 @@ export default function VideosPage({ onVideoSelect }: VideosPageProps) {
         </div>
       </div>
 
-      {/* Dynamic Advertisement Banner */}
-      <AdBanner reloadKey="videos-main-ad" />
+      {/* Top Advertisement Banner (Placed AFTER the Page Title & Search bar) */}
+      <div className="bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs -mx-3 sm:-mx-6 lg:-mx-8 px-3 sm:px-6 lg:px-8 w-auto">
+        <div className="max-w-[1440px] mx-auto">
+          <AdBanner reloadKey="videos-main-ad" />
+        </div>
+      </div>
+
+      {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+      <div className="lg:hidden my-1">
+        <OwnCirclesAnnouncement mode="mobile" />
+      </div>
 
       <div className="flex flex-col xl:flex-row gap-8 items-start">
         <div className="flex-1 min-w-0 space-y-12">

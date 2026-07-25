@@ -1,15 +1,29 @@
 import React from "react";
-import { Shield, Lock, FileText, Mail, Phone, MapPin, CheckCircle2, AlertTriangle, Eye, Server, RefreshCw } from "lucide-react";
+import { Shield, Lock, FileText, Mail, Phone, MapPin, CheckCircle2, AlertTriangle, Eye, Server, RefreshCw, ChevronLeft } from "lucide-react";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
-export default function PrivacyPolicyPage() {
+interface PrivacyPolicyPageProps {
+  onBackToDashboard?: () => void;
+}
+
+export default function PrivacyPolicyPage({ onBackToDashboard }: PrivacyPolicyPageProps = {}) {
   return (
-    <div className="bg-slate-50 min-h-screen overflow-x-hidden">
+    <div className="bg-slate-50 min-h-screen">
       
       {/* Header Banner */}
-      <div className="bg-slate-900 text-white py-10 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto space-y-2">
+      <div className="bg-slate-900 text-white py-5 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 space-y-2">
+          {onBackToDashboard && (
+            <button 
+              onClick={onBackToDashboard}
+              className="inline-flex items-center gap-1.5 text-blue-300 hover:text-white text-xs font-sans font-bold tracking-tight bg-white/10 hover:bg-white/20 border border-white/20 px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow-2xs mb-2"
+            >
+              <ChevronLeft className="w-3.5 h-3.5" />
+              <span>&lt;- Back to Dashboard</span>
+            </button>
+          )}
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-mono uppercase tracking-widest font-bold">
             <Shield className="w-3.5 h-3.5 text-blue-400" />
             Legal & Compliance Center
@@ -26,10 +40,20 @@ export default function PrivacyPolicyPage() {
         </div>
       </div>
 
-      <AdBanner reloadKey="privacy-top-ad" />
+      {/* Top Advertisement Banner (Placed AFTER the Header Banner) */}
+      <div className="bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
+          <AdBanner reloadKey="privacypolicy-main-ad" />
+        </div>
+      </div>
+
+      {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+      <div className="lg:hidden max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 my-1">
+        <OwnCirclesAnnouncement mode="mobile" />
+      </div>
 
       {/* Main Content Layout */}
-      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col xl:flex-row gap-8 items-start">
           
           <div className="flex-1 min-w-0 space-y-8 bg-white border border-slate-200/80 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-xs">
@@ -68,7 +92,7 @@ export default function PrivacyPolicyPage() {
                 </div>
                 <div className="flex gap-2 items-start">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Ad Labeling:</strong> All ad banners on Modern Fisheries are isolated in sandboxed containers clearly labeled with "— Advertisement —" in compliance with Google Publisher Policies.</span>
+                  <span><strong>Ad Labeling:</strong> All ad banners on Modern Fisheries are isolated in sandboxed containers in compliance with Google Publisher Policies.</span>
                 </div>
               </div>
             </section>

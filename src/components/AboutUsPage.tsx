@@ -28,8 +28,13 @@ import {
 } from "lucide-react";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
-export default function AboutUsPage() {
+interface AboutUsPageProps {
+  onBackToDashboard?: () => void;
+}
+
+export default function AboutUsPage({ onBackToDashboard }: AboutUsPageProps = {}) {
   const [selectedService, setSelectedService] = useState<string>("consultation");
   const [contactSubject, setContactSubject] = useState<string>("Online Consultation");
   const [userQuery, setUserQuery] = useState<string>("");
@@ -106,13 +111,14 @@ export default function AboutUsPage() {
   };
 
   return (
-    <div className="bg-slate-50 min-h-screen overflow-x-hidden">
+    <div className="bg-slate-50 min-h-screen">
       
       {/* Hero Banner Header */}
-      <div className="relative bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 text-white py-8 sm:py-14 px-3 sm:px-6 lg:px-8 overflow-hidden shadow-lg">
+      <div className="relative bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 text-white py-4 sm:py-8 px-3 sm:px-6 lg:px-8 overflow-hidden shadow-lg">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.15),transparent_60%)]"></div>
-        <div className="max-w-7xl mx-auto relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 relative flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl text-left">
+            
             <div className="inline-flex items-center gap-1.5 bg-blue-500/10 border border-blue-400/20 text-blue-300 text-[10px] sm:text-xs font-mono uppercase tracking-widest font-black px-3 py-1 rounded-full">
               <Sparkles className="w-3.5 h-3.5 text-blue-400 animate-pulse" />
               Trusted Aquaculture Partner & Consultancy
@@ -143,11 +149,20 @@ export default function AboutUsPage() {
         </div>
       </div>
 
-      {/* Main Dynamic Ad Banner */}
-      <AdBanner reloadKey="about-main-ad" />
+      {/* Top Advertisement Banner (Placed AFTER the Hero Banner Header) */}
+      <div className="bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
+          <AdBanner reloadKey="aboutus-main-ad" />
+        </div>
+      </div>
+
+      {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+      <div className="lg:hidden max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 my-1">
+        <OwnCirclesAnnouncement mode="mobile" />
+      </div>
 
       {/* Content Body Container */}
-      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
+      <main className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
         <div className="flex flex-col xl:flex-row gap-6 sm:gap-8 items-start">
           
           <div className="flex-1 min-w-0 space-y-8 sm:space-y-12 w-full">

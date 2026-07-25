@@ -12,6 +12,7 @@ import { fetchYouTubeChannelVideos } from "../youtubeFeed";
 import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
 // Real, educational Biofloc fish farming YouTube video masterclass guides
 import { BIOFLOC_YOUTUBE_VIDEOS as SHARED_BIOFLOC_YOUTUBE_VIDEOS, isVideoViral } from "../data";
@@ -303,9 +304,10 @@ const OLD_BIOFLOC_YOUTUBE_VIDEOS: Video[] = [
 
 interface BioflocPageProps {
   onVideoClick?: (video: Video) => void;
+  onBackToDashboard?: () => void;
 }
 
-export default function BioflocPage({ onVideoClick }: BioflocPageProps) {
+export default function BioflocPage({ onVideoClick, onBackToDashboard }: BioflocPageProps) {
   // Page Tabs: Overview, How BFT Works, Components, Species, Sandbox, Provider
   const [activeTab, setActiveTab] = useState<"overview" | "works" | "components" | "fishes" | "feasibility" | "provider">("overview");
 
@@ -553,20 +555,17 @@ export default function BioflocPage({ onVideoClick }: BioflocPageProps) {
   ];
 
   return (
-    <div id="biofloc-master-container" className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-12 select-none w-full overflow-hidden">
-      
+    <div className="bg-slate-50 min-h-screen">    
       {/* Premium Dark Theme Hero Banner */}
-      <div className="relative bg-gradient-to-br from-teal-950 via-slate-900 to-teal-900 text-white p-5 sm:p-10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-teal-800/40">
+      <div className="relative bg-gradient-to-br from-teal-950 via-slate-900 to-teal-900 text-white p-5 sm:p-10  overflow-hidden shadow-xl border border-teal-800/40">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-600/20 via-transparent to-transparent"></div>
-        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-72 h-72 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-72 h-72 bg-teal-500/10 blur-3xl pointer-events-none"></div>
         
         <div className="relative z-10 max-w-3xl space-y-3 sm:space-y-4">
+          
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-teal-800/60 border border-teal-700/50 text-teal-300 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider animate-pulse">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-teal-800/60 border border-teal-700/50 text-teal-300 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider animate-pulse">
               Zero-Water Exchange Biology
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800/60 border border-slate-700 text-slate-300 text-[10px] sm:text-xs font-mono font-bold">
-              BFT Masterclass Edition
             </span>
           </div>
           <h1 className="text-2xl sm:text-4xl lg:text-5xl font-sans font-black tracking-tight leading-tight">
@@ -578,11 +577,20 @@ export default function BioflocPage({ onVideoClick }: BioflocPageProps) {
         </div>
       </div>
 
-      {/* Dynamic Advertisement Banner */}
-      <AdBanner reloadKey="biofloc-main-ad" />
+       {/* Sticky Top Advertisement Banner */}
+        <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs -mx-3 sm:-mx-6 lg:-mx-8 px-3 sm:px-6 lg:px-8 w-auto">
+          <div className="max-w-[1440px] mx-auto">
+            <AdBanner reloadKey="feeding-main-ad" />
+          </div>
+        </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start w-full min-w-0">
-        <div className="lg:col-span-8 space-y-6 sm:space-y-12 w-full min-w-0">
+        {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+        <div className="lg:hidden my-1">
+          <OwnCirclesAnnouncement mode="mobile" />
+        </div>
+        
+      <div className="grid grid-cols-1 lg:grid-cols-12 sm:gap-8 items-start w-full min-w-0">
+        <div className="lg:col-span-8 xl:col-span-9 space-y-6 sm:space-y-12 w-full min-w-0">
 
       {/* Main Tabbed Navigation bar */}
       <div className="bg-white border border-slate-200/80 p-1.5 rounded-2xl shadow-xs flex overflow-x-auto no-scrollbar gap-1.5 w-full min-w-0 scroll-smooth">
@@ -655,7 +663,7 @@ export default function BioflocPage({ onVideoClick }: BioflocPageProps) {
       </div>
 
       {/* Tab Contents */}
-      <div className="min-h-[350px]">
+      <div className="min-h-[500px] pl-12">
         
         {/* Tab 1: Overview */}
         {activeTab === "overview" && (
@@ -786,30 +794,30 @@ export default function BioflocPage({ onVideoClick }: BioflocPageProps) {
               <h4 className="font-sans font-extrabold text-teal-950 text-center text-[10px] sm:text-xs uppercase tracking-widest font-mono mb-4 sm:mb-6">
                 Active Biological Feedback Loop
               </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 relative">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 relative">
                 
-                <div className="bg-white p-4 rounded-xl sm:rounded-2xl border border-teal-100/60 text-center space-y-1.5 shadow-xs">
-                  <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-teal-800 text-white font-mono font-bold text-xs flex items-center justify-center mx-auto">1</span>
-                  <h5 className="font-sans font-bold text-slate-800 text-xs sm:text-sm">Fish Excretion</h5>
-                  <p className="text-slate-500 text-[11px] sm:text-xs">Fish digest protein feeds and excrete toxic Ammonia nitrogen into water.</p>
+                <div className="bg-white p-5 rounded-2xl border border-teal-100/60 text-center space-y-2 shadow-xs">
+                  <span className="w-8 h-8 rounded-full bg-teal-800 text-white font-mono font-bold text-sm flex items-center justify-center mx-auto">1</span>
+                  <h5 className="font-sans font-extrabold text-slate-900 text-base">Fish Excretion</h5>
+                  <p className="text-slate-600 text-base leading-relaxed">Fish digest protein feeds and excrete toxic Ammonia nitrogen into water.</p>
                 </div>
 
-                <div className="bg-white p-4 rounded-xl sm:rounded-2xl border border-teal-100/60 text-center space-y-1.5 shadow-xs">
-                  <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-teal-800 text-white font-mono font-bold text-xs flex items-center justify-center mx-auto">2</span>
-                  <h5 className="font-sans font-bold text-slate-800 text-xs sm:text-sm">Carbon Addition</h5>
-                  <p className="text-slate-500 text-[11px] sm:text-xs">Cheap carbohydrate (molasses/flour) is dosed to establish a 15:1 C:N ratio.</p>
+                <div className="bg-white p-5 rounded-2xl border border-teal-100/60 text-center space-y-2 shadow-xs">
+                  <span className="w-8 h-8 rounded-full bg-teal-800 text-white font-mono font-bold text-sm flex items-center justify-center mx-auto">2</span>
+                  <h5 className="font-sans font-extrabold text-slate-900 text-base">Carbon Addition</h5>
+                  <p className="text-slate-600 text-base leading-relaxed">Cheap carbohydrate (molasses/flour) is dosed to establish a 15:1 C:N ratio.</p>
                 </div>
 
-                <div className="bg-white p-4 rounded-xl sm:rounded-2xl border border-teal-100/60 text-center space-y-1.5 shadow-xs">
-                  <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-teal-800 text-white font-mono font-bold text-xs flex items-center justify-center mx-auto">3</span>
-                  <h5 className="font-sans font-bold text-slate-800 text-xs sm:text-sm">Bacteria Assimilation</h5>
-                  <p className="text-slate-500 text-[11px] sm:text-xs">Beneficial heterotrophic bacteria digest ammonia and build cell protein.</p>
+                <div className="bg-white p-5 rounded-2xl border border-teal-100/60 text-center space-y-2 shadow-xs">
+                  <span className="w-8 h-8 rounded-full bg-teal-800 text-white font-mono font-bold text-sm flex items-center justify-center mx-auto">3</span>
+                  <h5 className="font-sans font-extrabold text-slate-900 text-base">Bacteria Assimilation</h5>
+                  <p className="text-slate-600 text-base leading-relaxed">Beneficial heterotrophic bacteria digest ammonia and build cell protein.</p>
                 </div>
 
-                <div className="bg-white p-4 rounded-xl sm:rounded-2xl border border-teal-100/60 text-center space-y-1.5 shadow-xs">
-                  <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-teal-800 text-white font-mono font-bold text-xs flex items-center justify-center mx-auto">4</span>
-                  <h5 className="font-sans font-bold text-slate-800 text-xs sm:text-sm">Floc Consumed</h5>
-                  <p className="text-slate-500 text-[11px] sm:text-xs">Suspended biological flocs are re-ingested by fish, cutting feed cost.</p>
+                <div className="bg-white p-5 rounded-2xl border border-teal-100/60 text-center space-y-2 shadow-xs">
+                  <span className="w-8 h-8 rounded-full bg-teal-800 text-white font-mono font-bold text-sm flex items-center justify-center mx-auto">4</span>
+                  <h5 className="font-sans font-extrabold text-slate-900 text-base">Floc Consumed</h5>
+                  <p className="text-slate-600 text-base leading-relaxed">Suspended biological flocs are re-ingested by fish, cutting feed cost.</p>
                 </div>
 
               </div>
@@ -1508,16 +1516,16 @@ export default function BioflocPage({ onVideoClick }: BioflocPageProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {preparationCalendar.map((step, idx) => (
-            <div key={idx} className="bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-teal-100 shadow-xs space-y-2 sm:space-y-3 relative group hover:border-teal-200 transition-all">
-              <span className="text-[10px] sm:text-xs font-mono font-bold text-teal-800 bg-teal-50 px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full inline-block">
+            <div key={idx} className="bg-white p-5 sm:p-6 rounded-2xl border border-teal-100 shadow-xs space-y-3 relative group hover:border-teal-200 transition-all">
+              <span className="text-xs sm:text-sm font-mono font-bold text-teal-800 bg-teal-50 px-3 py-1 rounded-full inline-block">
                 {step.day}
               </span>
-              <h4 className="font-sans font-black text-slate-900 text-xs sm:text-sm leading-snug">
+              <h4 className="font-sans font-black text-slate-900 text-base sm:text-lg leading-snug">
                 {step.title}
               </h4>
-              <p className="text-slate-500 text-[11px] leading-relaxed">
+              <p className="text-slate-600 text-base leading-relaxed">
                 {step.detail}
               </p>
             </div>
@@ -1526,7 +1534,7 @@ export default function BioflocPage({ onVideoClick }: BioflocPageProps) {
       </div>
 
       {/* YouTube Guide Carousel Slider Section */}
-      <div id="youtube-biofloc-slider" className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-slate-100 space-y-4 sm:space-y-6">
+      <div id="youtube-ras-slider" className="mt-12 pt-8 px-4 sm:px-6 lg:px-8 border-t border-slate-100 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div>
             <div className="flex items-center gap-2 text-teal-700 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1">
@@ -1613,7 +1621,7 @@ export default function BioflocPage({ onVideoClick }: BioflocPageProps) {
       </div>
 
         </div>
-        <div className="lg:col-span-4 min-w-0 space-y-6 lg:sticky lg:top-20">
+        <div className="hidden lg:block lg:col-span-4 xl:col-span-3 min-w-0 space-y-6 lg:sticky lg:top-20">
           <RightSidebarAd reloadKey="biofloc-sidebar-ad" />
         </div>
       </div>

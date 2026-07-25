@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
 interface DiseasesPageProps {
   onBackToDashboard?: () => void;
@@ -399,22 +400,14 @@ export default function DiseasesPage({ onBackToDashboard }: DiseasesPageProps) {
   };
 
   return (
-    <div className="bg-slate-50 min-h-screen overflow-x-hidden">
+    <div className="bg-slate-50 min-h-screen">
       
       {/* HEADER HERO SLAT */}
-      <div className="relative bg-gradient-to-r from-red-950 via-slate-900 to-red-950 text-white py-6 sm:py-12 px-3 sm:px-6 lg:px-8 overflow-hidden shadow-md">
+      <div className="relative bg-gradient-to-r from-red-950 via-slate-900 to-red-950 text-white py-4 sm:py-8 px-3 sm:px-6 lg:px-8 overflow-hidden shadow-md">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(239,68,68,0.1),transparent_50%)]"></div>
-        <div className="max-w-7xl mx-auto relative flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 relative flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
           <div className="space-y-2.5 sm:space-y-3 max-w-2xl text-left">
-            {onBackToDashboard && (
-              <button 
-                onClick={onBackToDashboard}
-                className="inline-flex items-center gap-1 text-rose-300 hover:text-rose-200 text-xs font-mono font-bold tracking-tight bg-white/5 border border-white/10 px-2.5 py-1.5 rounded-lg transition-all cursor-pointer"
-              >
-                <ChevronRight className="w-3.5 h-3.5 rotate-180" />
-                Back to Dashboard
-              </button>
-            )}
+           
             <div className="inline-flex items-center gap-1.5 bg-rose-500/10 border border-rose-500/20 text-rose-300 text-[10px] sm:text-[10px] font-mono uppercase tracking-widest font-black px-2.5 py-1 rounded-full">
               <HeartPulse className="w-3 h-3 text-rose-400 animate-pulse" />
               Biosecurity, Diagnostics & Pathogens
@@ -437,12 +430,21 @@ export default function DiseasesPage({ onBackToDashboard }: DiseasesPageProps) {
         </div>
       </div>
 
-      {/* Dynamic Advertisement Banner */}
-      <AdBanner reloadKey="diseases-main-ad" />
+        {/* Sticky Top Advertisement Banner */}
+        <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs -mx-3 sm:-mx-6 lg:-mx-8 px-3 sm:px-6 lg:px-8 w-auto">
+          <div className="max-w-[1440px] mx-auto">
+            <AdBanner reloadKey="feeding-main-ad" />
+          </div>
+        </div>
+
+        {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+        <div className="lg:hidden my-1">
+          <OwnCirclesAnnouncement mode="mobile" />
+        </div>
 
       {/* TABS MENU NAVIGATION */}
       <div className="sticky top-14 sm:top-16 z-40 bg-white border-b border-slate-200/80 shadow-xs">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex space-x-1 py-2 sm:py-3 overflow-x-auto scrollbar-none max-w-full -mx-3 px-3 sm:mx-0 sm:px-0">
             {[
               { id: "articles", label: "Diagnostic Facts", icon: HeartPulse },
@@ -471,7 +473,7 @@ export default function DiseasesPage({ onBackToDashboard }: DiseasesPageProps) {
       </div>
 
       {/* MAIN CONTAINER */}
-      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8 overflow-x-hidden">
+      <main className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8">
         <div className="flex flex-col xl:flex-row gap-6 sm:gap-8 items-start">
           <div className="flex-1 min-w-0 space-y-6 sm:space-y-12 w-full">
         

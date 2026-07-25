@@ -132,7 +132,7 @@ export default function HomeVideos({ onVideoClick, onViewMore }: HomeVideosProps
 
   return (
     <section id="top-10-videos-section" className="py-10 bg-green-50/10 border-b border-green-100/60 space-y-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-full px-2 sm:px-4 2xl:px-8">
         
         {/* Main Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
