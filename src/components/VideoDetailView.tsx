@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Video } from "../types";
-import { ThumbsUp, Share2, Eye, Calendar, ArrowLeft, RefreshCw, CheckCircle, ExternalLink, X } from "lucide-react";
+import { ThumbsUp, Share2, Eye, Calendar, ArrowLeft, RefreshCw, CheckCircle, ExternalLink, X, Youtube } from "lucide-react";
+import AdBanner from "./AdBanner";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
 interface VideoDetailViewProps {
   video: Video;
@@ -184,15 +186,34 @@ export default function VideoDetailView({ video, relatedVideos, onBack, onSelect
             </button>
           </div>
 
+          {/* Top Advertisement Banner right after the Video Player */}
+          <div id="video-detail-top-ad" className="mt-4 mb-2 w-full overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xs p-1">
+            <AdBanner reloadKey={`video-detail-${video.id}`} />
+          </div>
+
+          {/* Personal Advertisement OwnCircles Dev Panel */}
+          <div id="video-detail-owncircles-ad" className="my-2">
+            <OwnCirclesAnnouncement mode="mobile" />
+          </div>
+
           {/* Title & Actions bar */}
           <div className="mt-5 border-b border-green-50 pb-6">
             <div className="flex gap-2 mb-3">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-green-600 text-white">
-                Modern Fisheries
-              </span>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-green-50 text-green-800 border border-green-100/50">
-                {video.category}
-              </span>
+              {video.type === "own" || (video.creator || "").toLowerCase().includes("modern fisheries") ? (
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-green-600 text-white">
+                  Modern Fisheries
+                </span>
+              ) : (
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide bg-red-600 text-white flex items-center gap-1">
+                  <Youtube className="w-3 h-3" />
+                  <span>{video.creator || "YouTube Channel"}</span>
+                </span>
+              )}
+              {video.category && (
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-green-50 text-green-800 border border-green-100/50">
+                  {video.category}
+                </span>
+              )}
             </div>
 
             <h1 className="font-sans font-extrabold text-xl sm:text-2xl text-slate-900 tracking-tight leading-tight">
@@ -243,15 +264,17 @@ export default function VideoDetailView({ video, relatedVideos, onBack, onSelect
           {/* Description & Channel Bio */}
           <div className="mt-6 border-b border-green-50 pb-6">
             <div className="flex items-center gap-3.5 mb-4">
-              <div className="w-11 h-11 rounded-full bg-green-100 flex items-center justify-center text-green-800 font-extrabold text-sm border-2 border-green-50">
-                MF
+              <div className="w-11 h-11 rounded-full bg-green-100 flex items-center justify-center text-green-800 font-extrabold text-sm border-2 border-green-50 shrink-0">
+                {(video.creator || "Modern Fisheries").slice(0, 2).toUpperCase()}
               </div>
               <div>
                 <h3 className="font-sans font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                  Modern Fisheries
+                  {video.creator || "Modern Fisheries"}
                   <CheckCircle className="w-4 h-4 text-green-500 fill-current" />
                 </h3>
-                <p className="text-slate-500 text-[11px] font-mono">Official Channel</p>
+                <p className="text-slate-500 text-[11px] font-mono">
+                  {video.type === "own" || (video.creator || "").toLowerCase().includes("modern fisheries") ? "Official Channel" : "YouTube Creator"}
+                </p>
               </div>
             </div>
 
@@ -270,42 +293,45 @@ export default function VideoDetailView({ video, relatedVideos, onBack, onSelect
           </h3>
 
           <div className="space-y-4">
-            {relatedVideos.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => onSelectVideo(item)}
-                className="group flex gap-3 p-2 bg-white rounded-xl border border-green-50 hover:border-green-200/80 cursor-pointer shadow-xs hover:shadow-sm transition-all"
-              >
-                {/* Thumbnail */}
-                <div className="relative w-28 aspect-video rounded-lg overflow-hidden bg-slate-100 shrink-0">
-                  <img 
-                    src={item.thumbnail} 
-                    alt={item.title}
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <span className="absolute bottom-1 right-1 px-1 py-0.5 rounded-sm text-[9px] font-mono bg-slate-950/80 text-white font-semibold">
-                    {item.duration}
-                  </span>
-                </div>
-
-                {/* Info */}
-                <div className="flex flex-col justify-between py-0.5 flex-1 min-w-0">
-                  <div>
-                    <h4 className="font-sans font-semibold text-slate-900 group-hover:text-green-700 text-xs leading-snug line-clamp-2 transition-colors">
-                      {item.title}
-                    </h4>
-                    <span className="text-[10px] text-slate-400 font-sans mt-0.5 block">Modern Fisheries</span>
-                  </div>
-                  <div className="flex justify-between items-center text-[9px] font-mono text-slate-400">
-                    <span>{item.views}</span>
-                    <span className="px-1.5 py-0.2 rounded-full uppercase text-[8px] font-bold bg-green-100 text-green-800">
-                      Modern Fisheries
+            {relatedVideos.map((item) => {
+              const itemCreator = item.creator || "Modern Fisheries";
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => onSelectVideo(item)}
+                  className="group flex gap-3 p-2 bg-white rounded-xl border border-green-50 hover:border-green-200/80 cursor-pointer shadow-xs hover:shadow-sm transition-all"
+                >
+                  {/* Thumbnail */}
+                  <div className="relative w-28 aspect-video rounded-lg overflow-hidden bg-slate-100 shrink-0">
+                    <img 
+                      src={item.thumbnail} 
+                      alt={item.title}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <span className="absolute bottom-1 right-1 px-1 py-0.5 rounded-sm text-[9px] font-mono bg-slate-950/80 text-white font-semibold">
+                      {item.duration}
                     </span>
                   </div>
+
+                  {/* Info */}
+                  <div className="flex flex-col justify-between py-0.5 flex-1 min-w-0">
+                    <div>
+                      <h4 className="font-sans font-semibold text-slate-900 group-hover:text-green-700 text-xs leading-snug line-clamp-2 transition-colors">
+                        {item.title}
+                      </h4>
+                      <span className="text-[10px] text-slate-500 font-sans mt-0.5 block truncate">{itemCreator}</span>
+                    </div>
+                    <div className="flex justify-between items-center text-[9px] font-mono text-slate-400">
+                      <span>{item.views}</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[8px] font-bold bg-slate-100 text-slate-700 truncate max-w-[90px]">
+                        {itemCreator}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 

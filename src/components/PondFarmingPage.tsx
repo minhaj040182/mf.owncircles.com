@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   Sparkles, ChevronLeft, ArrowRight, Info, ShieldAlert, CheckCircle2,
   HelpCircle, Droplet, Scale, Check, DollarSign, TrendingUp, AlertTriangle, Activity
@@ -9,6 +9,7 @@ import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
 import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
+import { fetchTrendingTopicVideos, fetchYouTubeChannelVideos } from "../youtubeFeed";
 
 interface PondFarmingPageProps {
   onVideoClick?: (video: Video) => void;
@@ -37,7 +38,7 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
   const calculatedSSP = Math.round(pondArea * 30); // 30 kg/acre
 
   // Curated Pond Farming Videos matching our data model structure
-  const pondVideos: Video[] = [
+  const [pondVideos, setPondVideos] = useState<Video[]>([
     {
       id: "pond-yt-1",
       title: "DIY Earthen Pond Setup: Liming and Conditioning",
@@ -94,7 +95,53 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
       category: "Pond Setup",
       likes: 980
     }
-  ];
+  ]);
+
+  useEffect(() => {
+    async function loadDynamicPondVideos() {
+      try {
+        const [channelVids, trendingVids] = await Promise.all([
+          fetchYouTubeChannelVideos().catch(() => []),
+          fetchTrendingTopicVideos(false, "earthen pond fish farming harvesting tilapia rohu carp viral").catch(() => [])
+        ]);
+
+        const combined = [...channelVids, ...trendingVids];
+        if (combined.length > 0) {
+          const filtered = combined.filter(v => {
+            const titleLower = (v.title || "").toLowerCase();
+            const descLower = (v.description || "").toLowerCase();
+            const catLower = (v.category || "").toLowerCase();
+
+            return (
+              catLower === "pond setup" || 
+              catLower === "pond farming" ||
+              titleLower.includes("pond") || 
+              titleLower.includes("earthen") ||
+              titleLower.includes("harvest") ||
+              titleLower.includes("carp") ||
+              titleLower.includes("tilapia") ||
+              descLower.includes("pond farming")
+            );
+          });
+
+          if (filtered.length > 0) {
+            setPondVideos(prev => {
+              const merged = [...prev];
+              filtered.forEach(v => {
+                if (!merged.some(m => m.id === v.id || m.videoUrl === v.videoUrl)) {
+                  merged.unshift(v);
+                }
+              });
+              return merged;
+            });
+          }
+        }
+      } catch (err) {
+        console.error("Error loading Pond Farming YouTube videos:", err);
+      }
+    }
+    loadDynamicPondVideos();
+  }, []);
 
   return (
     <div className="bg-slate-50 min-h-screen">

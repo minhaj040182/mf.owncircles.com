@@ -331,15 +331,102 @@ export const OWN_VIDEOS: Video[] = [
   }
 ].map(sanitizeVideo);
 
-export const ALL_VIDEOS: Video[] = [...OWN_VIDEOS];
+export const TOP_INNOVATION_IDEAS: Video[] = [
+  {
+    id: "idea-1",
+    title: "High-Tech Commercial RAS Recirculating System Tour & Setup",
+    description: "In-depth tour of a modern 50-ton indoor RAS system featuring biofilters, UV sterilizers, oxygen cones, and automated water monitoring.",
+    thumbnail: "https://img.youtube.com/vi/GY3LWXUScA0/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/GY3LWXUScA0",
+    duration: "18:45",
+    views: "245K views",
+    type: "youtube",
+    creator: "AquaTech Innovations",
+    publishDate: "1 month ago",
+    category: "RAS",
+    likes: 3400
+  },
+  {
+    id: "idea-2",
+    title: "High-Density Biofloc Tilapia Farming: C/N Ratio Masterclass",
+    description: "Learn how to maintain perfect 15:1 Carbon-Nitrogen ratio using molasses and probiotic inoculants for zero-water-exchange biofloc tanks.",
+    thumbnail: "https://img.youtube.com/vi/i6ZfGWsCS8c/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/i6ZfGWsCS8c",
+    duration: "22:10",
+    views: "180K views",
+    type: "youtube",
+    creator: "Global Biofloc Expert",
+    publishDate: "2 weeks ago",
+    category: "Biofloc",
+    likes: 2800
+  },
+  {
+    id: "idea-3",
+    title: "Commercial Aquaponics & Vertical Hydroponics Integration",
+    description: "Combining deep water culture (DWC) rafts with fish tank waste for high-yield leafy green production in controlled greenhouse environments.",
+    thumbnail: "https://img.youtube.com/vi/1_A0C38_H88/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/1_A0C38_H88",
+    duration: "16:30",
+    views: "120K views",
+    type: "youtube",
+    creator: "Urban Ag Tech",
+    publishDate: "3 weeks ago",
+    category: "Aquaponics",
+    likes: 1950
+  },
+  {
+    id: "idea-4",
+    title: "Solar-Powered Automated Smart Fish Feeder & IoT Sensors",
+    description: "DIY build guide for an automated demand feeder triggered by optical fish movement sensors and controlled via mobile app.",
+    thumbnail: "https://img.youtube.com/vi/YQ_6Q8j4Nf8/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/YQ_6Q8j4Nf8",
+    duration: "14:15",
+    views: "95K views",
+    type: "youtube",
+    creator: "Smart Farm Lab",
+    publishDate: "1 month ago",
+    category: "Feeding",
+    likes: 1420
+  },
+  {
+    id: "idea-5",
+    title: "DIY Automatic Drum Filter Construction for Indoor Fish Tanks",
+    description: "Step-by-step assembly of a 70-micron stainless mesh rotary drum filter to remove suspended solids automatically in RAS farms.",
+    thumbnail: "https://img.youtube.com/vi/8mJ60y1iX6Q/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/8mJ60y1iX6Q",
+    duration: "25:00",
+    views: "310K views",
+    type: "youtube",
+    creator: "DIY Aquaculture Hacks",
+    publishDate: "2 months ago",
+    category: "RAS",
+    likes: 4500
+  },
+  {
+    id: "idea-6",
+    title: "High Oxygen Dissolution with Venturi & Pure Oxygen Injection",
+    description: "Boosting dissolved oxygen levels above 8 mg/L using venturi injectors and oxygen generators for super-intensive fish culture.",
+    thumbnail: "https://img.youtube.com/vi/l4r3K9qR8aY/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/l4r3K9qR8aY",
+    duration: "12:40",
+    views: "88K views",
+    type: "youtube",
+    creator: "Aeration Systems World",
+    publishDate: "3 months ago",
+    category: "Water Quality",
+    likes: 1100
+  }
+].map(sanitizeVideo);
 
-export const VIRAL_VIDEOS: Video[] = [...OWN_VIDEOS];
+export const ALL_VIDEOS: Video[] = [...OWN_VIDEOS, ...TOP_INNOVATION_IDEAS];
 
-export const BIOFLOC_YOUTUBE_VIDEOS: Video[] = OWN_VIDEOS.filter(
+export const VIRAL_VIDEOS: Video[] = [...TOP_INNOVATION_IDEAS];
+
+export const BIOFLOC_YOUTUBE_VIDEOS: Video[] = ALL_VIDEOS.filter(
   (v) => v.category === "Biofloc" || v.category === "Pond Setup" || v.category === "Water Quality"
 );
 
-export const RAS_YOUTUBE_VIDEOS: Video[] = OWN_VIDEOS.filter(
+export const RAS_YOUTUBE_VIDEOS: Video[] = ALL_VIDEOS.filter(
   (v) => v.category === "RAS" || v.category === "Water Quality" || v.category === "Pond Setup"
 );
 

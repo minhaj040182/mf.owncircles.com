@@ -20,7 +20,7 @@ import AboutUsPage from "./components/AboutUsPage";
 import PrivacyPolicyPage from "./components/PrivacyPolicyPage";
 import CookieConsentBanner from "./components/CookieConsentBanner";
 import ProfessionalDashboard from "./components/ProfessionalDashboard";
-import ChannelVideos from "./components/ChannelVideos";
+import HomeVideos from "./components/HomeVideos";
 import FaqSection from "./components/FaqSection";
 import { getEnrichedVideosList } from "./utils/videoMetrics";
 import { parseUrlPath, getPathForPage, updateSeoMetadata, PageType } from "./utils/seoRouting";
@@ -30,8 +30,8 @@ import { Video } from "./types";
 import { Sparkles, MessageSquareCode, Calculator, Droplet, ArrowRight, Waves, CheckCircle, TrendingUp, HelpCircle, ShieldAlert, Award, Sprout, ShoppingBag, Briefcase, ChevronRight, Phone, Play, Star, ExternalLink, ShieldCheck, Home, Video as VideoIcon } from "lucide-react";
 
 export default function App() {
-  // Parse initial SEO URL path on load
-  const initialRoute = parseUrlPath(window.location.pathname, ALL_VIDEOS);
+  // Parse initial SEO URL path/hash on load
+  const initialRoute = parseUrlPath(window.location.pathname + window.location.hash, ALL_VIDEOS);
   const [currentPage, setCurrentPage] = useState<PageType>(initialRoute.page);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(initialRoute.video);
   const [showCallModal, setShowCallModal] = useState<boolean>(false);
@@ -52,20 +52,16 @@ export default function App() {
       updateSeoMetadata(currentPage, selectedVideo);
 
       const targetPath = getPathForPage(currentPage, selectedVideo);
-      
-      const normalizePath = (p: string) => {
-        let clean = (p || "").trim().toLowerCase();
-        if (clean.endsWith("/index.html")) clean = clean.replace(/\/index\.html$/, "");
-        if (clean.length > 1 && clean.endsWith("/")) clean = clean.slice(0, -1);
-        return clean || "/";
-      };
+      const currentFull = window.location.pathname + (window.location.hash || "");
 
-      const currentNormalized = normalizePath(window.location.pathname);
-      const targetNormalized = normalizePath(targetPath);
-
-      if (currentNormalized !== targetNormalized && window.history && window.history.replaceState) {
+      if (currentFull !== targetPath && window.history) {
         try {
-          window.history.replaceState(null, "", targetPath);
+          if (window.location.hash) {
+            // Clean up legacy hash URL (e.g. /#/aquaponics-farming -> /aquaponics-farming)
+            window.history.replaceState(null, "", targetPath);
+          } else {
+            window.history.pushState(null, "", targetPath);
+          }
         } catch (err) {
           // Ignore sandboxed iframe history restriction errors
         }
@@ -75,16 +71,20 @@ export default function App() {
     }
   }, [currentPage, selectedVideo]);
 
-  // Support Browser Back/Forward navigation (Popstate listener)
+  // Support Browser Back/Forward navigation & Hash changes
   useEffect(() => {
-    const handlePopState = () => {
-      const route = parseUrlPath(window.location.pathname, ALL_VIDEOS);
+    const handleLocationChange = () => {
+      const route = parseUrlPath(window.location.pathname + window.location.hash, ALL_VIDEOS);
       setCurrentPage(route.page);
       setSelectedVideo(route.video);
     };
 
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
+    window.addEventListener("popstate", handleLocationChange);
+    window.addEventListener("hashchange", handleLocationChange);
+    return () => {
+      window.removeEventListener("popstate", handleLocationChange);
+      window.removeEventListener("hashchange", handleLocationChange);
+    };
   }, []);
 
   const handlePageChange = (page: PageType) => {
@@ -128,18 +128,6 @@ export default function App() {
         {selectedVideo ? (
           // Video Player Page takes priority with responsive sticky sidebar placement
           <div className="w-full">
-            {/* Sticky Top Advertisement Banner */}
-            <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 border-b border-slate-200/80 shadow-xs transition-all">
-              <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
-                <AdBanner reloadKey={`video-top-${selectedVideo.id}`} />
-              </div>
-            </div>
-
-            {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
-            <div className="lg:hidden max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pt-1">
-              <OwnCirclesAnnouncement mode="mobile" />
-            </div>
-
             <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
               <div className="flex flex-col xl:flex-row gap-8 items-start">
                 <div className="flex-1 min-w-0 space-y-6">
@@ -281,9 +269,8 @@ export default function App() {
                         trendingVideos={ALL_VIDEOS}
                       />
 
-                      {/* Exclusive Channel Videos Section */}
-                      <ChannelVideos 
-                        videos={getEnrichedVideosList(ALL_VIDEOS)} 
+                      {/* Home Videos Portal (Modern Fisheries Exclusive Videos + YouTube Best Ideas Pane) */}
+                      <HomeVideos 
                         onVideoClick={handleVideoSelect}
                         onViewMore={() => handlePageChange("videos")}
                       />
@@ -308,23 +295,7 @@ export default function App() {
             {currentPage === "feed" && <FeedingPage onBackToDashboard={() => setCurrentPage("home")} />}
             {currentPage === "calculators" && <CalculatorsPage onBackToDashboard={() => setCurrentPage("home")} />}
             {currentPage === "faq" && (
-              <div className="w-full">
-                {/* Sticky Top Advertisement Banner */}
-                <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 border-b border-slate-200/80 shadow-xs transition-all">
-                  <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
-                    <AdBanner reloadKey="faq-top-ad" />
-                  </div>
-                </div>
-
-                {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
-                <div className="lg:hidden max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 pt-1">
-                  <OwnCirclesAnnouncement mode="mobile" />
-                </div>
-
-                <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-5">
-                  <FaqSection onContactClick={() => setShowCallModal(true)} />
-                </div>
-              </div>
+              <FaqSection onContactClick={() => setShowCallModal(true)} onBackToDashboard={() => setCurrentPage("home")} />
             )}
             {currentPage === "services" && <ServicesPage onBackToDashboard={() => setCurrentPage("home")} />}
             {currentPage === "about" && <AboutUsPage onBackToDashboard={() => setCurrentPage("home")} />}

@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { Video } from "../types";
 import VideoCard from "./VideoCard";
-import { fetchYouTubeChannelVideos } from "../youtubeFeed";
+import { fetchYouTubeChannelVideos, fetchTrendingTopicVideos } from "../youtubeFeed";
 import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
@@ -318,15 +318,31 @@ export default function BioflocPage({ onVideoClick, onBackToDashboard }: Biofloc
   useEffect(() => {
     async function loadDynamicBioflocVideos() {
       try {
-        const fetched = await fetchYouTubeChannelVideos();
-        if (fetched && fetched.length > 0) {
-          const filtered = fetched.filter(v => {
-            const titleLower = v.title.toLowerCase();
-            const isBioflocTitle = titleLower.includes("biofloc") || 
-                                   (titleLower.includes("floc") && !titleLower.includes("flock")) ||
-                                   titleLower.includes("bft");
-            return v.category === "Biofloc" || isBioflocTitle;
+        const [channelVids, trendingVids] = await Promise.all([
+          fetchYouTubeChannelVideos().catch(() => []),
+          fetchTrendingTopicVideos(false, "biofloc fish farming technology C/N ratio viral").catch(() => [])
+        ]);
+
+        const combined = [...channelVids, ...trendingVids];
+        if (combined.length > 0) {
+          const filtered = combined.filter(v => {
+            const titleLower = (v.title || "").toLowerCase();
+            const descLower = (v.description || "").toLowerCase();
+            const catLower = (v.category || "").toLowerCase();
+
+            const isBioflocMatch = 
+              catLower === "biofloc" ||
+              titleLower.includes("biofloc") ||
+              (titleLower.includes("floc") && !titleLower.includes("flock")) ||
+              titleLower.includes("bft") ||
+              titleLower.includes("probiotic") ||
+              titleLower.includes("molasses") ||
+              descLower.includes("biofloc") ||
+              descLower.includes("bft");
+
+            return isBioflocMatch;
           });
+
           if (filtered.length > 0) {
             setBioflocVideos(prev => {
               const merged = [...prev];

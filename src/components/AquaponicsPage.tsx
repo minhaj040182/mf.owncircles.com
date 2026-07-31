@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { Video } from "../types";
 import VideoCard from "./VideoCard";
-import { fetchYouTubeChannelVideos } from "../youtubeFeed";
+import { fetchYouTubeChannelVideos, fetchTrendingTopicVideos } from "../youtubeFeed";
 import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
@@ -426,13 +426,29 @@ export default function AquaponicsPage({ onVideoClick, onBackToDashboard }: Aqua
   useEffect(() => {
     async function loadDynamicAquaponicsVideos() {
       try {
-        const fetched = await fetchYouTubeChannelVideos();
-        if (fetched && fetched.length > 0) {
-          const filtered = fetched.filter(v => 
-            v.category === "Aquaponics" || 
-            v.title.toLowerCase().includes("aquaponic") || 
-            v.title.toLowerCase().includes("siphon")
-          );
+        const [channelVids, trendingVids] = await Promise.all([
+          fetchYouTubeChannelVideos().catch(() => []),
+          fetchTrendingTopicVideos(false, "aquaponics fish vegetable farming system viral").catch(() => [])
+        ]);
+
+        const combined = [...channelVids, ...trendingVids];
+        if (combined.length > 0) {
+          const filtered = combined.filter(v => {
+            const titleLower = (v.title || "").toLowerCase();
+            const descLower = (v.description || "").toLowerCase();
+            const catLower = (v.category || "").toLowerCase();
+
+            return (
+              catLower === "aquaponics" || 
+              titleLower.includes("aquaponic") || 
+              titleLower.includes("siphon") ||
+              titleLower.includes("fish vegetable") ||
+              titleLower.includes("dwc") ||
+              titleLower.includes("nft") ||
+              descLower.includes("aquaponics")
+            );
+          });
+
           if (filtered.length > 0) {
             setAquaponicsVideos(prev => {
               const merged = [...prev];

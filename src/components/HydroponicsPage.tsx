@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { Video } from "../types";
 import VideoCard from "./VideoCard";
-import { fetchYouTubeChannelVideos } from "../youtubeFeed";
+import { fetchYouTubeChannelVideos, fetchTrendingTopicVideos } from "../youtubeFeed";
 import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
@@ -422,16 +422,29 @@ export default function HydroponicsPage({ onVideoClick, onBackToDashboard }: Hyd
   useEffect(() => {
     async function loadDynamicHydroVideos() {
       try {
-        const fetched = await fetchYouTubeChannelVideos();
-        if (fetched && fetched.length > 0) {
-          const filtered = fetched.filter(v => 
-            v.category === "Hydroponics" || 
-            v.title.toLowerCase().includes("hydroponic") || 
-            v.title.toLowerCase().includes("soilless") ||
-            v.title.toLowerCase().includes("nutrient") || 
-            v.title.toLowerCase().includes("nft") ||
-            v.title.toLowerCase().includes("dwc")
-          );
+        const [channelVids, trendingVids] = await Promise.all([
+          fetchYouTubeChannelVideos().catch(() => []),
+          fetchTrendingTopicVideos(false, "hydroponic farming system NFT DWC soilless viral").catch(() => [])
+        ]);
+
+        const combined = [...channelVids, ...trendingVids];
+        if (combined.length > 0) {
+          const filtered = combined.filter(v => {
+            const titleLower = (v.title || "").toLowerCase();
+            const descLower = (v.description || "").toLowerCase();
+            const catLower = (v.category || "").toLowerCase();
+
+            return (
+              catLower === "hydroponics" || 
+              titleLower.includes("hydroponic") || 
+              titleLower.includes("soilless") ||
+              titleLower.includes("nutrient") || 
+              titleLower.includes("nft") ||
+              titleLower.includes("dwc") ||
+              descLower.includes("hydroponic")
+            );
+          });
+
           if (filtered.length > 0) {
             setHydroVideos(prev => {
               const merged = [...prev];

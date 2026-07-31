@@ -123,7 +123,7 @@ export default function CalculatorsPage({ onBackToDashboard }: CalculatorsPagePr
            
             <span>Modern Fisheries Calculations Lab</span>
           </h1>
-          <p className="text-slate-500 text-xs sm:text-sm mt-1">
+          <p className="text-teal-100/90 text-xs sm:text-base leading-relaxed font-sans">
             Complete high-precision interactive calculators to schedule feed, evaluate water volume, dose molasses, and project net crop yield profit margins.
           </p>
         </div>

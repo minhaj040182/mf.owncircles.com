@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Video } from "../types";
 import VideoCard from "./VideoCard";
-import { fetchYouTubeChannelVideos } from "../youtubeFeed";
+import { fetchYouTubeChannelVideos, fetchTrendingTopicVideos } from "../youtubeFeed";
 import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
@@ -318,13 +318,30 @@ export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProp
   useEffect(() => {
     async function loadDynamicRasVideos() {
       try {
-        const fetched = await fetchYouTubeChannelVideos();
-        if (fetched && fetched.length > 0) {
-          const filtered = fetched.filter(v => 
-            v.category === "RAS" || 
-            v.title.toLowerCase().includes("recirculating") || 
-            v.title.toLowerCase().includes("ras")
-          );
+        const [channelVids, trendingVids] = await Promise.all([
+          fetchYouTubeChannelVideos().catch(() => []),
+          fetchTrendingTopicVideos(false, "RAS recirculating aquaculture system fish farming viral").catch(() => [])
+        ]);
+
+        const combined = [...channelVids, ...trendingVids];
+        if (combined.length > 0) {
+          const filtered = combined.filter(v => {
+            const titleLower = (v.title || "").toLowerCase();
+            const descLower = (v.description || "").toLowerCase();
+            const catLower = (v.category || "").toLowerCase();
+
+            return (
+              catLower === "ras" || 
+              titleLower.includes("recirculating") || 
+              titleLower.includes("ras") ||
+              titleLower.includes("drum filter") ||
+              titleLower.includes("mbbr") ||
+              titleLower.includes("degasser") ||
+              titleLower.includes("biofilter") ||
+              descLower.includes("recirculating aquaculture")
+            );
+          });
+
           if (filtered.length > 0) {
             setRasVideos(prev => {
               const merged = [...prev];

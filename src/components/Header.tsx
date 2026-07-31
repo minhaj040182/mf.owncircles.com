@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Fish, Video, Calculator, Droplet, Home, Info, Phone, Menu, X, ExternalLink, Sparkles, Sprout, Waves, HeartPulse, Layers, ShoppingBag, ZoomIn, ZoomOut, Type, HelpCircle } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Fish, Video, Calculator, Droplet, Home, Info, Phone, Menu, X, ExternalLink, Sparkles, Sprout, Waves, HeartPulse, Layers, ShoppingBag, ZoomIn, ZoomOut, Type, HelpCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import LanguageTranslator from "./LanguageTranslator";
 
 interface HeaderProps {
@@ -9,6 +9,40 @@ interface HeaderProps {
 
 export default function Header({ currentPage, onPageChange }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navScrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    if (navScrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = navScrollRef.current;
+      setCanScrollLeft(scrollLeft > 4);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 4);
+    }
+  };
+
+  useEffect(() => {
+    checkScroll();
+    // Re-check after layout/render
+    const timer = setTimeout(checkScroll, 200);
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, []);
+
+  const handleScrollLeft = () => {
+    if (navScrollRef.current) {
+      navScrollRef.current.scrollBy({ left: -220, behavior: "smooth" });
+    }
+  };
+
+  const handleScrollRight = () => {
+    if (navScrollRef.current) {
+      navScrollRef.current.scrollBy({ left: 220, behavior: "smooth" });
+    }
+  };
 
   // Font size scale state (in percent: 85%, 92.5%, 100%, 110%, 120%, 130%)
   const [fontLevel, setFontLevel] = useState<number>(() => {
@@ -70,7 +104,9 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
   return (
     <header className="sticky top-0 z-[100] bg-[#1877F2] text-white border-b border-blue-500 shadow-md w-full">
       <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 gap-2">
+        
+        {/* Top Title Bar: Brand Logo on Left, Action Controls on Right */}
+        <div className="flex justify-between items-center h-14 sm:h-16 gap-2">
           
           {/* Brand Logo */}
           <div 
@@ -78,7 +114,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
             className="flex items-center space-x-2.5 cursor-pointer group shrink-0"
             onClick={() => handleNavClick("home")}
           >
-            <div className="relative w-9 h-9 flex items-center justify-center shrink-0">
+            <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
               <img 
                 src="logo1.png" 
                 alt="Modern Fisheries" 
@@ -97,31 +133,14 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
               </div>
             </div>
             <div>
-              <span className="font-sans font-black text-sm sm:text-base tracking-tight text-white leading-none block">
+              <span className="font-sans font-black text-base sm:text-lg tracking-tight text-white leading-none block">
                 Modern Fisheries
               </span>
-              <span className="block text-[8px] sm:text-[9px] font-mono tracking-wider text-blue-100 uppercase font-bold mt-0.5">
+              <span className="block text-[8px] sm:text-[9.5px] font-mono tracking-wider text-blue-100 uppercase font-bold mt-0.5">
                 Fish & Seeds Supplier
               </span>
             </div>
           </div>
-
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-1 overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleNavClick(item.id)}
-                className={`px-2.5 py-1.5 rounded-lg font-sans text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-                  currentPage === item.id 
-                    ? "bg-white text-[#1877F2] shadow-xs" 
-                    : "text-blue-50 hover:text-white hover:bg-white/10"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
 
           {/* Right Action Buttons */}
           <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
@@ -181,25 +200,62 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
 
         </div>
 
-        {/* Responsive Horizontal Scroll Navigation Pill Bar for Mobile/Tablet */}
-        <div className="lg:hidden py-2 border-t border-blue-400/30 overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden flex items-center gap-1.5 text-xs">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <button
-                key={`scroll-${item.id}`}
-                onClick={() => handleNavClick(item.id)}
-                className={`px-3 py-1.5 rounded-full font-sans text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0 ${
-                  currentPage === item.id 
-                    ? "bg-white text-[#1877F2] shadow-xs" 
-                    : "bg-white/10 text-blue-50 hover:bg-white/20 hover:text-white"
-                }`}
-              >
-                <Icon className="w-3 h-3 shrink-0" />
-                <span>{item.label}</span>
-              </button>
-            );
-          })}
+        {/* Navigation Menu Bar placed directly below the Title row with Left & Right Slide Controls */}
+        <div className="py-2 border-t border-blue-400/30 flex items-center gap-1 sm:gap-1.5">
+          {/* Left Slide Button */}
+          <button
+            id="header-nav-scroll-left"
+            type="button"
+            onClick={handleScrollLeft}
+            disabled={!canScrollLeft}
+            className={`p-1.5 rounded-lg sm:rounded-xl bg-white/10 hover:bg-white/20 active:bg-white/30 text-white transition-all cursor-pointer shrink-0 flex items-center justify-center ${
+              !canScrollLeft ? "opacity-30 cursor-not-allowed pointer-events-none" : "opacity-100 shadow-xs"
+            }`}
+            title="Slide Left"
+            aria-label="Slide Menu Left"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+
+          {/* Scrollable Navigation Container */}
+          <div
+            ref={navScrollRef}
+            onScroll={checkScroll}
+            className="overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden flex items-center gap-1.5 sm:gap-2 text-xs scroll-smooth flex-1 min-w-0 py-0.5"
+          >
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleNavClick(item.id)}
+                  className={`px-3 py-1.5 rounded-lg sm:rounded-xl font-sans text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0 ${
+                    currentPage === item.id 
+                      ? "bg-white text-[#1877F2] shadow-xs" 
+                      : "bg-white/10 text-blue-50 hover:bg-white/20 hover:text-white"
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5 shrink-0" />
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right Slide Button */}
+          <button
+            id="header-nav-scroll-right"
+            type="button"
+            onClick={handleScrollRight}
+            disabled={!canScrollRight}
+            className={`p-1.5 rounded-lg sm:rounded-xl bg-white/10 hover:bg-white/20 active:bg-white/30 text-white transition-all cursor-pointer shrink-0 flex items-center justify-center ${
+              !canScrollRight ? "opacity-30 cursor-not-allowed pointer-events-none" : "opacity-100 shadow-xs"
+            }`}
+            title="Slide Right"
+            aria-label="Slide Menu Right"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
 
       </div>

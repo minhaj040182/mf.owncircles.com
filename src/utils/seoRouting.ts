@@ -36,7 +36,7 @@ export const PAGE_SEO_PATHS: Record<PageType, string> = {
   feed: "/feeding-management",
   calculators: "/calculators",
   services: "/ourservices",
-  about: "/calculators",
+  about: "/about-us",
   privacy: "/privacy-policy",
   videos: "/farming-videos",
   faq: "/frequently-asked-questions",
@@ -50,8 +50,13 @@ export function getPathForPage(page: PageType, video?: Video | null): string {
   return PAGE_SEO_PATHS[page] || "/";
 }
 
-export function parseUrlPath(pathname: string, allVideos: Video[]): { page: PageType; video: Video | null } {
-  const normalized = pathname.trim().toLowerCase();
+export function parseUrlPath(pathnameOrHash: string, allVideos: Video[]): { page: PageType; video: Video | null } {
+  let raw = pathnameOrHash || "/";
+  if (raw.includes("#")) {
+    const parts = raw.split("#");
+    raw = parts[parts.length - 1] || "/";
+  }
+  const normalized = raw.trim().toLowerCase();
 
   // Video route matching: /video/:slug-id or /video/:id
   if (normalized.startsWith("/video/")) {

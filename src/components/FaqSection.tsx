@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { 
   HelpCircle, Search, ChevronDown, ThumbsUp, ThumbsDown, 
-  Sparkles, Layers, Waves, Sprout, Droplet, Fish, HeartPulse, Calculator, Phone, CheckCircle2, MessageSquare
+  Sparkles, Layers, Waves, Sprout, Droplet, Fish, HeartPulse, Calculator, Phone, CheckCircle2, MessageSquare, ChevronLeft
 } from "lucide-react";
+import AdBanner from "./AdBanner";
+import RightSidebarAd from "./RightSidebarAd";
+import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
 export interface FaqItem {
   id: string;
@@ -184,9 +187,10 @@ const FAQ_DATA: FaqItem[] = [
 interface FaqSectionProps {
   className?: string;
   onContactClick?: () => void;
+  onBackToDashboard?: () => void;
 }
 
-export default function FaqSection({ className = "", onContactClick }: FaqSectionProps) {
+export default function FaqSection({ className = "", onContactClick, onBackToDashboard }: FaqSectionProps) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [expandedId, setExpandedId] = useState<string | null>("faq-biofloc-1"); // Default open first FAQ
@@ -227,208 +231,249 @@ export default function FaqSection({ className = "", onContactClick }: FaqSectio
   };
 
   return (
-    
-    <section id="faq-section" className={`bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-slate-200/80 shadow-sm space-y-6 w-full max-w-full overflow-hidden ${className}`}>
-      
-     
-
-      {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
-        <div className="space-y-1 text-left">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#1877F2] border border-blue-200/60 text-xs font-bold uppercase tracking-wider">
-            <HelpCircle className="w-3.5 h-3.5 text-[#1877F2] shrink-0" />
-            <span>Aquaculture FAQ Knowledge Base</span>
+    <div className="bg-slate-50 min-h-screen">    
+      {/* Premium Dark Theme Hero Banner (Biofloc Page Style) */}
+      <div className="relative bg-gradient-to-br from-teal-950 via-slate-900 to-teal-900 text-white p-5 sm:p-10 overflow-hidden shadow-xl border border-teal-800/40">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-600/20 via-transparent to-transparent"></div>
+        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-72 h-72 bg-teal-500/10 blur-3xl pointer-events-none"></div>
+        
+        <div className="relative z-10 max-w-3xl space-y-3 sm:space-y-4 text-left">
+         
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-teal-800/60 border border-teal-700/50 text-teal-300 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider animate-pulse">
+              <HelpCircle className="w-3.5 h-3.5 text-teal-300" />
+              Aquaculture FAQ Knowledge Base
+            </span>
           </div>
-          <h2 className="font-sans font-black text-xl sm:text-2xl lg:text-3xl text-slate-900 tracking-tight">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-slate-500 text-xs sm:text-sm max-w-2xl leading-relaxed">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-sans font-black tracking-tight leading-tight">
+            Frequently Asked Questions: <span className="text-teal-400">Expert Guidance</span>
+          </h1>
+          <p className="text-teal-100/90 text-xs sm:text-base leading-relaxed font-sans">
             Expert answers on Biofloc C:N ratios, RAS bio-filtration, fish stocking densities, disease treatments, and feed schedules.
           </p>
         </div>
+      </div>
 
-        {/* Live Search Bar */}
-        <div className="relative w-full md:w-72 lg:w-80 shrink-0">
-          <Search className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
-          <input
-            type="text"
-            placeholder="Search FAQs (e.g. C:N ratio, FCR, Ich)..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 hover:bg-slate-100/80 border border-slate-200 focus:border-emerald-600 focus:bg-white rounded-xl text-xs sm:text-sm font-sans focus:outline-none transition-all placeholder:text-slate-400 font-medium"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-slate-600 font-bold"
-            >
-              Clear
-            </button>
-          )}
+      {/* Sticky Top Advertisement Banner */}
+      <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-0.5 my-1 transition-all border-y border-slate-200/80 shadow-xs -mx-3 sm:-mx-6 lg:-mx-8 px-3 sm:px-6 lg:px-8 w-auto">
+        <div className="max-w-[1440px] mx-auto">
+          <AdBanner reloadKey="faq-main-ad" />
         </div>
       </div>
 
-      {/* Category Tabs Scrollable Bar */}
-      <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs">
-        {categories.map((cat) => {
-          const Icon = cat.icon;
-          const isActive = activeCategory === cat.id;
-          return (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`px-3.5 py-2 rounded-xl font-sans font-bold flex items-center gap-1.5 whitespace-nowrap transition-all cursor-pointer shrink-0 active:scale-95 ${
-                isActive
-                  ? "bg-[#1877F2] text-white shadow-xs"
-                  : "bg-slate-100 hover:bg-slate-200/80 text-slate-600"
-              }`}
-            >
-              <Icon className={`w-3.5 h-3.5 ${isActive ? "text-white" : "text-slate-500"}`} />
-              <span>{cat.label}</span>
-            </button>
-          );
-        })}
+      {/* Mobile Announcement Card */}
+      <div className="lg:hidden my-1 px-3 sm:px-6">
+        <OwnCirclesAnnouncement mode="mobile" />
       </div>
 
-      {/* FAQ Accordion List */}
-      <div className="space-y-3 w-full">
-        {filteredFaqs.length === 0 ? (
-          <div className="bg-slate-50 border border-dashed border-slate-300 rounded-2xl p-8 text-center space-y-2">
-            <HelpCircle className="w-8 h-8 text-slate-400 mx-auto animate-bounce" />
-            <h3 className="font-bold text-slate-800 text-sm">No matching questions found</h3>
-            <p className="text-xs text-slate-500 max-w-md mx-auto">
-              Try adjusting your search terms or browse all categories to explore technical aquaculture topics.
-            </p>
-            <button
-              onClick={() => {
-                setSearchQuery("");
-                setActiveCategory("all");
-              }}
-              className="mt-2 px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition-colors cursor-pointer"
-            >
-              Reset Filters
-            </button>
-          </div>
-        ) : (
-          filteredFaqs.map((faq) => {
-            const isOpen = expandedId === faq.id;
-            const userFeedback = helpfulState[faq.id];
+      {/* Main Page Content 2-Column Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 sm:gap-8 items-start w-full min-w-0 p-3 sm:p-6 lg:p-8">
+        <div className="lg:col-span-8 xl:col-span-9 space-y-6 sm:space-y-12 w-full min-w-0">
 
-            return (
-              <div
-                key={faq.id}
-                className={`border rounded-2xl transition-all duration-200 overflow-hidden ${
-                  isOpen
-                    ? "border-blue-300 bg-blue-50/20 shadow-sm"
-                    : "border-slate-200 hover:border-slate-300 bg-white"
-                }`}
-              >
-                {/* Question Accordion Header */}
-                <button
-                  type="button"
-                  onClick={() => toggleAccordion(faq.id)}
-                  className="w-full text-left p-4 sm:p-5 flex items-start justify-between gap-3 cursor-pointer group"
-                >
-                  <div className="space-y-1.5 min-w-0 pr-2">
-                    <span className="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 rounded-md text-[10px] font-bold uppercase tracking-wider">
-                      {faq.categoryLabel}
-                    </span>
-                    <h3 className="font-sans font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-[#1877F2] transition-colors leading-snug">
-                      {faq.question}
-                    </h3>
-                  </div>
+          <section id="faq-section" className={`bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-slate-200/80 shadow-sm space-y-6 w-full max-w-full overflow-hidden ${className}`}>
+            
+            {/* Header Bar with Live Search */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+              <div className="space-y-1 text-left">
+                <h2 className="font-sans font-black text-lg sm:text-xl text-slate-900 tracking-tight">
+                  Search Topics & Query Library
+                </h2>
+                <p className="text-slate-500 text-xs sm:text-sm">
+                  Filter by category or type keywords to find solutions fast.
+                </p>
+              </div>
 
-                  <div className={`p-1.5 rounded-full shrink-0 transition-transform duration-200 ${isOpen ? "bg-blue-100 text-[#1877F2] rotate-180" : "bg-slate-100 text-slate-500 group-hover:bg-slate-200"}`}>
-                    <ChevronDown className="w-4 h-4" />
-                  </div>
-                </button>
-
-                {/* Answer Accordion Content */}
-                {isOpen && (
-                  <div className="px-4 sm:px-5 pb-5 pt-1 border-t border-slate-100 text-left space-y-4 animate-fadeIn">
-                    <div className="text-slate-700 text-xs sm:text-sm leading-relaxed whitespace-pre-line font-sans font-normal bg-white p-3.5 sm:p-4 rounded-xl border border-slate-100 shadow-2xs">
-                      {faq.answer}
-                    </div>
-
-                    {/* Interactive "Was this helpful?" Footer Bar */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 pt-1 text-xs text-slate-500">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[11px] font-bold text-slate-500">Was this answer helpful?</span>
-                        <div className="flex items-center gap-1">
-                          <button
-                            type="button"
-                            onClick={(e) => handleHelpfulClick(faq.id, "yes", e)}
-                            className={`px-2.5 py-1 rounded-lg border text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                              userFeedback === "yes"
-                                ? "bg-emerald-100 border-emerald-300 text-emerald-800"
-                                : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-600"
-                            }`}
-                          >
-                            <ThumbsUp className="w-3 h-3" />
-                            <span>Yes</span>
-                          </button>
-                          <button
-                            type="button"
-                            onClick={(e) => handleHelpfulClick(faq.id, "no", e)}
-                            className={`px-2.5 py-1 rounded-lg border text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                              userFeedback === "no"
-                                ? "bg-rose-100 border-rose-300 text-rose-800"
-                                : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-600"
-                            }`}
-                          >
-                            <ThumbsDown className="w-3 h-3" />
-                            <span>No</span>
-                          </button>
-                        </div>
-                        {userFeedback && (
-                          <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-1 ml-1 animate-fadeIn">
-                            <CheckCircle2 className="w-3 h-3" />
-                            <span>Thanks for your feedback!</span>
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Tag list */}
-                      <div className="hidden sm:flex items-center gap-1 flex-wrap">
-                        {faq.tags.slice(0, 3).map((tag, tIdx) => (
-                          <span key={`tag-${tIdx}`} className="text-[9px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
-                            #{tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+              {/* Live Search Bar */}
+              <div className="relative w-full md:w-72 lg:w-80 shrink-0">
+                <Search className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Search FAQs (e.g. C:N ratio, FCR, Ich)..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 hover:bg-slate-100/80 border border-slate-200 focus:border-emerald-600 focus:bg-white rounded-xl text-xs sm:text-sm font-sans focus:outline-none transition-all placeholder:text-slate-400 font-medium"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-slate-600 font-bold"
+                  >
+                    Clear
+                  </button>
                 )}
               </div>
-            );
-          })
-        )}
-      </div>
+            </div>
 
-      {/* Callout Box for Additional Questions */}
-      <div className="bg-gradient-to-r from-emerald-900 via-slate-900 to-blue-950 text-white rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg border border-emerald-800/40 text-left">
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold uppercase tracking-wider">
-            <MessageSquare className="w-3 h-3 text-emerald-400" />
-            <span>Have a Specific Farming Query?</span>
-          </div>
-          <h3 className="font-sans font-extrabold text-base sm:text-lg text-white tracking-tight">
-            Need Direct Consultation or Technical Assistance?
-          </h3>
-          <p className="text-slate-300 text-xs max-w-xl leading-relaxed">
-            Our aquaculture experts offer technical guidance on tarpaulin tank setups, feed optimization, seed supply, and disease management.
-          </p>
+            {/* Category Tabs Scrollable Bar */}
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs">
+              {categories.map((cat) => {
+                const Icon = cat.icon;
+                const isActive = activeCategory === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCategory(cat.id)}
+                    className={`px-3.5 py-2 rounded-xl font-sans font-bold flex items-center gap-1.5 whitespace-nowrap transition-all cursor-pointer shrink-0 active:scale-95 ${
+                      isActive
+                        ? "bg-[#1877F2] text-white shadow-xs"
+                        : "bg-slate-100 hover:bg-slate-200/80 text-slate-600"
+                    }`}
+                  >
+                    <Icon className={`w-3.5 h-3.5 ${isActive ? "text-white" : "text-slate-500"}`} />
+                    <span>{cat.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* FAQ Accordion List */}
+            <div className="space-y-3 w-full">
+              {filteredFaqs.length === 0 ? (
+                <div className="bg-slate-50 border border-dashed border-slate-300 rounded-2xl p-8 text-center space-y-2">
+                  <HelpCircle className="w-8 h-8 text-slate-400 mx-auto animate-bounce" />
+                  <h3 className="font-bold text-slate-800 text-sm">No matching questions found</h3>
+                  <p className="text-xs text-slate-500 max-w-md mx-auto">
+                    Try adjusting your search terms or browse all categories to explore technical aquaculture topics.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setSearchQuery("");
+                      setActiveCategory("all");
+                    }}
+                    className="mt-2 px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition-colors cursor-pointer"
+                  >
+                    Reset Filters
+                  </button>
+                </div>
+              ) : (
+                filteredFaqs.map((faq) => {
+                  const isOpen = expandedId === faq.id;
+                  const userFeedback = helpfulState[faq.id];
+
+                  return (
+                    <div
+                      key={faq.id}
+                      className={`border rounded-2xl transition-all duration-200 overflow-hidden ${
+                        isOpen
+                          ? "border-blue-300 bg-blue-50/20 shadow-sm"
+                          : "border-slate-200 hover:border-slate-300 bg-white"
+                      }`}
+                    >
+                      {/* Question Accordion Header */}
+                      <button
+                        type="button"
+                        onClick={() => toggleAccordion(faq.id)}
+                        className="w-full text-left p-4 sm:p-5 flex items-start justify-between gap-3 cursor-pointer group"
+                      >
+                        <div className="space-y-1.5 min-w-0 pr-2">
+                          <span className="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 rounded-md text-[10px] font-bold uppercase tracking-wider">
+                            {faq.categoryLabel}
+                          </span>
+                          <h3 className="font-sans font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-[#1877F2] transition-colors leading-snug">
+                            {faq.question}
+                          </h3>
+                        </div>
+
+                        <div className={`p-1.5 rounded-full shrink-0 transition-transform duration-200 ${isOpen ? "bg-blue-100 text-[#1877F2] rotate-180" : "bg-slate-100 text-slate-500 group-hover:bg-slate-200"}`}>
+                          <ChevronDown className="w-4 h-4" />
+                        </div>
+                      </button>
+
+                      {/* Answer Accordion Content */}
+                      {isOpen && (
+                        <div className="px-4 sm:px-5 pb-5 pt-1 border-t border-slate-100 text-left space-y-4 animate-fadeIn">
+                          <div className="text-slate-700 text-xs sm:text-sm leading-relaxed whitespace-pre-line font-sans font-normal bg-white p-3.5 sm:p-4 rounded-xl border border-slate-100 shadow-2xs">
+                            {faq.answer}
+                          </div>
+
+                          {/* Interactive "Was this helpful?" Footer Bar */}
+                          <div className="flex flex-wrap items-center justify-between gap-3 pt-1 text-xs text-slate-500">
+                            <div className="flex items-center gap-2">
+                              <span className="text-[11px] font-bold text-slate-500">Was this answer helpful?</span>
+                              <div className="flex items-center gap-1">
+                                <button
+                                  type="button"
+                                  onClick={(e) => handleHelpfulClick(faq.id, "yes", e)}
+                                  className={`px-2.5 py-1 rounded-lg border text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                                    userFeedback === "yes"
+                                      ? "bg-emerald-100 border-emerald-300 text-emerald-800"
+                                      : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-600"
+                                  }`}
+                                >
+                                  <ThumbsUp className="w-3 h-3" />
+                                  <span>Yes</span>
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={(e) => handleHelpfulClick(faq.id, "no", e)}
+                                  className={`px-2.5 py-1 rounded-lg border text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                                    userFeedback === "no"
+                                      ? "bg-rose-100 border-rose-300 text-rose-800"
+                                      : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-600"
+                                  }`}
+                                >
+                                  <ThumbsDown className="w-3 h-3" />
+                                  <span>No</span>
+                                </button>
+                              </div>
+                              {userFeedback && (
+                                <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-1 ml-1 animate-fadeIn">
+                                  <CheckCircle2 className="w-3 h-3" />
+                                  <span>Thanks for your feedback!</span>
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Tag list */}
+                            <div className="hidden sm:flex items-center gap-1 flex-wrap">
+                              {faq.tags.slice(0, 3).map((tag, tIdx) => (
+                                <span key={`tag-${tIdx}`} className="text-[9px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
+                                  #{tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
+              )}
+            </div>
+
+            {/* Callout Box for Additional Questions */}
+            <div className="bg-gradient-to-r from-emerald-900 via-slate-900 to-blue-950 text-white rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg border border-emerald-800/40 text-left">
+              <div className="space-y-1">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold uppercase tracking-wider">
+                  <MessageSquare className="w-3 h-3 text-emerald-400" />
+                  <span>Have a Specific Farming Query?</span>
+                </div>
+                <h3 className="font-sans font-extrabold text-base sm:text-lg text-white tracking-tight">
+                  Need Direct Consultation or Technical Assistance?
+                </h3>
+                <p className="text-slate-300 text-xs max-w-xl leading-relaxed">
+                  Our aquaculture experts offer technical guidance on tarpaulin tank setups, feed optimization, seed supply, and disease management.
+                </p>
+              </div>
+
+              <button
+                onClick={onContactClick}
+                className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-sans font-extrabold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md active:scale-95 shrink-0 cursor-pointer"
+              >
+                <Phone className="w-4 h-4 animate-pulse shrink-0" />
+                <span>Ask Our Experts (+919748952342)</span>
+              </button>
+            </div>
+
+          </section>
+
         </div>
 
-        <button
-          onClick={onContactClick}
-          className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-sans font-extrabold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md active:scale-95 shrink-0 cursor-pointer"
-        >
-          <Phone className="w-4 h-4 animate-pulse shrink-0" />
-          <span>Ask Our Experts (+919748952342)</span>
-        </button>
+        {/* Right Sidebar */}
+        <div className="hidden lg:block lg:col-span-4 xl:col-span-3 space-y-6 lg:sticky lg:top-20">
+          <RightSidebarAd reloadKey="faq-sidebar" />
+        </div>
       </div>
-
-    </section>
+    </div>
   );
 }

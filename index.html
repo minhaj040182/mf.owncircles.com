@@ -10,6 +10,21 @@
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#1877F2" />
 
+    <!-- Single Page Apps for GitHub Pages URL decode script -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search[1] === '/' || l.search.indexOf('?p=/') === 0) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          var path = decoded.replace(/^p=/, '');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + path + l.hash
+          );
+        }
+      }(window.location));
+    </script>
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Modern Fisheries" />
