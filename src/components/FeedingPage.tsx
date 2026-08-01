@@ -1,16 +1,108 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { 
   ArrowLeft, Calculator, Scale, Sparkles, CheckCircle2, 
   Info, ShieldCheck, Layers, Activity, TrendingUp, HelpCircle,
-  Award, Fish, Thermometer, Droplet, Zap, HeartPulse
+  Award, Fish, Thermometer, Droplet, Zap, HeartPulse, ChevronLeft, ChevronRight, Flame, Check,
+  ShoppingBag, Package, ExternalLink, Truck, ShoppingCart, Mail, MessageSquare, Phone, Send, FileText, PhoneCall, Copy, MessageCircle
 } from "lucide-react";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
 import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
+import { Video } from "../types";
+import VideoCard from "./VideoCard";
+import { fetchYouTubeChannelVideos, fetchTrendingTopicVideos } from "../youtubeFeed";
 
 interface FeedingPageProps {
   onBackToDashboard?: () => void;
+  onVideoClick?: (video: Video) => void;
 }
+
+const INITIAL_FEEDING_VIDEOS: Video[] = [
+  {
+    id: "feed-yt-1",
+    title: "High-Density Catfish Feeding & Growth Rate Management",
+    description: "Masterclass on optimizing feed conversion ratios (FCR), calculating biomass percentage, and automated feeding schedules for catfish.",
+    thumbnail: "https://img.youtube.com/vi/JRuooOjHXQA/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/JRuooOjHXQA",
+    duration: "13:25",
+    views: "115K views",
+    type: "youtube",
+    creator: "Modern Fisheries",
+    publishDate: "1 month ago",
+    category: "Feeding",
+    likes: 3800
+  },
+  {
+    id: "feed-yt-2",
+    title: "Automatic Fish Feeder Installation & Timer Calibration",
+    description: "Step-by-step setup of solar belt feeders and electronic timer dispensers to eliminate feed waste and optimize growth rates.",
+    thumbnail: "https://img.youtube.com/vi/YQ_6Q8j4Nf8/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/YQ_6Q8j4Nf8",
+    duration: "14:15",
+    views: "92K views",
+    type: "youtube",
+    creator: "Smart Farm Lab",
+    publishDate: "2 weeks ago",
+    category: "Feeding",
+    likes: 2900
+  },
+  {
+    id: "feed-yt-3",
+    title: "How to Calculate Feed Conversion Ratio (FCR) & Daily Biomass Feed",
+    description: "Mathematical formulas for calculating daily feed dosage based on average body weight, sampling protocols, and water temperature adjustments.",
+    thumbnail: "https://img.youtube.com/vi/Vk4LjqlbwnU/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/Vk4LjqlbwnU",
+    duration: "18:40",
+    views: "81K views",
+    type: "youtube",
+    creator: "Aquaculture Feed Academy",
+    publishDate: "3 weeks ago",
+    category: "Feeding",
+    likes: 2600
+  },
+  {
+    id: "feed-yt-4",
+    title: "Floating vs Sinking Fish Pellets: Protein % and Pellet Sizing",
+    description: "Understanding floating extruded vs sinking compressed feeds for tilapia, carps, and pangasius catfish across different growth stages.",
+    thumbnail: "https://img.youtube.com/vi/QycqPG5uQOQ/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/QycqPG5uQOQ",
+    duration: "16:20",
+    views: "74K views",
+    type: "youtube",
+    creator: "Modern Fisheries",
+    publishDate: "2 months ago",
+    category: "Feeding",
+    likes: 2200
+  },
+  {
+    id: "feed-yt-5",
+    title: "Starter Crumble Feeding for Fry & Fingerlings in Hatcheries",
+    description: "High-protein micro-crumble feeding routines for newborn fry to maximize survival rates and prevent skeletal deformities.",
+    thumbnail: "https://img.youtube.com/vi/Ho7avoab_oE/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/Ho7avoab_oE",
+    duration: "12:50",
+    views: "68K views",
+    type: "youtube",
+    creator: "Hatchery Feed Tech",
+    publishDate: "1 month ago",
+    category: "Feeding",
+    likes: 1950
+  },
+  {
+    id: "feed-yt-6",
+    title: "Impact of Water Temperature & Dissolved Oxygen on Feeding Rates",
+    description: "Why fish stop feeding when oxygen drops below 4 ppm or temperatures spike, and how to prevent organic waste buildup.",
+    thumbnail: "https://img.youtube.com/vi/VRRy6XBfLQc/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/VRRy6XBfLQc",
+    duration: "15:10",
+    views: "59K views",
+    type: "youtube",
+    creator: "Aqua Nutrition Hub",
+    publishDate: "3 weeks ago",
+    category: "Feeding",
+    likes: 1780
+  }
+];
 
 // Data structures for the Feeding System guidelines
 interface AgeWiseStage {
@@ -248,8 +340,132 @@ const FISH_WISE_CONFIGS: FishFeedingConfig[] = [
   }
 ];
 
-export default function FeedingPage({ onBackToDashboard }: FeedingPageProps) {
+export default function FeedingPage({ onBackToDashboard, onVideoClick }: FeedingPageProps) {
   const [activeTab, setActiveTab] = useState<"stages" | "nutrition" | "species" | "calibrator">("stages");
+
+  // Fish Food Sales & Quotation Inquiry States
+  const [inquirySpecies, setInquirySpecies] = useState("Tilapia & Pangasius");
+  const [inquiryFeedType, setInquiryFeedType] = useState("32% - 38% Extruded Floating Pellets");
+  const [inquiryQuantity, setInquiryQuantity] = useState("1 Ton Bulk");
+  const [inquiryLocation, setInquiryLocation] = useState("");
+  const [inquiryContact, setInquiryContact] = useState("");
+  const [inquiryNotes, setInquiryNotes] = useState("");
+  const [inquirySubmitted, setInquirySubmitted] = useState(false);
+  const [copiedContact, setCopiedContact] = useState<string | null>(null);
+
+  const handleCopy = (text: string, type: string) => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+      setCopiedContact(type);
+      setTimeout(() => setCopiedContact(null), 2500);
+    }
+  };
+
+  const getWhatsAppInquiryUrl = () => {
+    const msg = `Hello Modern Fisheries Team,\n\nI want to get the best price quotation for Fish Food Supply:\n\n• Fish Species: ${inquirySpecies}\n• Feed Type: ${inquiryFeedType}\n• Required Quantity: ${inquiryQuantity}\n• Delivery Location: ${inquiryLocation || "Not specified"}\n• Contact Info: ${inquiryContact || "Direct WhatsApp"}\n• Additional Notes: ${inquiryNotes || "N/A"}\n\nPlease share your best quotation & delivery terms. Thank you!`;
+    return `https://wa.me/919748952342?text=${encodeURIComponent(msg)}`;
+  };
+
+  const getEmailInquiryUrl = () => {
+    const subject = `Fish Food Wholesale Quotation Inquiry - ${inquirySpecies}`;
+    const body = `Hello Modern Fisheries Sales Team,\n\nI would like to request a quotation for purchasing commercial fish food:\n\n- Fish Species: ${inquirySpecies}\n- Feed Type: ${inquiryFeedType}\n- Required Quantity: ${inquiryQuantity}\n- Delivery Location / Pin Code: ${inquiryLocation || "N/A"}\n- Phone / WhatsApp: ${inquiryContact || "N/A"}\n- Specific Requirements: ${inquiryNotes || "N/A"}\n\nPlease reply with the best price quotation and product specifications.\n\nThank you!`;
+    return `mailto:mf@owncircles.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  // Video slider states
+  const [feedingVideos, setFeedingVideos] = useState<Video[]>(INITIAL_FEEDING_VIDEOS);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollPosRef = useRef<number>(0);
+  const [isVideosHovered, setIsVideosHovered] = useState<boolean>(false);
+  const [showViralOnly, setShowViralOnly] = useState<boolean>(false);
+
+  const isVideoViral = (v: Video) => {
+    const viewsStr = v.views.toLowerCase();
+    if (viewsStr.includes("m")) return true;
+    const num = parseFloat(viewsStr);
+    if (!isNaN(num) && num >= 50) return true;
+    return false;
+  };
+
+  const scrollVideos = (direction: "left" | "right") => {
+    const el = scrollRef.current;
+    if (el) {
+      const scrollAmount = 340;
+      const newScrollLeft = direction === "left" 
+        ? el.scrollLeft - scrollAmount 
+        : el.scrollLeft + scrollAmount;
+      
+      el.scrollTo({
+        left: newScrollLeft,
+        behavior: "smooth"
+      });
+      scrollPosRef.current = newScrollLeft;
+    }
+  };
+
+  // Continuous smooth auto-scroll effect
+  useEffect(() => {
+    let animationFrameId: number;
+
+    const updateSliding = () => {
+      if (!isVideosHovered && scrollRef.current) {
+        const el = scrollRef.current;
+        const halfWidth = el.scrollWidth / 2;
+
+        if (halfWidth > 0) {
+          scrollPosRef.current += 0.8;
+
+          if (scrollPosRef.current >= halfWidth) {
+            scrollPosRef.current -= halfWidth;
+          } else if (scrollPosRef.current < 0) {
+            scrollPosRef.current += halfWidth;
+          }
+
+          el.scrollLeft = Math.round(scrollPosRef.current);
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(updateSliding);
+    };
+
+    animationFrameId = requestAnimationFrame(updateSliding);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isVideosHovered]);
+
+  useEffect(() => {
+    async function loadDynamicFeedingVideos() {
+      try {
+        const liveTopic1 = await fetchTrendingTopicVideos(false, "fish feeding FCR growth management");
+        const liveTopic2 = await fetchTrendingTopicVideos(false, "fish feed pellets nutrition aquaculture");
+        const combined = [...liveTopic1, ...liveTopic2];
+
+        if (combined.length > 0) {
+          const feedSpecific = combined.filter(v => {
+            const text = (v.title + " " + v.description).toLowerCase();
+            const hasFeedKeywords = text.includes("feeding") || text.includes("fcr") || text.includes("pellet") || text.includes("fish feed") || text.includes("feed management") || text.includes("nutrition") || text.includes("biomass feed") || text.includes("diet");
+            const isIrrelevant = text.includes("biofloc setup") || text.includes("ras construction") || text.includes("pond construction") || text.includes("disease treatment");
+            return hasFeedKeywords && !isIrrelevant;
+          });
+
+          if (feedSpecific.length > 0) {
+            // Deduplicate by ID
+            const uniqueMap = new Map<string, Video>();
+            [...feedSpecific, ...INITIAL_FEEDING_VIDEOS].forEach(v => {
+              if (!uniqueMap.has(v.id)) {
+                uniqueMap.set(v.id, v);
+              }
+            });
+            setFeedingVideos(Array.from(uniqueMap.values()).slice(0, 10));
+          }
+        }
+      } catch (e) {
+        // Fallback to initial
+      }
+    }
+    loadDynamicFeedingVideos();
+  }, []);
 
   // Calibrator Input State
   const [species, setSpecies] = useState<string>("Tilapia");
@@ -860,6 +1076,480 @@ export default function FeedingPage({ onBackToDashboard }: FeedingPageProps) {
             </div>
           </div>
         )}
+
+      {/* Commercial Fish Food Sales & Wholesale Quotation Inquiry Card */}
+      <div id="feed-supply-card" className="mt-10 mb-8 rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-950 text-white p-6 sm:p-8 border border-emerald-500/30 shadow-2xl relative overflow-hidden">
+        {/* Background Ambient Glow & Patterns */}
+        <div className="absolute -right-12 -bottom-12 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute left-1/4 -top-16 w-64 h-64 bg-teal-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div className="relative z-10 space-y-8">
+          {/* Top Banner Header & Direct Contact Quick Badges */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-emerald-500/20 pb-6">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold uppercase tracking-wider">
+                <Package className="w-4 h-4 text-emerald-400" />
+                <span>Modern Fisheries Direct Factory Sales</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+              </div>
+              <h3 className="font-sans font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight leading-tight">
+                High-Protein Commercial Fish Food & Bulk Supply
+              </h3>
+              <p className="text-emerald-100/80 text-xs sm:text-sm max-w-3xl leading-relaxed">
+                Direct factory supply of high-grade extruded floating and sinking pellets (28% to 45% crude protein). Specially formulated to minimize Feed Conversion Ratio (FCR 1.1–1.3), boost fish immunity, and keep water clean.
+              </p>
+            </div>
+
+            {/* Direct Contact Buttons */}
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              <a
+                href="https://wa.me/919748952342?text=Hello%20Modern%20Fisheries,%20I%20am%20interested%20in%20purchasing%20Fish%20Food.%20Please%20send%20me%20the%20best%20price%20quotation."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-sans font-extrabold text-xs sm:text-sm px-5 py-3 rounded-2xl transition-all shadow-lg hover:shadow-emerald-500/20 active:scale-95 cursor-pointer group"
+              >
+                <MessageCircle className="w-4 h-4 text-slate-950 fill-current" />
+                <span>WhatsApp: +91 97489 52342</span>
+                <ExternalLink className="w-3.5 h-3.5 opacity-70 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+
+              <a
+                href="mailto:mf@owncircles.com?subject=Inquiry%20for%20Fish%20Food%20Bulk%20Quotation"
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-sans font-bold text-xs sm:text-sm px-4 py-3 rounded-2xl border border-white/20 backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+              >
+                <Mail className="w-4 h-4 text-emerald-400" />
+                <span>mf@owncircles.com</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Fish Species & Detailed Specifications Grid (To Attract Farmers) */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="font-sans font-bold text-base sm:text-lg text-emerald-300 flex items-center gap-2">
+                <Fish className="w-5 h-5 text-emerald-400" />
+                <span>Specially Formulated Feeds by Fish Species</span>
+              </h4>
+              <span className="text-xs text-emerald-200/60 hidden sm:inline-block font-mono">
+                Factory Direct • Minimum FCR • 4+ Hours Floating
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Species Card 1 */}
+              <div className="bg-slate-900/90 border border-emerald-500/25 rounded-2xl p-4 flex flex-col justify-between hover:border-emerald-400/50 transition-all hover:bg-slate-900 shadow-md">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md">
+                      32% - 38% Protein
+                    </span>
+                    <span className="text-[10px] font-sans text-slate-400 font-semibold">Floating Pellets</span>
+                  </div>
+                  <h5 className="font-sans font-bold text-base text-white">
+                    Tilapia & Pangasius Grower Feed
+                  </h5>
+                  <p className="text-slate-300 text-xs leading-relaxed">
+                    Extruded floating feed with high digestibility. Non-water polluting formula enriched with digestive enzymes and liver protectants.
+                  </p>
+                  <ul className="text-[11px] text-emerald-200/80 space-y-1 pt-1">
+                    <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Pellet Sizes: 2mm, 3mm, 4mm, 6mm</li>
+                    <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Target FCR: 1.15 to 1.35</li>
+                  </ul>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+                  <span className="text-emerald-400 font-mono font-bold">25 kg / 40 kg Bags</span>
+                  <button
+                    onClick={() => {
+                      setInquirySpecies("Tilapia & Pangasius");
+                      setInquiryFeedType("32% - 38% Floating Pellets");
+                      const el = document.getElementById("quote-inquiry-form");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="text-emerald-300 hover:text-white font-bold text-xs underline cursor-pointer"
+                  >
+                    Get Quote →
+                  </button>
+                </div>
+              </div>
+
+              {/* Species Card 2 */}
+              <div className="bg-slate-900/90 border border-emerald-500/25 rounded-2xl p-4 flex flex-col justify-between hover:border-emerald-400/50 transition-all hover:bg-slate-900 shadow-md">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md">
+                      28% - 34% Protein
+                    </span>
+                    <span className="text-[10px] font-sans text-slate-400 font-semibold">Floating / Sinking</span>
+                  </div>
+                  <h5 className="font-sans font-bold text-base text-white">
+                    Indian Major Carps (Rohu / Katla / Mrigal)
+                  </h5>
+                  <p className="text-slate-300 text-xs leading-relaxed">
+                    Balanced protein-to-energy ratio formulated for polyculture and earthen pond carp farming. High phytase for maximum phosphorus absorption.
+                  </p>
+                  <ul className="text-[11px] text-emerald-200/80 space-y-1 pt-1">
+                    <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Pellet Sizes: 2mm, 3mm, 4mm</li>
+                    <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Low Dissolution & High Yield</li>
+                  </ul>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+                  <span className="text-emerald-400 font-mono font-bold">500 kg to Bulk Tons</span>
+                  <button
+                    onClick={() => {
+                      setInquirySpecies("Rohu / Katla / Carps");
+                      setInquiryFeedType("28% - 34% Carp Feed");
+                      const el = document.getElementById("quote-inquiry-form");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="text-emerald-300 hover:text-white font-bold text-xs underline cursor-pointer"
+                  >
+                    Get Quote →
+                  </button>
+                </div>
+              </div>
+
+              {/* Species Card 3 */}
+              <div className="bg-slate-900/90 border border-emerald-500/25 rounded-2xl p-4 flex flex-col justify-between hover:border-emerald-400/50 transition-all hover:bg-slate-900 shadow-md">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md">
+                      38% - 42% Protein
+                    </span>
+                    <span className="text-[10px] font-sans text-slate-400 font-semibold">High Protein Booster</span>
+                  </div>
+                  <h5 className="font-sans font-bold text-base text-white">
+                    Catfish / Magur / Singhi Feed
+                  </h5>
+                  <p className="text-slate-300 text-xs leading-relaxed">
+                    Carnivorous high-energy feed packed with marine fishmeal, essential amino acids, and lipids for rapid growth in high-density tanks.
+                  </p>
+                  <ul className="text-[11px] text-emerald-200/80 space-y-1 pt-1">
+                    <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Pellet Sizes: 1.5mm, 2mm, 3mm</li>
+                    <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Fast Body Weight Gain</li>
+                  </ul>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+                  <span className="text-emerald-400 font-mono font-bold">Ultra High-Growth</span>
+                  <button
+                    onClick={() => {
+                      setInquirySpecies("Catfish / Magur / Singhi");
+                      setInquiryFeedType("38% - 42% High Protein");
+                      const el = document.getElementById("quote-inquiry-form");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="text-emerald-300 hover:text-white font-bold text-xs underline cursor-pointer"
+                  >
+                    Get Quote →
+                  </button>
+                </div>
+              </div>
+
+              {/* Species Card 4 */}
+              <div className="bg-slate-900/90 border border-emerald-500/25 rounded-2xl p-4 flex flex-col justify-between hover:border-emerald-400/50 transition-all hover:bg-slate-900 shadow-md">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md">
+                      40% - 45% Protein
+                    </span>
+                    <span className="text-[10px] font-sans text-slate-400 font-semibold">Micro Crumble</span>
+                  </div>
+                  <h5 className="font-sans font-bold text-base text-white">
+                    Hatchery Fry Starter & Shrimp Feed
+                  </h5>
+                  <p className="text-slate-300 text-xs leading-relaxed">
+                    Micro-extruded crumbles & slow-sinking pellets for Biofloc tanks, RAS nurseries, and shrimp culture. Enriched with spirulina & gut probiotics.
+                  </p>
+                  <ul className="text-[11px] text-emerald-200/80 space-y-1 pt-1">
+                    <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> Mesh Sizes: 0.5mm, 0.8mm, 1.2mm</li>
+                    <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" /> High Fry Survival Rate</li>
+                  </ul>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+                  <span className="text-emerald-400 font-mono font-bold">Nursery Grade</span>
+                  <button
+                    onClick={() => {
+                      setInquirySpecies("Biofloc / Fry Starter / Shrimp");
+                      setInquiryFeedType("40% - 45% Starter Crumble");
+                      const el = document.getElementById("quote-inquiry-form");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="text-emerald-300 hover:text-white font-bold text-xs underline cursor-pointer"
+                  >
+                    Get Quote →
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Quotation & Bulk Inquiry Form */}
+          <div id="quote-inquiry-form" className="bg-slate-900/95 border border-emerald-500/30 rounded-2xl p-5 sm:p-6 shadow-xl">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 border-b border-slate-800 pb-4">
+              <div>
+                <h4 className="font-sans font-black text-lg sm:text-xl text-white flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-emerald-400" />
+                  <span>Send Inquiry for the Best Price Quotation</span>
+                </h4>
+                <p className="text-slate-400 text-xs mt-0.5">
+                  Select your fish details and quantity below to get an instant tailored quotation directly via WhatsApp or Email.
+                </p>
+              </div>
+
+              {/* Direct Quick Contact Info Box */}
+              <div className="flex items-center gap-3 bg-slate-950/80 border border-emerald-500/20 px-3.5 py-2 rounded-xl shrink-0">
+                <div className="text-right text-xs">
+                  <div className="text-slate-400 text-[10px] uppercase tracking-wider font-mono">Contact Sales Directly</div>
+                  <div className="text-emerald-300 font-bold font-mono">+91 97489 52342</div>
+                  <div className="text-slate-300 text-[11px]">mf@owncircles.com</div>
+                </div>
+                <button
+                  onClick={() => handleCopy("+919748952342", "phone")}
+                  className="p-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition-colors cursor-pointer"
+                  title="Copy Phone Number"
+                >
+                  <Copy className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Form Inputs Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+              {/* Fish Species Selection */}
+              <div>
+                <label className="block text-slate-300 font-semibold mb-1.5">
+                  Target Fish Species <span className="text-emerald-400">*</span>
+                </label>
+                <select
+                  value={inquirySpecies}
+                  onChange={(e) => setInquirySpecies(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-3 py-2.5 text-white font-sans outline-none transition-colors cursor-pointer"
+                >
+                  <option value="Tilapia & Pangasius">Tilapia & Pangasius</option>
+                  <option value="Rohu / Katla / Carps">Indian Major Carps (Rohu, Katla, Mrigal)</option>
+                  <option value="Catfish / Magur / Singhi">Catfish / Magur / Singhi</option>
+                  <option value="Biofloc / Fry Starter / Shrimp">Biofloc / Hatchery Fry / Shrimp</option>
+                  <option value="Asian Seabass / Barramundi">Asian Seabass / Barramundi</option>
+                  <option value="Custom Mixed Species">Custom / Polyculture Mix</option>
+                </select>
+              </div>
+
+              {/* Feed Type / Pellet Size */}
+              <div>
+                <label className="block text-slate-300 font-semibold mb-1.5">
+                  Feed Grade & Pellet Size
+                </label>
+                <select
+                  value={inquiryFeedType}
+                  onChange={(e) => setInquiryFeedType(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-3 py-2.5 text-white font-sans outline-none transition-colors cursor-pointer"
+                >
+                  <option value="32% - 38% Extruded Floating Pellets">32% - 38% Extruded Floating Pellets (2mm-6mm)</option>
+                  <option value="28% - 34% Carp Sinking Feed">28% - 34% Carp Sinking Feed (2mm-4mm)</option>
+                  <option value="38% - 42% High Protein Catfish Feed">38% - 42% High Protein Catfish Feed</option>
+                  <option value="40% - 45% Hatchery Starter Crumble">40% - 45% Hatchery Starter Crumble (0.5mm-1.5mm)</option>
+                  <option value="Probiotic & Vitamin Feed Additives">Probiotic & Vitamin Feed Additives</option>
+                </select>
+              </div>
+
+              {/* Required Quantity */}
+              <div>
+                <label className="block text-slate-300 font-semibold mb-1.5">
+                  Estimated Quantity Needed <span className="text-emerald-400">*</span>
+                </label>
+                <select
+                  value={inquiryQuantity}
+                  onChange={(e) => setInquiryQuantity(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-3 py-2.5 text-white font-sans outline-none transition-colors cursor-pointer"
+                >
+                  <option value="250 kg Trial Batch">250 kg (Trial Batch)</option>
+                  <option value="500 kg Bags">500 kg (Small Farm)</option>
+                  <option value="1 Ton Bulk">1 Ton (Standard Commercial)</option>
+                  <option value="5 Tons Wholesale">5 Tons (Wholesale Order)</option>
+                  <option value="10+ Tons Container Bulk">10+ Tons (Factory Bulk Shipment)</option>
+                </select>
+              </div>
+
+              {/* Delivery Location */}
+              <div>
+                <label className="block text-slate-300 font-semibold mb-1.5">
+                  Delivery Location / District / State
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. West Bengal, Assam, Andhra Pradesh, Kerala..."
+                  value={inquiryLocation}
+                  onChange={(e) => setInquiryLocation(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-3 py-2.5 text-white font-sans outline-none transition-colors placeholder:text-slate-600"
+                />
+              </div>
+
+              {/* Contact Phone / WhatsApp */}
+              <div>
+                <label className="block text-slate-300 font-semibold mb-1.5">
+                  Your Phone / WhatsApp Number
+                </label>
+                <input
+                  type="text"
+                  placeholder="+91 Mobile number..."
+                  value={inquiryContact}
+                  onChange={(e) => setInquiryContact(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-3 py-2.5 text-white font-sans outline-none transition-colors placeholder:text-slate-600"
+                />
+              </div>
+
+              {/* Notes / Special Requests */}
+              <div>
+                <label className="block text-slate-300 font-semibold mb-1.5">
+                  Specific Requirements / Remarks
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Need FCR guarantee, sample batch, bulk discount..."
+                  value={inquiryNotes}
+                  onChange={(e) => setInquiryNotes(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-3 py-2.5 text-white font-sans outline-none transition-colors placeholder:text-slate-600"
+                />
+              </div>
+            </div>
+
+            {/* Action Buttons & Direct Channels */}
+            <div className="mt-6 pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-xs text-slate-400 flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Fast response within 1 hour. Factory-direct pricing & shipping support.</span>
+              </div>
+
+              <div className="flex items-center gap-3 w-full sm:w-auto shrink-0">
+                <a
+                  href={getWhatsAppInquiryUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setInquirySubmitted(true)}
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-sans font-extrabold text-xs sm:text-sm px-5 py-3 rounded-xl transition-all shadow-lg hover:shadow-emerald-500/20 active:scale-95 cursor-pointer"
+                >
+                  <MessageCircle className="w-4 h-4 fill-current" />
+                  <span>Send Inquiry via WhatsApp</span>
+                  <Send className="w-3.5 h-3.5 opacity-80" />
+                </a>
+
+                <a
+                  href={getEmailInquiryUrl()}
+                  onClick={() => setInquirySubmitted(true)}
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-sans font-bold text-xs sm:text-sm px-4 py-3 rounded-xl border border-slate-700 transition-all active:scale-95 cursor-pointer"
+                >
+                  <Mail className="w-4 h-4 text-emerald-400" />
+                  <span>Send via Email</span>
+                </a>
+              </div>
+            </div>
+
+            {copiedContact && (
+              <div className="mt-3 text-center text-xs font-bold text-emerald-400 bg-emerald-500/10 py-1.5 rounded-lg border border-emerald-500/20">
+                ✓ Contact information copied to clipboard!
+              </div>
+            )}
+
+            {inquirySubmitted && (
+              <div className="mt-3 p-3 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-300 text-xs flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Inquiry generated! If your browser did not open automatically, please contact us directly on WhatsApp <strong>+91 97489 52342</strong> or Email <strong>mf@owncircles.com</strong>.</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* YouTube Guide Carousel Slider Section */}
+      <div id="youtube-feeding-slider" className="mt-12 pt-8 px-2 sm:px-4 border-t border-slate-100 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-emerald-700 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 animate-pulse" />
+              <span>Nutrition & Feeding Video Masterclasses</span>
+            </div>
+            <h3 className="font-sans font-black text-xl sm:text-2xl text-slate-900 tracking-tight">
+              Feeding & Growth Management Guides
+            </h3>
+            <p className="text-slate-500 text-xs sm:text-sm">
+              Watch expert tutorials on FCR calculations, automatic feeders, pellet sizing, and high-density feeding routines.
+            </p>
+          </div>
+
+          {/* Scroll Navigation Controls & Viral Filter */}
+          <div className="flex flex-wrap items-center justify-between sm:justify-end gap-2 sm:gap-2.5 w-full sm:w-auto">
+            <button
+              id="feeding-viral-toggle-btn"
+              onClick={() => setShowViralOnly(!showViralOnly)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-sans text-xs font-bold transition-all border shrink-0 cursor-pointer ${
+                showViralOnly 
+                  ? "bg-amber-500 border-amber-500 text-white shadow-xs" 
+                  : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
+              }`}
+            >
+              <Flame className={`w-3.5 h-3.5 ${showViralOnly ? "fill-current animate-pulse text-red-100" : "text-amber-500"}`} />
+              <span>Only Viral (50K+)</span>
+              {showViralOnly && <Check className="w-3 h-3 stroke-[3px]" />}
+            </button>
+
+            <div className="flex items-center gap-1.5">
+              <button
+                id="feeding-slide-left-btn"
+                onClick={() => scrollVideos("left")}
+                className="p-1.5 sm:p-2 rounded-xl border border-emerald-100 bg-white text-emerald-800 hover:bg-emerald-50 active:scale-95 transition-all shadow-xs cursor-pointer"
+                title="Scroll Left"
+              >
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+              <button
+                id="feeding-slide-right-btn"
+                onClick={() => scrollVideos("right")}
+                className="p-1.5 sm:p-2 rounded-xl border border-emerald-100 bg-white text-emerald-800 hover:bg-emerald-50 active:scale-95 transition-all shadow-xs cursor-pointer"
+                title="Scroll Right"
+              >
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Scrolling Carousel */}
+        <div className="relative">
+          <div
+            id="feeding-video-scroll-container"
+            ref={scrollRef}
+            onMouseEnter={() => setIsVideosHovered(true)}
+            onMouseLeave={() => setIsVideosHovered(false)}
+            onTouchStart={() => setIsVideosHovered(true)}
+            onTouchEnd={() => setIsVideosHovered(false)}
+            className="flex gap-3 sm:gap-5 overflow-x-auto pb-4 pt-1 scrollbar-thin scrollbar-thumb-emerald-100 scrollbar-track-transparent select-none animate-fade-in"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch', scrollBehavior: 'auto' }}
+          >
+            {(() => {
+              const displayedVideos = showViralOnly ? feedingVideos.filter(isVideoViral) : feedingVideos;
+              const listToRender = displayedVideos.length > 0 ? displayedVideos : feedingVideos;
+              return [...listToRender, ...listToRender].map((video, index) => (
+                <div 
+                  key={`${video.id}-feeding-clone-${index}`} 
+                  className="w-[240px] xs:w-[270px] sm:w-[320px] shrink-0"
+                >
+                  <VideoCard 
+                    video={video} 
+                    onVideoClick={(v) => {
+                      if (onVideoClick) {
+                        onVideoClick(v);
+                      }
+                    }} 
+                  />
+                </div>
+              ));
+            })()}
+          </div>
+          
+          {/* Fade Overlays */}
+          <div className="absolute top-0 bottom-4 left-0 w-8 bg-gradient-to-r from-slate-50/50 to-transparent pointer-events-none hidden sm:block"></div>
+          <div className="absolute top-0 bottom-4 right-0 w-8 bg-gradient-to-l from-slate-50/50 to-transparent pointer-events-none hidden sm:block"></div>
+        </div>
+      </div>
 
           </div>
           <div className="hidden xl:block shrink-0 sticky top-20">

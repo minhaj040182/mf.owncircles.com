@@ -8,9 +8,10 @@
     <meta name="keywords" content="modern fisheries, RAS design, aquaculture consultancy, fish feed supply, fish seeds supplier, biofloc technology, recirculating aquaculture system, aquaponics, hydroponics, fish farming, fcr calculator, floating fish feed, fish health management" />
     <meta name="author" content="Modern Fisheries" />
     <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://mf.owncircles.com/" />
     <meta name="theme-color" content="#1877F2" />
 
-    <!-- Single Page Apps for GitHub Pages URL decode script -->
+    <!-- Single Page Apps for GitHub Pages URL decode & Dynamic Head Title Script -->
     <script type="text/javascript">
       (function(l) {
         if (l.search[1] === '/' || l.search.indexOf('?p=/') === 0) {
@@ -22,12 +23,38 @@
             l.pathname.slice(0, -1) + path + l.hash
           );
         }
+
+        // Dynamic title setter before DOM hydration for crawler optimization
+        var p = (l.pathname + l.hash).toLowerCase();
+        var titles = {
+          "/aquaponics-farming": "Aquaponics Farming Systems & Commercial Setup | Modern Fisheries",
+          "/bioflock": "Biofloc Technology (BFT) Fish Farming Guide & Setup | Modern Fisheries",
+          "/aquaponic": "Recirculating Aquaculture System (RAS) Design & Setup | Modern Fisheries",
+          "/hydroponic": "Hydroponics System Management & Nutrient Solutions | Modern Fisheries",
+          "/pond-farming": "Earthen Pond Fish Farming & Ecosystem Management | Modern Fisheries",
+          "/fish-diseases": "Fish Disease Diagnosis, Prevention & Treatment | Modern Fisheries",
+          "/feeding-management": "Aquaculture Feed Management & FCR Optimization | Modern Fisheries",
+          "/calculators": "Aquaculture Calculators: FCR, Tank Volume & Stocking Density | Modern Fisheries",
+          "/ourservices": "Aquaculture Consultancy, RAS Design & Commercial Fish Feed Supply | Modern Fisheries",
+          "/about-us": "About Modern Fisheries | Premier Aquaculture Solutions & Consultancy",
+          "/farming-videos": "Aquaculture Video Tutorials & Technical Guides | Modern Fisheries",
+          "/frequently-asked-questions": "Fish Farming FAQ & Aquaculture Knowledge Base | Modern Fisheries",
+          "/privacy-policy": "Privacy Policy & AdSense Disclosures | Modern Fisheries"
+        };
+
+        for (var key in titles) {
+          if (p.indexOf(key) !== -1) {
+            document.title = titles[key];
+            break;
+          }
+        }
       }(window.location));
     </script>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Modern Fisheries" />
+    <meta property="og:url" content="https://mf.owncircles.com/" />
     <meta property="og:title" content="Modern Fisheries - RAS Design, Fish Feed Supply & Aquaculture Consultancy" />
     <meta property="og:description" content="Premier aquaculture portal for turn-key RAS design, professional aquaculture consultancy, high-protein fish feed supply, certified fish seeds, and Biofloc technology." />
     <meta property="og:image" content="/banner.png" />

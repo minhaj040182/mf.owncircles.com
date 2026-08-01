@@ -1,16 +1,107 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { 
   HeartPulse, ShieldAlert, CheckCircle2, AlertTriangle, Info, Search,
   TrendingUp, Activity, HelpCircle, ChevronRight, CornerDownRight,
-  Sparkles, RotateCcw, Plus, Check, ShieldCheck
+  Sparkles, RotateCcw, Plus, Check, ShieldCheck, ChevronLeft, Flame
 } from "lucide-react";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
 import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
+import { Video } from "../types";
+import VideoCard from "./VideoCard";
+import { fetchYouTubeChannelVideos, fetchTrendingTopicVideos } from "../youtubeFeed";
 
 interface DiseasesPageProps {
   onBackToDashboard?: () => void;
+  onVideoClick?: (video: Video) => void;
 }
+
+const INITIAL_DISEASES_VIDEOS: Video[] = [
+  {
+    id: "dis-yt-1",
+    title: "Treating Critical Fish Diseases & Parasite Infections in Ponds",
+    description: "Step-by-step masterclass on diagnosing and treating severe fish diseases, gill flukes, Ich, and bacterial septicemia under field conditions.",
+    thumbnail: "https://img.youtube.com/vi/rGujFuFq4eg/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/rGujFuFq4eg",
+    duration: "15:05",
+    views: "128K views",
+    type: "youtube",
+    creator: "Modern Fisheries",
+    publishDate: "1 month ago",
+    category: "Diseases",
+    likes: 4200
+  },
+  {
+    id: "dis-yt-2",
+    title: "Potassium Permanganate (KMnO4) & Salt Dip Treatment Guide",
+    description: "Learn safe dosage calculations and dip treatment protocols for Potassium Permanganate and non-iodized salt to burn off external parasites.",
+    thumbnail: "https://img.youtube.com/vi/Vk4LjqlbwnU/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/Vk4LjqlbwnU",
+    duration: "18:20",
+    views: "95K views",
+    type: "youtube",
+    creator: "Aquaculture Health Desk",
+    publishDate: "2 weeks ago",
+    category: "Diseases",
+    likes: 3100
+  },
+  {
+    id: "dis-yt-3",
+    title: "How to Control Fin Rot, Tail Rot, and Red Spot Bacteria in Fish",
+    description: "Diagnostic symptoms of Aeromonas bacterial infections and antibiotic feed dressing methods (Oxytetracycline) for commercial ponds.",
+    thumbnail: "https://img.youtube.com/vi/VRRy6XBfLQc/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/VRRy6XBfLQc",
+    duration: "14:10",
+    views: "72K views",
+    type: "youtube",
+    creator: "Fish Vet Care",
+    publishDate: "3 weeks ago",
+    category: "Diseases",
+    likes: 2400
+  },
+  {
+    id: "dis-yt-4",
+    title: "Pond Water Disinfection with Lime & Potassium Permanganate",
+    description: "Disinfecting infected pond water, balancing alkalinity, and preventing pathogen spikes during seasonal temperature changes.",
+    thumbnail: "https://img.youtube.com/vi/QycqPG5uQOQ/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/QycqPG5uQOQ",
+    duration: "12:10",
+    views: "64K views",
+    type: "youtube",
+    creator: "Modern Fisheries",
+    publishDate: "2 months ago",
+    category: "Diseases",
+    likes: 1980
+  },
+  {
+    id: "dis-yt-5",
+    title: "Identifying Fungal Cotton Wool (Saprolegnia) & Gill Rot Early",
+    description: "Early detection methods for fungal Saprolegnia outbreaks in cold weather and emergency bath treatments.",
+    thumbnail: "https://img.youtube.com/vi/Ho7avoab_oE/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/Ho7avoab_oE",
+    duration: "16:45",
+    views: "58K views",
+    type: "youtube",
+    creator: "Global Fish Health",
+    publishDate: "1 month ago",
+    category: "Diseases",
+    likes: 1850
+  },
+  {
+    id: "dis-yt-6",
+    title: "Biosecurity Protocol & Quarantine Tank Setup for Fingerlings",
+    description: "3-step quarantine routine for new seeds to prevent introducing viral or parasitic pathogens into established RAS or biofloc systems.",
+    thumbnail: "https://img.youtube.com/vi/JRuooOjHXQA/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/embed/JRuooOjHXQA",
+    duration: "13:30",
+    views: "51K views",
+    type: "youtube",
+    creator: "Hatchery Biosecurity",
+    publishDate: "3 weeks ago",
+    category: "Diseases",
+    likes: 1620
+  }
+];
 
 // Full disease list structured according to categories requested
 interface Disease {
@@ -308,11 +399,105 @@ const SYMPTOMS_LIST: Symptom[] = [
   { id: "symp_warts", label: "Cauliflower/wart nodules", description: "Pink or white textured growths clustered on the fins or lips.", relatedDiseases: ["lymphocystis"] }
 ];
 
-export default function DiseasesPage({ onBackToDashboard }: DiseasesPageProps) {
+export default function DiseasesPage({ onBackToDashboard, onVideoClick }: DiseasesPageProps) {
   const [activeTab, setActiveTab] = useState<"articles" | "chart" | "wizard" | "biosecurity">("articles");
   const [diseaseFilter, setDiseaseFilter] = useState<"all" | "common" | "rare" | "dangerous">("all");
   const [selectedDisease, setSelectedDisease] = useState<Disease | null>(DISEASES_DATA[0]);
   const [selectedSpeciesFilter, setSelectedSpeciesFilter] = useState<string>("All Species");
+
+  // Video slider states
+  const [diseaseVideos, setDiseaseVideos] = useState<Video[]>(INITIAL_DISEASES_VIDEOS);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollPosRef = useRef<number>(0);
+  const [isVideosHovered, setIsVideosHovered] = useState<boolean>(false);
+  const [showViralOnly, setShowViralOnly] = useState<boolean>(false);
+
+  const isVideoViral = (v: Video) => {
+    const viewsStr = v.views.toLowerCase();
+    if (viewsStr.includes("m")) return true;
+    const num = parseFloat(viewsStr);
+    if (!isNaN(num) && num >= 50) return true;
+    return false;
+  };
+
+  const scrollVideos = (direction: "left" | "right") => {
+    const el = scrollRef.current;
+    if (el) {
+      const scrollAmount = 340;
+      const newScrollLeft = direction === "left" 
+        ? el.scrollLeft - scrollAmount 
+        : el.scrollLeft + scrollAmount;
+      
+      el.scrollTo({
+        left: newScrollLeft,
+        behavior: "smooth"
+      });
+      scrollPosRef.current = newScrollLeft;
+    }
+  };
+
+  // Continuous smooth auto-scroll effect
+  useEffect(() => {
+    let animationFrameId: number;
+
+    const updateSliding = () => {
+      if (!isVideosHovered && scrollRef.current) {
+        const el = scrollRef.current;
+        const halfWidth = el.scrollWidth / 2;
+
+        if (halfWidth > 0) {
+          scrollPosRef.current += 0.8;
+
+          if (scrollPosRef.current >= halfWidth) {
+            scrollPosRef.current -= halfWidth;
+          } else if (scrollPosRef.current < 0) {
+            scrollPosRef.current += halfWidth;
+          }
+
+          el.scrollLeft = Math.round(scrollPosRef.current);
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(updateSliding);
+    };
+
+    animationFrameId = requestAnimationFrame(updateSliding);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isVideosHovered]);
+
+  useEffect(() => {
+    async function loadDynamicDiseaseVideos() {
+      try {
+        const liveTopic1 = await fetchTrendingTopicVideos(false, "fish disease treatment parasite");
+        const liveTopic2 = await fetchTrendingTopicVideos(false, "fish infection potassium permanganate salt dip");
+        const combined = [...liveTopic1, ...liveTopic2];
+
+        if (combined.length > 0) {
+          const diseaseSpecific = combined.filter(v => {
+            const text = (v.title + " " + v.description).toLowerCase();
+            const hasDiseaseKeywords = text.includes("disease") || text.includes("treatment") || text.includes("parasite") || text.includes("fungus") || text.includes("rot") || text.includes("infection") || text.includes("permanganate") || text.includes("septicemia") || text.includes("ich ");
+            const isIrrelevant = text.includes("biofloc setup") || text.includes("ras construction") || text.includes("feed calculation");
+            return hasDiseaseKeywords && !isIrrelevant;
+          });
+
+          if (diseaseSpecific.length > 0) {
+            const uniqueMap = new Map<string, Video>();
+            [...diseaseSpecific, ...INITIAL_DISEASES_VIDEOS].forEach(v => {
+              if (!uniqueMap.has(v.id)) {
+                uniqueMap.set(v.id, v);
+              }
+            });
+            setDiseaseVideos(Array.from(uniqueMap.values()).slice(0, 10));
+          }
+        }
+      } catch (e) {
+        // Fallback to initial
+      }
+    }
+    loadDynamicDiseaseVideos();
+  }, []);
 
   // Wizard States
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
@@ -1059,6 +1244,98 @@ export default function DiseasesPage({ onBackToDashboard }: DiseasesPageProps) {
 
           </div>
         )}
+
+      {/* YouTube Guide Carousel Slider Section */}
+      <div id="youtube-diseases-slider" className="mt-12 pt-8 px-2 sm:px-4 border-t border-slate-100 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-rose-700 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-rose-600 animate-pulse" />
+              <span>Disease Treatment Video Masterclasses</span>
+            </div>
+            <h3 className="font-sans font-black text-xl sm:text-2xl text-slate-900 tracking-tight">
+              Critical Fish Disease & Treatment Guides
+            </h3>
+            <p className="text-slate-500 text-xs sm:text-sm">
+              Watch expert tutorials on diagnosing infections, Potassium Permanganate dips, salt baths, and biosecurity protocols.
+            </p>
+          </div>
+
+          {/* Scroll Navigation Controls & Viral Filter */}
+          <div className="flex flex-wrap items-center justify-between sm:justify-end gap-2 sm:gap-2.5 w-full sm:w-auto">
+            <button
+              id="diseases-viral-toggle-btn"
+              onClick={() => setShowViralOnly(!showViralOnly)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-sans text-xs font-bold transition-all border shrink-0 cursor-pointer ${
+                showViralOnly 
+                  ? "bg-amber-500 border-amber-500 text-white shadow-xs" 
+                  : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
+              }`}
+            >
+              <Flame className={`w-3.5 h-3.5 ${showViralOnly ? "fill-current animate-pulse text-red-100" : "text-amber-500"}`} />
+              <span>Only Viral (50K+)</span>
+              {showViralOnly && <Check className="w-3 h-3 stroke-[3px]" />}
+            </button>
+
+            <div className="flex items-center gap-1.5">
+              <button
+                id="diseases-slide-left-btn"
+                onClick={() => scrollVideos("left")}
+                className="p-1.5 sm:p-2 rounded-xl border border-rose-100 bg-white text-rose-800 hover:bg-rose-50 active:scale-95 transition-all shadow-xs cursor-pointer"
+                title="Scroll Left"
+              >
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+              <button
+                id="diseases-slide-right-btn"
+                onClick={() => scrollVideos("right")}
+                className="p-1.5 sm:p-2 rounded-xl border border-rose-100 bg-white text-rose-800 hover:bg-rose-50 active:scale-95 transition-all shadow-xs cursor-pointer"
+                title="Scroll Right"
+              >
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Scrolling Carousel */}
+        <div className="relative">
+          <div
+            id="diseases-video-scroll-container"
+            ref={scrollRef}
+            onMouseEnter={() => setIsVideosHovered(true)}
+            onMouseLeave={() => setIsVideosHovered(false)}
+            onTouchStart={() => setIsVideosHovered(true)}
+            onTouchEnd={() => setIsVideosHovered(false)}
+            className="flex gap-3 sm:gap-5 overflow-x-auto pb-4 pt-1 scrollbar-thin scrollbar-thumb-rose-100 scrollbar-track-transparent select-none animate-fade-in"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch', scrollBehavior: 'auto' }}
+          >
+            {(() => {
+              const displayedVideos = showViralOnly ? diseaseVideos.filter(isVideoViral) : diseaseVideos;
+              const listToRender = displayedVideos.length > 0 ? displayedVideos : diseaseVideos;
+              return [...listToRender, ...listToRender].map((video, index) => (
+                <div 
+                  key={`${video.id}-diseases-clone-${index}`} 
+                  className="w-[240px] xs:w-[270px] sm:w-[320px] shrink-0"
+                >
+                  <VideoCard 
+                    video={video} 
+                    onVideoClick={(v) => {
+                      if (onVideoClick) {
+                        onVideoClick(v);
+                      }
+                    }} 
+                  />
+                </div>
+              ));
+            })()}
+          </div>
+          
+          {/* Fade Overlays */}
+          <div className="absolute top-0 bottom-4 left-0 w-8 bg-gradient-to-r from-slate-50/50 to-transparent pointer-events-none hidden sm:block"></div>
+          <div className="absolute top-0 bottom-4 right-0 w-8 bg-gradient-to-l from-slate-50/50 to-transparent pointer-events-none hidden sm:block"></div>
+        </div>
+      </div>
 
           </div>
           <div className="hidden xl:block shrink-0 sticky top-20">

@@ -112,6 +112,83 @@ async function fetchVideoDetails(apiKey: string, videoIds: string[]): Promise<Ma
   return statsMap;
 }
 
+export interface UserLocationInfo {
+  countryCode: string;
+  countryName: string;
+  isIndia: boolean;
+  isUS: boolean;
+  detectedRegionName: string;
+}
+
+let cachedUserLocation: UserLocationInfo | null = null;
+
+/**
+ * Detect user's location via timezone and IP lookup with quick fallback
+ */
+export async function detectUserLocation(): Promise<UserLocationInfo> {
+  if (cachedUserLocation) return cachedUserLocation;
+
+  let countryCode = "US";
+  let countryName = "United States";
+
+  // Fast timezone check
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+    if (tz.includes("Kolkata") || tz.includes("Calcutta") || tz.includes("India")) {
+      countryCode = "IN";
+      countryName = "India";
+    }
+  } catch (e) {
+    // Ignore timezone error
+  }
+
+  // Try quick IP geolocation with 2 second timeout
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
+
+    const res = await fetch("https://ipapi.co/json/", { signal: controller.signal });
+    clearTimeout(timeoutId);
+
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.country_code) {
+        countryCode = data.country_code.toUpperCase();
+        countryName = data.country_name || countryCode;
+      }
+    }
+  } catch (e) {
+    // Fall back to timezone result
+  }
+
+  const isIndia = countryCode === "IN";
+  const isUS = countryCode === "US" || countryCode === "CA";
+  const detectedRegionName = isIndia ? "India" : isUS ? "North America / USA" : countryName;
+
+  cachedUserLocation = {
+    countryCode,
+    countryName,
+    isIndia,
+    isUS,
+    detectedRegionName
+  };
+
+  return cachedUserLocation;
+}
+
+/**
+ * Get location-tailored YouTube query suffix
+ */
+export function getLocationQuerySuffix(userLoc?: UserLocationInfo | null): string {
+  if (!userLoc) return "";
+  if (userLoc.isIndia) {
+    return " India Hindi Indian aquaculture";
+  }
+  if (userLoc.isUS) {
+    return " USA America English aquaculture";
+  }
+  return ` ${userLoc.countryName} aquaculture`;
+}
 export function isModernFisheriesVideo(item: { title?: string; creator?: string; channelId?: string; type?: string }): boolean {
   if (item.type === "own") return true;
   const channelId = item.channelId || "";
@@ -308,9 +385,22 @@ export async function fetchOwnChannelVideos(forceRefresh = false): Promise<Video
 /**
  * Fetch top best ideas & latest aquaculture innovations directly from YouTube (up to 20 videos)
  */
-export async function fetchTrendingTopicVideos(forceRefresh = false, searchQuery = "modern fish farming technology aquaponics biofloc ras innovations"): Promise<Video[]> {
+export async function fetchTrendingTopicVideos(forceRefresh = false, searchQuery = "modern fish farming technology aquaponics biofloc ras innovations", userLocOverride?: UserLocationInfo | null): Promise<Video[]> {
   const apiKey = getYouTubeApiKey();
-  const cacheKey = `mf_youtube_ideas_v7_${searchQuery.toLowerCase().replace(/[^a-z0-9]/g, "_")}`;
+
+  // Determine user location for regional recommendations
+  let userLoc = userLocOverride;
+  if (!userLoc) {
+    try {
+      userLoc = await detectUserLocation();
+    } catch (e) {
+      // Ignore location detection errors
+    }
+  }
+
+  const querySuffix = userLoc ? getLocationQuerySuffix(userLoc) : "";
+  const fullSearchQuery = searchQuery + querySuffix;
+  const cacheKey = `mf_youtube_ideas_v8_${fullSearchQuery.toLowerCase().replace(/[^a-z0-9]/g, "_")}`;
 
   // 1. Check persistent localStorage cache first unless forceRefresh is true
   if (!forceRefresh) {
@@ -328,7 +418,7 @@ export async function fetchTrendingTopicVideos(forceRefresh = false, searchQuery
 
   // 2. Fetch directly from server API / YouTube endpoint
   try {
-    const endpoint = `/api/youtube-ideas?q=${encodeURIComponent(searchQuery)}`;
+    const endpoint = `/api/youtube-ideas?q=${encodeURIComponent(fullSearchQuery)}`;
     const res = await fetch(endpoint);
     if (res.ok) {
       const data = await res.json();
@@ -346,7 +436,7 @@ export async function fetchTrendingTopicVideos(forceRefresh = false, searchQuery
   // 3. Fallback if server endpoint returned no items
   if (liveIdeas.length === 0 && apiKey) {
     try {
-      const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&order=date&maxResults=20&type=video&key=${apiKey}`;
+      const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(fullSearchQuery)}&order=date&maxResults=20&type=video&key=${apiKey}`;
       const response = await fetch(searchUrl);
 
       if (response.ok) {
@@ -402,7 +492,7 @@ export async function fetchTrendingTopicVideos(forceRefresh = false, searchQuery
   }
 
   if (liveIdeas.length === 0) {
-    liveIdeas = await fetchPublicYouTubeSearch(searchQuery);
+    liveIdeas = await fetchPublicYouTubeSearch(fullSearchQuery);
   }
 
   // Strictly filter out any Modern Fisheries videos

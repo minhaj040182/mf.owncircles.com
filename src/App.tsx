@@ -20,6 +20,7 @@ import AboutUsPage from "./components/AboutUsPage";
 import PrivacyPolicyPage from "./components/PrivacyPolicyPage";
 import CookieConsentBanner from "./components/CookieConsentBanner";
 import ProfessionalDashboard from "./components/ProfessionalDashboard";
+import CommercialProductsBanner from "./components/CommercialProductsBanner";
 import HomeVideos from "./components/HomeVideos";
 import FaqSection from "./components/FaqSection";
 import { getEnrichedVideosList } from "./utils/videoMetrics";
@@ -269,6 +270,9 @@ export default function App() {
                         trendingVideos={ALL_VIDEOS}
                       />
 
+                      {/* Commercial Factory Direct Sales Banner Card */}
+                      <CommercialProductsBanner />
+
                       {/* Home Videos Portal (Modern Fisheries Exclusive Videos + YouTube Best Ideas Pane) */}
                       <HomeVideos 
                         onVideoClick={handleVideoSelect}
@@ -291,8 +295,8 @@ export default function App() {
             {currentPage === "aquaponics" && <AquaponicsPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
             {currentPage === "hydroponics" && <HydroponicsPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
             {currentPage === "pond" && <PondFarmingPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
-            {currentPage === "diseases" && <DiseasesPage onBackToDashboard={() => setCurrentPage("home")} />}
-            {currentPage === "feed" && <FeedingPage onBackToDashboard={() => setCurrentPage("home")} />}
+            {currentPage === "diseases" && <DiseasesPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
+            {currentPage === "feed" && <FeedingPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
             {currentPage === "calculators" && <CalculatorsPage onBackToDashboard={() => setCurrentPage("home")} />}
             {currentPage === "faq" && (
               <FaqSection onContactClick={() => setShowCallModal(true)} onBackToDashboard={() => setCurrentPage("home")} />

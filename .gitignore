@@ -6,4 +6,3 @@ coverage/
 *.log
 .env*
 !.env.example
-/.vs/mf.owncircles.com/CopilotIndices/17.14.1530.14912

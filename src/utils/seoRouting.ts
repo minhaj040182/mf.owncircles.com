@@ -77,11 +77,10 @@ export function parseUrlPath(pathnameOrHash: string, allVideos: Video[]): { page
 
   // Exact or legacy path matches
   if (normalized === "/" || normalized === "") return { page: "home", video: null };
-  if (normalized.includes("aquaponic") && !normalized.includes("aquaponics")) return { page: "ras", video: null };
-  if (normalized.includes("recirculating") || normalized.includes("ras")) return { page: "ras", video: null };
+  if (normalized.includes("aquaponics") || normalized.includes("aquaponic-farming")) return { page: "aquaponics", video: null };
+  if (normalized.includes("recirculating") || normalized.includes("ras") || normalized.includes("aquaponic")) return { page: "ras", video: null };
   if (normalized.includes("biofloc") || normalized.includes("bioflock")) return { page: "biofloc", video: null };
-  if (normalized.includes("aquaponics")) return { page: "aquaponics", video: null };
-  if (normalized.includes("hydroponic")) return { page: "hydroponics", video: null };
+  if (normalized.includes("hydroponic") || normalized.includes("soilless")) return { page: "hydroponics", video: null };
   if (normalized.includes("pond")) return { page: "pond", video: null };
   if (normalized.includes("disease")) return { page: "diseases", video: null };
   if (normalized.includes("feed")) return { page: "feed", video: null };
@@ -247,6 +246,7 @@ export function updateSeoMetadata(page: PageType, video?: Video | null) {
     canonical.setAttribute("rel", "canonical");
     document.head.appendChild(canonical);
   }
-  const fullUrl = `${window.location.origin}${getPathForPage(page, video)}`;
+  const relativePath = getPathForPage(page, video);
+  const fullUrl = `https://mf.owncircles.com${relativePath}`;
   canonical.setAttribute("href", fullUrl);
 }

@@ -1170,7 +1170,7 @@ export default function HydroponicsPage({ onVideoClick, onBackToDashboard }: Hyd
       </div>
 
       {/* YouTube Guide Carousel Slider Section */}
-      <div id="youtube-ras-slider" className="mt-12 pt-8 px-4 sm:px-6 lg:px-8 border-t border-slate-100 space-y-6 hidden">
+      <div id="youtube-ras-slider" className="mt-12 pt-8 px-4 sm:px-6 lg:px-8 border-t border-slate-100 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           <div>
             <div className="flex items-center gap-2 text-teal-700 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1">

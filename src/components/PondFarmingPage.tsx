@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { 
-  Sparkles, ChevronLeft, ArrowRight, Info, ShieldAlert, CheckCircle2,
-  HelpCircle, Droplet, Scale, Check, DollarSign, TrendingUp, AlertTriangle, Activity
+  Sparkles, ChevronLeft, ChevronRight, ArrowRight, Info, ShieldAlert, CheckCircle2,
+  HelpCircle, Droplet, Scale, Check, DollarSign, TrendingUp, AlertTriangle, Activity, Flame
 } from "lucide-react";
 import { Video } from "../types";
 import VideoCard from "./VideoCard";
@@ -96,6 +96,66 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
       likes: 980
     }
   ]);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollPosRef = useRef<number>(0);
+  const [isVideosHovered, setIsVideosHovered] = useState<boolean>(false);
+  const [showViralOnly, setShowViralOnly] = useState<boolean>(false);
+
+  const isVideoViral = (v: Video) => {
+    const viewsStr = v.views.toLowerCase();
+    if (viewsStr.includes("m")) return true;
+    const num = parseFloat(viewsStr);
+    if (!isNaN(num) && num >= 50) return true;
+    return false;
+  };
+
+  const scrollVideos = (direction: "left" | "right") => {
+    const el = scrollRef.current;
+    if (el) {
+      const scrollAmount = 340;
+      const newScrollLeft = direction === "left" 
+        ? el.scrollLeft - scrollAmount 
+        : el.scrollLeft + scrollAmount;
+      
+      el.scrollTo({
+        left: newScrollLeft,
+        behavior: "smooth"
+      });
+      scrollPosRef.current = newScrollLeft;
+    }
+  };
+
+  // Continuous smooth auto-scroll effect
+  useEffect(() => {
+    let animationFrameId: number;
+
+    const updateSliding = () => {
+      if (!isVideosHovered && scrollRef.current) {
+        const el = scrollRef.current;
+        const halfWidth = el.scrollWidth / 2;
+
+        if (halfWidth > 0) {
+          scrollPosRef.current += 0.8;
+
+          if (scrollPosRef.current >= halfWidth) {
+            scrollPosRef.current -= halfWidth;
+          } else if (scrollPosRef.current < 0) {
+            scrollPosRef.current += halfWidth;
+          }
+
+          el.scrollLeft = Math.round(scrollPosRef.current);
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(updateSliding);
+    };
+
+    animationFrameId = requestAnimationFrame(updateSliding);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isVideosHovered]);
 
   useEffect(() => {
     async function loadDynamicPondVideos() {
@@ -579,6 +639,98 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
             </div>
           </div>
         )}
+
+      {/* YouTube Guide Carousel Slider Section */}
+      <div id="youtube-pond-slider" className="mt-12 pt-8 px-2 sm:px-4 border-t border-slate-100 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-emerald-700 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 animate-pulse" />
+              <span>Educational Video Masterclasses</span>
+            </div>
+            <h3 className="font-sans font-black text-xl sm:text-2xl text-slate-900 tracking-tight">
+              Pond Farming Masterclasses
+            </h3>
+            <p className="text-slate-500 text-xs sm:text-sm">
+              Watch expert tutorials on earthen pond construction, water treatment, liming, and harvesting.
+            </p>
+          </div>
+
+          {/* Scroll Navigation Controls & Viral Filter */}
+          <div className="flex flex-wrap items-center justify-between sm:justify-end gap-2 sm:gap-2.5 w-full sm:w-auto">
+            <button
+              id="pond-viral-toggle-btn"
+              onClick={() => setShowViralOnly(!showViralOnly)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-sans text-xs font-bold transition-all border shrink-0 cursor-pointer ${
+                showViralOnly 
+                  ? "bg-amber-500 border-amber-500 text-white shadow-xs" 
+                  : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
+              }`}
+            >
+              <Flame className={`w-3.5 h-3.5 ${showViralOnly ? "fill-current animate-pulse text-red-100" : "text-amber-500"}`} />
+              <span>Only Viral (50K+)</span>
+              {showViralOnly && <Check className="w-3 h-3 stroke-[3px]" />}
+            </button>
+
+            <div className="flex items-center gap-1.5">
+              <button
+                id="pond-slide-left-btn"
+                onClick={() => scrollVideos("left")}
+                className="p-1.5 sm:p-2 rounded-xl border border-emerald-100 bg-white text-emerald-800 hover:bg-emerald-50 active:scale-95 transition-all shadow-xs cursor-pointer"
+                title="Scroll Left"
+              >
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+              <button
+                id="pond-slide-right-btn"
+                onClick={() => scrollVideos("right")}
+                className="p-1.5 sm:p-2 rounded-xl border border-emerald-100 bg-white text-emerald-800 hover:bg-emerald-50 active:scale-95 transition-all shadow-xs cursor-pointer"
+                title="Scroll Right"
+              >
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Scrolling Carousel */}
+        <div className="relative">
+          <div
+            id="pond-video-scroll-container"
+            ref={scrollRef}
+            onMouseEnter={() => setIsVideosHovered(true)}
+            onMouseLeave={() => setIsVideosHovered(false)}
+            onTouchStart={() => setIsVideosHovered(true)}
+            onTouchEnd={() => setIsVideosHovered(false)}
+            className="flex gap-3 sm:gap-5 overflow-x-auto pb-4 pt-1 scrollbar-thin scrollbar-thumb-emerald-100 scrollbar-track-transparent select-none animate-fade-in"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch', scrollBehavior: 'auto' }}
+          >
+            {(() => {
+              const displayedVideos = showViralOnly ? pondVideos.filter(isVideoViral) : pondVideos;
+              const listToRender = displayedVideos.length > 0 ? displayedVideos : pondVideos;
+              return [...listToRender, ...listToRender].map((video, index) => (
+                <div 
+                  key={`${video.id}-pond-clone-${index}`} 
+                  className="w-[240px] xs:w-[270px] sm:w-[320px] shrink-0"
+                >
+                  <VideoCard 
+                    video={video} 
+                    onVideoClick={(v) => {
+                      if (onVideoClick) {
+                        onVideoClick(v);
+                      }
+                    }} 
+                  />
+                </div>
+              ));
+            })()}
+          </div>
+          
+          {/* Fade Overlays */}
+          <div className="absolute top-0 bottom-4 left-0 w-8 bg-gradient-to-r from-slate-50/50 to-transparent pointer-events-none hidden sm:block"></div>
+          <div className="absolute top-0 bottom-4 right-0 w-8 bg-gradient-to-l from-slate-50/50 to-transparent pointer-events-none hidden sm:block"></div>
+        </div>
+      </div>
 
           </div>
           <div className="hidden xl:block shrink-0 sticky top-20">
