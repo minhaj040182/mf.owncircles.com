@@ -374,14 +374,14 @@ export default function App() {
 
             {/* Quick Links */}
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-sans text-slate-500">
-              <button onClick={() => handlePageChange("home")} className="hover:text-emerald-700 cursor-pointer">Home</button>
-              <button onClick={() => handlePageChange("ras")} className="hover:text-emerald-700 cursor-pointer">RAS</button>
-              <button onClick={() => handlePageChange("biofloc")} className="hover:text-emerald-700 cursor-pointer">Biofloc</button>
-              <button onClick={() => handlePageChange("aquaponics")} className="hover:text-emerald-700 cursor-pointer">Aquaponics</button>
-              <button onClick={() => handlePageChange("hydroponics")} className="hover:text-emerald-700 cursor-pointer">Hydroponics</button>
-              <button onClick={() => handlePageChange("calculators")} className="hover:text-emerald-700 cursor-pointer">Calculators</button>
-              <button onClick={() => handlePageChange("services")} className="hover:text-emerald-700 cursor-pointer">Services</button>
-              <button onClick={() => handlePageChange("about")} className="hover:text-emerald-700 cursor-pointer">About Us</button>
+              <a href="/" onClick={(e) => { e.preventDefault(); handlePageChange("home"); }} className="hover:text-emerald-700 cursor-pointer">Home</a>
+              <a href="/aquaponic" onClick={(e) => { e.preventDefault(); handlePageChange("ras"); }} className="hover:text-emerald-700 cursor-pointer">RAS</a>
+              <a href="/bioflock" onClick={(e) => { e.preventDefault(); handlePageChange("biofloc"); }} className="hover:text-emerald-700 cursor-pointer">Biofloc</a>
+              <a href="/aquaponics-farming" onClick={(e) => { e.preventDefault(); handlePageChange("aquaponics"); }} className="hover:text-emerald-700 cursor-pointer">Aquaponics</a>
+              <a href="/hydroponic" onClick={(e) => { e.preventDefault(); handlePageChange("hydroponics"); }} className="hover:text-emerald-700 cursor-pointer">Hydroponics</a>
+              <a href="/calculators" onClick={(e) => { e.preventDefault(); handlePageChange("calculators"); }} className="hover:text-emerald-700 cursor-pointer">Calculators</a>
+              <a href="/ourservices" onClick={(e) => { e.preventDefault(); handlePageChange("services"); }} className="hover:text-emerald-700 cursor-pointer">Services</a>
+              <a href="/about-us" onClick={(e) => { e.preventDefault(); handlePageChange("about"); }} className="hover:text-emerald-700 cursor-pointer">About Us</a>
               <a 
                 href="https://www.amazon.in/shop/trends0628/list/181W960PYPC2?tag=onamztrends06-21&ref_=aip_sf_list_spv_ons_mixed_d" 
                 target="_blank" 
@@ -390,8 +390,8 @@ export default function App() {
               >
                 Shopping
               </a>
-              <button onClick={() => handlePageChange("videos")} className="hover:text-red-700 font-bold text-red-600 cursor-pointer">Videos</button>
-              <button onClick={() => handlePageChange("privacy")} className="hover:text-emerald-700 cursor-pointer font-bold text-slate-700">Privacy Policy</button>
+              <a href="/farming-videos" onClick={(e) => { e.preventDefault(); handlePageChange("videos"); }} className="hover:text-red-700 font-bold text-red-600 cursor-pointer">Videos</a>
+              <a href="/privacy-policy" onClick={(e) => { e.preventDefault(); handlePageChange("privacy"); }} className="hover:text-emerald-700 cursor-pointer font-bold text-slate-700">Privacy Policy</a>
             </div>
 
           </div>

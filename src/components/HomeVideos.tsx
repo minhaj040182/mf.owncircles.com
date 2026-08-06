@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Video } from "../types";
-import { OWN_VIDEOS } from "../data";
+import { OWN_VIDEOS, TOP_INNOVATION_IDEAS } from "../data";
 import { 
   ChevronRight, 
   ArrowRight, 
@@ -33,7 +33,7 @@ export default function HomeVideos({ onVideoClick, onViewMore }: HomeVideosProps
   const [isIdeasHovered, setIsIdeasHovered] = useState(false);
 
   const [ownVideos, setOwnVideos] = useState<Video[]>(OWN_VIDEOS);
-  const [trendingVideos, setTrendingVideos] = useState<Video[]>([]);
+  const [trendingVideos, setTrendingVideos] = useState<Video[]>(TOP_INNOVATION_IDEAS);
 
   const [isLoadingOwn, setIsLoadingOwn] = useState(false);
   const [isLoadingIdeas, setIsLoadingIdeas] = useState(false);

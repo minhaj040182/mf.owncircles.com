@@ -209,7 +209,7 @@ const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 /**
  * Helper to get cached videos from localStorage if valid
  */
-function getPersistentCache(cacheKey: string): Video[] | null {
+function getPersistentCache(cacheKey: string, allowOwnVideos = false): Video[] | null {
   try {
     const raw = localStorage.getItem(cacheKey);
     if (!raw) return null;
@@ -217,6 +217,9 @@ function getPersistentCache(cacheKey: string): Video[] | null {
     if (data && Array.isArray(data.videos) && data.videos.length > 0) {
       const age = Date.now() - (data.timestamp || 0);
       if (age < CACHE_TTL_MS) {
+        if (allowOwnVideos) {
+          return data.videos;
+        }
         // Strictly filter out any Modern Fisheries videos from cached ideas
         const clean = data.videos.filter((v: Video) => !isModernFisheriesVideo(v));
         if (clean.length > 0) {
@@ -233,10 +236,10 @@ function getPersistentCache(cacheKey: string): Video[] | null {
 /**
  * Helper to save videos into localStorage cache
  */
-function setPersistentCache(cacheKey: string, videos: Video[]) {
+function setPersistentCache(cacheKey: string, videos: Video[], allowOwnVideos = false) {
   try {
-    // Filter out Modern Fisheries videos before caching
-    const cleanVideos = videos.filter(v => !isModernFisheriesVideo(v));
+    // Filter out Modern Fisheries videos before caching ONLY when caching ideas
+    const cleanVideos = allowOwnVideos ? videos : videos.filter(v => !isModernFisheriesVideo(v));
     const payload = {
       timestamp: Date.now(),
       videos: cleanVideos,
@@ -306,8 +309,8 @@ export async function fetchOwnChannelVideos(forceRefresh = false): Promise<Video
 
   // Check persistent localStorage cache unless forceRefresh is true
   if (!forceRefresh) {
-    const cached = getPersistentCache(cacheKey);
-    if (cached) {
+    const cached = getPersistentCache(cacheKey, true);
+    if (cached && cached.length > 0) {
       return cached;
     }
   }
@@ -372,7 +375,7 @@ export async function fetchOwnChannelVideos(forceRefresh = false): Promise<Video
     });
 
     if (liveVideos.length > 0) {
-      setPersistentCache(cacheKey, liveVideos);
+      setPersistentCache(cacheKey, liveVideos, true);
       return liveVideos;
     }
   } catch (err) {
@@ -404,7 +407,7 @@ export async function fetchTrendingTopicVideos(forceRefresh = false, searchQuery
 
   // 1. Check persistent localStorage cache first unless forceRefresh is true
   if (!forceRefresh) {
-    const cached = getPersistentCache(cacheKey);
+    const cached = getPersistentCache(cacheKey, false);
     if (cached && cached.length > 0) {
       // Strictly ensure no Modern Fisheries videos
       const cleanCached = cached.filter(v => !isModernFisheriesVideo(v));
@@ -499,11 +502,11 @@ export async function fetchTrendingTopicVideos(forceRefresh = false, searchQuery
   const cleanIdeas = liveIdeas.filter(v => !isModernFisheriesVideo(v));
 
   if (cleanIdeas.length > 0) {
-    setPersistentCache(cacheKey, cleanIdeas);
+    setPersistentCache(cacheKey, cleanIdeas, false);
     return cleanIdeas;
   }
 
-  return cleanIdeas;
+  return TOP_INNOVATION_IDEAS;
 }
 
 export async function fetchChannelVideosWithFallback(): Promise<Video[]> {

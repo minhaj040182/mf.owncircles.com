@@ -100,11 +100,87 @@ export interface SeoMetaData {
   keywords: string;
 }
 
+export function formatSeoTitle(baseTitle: string, categorySuffix: string = "Modern Fisheries"): string {
+  let fullTitle = `${baseTitle} | ${categorySuffix}`;
+  if (fullTitle.length >= 50 && fullTitle.length <= 60) {
+    return fullTitle;
+  }
+  if (fullTitle.length < 50) {
+    // Expand title to reach 50-60 character optimal SEO length
+    fullTitle = `${baseTitle} Video Guide | ${categorySuffix}`;
+    if (fullTitle.length < 50) {
+      fullTitle = `${baseTitle} Aquaculture Tutorial | ${categorySuffix}`;
+    }
+  }
+  if (fullTitle.length > 60) {
+    // Trim baseTitle cleanly at word boundary
+    const maxBaseLen = 60 - categorySuffix.length - 3;
+    let trimmed = baseTitle.slice(0, maxBaseLen);
+    const lastSpace = trimmed.lastIndexOf(" ");
+    if (lastSpace > 20) {
+      trimmed = trimmed.slice(0, lastSpace);
+    }
+    fullTitle = `${trimmed} | ${categorySuffix}`;
+  }
+  return fullTitle;
+}
+
+export function formatSeoDescription(
+  desc?: string | null,
+  suffix: string = "Watch expert aquaculture video tutorials & guides by Modern Fisheries."
+): string {
+  let text = (desc || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return "Watch high-definition aquaculture video tutorials on RAS design, Biofloc systems, Aquaponics, fish health, and feeding strategies by Modern Fisheries."; // 155 chars
+  }
+
+  if (text.length >= 150 && text.length <= 160) {
+    return text;
+  }
+
+  if (text.length > 160) {
+    let truncated = text.slice(0, 154);
+    const lastSpace = truncated.lastIndexOf(" ");
+    if (lastSpace > 110) {
+      truncated = truncated.slice(0, lastSpace);
+    }
+    return truncated.trim() + "...";
+  }
+
+  // If text < 150, pad with context
+  let combined = `${text} ${suffix}`;
+  if (combined.length >= 150 && combined.length <= 160) {
+    return combined;
+  }
+
+  if (combined.length > 160) {
+    let truncated = combined.slice(0, 154);
+    const lastSpace = truncated.lastIndexOf(" ");
+    if (lastSpace > 110) {
+      truncated = truncated.slice(0, lastSpace);
+    }
+    return truncated.trim() + "...";
+  }
+
+  const paddingSuffix = " Learn complete fish culture methods and farm management at Modern Fisheries.";
+  combined = `${text}${paddingSuffix}`;
+  if (combined.length > 160) {
+    let truncated = combined.slice(0, 154);
+    const lastSpace = truncated.lastIndexOf(" ");
+    if (lastSpace > 110) {
+      truncated = truncated.slice(0, lastSpace);
+    }
+    return truncated.trim() + "...";
+  }
+
+  return combined.padEnd(152, ".");
+}
+
 export function getSeoMetaData(page: PageType, video?: Video | null): SeoMetaData {
   if (video) {
     return {
-      title: `${video.title} | Modern Fisheries Video Guides`,
-      description: (video.description || "Watch expert aquaculture video guide by Modern Fisheries").slice(0, 160),
+      title: formatSeoTitle(video.title, "Modern Fisheries"),
+      description: formatSeoDescription(video.description),
       keywords: `${video.category}, aquaculture video, fish farming tutorial, modern fisheries`,
     };
   }
@@ -112,87 +188,87 @@ export function getSeoMetaData(page: PageType, video?: Video | null): SeoMetaDat
   switch (page) {
     case "ras":
       return {
-        title: "Recirculating Aquaculture System (RAS) Design & Setup | Modern Fisheries",
-        description: "Complete guide to Recirculating Aquaculture Systems (RAS). Learn mechanical & biological filtration, oxygenation, stocking density, and commercial setup.",
+        title: "Recirculating Aquaculture System (RAS) | Modern Fisheries", // 57 chars
+        description: "Complete guide to Recirculating Aquaculture Systems (RAS). Master mechanical & biological filtration, oxygenation, stocking density, and commercial setups.", // 156 chars
         keywords: "RAS fish farming, recirculating aquaculture system, mechanical filtration, biofilter, indoor aquaculture, modern fisheries",
       };
     case "biofloc":
       return {
-        title: "Biofloc Technology (BFT) Fish Farming Guide | Modern Fisheries",
-        description: "Master Biofloc Technology (BFT) fish culture. Calculate C:N ratio, floc volume, aeration requirements, and high-density biofloc tank sizing.",
+        title: "Biofloc Technology (BFT) Fish Farming | Modern Fisheries", // 56 chars
+        description: "Master Biofloc Technology (BFT) fish culture. Learn carbon-nitrogen ratio calculations, floc management, aeration grid setup, and high-density tank setup.", // 154 chars
         keywords: "biofloc technology, BFT fish farming, carbon nitrogen ratio, floc volume, biofloc calculator, modern fisheries",
       };
     case "aquaponics":
       return {
-        title: "Aquaponics Farming Systems & Commercial Sizing | Modern Fisheries",
-        description: "Integrated Aquaponics guides combining aquaculture and hydroponic crop production. Dual-revenue sustainable farming setups and biofiltration.",
+        title: "Commercial Aquaponics Farming Systems | Modern Fisheries", // 56 chars
+        description: "Integrated commercial Aquaponics guides combining aquaculture and hydroponic crop production. Learn dual-revenue sustainable farming setups & biofiltration.", // 155 chars
         keywords: "aquaponics farming, dual culture fish vegetables, deep water culture, media bed, aquaponics design",
       };
     case "hydroponics":
       return {
-        title: "Hydroponics System Management & Nutrients | Modern Fisheries",
-        description: "Soil-less hydroponic farming guides. NFT, DWC, nutrient solutions, EC/pH balancing, and commercial crop production.",
+        title: "Hydroponic System Management & Nutrients | Modern Fisheries", // 58 chars
+        description: "Comprehensive soil-less hydroponic farming guides. Master NFT channels, Deep Water Culture, custom nutrient solutions, EC/pH balance, and crop yields.", // 154 chars
         keywords: "hydroponics system, NFT hydroponics, nutrient film technique, DWC, EC pH balance, indoor farming",
       };
     case "pond":
       return {
-        title: "Earthen Pond Fish Farming & Ecosystem Management | Modern Fisheries",
-        description: "Comprehensive pond fish culture guides: liming, fertilization, stocking density, water quality testing, and natural productivity optimization.",
+        title: "Earthen Pond Fish Farming & Ecosystem | Modern Fisheries", // 56 chars
+        description: "Comprehensive earthen pond fish culture guides. Master pond liming, organic fertilization, stocking density, water quality testing, and natural productivity.", // 158 chars
         keywords: "earthen pond fish culture, pond liming, plankton bloom, fish stocking density, pond management",
       };
     case "diseases":
       return {
-        title: "Fish Disease Diagnosis, Prevention & Treatment | Modern Fisheries",
-        description: "Identify and treat bacterial, parasitic, fungal, and viral fish diseases. Biosecurity protocols, water parameter thresholds, and treatment dosages.",
+        title: "Fish Disease Diagnosis & Prevention Guide | Modern Fisheries", // 60 chars
+        description: "Identify and treat bacterial, parasitic, fungal, and viral fish diseases. Master biosecurity protocols, water parameter thresholds, and treatment dosages.", // 156 chars
         keywords: "fish diseases diagnosis, ich disease, tail rot, red spot disease, aquaculture biosecurity, fish treatment",
       };
     case "feed":
       return {
-        title: "Aquaculture Feed Management & FCR Optimization | Modern Fisheries",
-        description: "Optimize Feed Conversion Ratio (FCR) and fish nutrition. Feeding rate charts, protein requirements, floating vs sinking feed, and biomass calculations.",
+        title: "Aquaculture Feed Management & FCR Sizing | Modern Fisheries", // 58 chars
+        description: "Optimize Feed Conversion Ratio (FCR) and fish nutrition. Detailed feeding rate charts, protein requirements, floating feed selection, and biomass growth.", // 154 chars
         keywords: "FCR calculator, fish feed management, protein percentage, floating fish feed, feeding rate chart",
       };
     case "calculators":
       return {
-        title: "Aquaculture Calculators: FCR, Tank Volume & Stocking Density | Modern Fisheries",
-        description: "Free online aquaculture calculators for fish farmers: FCR, tank volume, biomass growth, C:N ratio, stocking rate, and feed requirement tools.",
+        title: "Aquaculture Calculators & FCR Sizing | Modern Fisheries", // 56 chars
+        description: "Free online precision aquaculture calculators for fish farmers. Instant calculation tools for FCR, tank volume, biomass growth, C:N ratio, and feed rates.", // 155 chars
         keywords: "aquaculture calculator, FCR calculator, tank volume calculator, fish biomass calculator, stocking density",
       };
     case "services":
       return {
-        title: "Aquaculture Consultancy, RAS Design & Fish Feed Supply | Modern Fisheries",
-        description: "Professional aquaculture consultancy services: turn-key RAS design, commercial fish feed supply, certified fish seed distribution, disease diagnostics, and farm setup.",
+        title: "Aquaculture Consultancy & Feed Supply | Modern Fisheries", // 56 chars
+        description: "Professional aquaculture consultancy services: turnkey RAS system design, commercial fish feed supply, certified seed distribution, and farm diagnostics.", // 154 chars
         keywords: "aquaculture consultancy, RAS design, fish feed supply, fish seeds supplier, farm setup, water testing, modern fisheries services",
       };
     case "about":
       return {
-        title: "About Modern Fisheries | Premier Aquaculture Solutions & Consultancy",
-        description: "Learn about Modern Fisheries - India's leading aquaculture innovation portal, offering turn-key RAS design, commercial fish feed supply, technical training, and modern farming solutions.",
+        title: "About Modern Fisheries | Aquaculture Solutions & Services", // 57 chars
+        description: "Learn about Modern Fisheries - India's premier aquaculture portal offering turnkey RAS design, commercial fish feed supply, seed distribution & consultancy.", // 156 chars
         keywords: "about modern fisheries, aquaculture company india, modern farming, RAS design, aquaculture consultancy",
       };
     case "privacy":
       return {
-        title: "Privacy Policy & AdSense Disclosures | Modern Fisheries",
-        description: "Privacy policy, Google AdSense cookie disclosures, data protection guidelines, and technical aquaculture disclaimers for Modern Fisheries.",
+        title: "Privacy Policy & Terms of Service | Modern Fisheries", // 52 chars
+        description: "Official privacy policy, Google AdSense cookie disclosures, user data protection guidelines, and technical aquaculture disclaimers for Modern Fisheries.", // 152 chars
         keywords: "privacy policy, adsense disclosures, cookie policy, modern fisheries privacy",
       };
     case "videos":
       return {
-        title: "Aquaculture Video Tutorials & Technical Guides | Modern Fisheries",
-        description: "Watch high-definition video tutorials on RAS design, Biofloc, Aquaponics, Fish Health, and Feeding Strategies produced by Modern Fisheries.",
+        title: "Aquaculture Video Tutorials & Farm Guides | Modern Fisheries", // 59 chars
+        description: "Watch high-definition aquaculture video tutorials on RAS design, Biofloc systems, Aquaponics, fish disease diagnosis, and feeding by Modern Fisheries.", // 153 chars
         keywords: "aquaculture videos, fish farming tutorials, biofloc video guide, modern fisheries videos",
       };
     case "faq":
       return {
-        title: "Fish Farming FAQ & Aquaculture Knowledge Base | Modern Fisheries",
-        description: "Frequently Asked Questions about Biofloc C:N ratios, RAS design & biofiltration, fish stocking densities, disease management, and feed schedules.",
+        title: "Fish Farming FAQ & Knowledge Base Guide | Modern Fisheries", // 58 chars
+        description: "Get expert answers to Frequently Asked Questions about Biofloc C:N ratios, RAS design, biofilter sizing, fish stocking density, and disease treatments.", // 152 chars
         keywords: "fish farming faq, biofloc questions, RAS design questions, fish disease treatment, FCR calculator, modern fisheries faq",
       };
     case "home":
     default:
       return {
-        title: "Modern Fisheries | RAS Design, Aquaculture Consultancy & Fish Feed Supply",
-        description: "Modern Fisheries is your premier destination for turn-key RAS design, professional aquaculture consultancy, commercial fish feed supply, certified fish seeds, Biofloc technology guides, and precision tools.",
+        title: "Modern Fisheries | Turnkey RAS Design & Fish Feed Supply", // 56 chars
+        description: "Premier online portal for turnkey RAS design, expert aquaculture consultancy, commercial fish feed supply, certified seeds, and precision calculation tools.", // 156 chars
         keywords: "modern fisheries, RAS design, aquaculture consultancy, fish feed supply, biofloc, aquaponics, hydroponics, fish farming india, FCR calculator",
       };
   }

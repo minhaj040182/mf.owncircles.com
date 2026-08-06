@@ -225,10 +225,31 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
           >
             {navItems.map((item) => {
               const Icon = item.icon;
+              const pathMap: Record<string, string> = {
+                home: "/",
+                ras: "/aquaponic",
+                biofloc: "/bioflock",
+                aquaponics: "/aquaponics-farming",
+                hydroponics: "/hydroponic",
+                pond: "/pond-farming",
+                diseases: "/fish-diseases",
+                feed: "/feeding-management",
+                calculators: "/calculators",
+                faq: "/frequently-asked-questions",
+                services: "/ourservices",
+                about: "/about-us",
+                privacy: "/privacy-policy",
+                videos: "/farming-videos",
+              };
+              const hrefPath = pathMap[item.id] || "/";
               return (
-                <button
+                <a
                   key={item.id}
-                  onClick={() => handleNavClick(item.id)}
+                  href={hrefPath}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.id);
+                  }}
                   className={`px-3 py-1.5 rounded-lg sm:rounded-xl font-sans text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0 ${
                     currentPage === item.id 
                       ? "bg-white text-[#1877F2] shadow-xs" 
@@ -237,7 +258,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
                 >
                   <Icon className="w-3.5 h-3.5 shrink-0" />
                   <span>{item.label}</span>
-                </button>
+                </a>
               );
             })}
           </div>
@@ -316,10 +337,31 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
           <div className="grid grid-cols-2 gap-1.5">
             {navItems.map((item) => {
               const Icon = item.icon;
+              const pathMap: Record<string, string> = {
+                home: "/",
+                ras: "/aquaponic",
+                biofloc: "/bioflock",
+                aquaponics: "/aquaponics-farming",
+                hydroponics: "/hydroponic",
+                pond: "/pond-farming",
+                diseases: "/fish-diseases",
+                feed: "/feeding-management",
+                calculators: "/calculators",
+                faq: "/frequently-asked-questions",
+                services: "/ourservices",
+                about: "/about-us",
+                privacy: "/privacy-policy",
+                videos: "/farming-videos",
+              };
+              const hrefPath = pathMap[item.id] || "/";
               return (
-                <button
+                <a
                   key={`drawer-${item.id}`}
-                  onClick={() => handleNavClick(item.id)}
+                  href={hrefPath}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.id);
+                  }}
                   className={`text-left flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                     currentPage === item.id 
                       ? "bg-white text-[#1877F2]" 
@@ -328,7 +370,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
                 >
                   <Icon className="w-3.5 h-3.5 shrink-0" />
                   <span className="truncate">{item.label}</span>
-                </button>
+                </a>
               );
             })}
           </div>
