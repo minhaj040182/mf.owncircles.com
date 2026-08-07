@@ -274,15 +274,38 @@ function renderCustomPageHtml(baseHtml, meta) {
   }
 
   // Pre-render lightweight semantic HTML inside <div id="root">
-  const rootContent = `
+  if (meta.path !== '/') {
+    const rootContent = `
     <div id="root">
-      <div style="max-w-4xl:800px;margin:0 auto;padding:32px 16px;font-family:system-ui,-apple-system,sans-serif;color:#1e293b;line-height:1.6;">
-        <h1 style="font-size:28px;font-weight:700;color:#0f172a;margin-bottom:12px;">${escapeHtml(meta.h1 || meta.title)}</h1>
-        <p style="font-size:16px;color:#475569;margin-bottom:24px;">${escapeHtml(meta.bodyText || meta.description)}</p>
+      <div style="max-width:1200px;margin:0 auto;padding:32px 20px;font-family:system-ui,-apple-system,sans-serif;color:#1e293b;line-height:1.6;">
+        <header style="border-bottom:2px solid #e2e8f0;padding-bottom:16px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+          <a href="/" style="text-decoration:none;"><span style="font-size:24px;font-weight:800;color:#0f172a;">Modern Fisheries</span></a>
+          <nav style="display:flex;gap:10px;flex-wrap:wrap;font-size:14px;font-weight:600;">
+            <a href="/" style="color:#0284c7;text-decoration:none;">Home</a>
+            <a href="/aquaponics-farming" style="color:#0284c7;text-decoration:none;">Aquaponics</a>
+            <a href="/bioflock" style="color:#0284c7;text-decoration:none;">Biofloc</a>
+            <a href="/aquaponic" style="color:#0284c7;text-decoration:none;">RAS</a>
+            <a href="/calculators" style="color:#0284c7;text-decoration:none;">Calculators</a>
+            <a href="/ourservices" style="color:#0284c7;text-decoration:none;">Services</a>
+          </nav>
+        </header>
+        <main>
+          <h1 style="font-size:30px;font-weight:800;color:#0f172a;margin-bottom:16px;letter-spacing:-0.5px;">${escapeHtml(meta.h1 || meta.title)}</h1>
+          <p style="font-size:17px;color:#334155;margin-bottom:24px;line-height:1.7;">${escapeHtml(meta.bodyText || meta.description)}</p>
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:20px;border-radius:10px;margin-bottom:28px;">
+            <h2 style="font-size:18px;font-weight:700;color:#0369a1;margin:0 0 8px 0;">Aquaculture Operations &amp; Technical Support</h2>
+            <p style="font-size:15px;color:#475569;margin:0 0 12px 0;">Explore Modern Fisheries turnkey consultancy, commercial floating feed supply, certified fingerling stocking, and online calculation tools.</p>
+            <a href="/ourservices" style="color:#0284c7;font-weight:600;text-decoration:none;">View All Services &amp; Consultation &rarr;</a>
+          </div>
+        </main>
+        <footer style="border-top:1px solid #e2e8f0;padding-top:20px;margin-top:32px;color:#64748b;font-size:14px;">
+          Modern Fisheries &copy; Turnkey Aquaculture Portal. Phone: +91 97489 52342
+        </footer>
       </div>
     </div>`.trim();
 
-  html = html.replace(/<div id="root"><\/div>/s, rootContent);
+    html = html.replace(/<div id="root">[\s\S]*?<\/div>\s*<\/body>/s, `${rootContent}\n  </body>`);
+  }
 
   return html;
 }
