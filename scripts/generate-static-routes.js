@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const BASE_URL = 'https://mf.owncircles.com';
+const BASE_URL = 'https://modernfisheriese.com';
 const TODAY = new Date().toISOString().split('T')[0];
 
 const distDir = path.resolve('dist');

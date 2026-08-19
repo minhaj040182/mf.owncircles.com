@@ -160,7 +160,7 @@ export default function App() {
                   <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-emerald-950/80 to-slate-950/90 z-0"></div>
                   <img 
                     src="banner.png" 
-                    alt="Modern Fisheries Water Pond"
+                    alt="Modern Fisheries RAS design for commercial fish farming, Biofloc technology tanks, and precision feeding systems"
                     className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30 z-0"
                     onError={(e) => {
                       e.currentTarget.src = "https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?auto=format&fit=crop&w=1600&q=80";
@@ -395,9 +395,13 @@ export default function App() {
               <a href="/bioflock" onClick={(e) => { e.preventDefault(); handlePageChange("biofloc"); }} className="hover:text-emerald-700 cursor-pointer">Biofloc</a>
               <a href="/aquaponics-farming" onClick={(e) => { e.preventDefault(); handlePageChange("aquaponics"); }} className="hover:text-emerald-700 cursor-pointer">Aquaponics</a>
               <a href="/hydroponic" onClick={(e) => { e.preventDefault(); handlePageChange("hydroponics"); }} className="hover:text-emerald-700 cursor-pointer">Hydroponics</a>
+              <a href="/pond-farming" onClick={(e) => { e.preventDefault(); handlePageChange("pond"); }} className="hover:text-emerald-700 cursor-pointer">Pond Farming</a>
+              <a href="/fish-diseases" onClick={(e) => { e.preventDefault(); handlePageChange("diseases"); }} className="hover:text-emerald-700 cursor-pointer">Fish Diseases</a>
+              <a href="/feeding-management" onClick={(e) => { e.preventDefault(); handlePageChange("feed"); }} className="hover:text-emerald-700 cursor-pointer">Feeding</a>
               <a href="/calculators" onClick={(e) => { e.preventDefault(); handlePageChange("calculators"); }} className="hover:text-emerald-700 cursor-pointer">Calculators</a>
               <a href="/ourservices" onClick={(e) => { e.preventDefault(); handlePageChange("services"); }} className="hover:text-emerald-700 cursor-pointer">Services</a>
               <a href="/about-us" onClick={(e) => { e.preventDefault(); handlePageChange("about"); }} className="hover:text-emerald-700 cursor-pointer">About Us</a>
+              <a href="/frequently-asked-questions" onClick={(e) => { e.preventDefault(); handlePageChange("faq"); }} className="hover:text-emerald-700 cursor-pointer">FAQ</a>
               <a 
                 href="https://www.amazon.in/shop/trends0628/list/181W960PYPC2?tag=onamztrends06-21&ref_=aip_sf_list_spv_ons_mixed_d" 
                 target="_blank" 

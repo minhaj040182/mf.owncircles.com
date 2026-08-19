@@ -431,6 +431,9 @@ export function updateSeoMetadata(page: PageType, video?: Video | null) {
     document.head.appendChild(canonical);
   }
   const relativePath = getPathForPage(page, video);
-  const fullUrl = `https://mf.owncircles.com${relativePath}`;
+  const currentOrigin = typeof window !== "undefined" && window.location.origin && !window.location.origin.includes("localhost") && !window.location.origin.includes("run.app")
+    ? window.location.origin
+    : "https://modernfisheriese.com";
+  const fullUrl = `${currentOrigin}${relativePath}`;
   canonical.setAttribute("href", fullUrl);
 }

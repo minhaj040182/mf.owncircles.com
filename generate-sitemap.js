@@ -9,7 +9,7 @@ import path from 'path';
  * excluding decommissioned PDF ebooks, legacy aliases, and 404/410 endpoints.
  */
 
-const BASE_URL = 'https://mf.owncircles.com';
+const BASE_URL = 'https://modernfisheriese.com';
 const TODAY = new Date().toISOString().split('T')[0];
 
 // Helper for SEO Slug generation matching application routing

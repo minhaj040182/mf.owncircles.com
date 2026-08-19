@@ -117,7 +117,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
             <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
               <img 
                 src="logo1.png" 
-                alt="Modern Fisheries" 
+                alt="Modern Fisheries logo - Certified fish feed supplier and turnkey RAS aquaculture consultancy in India" 
                 className="w-full h-full object-contain rounded-full border border-white/20 bg-white" 
                 onError={(e) => {
                   e.currentTarget.style.display = "none";
