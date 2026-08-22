@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const BASE_URL = 'https://mf.owncircles.com';
+const BASE_URL = 'https://modernfisheriese.com';
 const TODAY = new Date().toISOString().split('T')[0];
 
 const distDir = path.resolve('dist');
@@ -62,9 +62,9 @@ const PAGE_METADATA = [
     isPrimary: true
   },
   {
-    path: '/aquaponics-farming',
-    aliases: ['/aquaponics', '/aquaponic-farming'],
-    canonical: `${BASE_URL}/aquaponics-farming`,
+    path: '/aquaponics/',
+    aliases: ['/aquaponics-farming', '/aquaponic-farming'],
+    canonical: `${BASE_URL}/aquaponics/`,
     title: 'Commercial Aquaponics Farming Systems | Modern Fisheries',
     description: 'Integrated commercial Aquaponics guides combining aquaculture and hydroponic crop production. Learn dual-revenue sustainable farming setups & biofiltration.', // 155 chars
     keywords: 'aquaponics farming, dual culture fish vegetables, deep water culture, bell siphon, media bed, aquaponics design, commercial aquaponics',
@@ -75,9 +75,9 @@ const PAGE_METADATA = [
     isPrimary: true
   },
   {
-    path: '/bioflock',
-    aliases: ['/biofloc-farming', '/biofloc'],
-    canonical: `${BASE_URL}/bioflock`,
+    path: '/biofloc/',
+    aliases: ['/biofloc-farming', '/bioflock'],
+    canonical: `${BASE_URL}/biofloc/`,
     title: 'Biofloc Technology (BFT) Fish Farming | Modern Fisheries',
     description: 'Master Biofloc Technology (BFT) fish culture. Learn carbon-nitrogen ratio calculations, floc management, aeration grid setup, and high-density tank setup.', // 154 chars
     keywords: 'biofloc technology, BFT fish farming, carbon nitrogen ratio, floc volume, biofloc calculator, tarpaulin tank, modern fisheries',
@@ -88,9 +88,9 @@ const PAGE_METADATA = [
     isPrimary: true
   },
   {
-    path: '/aquaponic',
-    aliases: ['/ras-farming', '/ras'],
-    canonical: `${BASE_URL}/aquaponic`,
+    path: '/ras/',
+    aliases: ['/ras-farming', '/aquaponic'],
+    canonical: `${BASE_URL}/ras/`,
     title: 'Recirculating Aquaculture System (RAS) | Modern Fisheries',
     description: 'Complete guide to Recirculating Aquaculture Systems (RAS). Master mechanical & biological filtration, oxygenation, stocking density, and commercial setups.', // 156 chars
     keywords: 'RAS fish farming, recirculating aquaculture system, mechanical filtration, biofilter, drum filter, indoor aquaculture, modern fisheries',
@@ -101,9 +101,9 @@ const PAGE_METADATA = [
     isPrimary: true
   },
   {
-    path: '/hydroponic',
-    aliases: ['/hydroponics-farming', '/hydroponics'],
-    canonical: `${BASE_URL}/hydroponic`,
+    path: '/hydroponics/',
+    aliases: ['/hydroponics-farming', '/hydroponic'],
+    canonical: `${BASE_URL}/hydroponics/`,
     title: 'Hydroponic System Management & Nutrients | Modern Fisheries',
     description: 'Comprehensive soil-less hydroponic farming guides. Master NFT channels, Deep Water Culture, custom nutrient solutions, EC/pH balance, and crop yields.', // 154 chars
     keywords: 'hydroponics system, NFT hydroponics, nutrient film technique, DWC, EC pH balance, indoor farming, soilless culture, modern fisheries',
@@ -166,9 +166,9 @@ const PAGE_METADATA = [
     isPrimary: true
   },
   {
-    path: '/ourservices',
+    path: '/ourservices/',
     aliases: ['/services', '/shopping', '/shop'],
-    canonical: `${BASE_URL}/ourservices`,
+    canonical: `${BASE_URL}/ourservices/`,
     title: 'Aquaculture Consultancy & Feed Supply | Modern Fisheries',
     description: 'Professional aquaculture consultancy services: turnkey RAS system design, commercial fish feed supply, certified seed distribution, and farm diagnostics.', // 154 chars
     keywords: 'aquaculture consultancy, RAS design, fish feed supply, fish seeds supplier, farm setup, water testing, modern fisheries services',
@@ -192,9 +192,9 @@ const PAGE_METADATA = [
     isPrimary: true
   },
   {
-    path: '/farming-videos',
+    path: '/farming-videos/',
     aliases: ['/videos'],
-    canonical: `${BASE_URL}/farming-videos`,
+    canonical: `${BASE_URL}/farming-videos/`,
     title: 'Aquaculture Video Tutorials & Farm Guides | Modern Fisheries',
     description: 'Watch high-definition aquaculture video tutorials on RAS design, Biofloc systems, Aquaponics, fish disease diagnosis, and feeding by Modern Fisheries.', // 153 chars
     keywords: 'aquaculture videos, fish farming tutorials, biofloc video guide, modern fisheries videos',
@@ -205,9 +205,9 @@ const PAGE_METADATA = [
     isPrimary: true
   },
   {
-    path: '/frequently-asked-questions',
+    path: '/frequently-asked-questions/',
     aliases: ['/faq'],
-    canonical: `${BASE_URL}/frequently-asked-questions`,
+    canonical: `${BASE_URL}/frequently-asked-questions/`,
     title: 'Fish Farming FAQ & Knowledge Base Guide | Modern Fisheries',
     description: 'Get expert answers to Frequently Asked Questions about Biofloc C:N ratios, RAS design, biofilter sizing, fish stocking density, and disease treatments.', // 152 chars
     keywords: 'fish farming faq, biofloc questions, RAS design questions, fish disease treatment, FCR calculator, modern fisheries faq',
@@ -282,9 +282,9 @@ function renderCustomPageHtml(baseHtml, meta) {
           <a href="/" style="text-decoration:none;"><span style="font-size:24px;font-weight:800;color:#0f172a;">Modern Fisheries</span></a>
           <nav style="display:flex;gap:10px;flex-wrap:wrap;font-size:14px;font-weight:600;">
             <a href="/" style="color:#0284c7;text-decoration:none;">Home</a>
-            <a href="/aquaponics-farming" style="color:#0284c7;text-decoration:none;">Aquaponics</a>
-            <a href="/bioflock" style="color:#0284c7;text-decoration:none;">Biofloc</a>
-            <a href="/aquaponic" style="color:#0284c7;text-decoration:none;">RAS</a>
+            <a href="/aquaponics/" style="color:#0284c7;text-decoration:none;">Aquaponics</a>
+            <a href="/biofloc/" style="color:#0284c7;text-decoration:none;">Biofloc</a>
+            <a href="/ras/" style="color:#0284c7;text-decoration:none;">RAS</a>
             <a href="/calculators" style="color:#0284c7;text-decoration:none;">Calculators</a>
             <a href="/ourservices" style="color:#0284c7;text-decoration:none;">Services</a>
           </nav>

@@ -158,13 +158,13 @@ export default function App({ initialPath }: AppProps) {
                           <Phone className="w-4 h-4 text-white animate-bounce shrink-0" />
                           <span>Contact Desk (+919748952342)</span>
                         </button>
-                        <button
-                          onClick={() => handlePageChange("calculators")}
+                        <a
+                          href="/calculators/"
                           className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl font-sans font-bold text-xs sm:text-sm transition-all active:scale-95 cursor-pointer backdrop-blur-xs"
                         >
                           <Calculator className="w-4 h-4 text-yellow-300 shrink-0" />
                           <span>Calculators Lab</span>
-                        </button>
+                        </a>
                         <a
                           href="https://www.amazon.in/shop/trends0628/list/181W960PYPC2?tag=onamztrends06-21&ref_=aip_sf_list_spv_ons_mixed_d"
                           target="_blank"
@@ -175,13 +175,13 @@ export default function App({ initialPath }: AppProps) {
                           <span>Shopping</span>
                           <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-70" />
                         </a>
-                        <button
-                          onClick={() => handlePageChange("videos")}
+                        <a
+                          href="/farming-videos/"
                           className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-sans font-bold text-xs sm:text-sm transition-all active:scale-95 cursor-pointer shadow-md"
                         >
                           <VideoIcon className="w-4 h-4 text-white shrink-0" />
                           <span>Videos</span>
-                        </button>
+                        </a>
                       </div>
 
                     </div>
@@ -352,17 +352,17 @@ export default function App({ initialPath }: AppProps) {
             {/* Quick Links */}
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-sans text-slate-500">
               <a href="/" className="hover:text-emerald-700 cursor-pointer">Home</a>
-              <a href="/ras-farming" className="hover:text-emerald-700 cursor-pointer">RAS</a>
-              <a href="/bioflock" className="hover:text-emerald-700 cursor-pointer">Biofloc</a>
-              <a href="/aquaponics-farming" className="hover:text-emerald-700 cursor-pointer">Aquaponics</a>
-              <a href="/hydroponic" className="hover:text-emerald-700 cursor-pointer">Hydroponics</a>
-              <a href="/pond-farming" className="hover:text-emerald-700 cursor-pointer">Pond Farming</a>
-              <a href="/fish-diseases" className="hover:text-emerald-700 cursor-pointer">Fish Diseases</a>
-              <a href="/feeding-management" className="hover:text-emerald-700 cursor-pointer">Feeding</a>
-              <a href="/calculators" className="hover:text-emerald-700 cursor-pointer">Calculators</a>
-              <a href="/services" className="hover:text-emerald-700 cursor-pointer">Services</a>
-              <a href="/about-us" className="hover:text-emerald-700 cursor-pointer">About Us</a>
-              <a href="/faq" className="hover:text-emerald-700 cursor-pointer">FAQ</a>
+              <a href="/ras/" className="hover:text-emerald-700 cursor-pointer">RAS</a>
+              <a href="/biofloc/" className="hover:text-emerald-700 cursor-pointer">Biofloc</a>
+              <a href="/aquaponics/" className="hover:text-emerald-700 cursor-pointer">Aquaponics</a>
+              <a href="/hydroponics/" className="hover:text-emerald-700 cursor-pointer">Hydroponics</a>
+              <a href="/pond-farming/" className="hover:text-emerald-700 cursor-pointer">Pond Farming</a>
+              <a href="/fish-diseases/" className="hover:text-emerald-700 cursor-pointer">Fish Diseases</a>
+              <a href="/feeding-management/" className="hover:text-emerald-700 cursor-pointer">Feeding</a>
+              <a href="/calculators/" className="hover:text-emerald-700 cursor-pointer">Calculators</a>
+              <a href="/ourservices/" className="hover:text-emerald-700 cursor-pointer">Services</a>
+              <a href="/about-us/" className="hover:text-emerald-700 cursor-pointer">About Us</a>
+              <a href="/frequently-asked-questions/" className="hover:text-emerald-700 cursor-pointer">FAQ</a>
               <a 
                 href="https://www.amazon.in/shop/trends0628/list/181W960PYPC2?tag=onamztrends06-21&ref_=aip_sf_list_spv_ons_mixed_d" 
                 target="_blank" 
@@ -371,8 +371,8 @@ export default function App({ initialPath }: AppProps) {
               >
                 Shopping
               </a>
-              <a href="/videos" className="hover:text-red-700 font-bold text-red-600 cursor-pointer">Videos</a>
-              <a href="/privacy-policy" className="hover:text-emerald-700 cursor-pointer font-bold text-slate-700">Privacy Policy</a>
+              <a href="/farming-videos/" className="hover:text-red-700 font-bold text-red-600 cursor-pointer">Videos</a>
+              <a href="/privacy-policy/" className="hover:text-emerald-700 cursor-pointer font-bold text-slate-700">Privacy Policy</a>
             </div>
 
           </div>
@@ -381,45 +381,45 @@ export default function App({ initialPath }: AppProps) {
 
       {/* Sticky Mobile Bottom Navigation Dock (1-thumb touch navigation on phones) */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-slate-200/90 shadow-xl px-2 py-1.5 flex items-center justify-around text-slate-600">
-        <button
-          onClick={() => handlePageChange("home")}
+        <a
+          href="/"
           className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-all ${
             currentPage === "home" ? "text-emerald-700 font-bold bg-emerald-50" : "hover:text-slate-900"
           }`}
         >
           <Home className="w-5 h-5 shrink-0" />
           <span className="text-[10px]">Home</span>
-        </button>
+        </a>
 
-        <button
-          onClick={() => handlePageChange("calculators")}
+        <a
+          href="/calculators/"
           className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-all ${
             currentPage === "calculators" ? "text-emerald-700 font-bold bg-emerald-50" : "hover:text-slate-900"
           }`}
         >
           <Calculator className="w-5 h-5 shrink-0" />
           <span className="text-[10px]">Calculators</span>
-        </button>
+        </a>
 
-        <button
-          onClick={() => handlePageChange("ras")}
+        <a
+          href="/ras/"
           className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-all ${
             currentPage === "ras" ? "text-emerald-700 font-bold bg-emerald-50" : "hover:text-slate-900"
           }`}
         >
           <Waves className="w-5 h-5 shrink-0" />
           <span className="text-[10px]">RAS</span>
-        </button>
+        </a>
 
-        <button
-          onClick={() => handlePageChange("biofloc")}
+        <a
+          href="/biofloc/"
           className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-all ${
             currentPage === "biofloc" ? "text-emerald-700 font-bold bg-emerald-50" : "hover:text-slate-900"
           }`}
         >
           <Sprout className="w-5 h-5 shrink-0" />
           <span className="text-[10px]">Biofloc</span>
-        </button>
+        </a>
 
         <button
           onClick={() => setShowCallModal(true)}

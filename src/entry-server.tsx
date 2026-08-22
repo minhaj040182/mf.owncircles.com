@@ -32,9 +32,9 @@ export function render(path: string) {
 
 export function getStaticPaths() {
   const mainPaths = [
-    "/", "/ras-farming", "/bioflock", "/aquaponics-farming", "/hydroponic",
-    "/pond-farming", "/fish-diseases", "/feeding-management", "/calculators",
-    "/services", "/videos", "/faq", "/about-us", "/privacy-policy",
+    "/", "/ras/", "/biofloc/", "/aquaponics/", "/hydroponics/",
+    "/pond-farming/", "/fish-diseases/", "/feeding-management/", "/calculators/",
+    "/ourservices/", "/farming-videos/", "/frequently-asked-questions/", "/about-us/", "/privacy-policy/",
   ];
   const videoPaths = ALL_VIDEOS.map((video) => getPathForPage("videos", video));
   return [...mainPaths, ...videoPaths];
@@ -59,6 +59,13 @@ export function getDocumentData(path: string) {
         "https://www.youtube.com/channel/UChChDXzRMI9g1lgcTo5KA3A",
         "https://www.facebook.com/modernfisheries/",
       ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: `${SITE_URL}/`,
+      name: "Modern Fisheries",
+      publisher: { "@id": `${SITE_URL}/#organization` },
     },
     {
       "@type": route.page === "services" ? "Service" : route.video ? "VideoObject" : "WebPage",
