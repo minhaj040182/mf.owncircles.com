@@ -1,9 +1,17 @@
 node_modules/
 build/
 dist/
+.ssr/
 coverage/
 .DS_Store
 *.log
 .env*
 !.env.example
+/.vs/mf.owncircles.com/config
+/.vs/mf.owncircles.com/CopilotIndices/17.14.1530.14912
+/.vs/mf.owncircles.com/FileContentIndex
+/.vs/mf.owncircles.com/v17/.wsuo
+/.vs/mf.owncircles.com/v17/DocumentLayout.backup.json
+/.vs/mf.owncircles.com/v17/DocumentLayout.json
+/.vs
 /.vs

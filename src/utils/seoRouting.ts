@@ -59,7 +59,7 @@ export function createSlug(text: string): string {
 
 export const PAGE_SEO_PATHS: Record<PageType, string> = {
   home: "/",
-  ras: "/aquaponic",
+  ras: "/ras-farming",
   biofloc: "/bioflock",
   aquaponics: "/aquaponics-farming",
   hydroponics: "/hydroponic",
@@ -67,11 +67,11 @@ export const PAGE_SEO_PATHS: Record<PageType, string> = {
   diseases: "/fish-diseases",
   feed: "/feeding-management",
   calculators: "/calculators",
-  services: "/ourservices",
+  services: "/services",
   about: "/about-us",
   privacy: "/privacy-policy",
-  videos: "/farming-videos",
-  faq: "/frequently-asked-questions",
+  videos: "/videos",
+  faq: "/faq",
   "404": "/404",
   "410": "/410",
 };

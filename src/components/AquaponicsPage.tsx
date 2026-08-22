@@ -14,6 +14,7 @@ import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
 import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
+import aquaponicsDiagramUrl from "../assets/images/aquaponic_diagram_1784222908220.jpg";
 
 const isVideoViral = (v: Video) => {
   const viewsStr = v.views.toLowerCase();
@@ -863,7 +864,7 @@ export default function AquaponicsPage({ onVideoClick, onBackToDashboard }: Aqua
                 <div className="lg:col-span-6 space-y-3 sm:space-y-4">
                   <div className="bg-white p-2.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden group">
                     <img 
-                      src="/src/assets/images/aquaponic_diagram_1784222908220.jpg" 
+                      src={aquaponicsDiagramUrl}
                       alt="Aquaponics System Schematic Diagram" 
                       referrerPolicy="no-referrer"
                       className="w-full h-auto rounded-xl sm:rounded-2xl object-cover border border-slate-100"

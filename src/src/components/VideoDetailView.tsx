@@ -122,48 +122,11 @@ export default function VideoDetailView({ video, relatedVideos, onBack, onSelect
                 {/* Centered Ad Frame matching 728x90 leaderboard spec */}
                 <div className="w-full flex items-center justify-center overflow-hidden py-0.5">
                   <div className="relative w-full max-w-[728px] aspect-[728/90] flex items-center justify-center overflow-hidden">
-                    <div className="absolute w-[728px] h-[90px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 origin-center transform scale-[0.38] min-[400px]:scale-[0.5] sm:scale-[0.72] md:scale-[0.85] lg:scale-100 flex items-center justify-center">
-                      <iframe
-                        key={`video-player-ad-${video.id}`}
-                        title="Video Player Advertisement"
-                        srcDoc={`
-                          <!DOCTYPE html>
-                          <html>
-                            <head>
-                              <meta charset="utf-8">
-                              <style>
-                                body { 
-                                  margin: 0; 
-                                  padding: 0; 
-                                  display: flex; 
-                                  justify-content: center; 
-                                  align-items: center; 
-                                  background-color: transparent; 
-                                  height: 100vh;
-                                  overflow: hidden;
-                                }
-                              </style>
-                            </head>
-                            <body>
-                              <script type="text/javascript">
-                                atOptions = {
-                                  'key' : 'b1acc870567da6b24d85437a412a430f',
-                                  'format' : 'iframe',
-                                  'height' : 90,
-                                  'width' : 728,
-                                  'params' : {}
-                                };
-                              </script>
-                              <script type="text/javascript" src="https://www.highperformanceformat.com/b1acc870567da6b24d85437a412a430f/invoke.js"></script>
-                            </body>
-                          </html>
-                        `}
-                        width="728"
-                        height="90"
-                        scrolling="no"
-                        frameBorder="0"
-                        style={{ border: "none", overflow: "hidden", display: "block" }}
-                      />
+                    <div
+                      className="absolute w-[728px] h-[90px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 origin-center transform scale-[0.38] min-[400px]:scale-[0.5] sm:scale-[0.72] md:scale-[0.85] lg:scale-100 flex items-center justify-center bg-slate-900 text-[10px] font-mono uppercase tracking-widest text-slate-400"
+                      aria-label="Advertisement"
+                    >
+                      Advertisement
                     </div>
                   </div>
                 </div>

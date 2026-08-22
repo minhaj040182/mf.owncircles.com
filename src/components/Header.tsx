@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Fish, Video, Calculator, Droplet, Home, Info, Phone, Menu, X, ExternalLink, Sparkles, Sprout, Waves, HeartPulse, Layers, ShoppingBag, ZoomIn, ZoomOut, Type, HelpCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import LanguageTranslator from "./LanguageTranslator";
+import logoUrl from "../logo1.png";
 
 interface HeaderProps {
   currentPage: string;
@@ -45,20 +46,16 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
   };
 
   // Font size scale state (in percent: 85%, 92.5%, 100%, 110%, 120%, 130%)
-  const [fontLevel, setFontLevel] = useState<number>(() => {
+  const [fontLevel, setFontLevel] = useState<number>(100);
+
+  useEffect(() => {
     try {
-      const saved = localStorage.getItem("mf_font_size_percent");
-      if (saved) {
-        const parsed = parseFloat(saved);
-        if (!isNaN(parsed) && parsed >= 80 && parsed <= 140) {
-          return parsed;
-        }
-      }
+      const parsed = parseFloat(localStorage.getItem("mf_font_size_percent") || "100");
+      if (!isNaN(parsed) && parsed >= 80 && parsed <= 140) setFontLevel(parsed);
     } catch (e) {
       // Ignore localStorage errors
     }
-    return 100;
-  });
+  }, []);
 
   useEffect(() => {
     try {
@@ -109,14 +106,14 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
         <div className="flex justify-between items-center h-14 sm:h-16 gap-2">
           
           {/* Brand Logo */}
-          <div 
+          <a
             id="brand-logo"
+            href="/"
             className="flex items-center space-x-2.5 cursor-pointer group shrink-0"
-            onClick={() => handleNavClick("home")}
           >
             <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
               <img 
-                src="logo1.png" 
+                src={logoUrl}
                 alt="Modern Fisheries logo - Certified fish feed supplier and turnkey RAS aquaculture consultancy in India" 
                 className="w-full h-full object-contain rounded-full border border-white/20 bg-white" 
                 onError={(e) => {
@@ -140,7 +137,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
                 Fish & Seeds Supplier
               </span>
             </div>
-          </div>
+          </a>
 
           {/* Right Action Buttons */}
           <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
@@ -227,7 +224,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
               const Icon = item.icon;
               const pathMap: Record<string, string> = {
                 home: "/",
-                ras: "/aquaponic",
+                ras: "/ras-farming",
                 biofloc: "/bioflock",
                 aquaponics: "/aquaponics-farming",
                 hydroponics: "/hydroponic",
@@ -235,21 +232,17 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
                 diseases: "/fish-diseases",
                 feed: "/feeding-management",
                 calculators: "/calculators",
-                faq: "/frequently-asked-questions",
-                services: "/ourservices",
+                faq: "/faq",
+                services: "/services",
                 about: "/about-us",
                 privacy: "/privacy-policy",
-                videos: "/farming-videos",
+                videos: "/videos",
               };
               const hrefPath = pathMap[item.id] || "/";
               return (
                 <a
                   key={item.id}
                   href={hrefPath}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(item.id);
-                  }}
                   className={`px-3 py-1.5 rounded-lg sm:rounded-xl font-sans text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer shrink-0 ${
                     currentPage === item.id 
                       ? "bg-white text-[#1877F2] shadow-xs" 
@@ -339,7 +332,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
               const Icon = item.icon;
               const pathMap: Record<string, string> = {
                 home: "/",
-                ras: "/aquaponic",
+                ras: "/ras-farming",
                 biofloc: "/bioflock",
                 aquaponics: "/aquaponics-farming",
                 hydroponics: "/hydroponic",
@@ -347,21 +340,18 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
                 diseases: "/fish-diseases",
                 feed: "/feeding-management",
                 calculators: "/calculators",
-                faq: "/frequently-asked-questions",
-                services: "/ourservices",
+                faq: "/faq",
+                services: "/services",
                 about: "/about-us",
                 privacy: "/privacy-policy",
-                videos: "/farming-videos",
+                videos: "/videos",
               };
               const hrefPath = pathMap[item.id] || "/";
               return (
                 <a
                   key={`drawer-${item.id}`}
                   href={hrefPath}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(item.id);
-                  }}
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className={`text-left flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                     currentPage === item.id 
                       ? "bg-white text-[#1877F2]" 
@@ -379,4 +369,3 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
     </header>
   );
 }
-

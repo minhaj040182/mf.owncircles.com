@@ -43,7 +43,7 @@ const PRIMARY_PAGES = [
     title: 'Biofloc Technology (BFT) Fish Farming'
   },
   {
-    path: '/aquaponic',
+    path: '/ras-farming',
     changefreq: 'weekly',
     priority: '0.9',
     title: 'Recirculating Aquaculture System (RAS)'
@@ -79,7 +79,7 @@ const PRIMARY_PAGES = [
     title: 'Precision Aquaculture Calculators & FCR Sizing'
   },
   {
-    path: '/ourservices',
+    path: '/services',
     changefreq: 'monthly',
     priority: '0.85',
     title: 'Commercial Consultancy, Turnkey RAS & Feed Supply'
@@ -97,13 +97,13 @@ const PRIMARY_PAGES = [
     title: 'Privacy Policy & Terms of Service'
   },
   {
-    path: '/farming-videos',
+    path: '/videos',
     changefreq: 'weekly',
     priority: '0.9',
     title: 'Aquaculture Video Tutorials & Farm Guides'
   },
   {
-    path: '/frequently-asked-questions',
+    path: '/faq',
     changefreq: 'weekly',
     priority: '0.8',
     title: 'Aquaculture FAQ & Knowledge Base'

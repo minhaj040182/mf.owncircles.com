@@ -11,6 +11,60 @@ interface VideoDetailViewProps {
   onSelectVideo: (video: Video) => void;
 }
 
+const VIDEO_TECHNICAL_GUIDES: Record<string, { focus: string; checkpoints: string[] }> = {
+  "Biofloc": {
+    focus: "Biofloc performance depends on stable aeration, alkalinity, carbon dosing, suspended-floc volume, and careful control of total ammonia nitrogen. Treat every tank as a biological reactor and make adjustments from measured water data rather than appearance alone.",
+    checkpoints: ["Confirm uninterrupted aeration and backup power", "Measure pH, alkalinity, ammonia, nitrite, and settled floc", "Adjust the carbon source gradually against daily feed input", "Remove excess sludge before it consumes oxygen"],
+  },
+  "RAS": {
+    focus: "A recirculating aquaculture system succeeds when hydraulic flow, solids capture, nitrification, gas exchange, oxygenation, and disinfection operate as one balanced treatment train. Equipment capacity should be checked against peak biomass and feed load.",
+    checkpoints: ["Verify culture-tank turnover and pump duty point", "Remove settleable and suspended solids early", "Track ammonia and nitrite across the biofilter", "Maintain redundancy for pumps, oxygen, and alarms"],
+  },
+  "Aquaponics": {
+    focus: "Aquaponics links fish feeding, microbial mineralization, nitrification, and plant uptake. A productive design balances feed input with crop area while protecting fish from root-zone solids, low oxygen, and sudden pH changes.",
+    checkpoints: ["Match planted area to sustainable daily feed input", "Keep solids away from sensitive plant roots", "Monitor pH for fish, bacteria, and nutrient availability", "Check water flow through every grow bed or channel"],
+  },
+  "Hydroponics": {
+    focus: "Hydroponic crop performance is governed by root-zone oxygen, nutrient concentration, pH, temperature, water movement, and sanitation. Crop-specific electrical conductivity targets are more reliable than using a single nutrient strength for every growth stage.",
+    checkpoints: ["Calibrate pH and EC meters before dosing", "Inspect roots for oxygen stress or discoloration", "Prevent stagnant sections and blocked emitters", "Record nutrient additions and reservoir changes"],
+  },
+  "Pond Setup": {
+    focus: "Pond preparation should combine soil and water assessment, secure embankments, screened inlets, dependable drainage, liming based on alkalinity, and aeration sized for expected biomass. Stocking before the pond stabilizes increases avoidable risk.",
+    checkpoints: ["Inspect dikes, inlet screens, and drainage structures", "Test source water before filling or exchanging", "Base lime and fertilizer use on measured conditions", "Prepare emergency aeration before stocking"],
+  },
+  "Harvesting": {
+    focus: "Harvest quality depends on planning well before the net enters the water. Feed withdrawal, oxygen management, gentle crowding, clean equipment, rapid grading, temperature control, and accurate biomass records reduce stress and protect sale value.",
+    checkpoints: ["Plan feed withdrawal for the species and market", "Harvest during cooler, well-oxygenated conditions", "Minimize crowding time and physical damage", "Record count, average weight, survival, and total yield"],
+  },
+  "Feeding": {
+    focus: "Feed is usually the largest operating cost in intensive aquaculture. Good management connects pellet size, protein level, feeding frequency, appetite, temperature, dissolved oxygen, biomass estimates, and feed-conversion records instead of following a fixed ration blindly.",
+    checkpoints: ["Sample fish regularly to update biomass", "Match pellet size and protein to growth stage", "Reduce feeding when oxygen or appetite declines", "Calculate FCR from verified feed and weight-gain records"],
+  },
+  "Diseases": {
+    focus: "Visible symptoms alone rarely identify a fish disease reliably. Diagnosis should combine behavior, recent mortality, skin and gill observations, water-quality measurements, stocking history, and laboratory support where available before selecting a treatment.",
+    checkpoints: ["Check dissolved oxygen, pH, ammonia, and nitrite first", "Isolate affected stock and disinfect shared equipment", "Document symptoms, mortality, and recent management changes", "Use medications only with qualified local guidance"],
+  },
+  "Breeding": {
+    focus: "Hatchery consistency requires healthy broodstock, controlled spawning conditions, hygienic egg handling, stable incubation flow, rapid removal of dead eggs, and stage-appropriate live or formulated feeds for fry. Small deviations can sharply reduce survival.",
+    checkpoints: ["Track broodstock origin, condition, and sex ratio", "Stabilize temperature, oxygen, and incubation flow", "Separate weak or dead eggs promptly", "Grade fry and record hatch and survival percentages"],
+  },
+  "Water Quality": {
+    focus: "Water-quality decisions should be based on trends, not one isolated reading. Dissolved oxygen, temperature, pH, alkalinity, ammonia, nitrite, and system-specific solids measurements interact and should be logged at consistent times each day.",
+    checkpoints: ["Calibrate instruments and label sampling locations", "Measure oxygen during the daily low-risk window", "Relate ammonia toxicity to pH and temperature", "Change water or dose chemicals gradually"],
+  },
+  "Innovation": {
+    focus: "Aquaculture automation is valuable only when sensors, controls, mechanics, and backup procedures remain dependable in wet farm conditions. New equipment should be trialed at small scale and compared with manual measurements before production depends on it.",
+    checkpoints: ["Validate sensor readings against a trusted instrument", "Provide manual override and power-loss recovery", "Protect wiring and moving parts from water and corrosion", "Measure labor, energy, survival, and feed savings"],
+  },
+};
+
+function getVideoTechnicalGuide(video: Video) {
+  return VIDEO_TECHNICAL_GUIDES[video.category] || {
+    focus: "Apply the method as part of a measured farm-management plan. Confirm species requirements, system capacity, water quality, operating cost, and local conditions before scaling a demonstration into commercial production.",
+    checkpoints: ["Record baseline conditions before changing the system", "Test the method on a manageable production unit", "Monitor fish behavior and water quality", "Compare measured results with cost and labor inputs"],
+  };
+}
+
 export default function VideoDetailView({ video, relatedVideos, onBack, onSelectVideo }: VideoDetailViewProps) {
   const [shareCopied, setShareCopied] = useState(false);
   const [showAd, setShowAd] = useState(true);
@@ -33,6 +87,7 @@ export default function VideoDetailView({ video, relatedVideos, onBack, onSelect
   };
 
   const ytId = getYouTubeId(video.videoUrl);
+  const technicalGuide = getVideoTechnicalGuide(video);
 
   const handleShare = () => {
     const appUrl = window.location.href;
@@ -122,48 +177,11 @@ export default function VideoDetailView({ video, relatedVideos, onBack, onSelect
                 {/* Centered Ad Frame matching 728x90 leaderboard spec */}
                 <div className="w-full flex items-center justify-center overflow-hidden py-0.5">
                   <div className="relative w-full max-w-[728px] aspect-[728/90] flex items-center justify-center overflow-hidden">
-                    <div className="absolute w-[728px] h-[90px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 origin-center transform scale-[0.38] min-[400px]:scale-[0.5] sm:scale-[0.72] md:scale-[0.85] lg:scale-100 flex items-center justify-center">
-                      <iframe
-                        key={`video-player-ad-${video.id}`}
-                        title="Video Player Advertisement"
-                        srcDoc={`
-                          <!DOCTYPE html>
-                          <html>
-                            <head>
-                              <meta charset="utf-8">
-                              <style>
-                                body { 
-                                  margin: 0; 
-                                  padding: 0; 
-                                  display: flex; 
-                                  justify-content: center; 
-                                  align-items: center; 
-                                  background-color: transparent; 
-                                  height: 100vh;
-                                  overflow: hidden;
-                                }
-                              </style>
-                            </head>
-                            <body>
-                              <script type="text/javascript">
-                                atOptions = {
-                                  'key' : 'b1acc870567da6b24d85437a412a430f',
-                                  'format' : 'iframe',
-                                  'height' : 90,
-                                  'width' : 728,
-                                  'params' : {}
-                                };
-                              </script>
-                              <script type="text/javascript" src="https://www.highperformanceformat.com/b1acc870567da6b24d85437a412a430f/invoke.js"></script>
-                            </body>
-                          </html>
-                        `}
-                        width="728"
-                        height="90"
-                        scrolling="no"
-                        frameBorder="0"
-                        style={{ border: "none", overflow: "hidden", display: "block" }}
-                      />
+                    <div
+                      className="absolute w-[728px] h-[90px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 origin-center transform scale-[0.38] min-[400px]:scale-[0.5] sm:scale-[0.72] md:scale-[0.85] lg:scale-100 flex items-center justify-center bg-slate-900 text-[10px] font-mono uppercase tracking-widest text-slate-400"
+                      aria-label="Advertisement"
+                    >
+                      Advertisement
                     </div>
                   </div>
                 </div>
@@ -281,6 +299,37 @@ export default function VideoDetailView({ video, relatedVideos, onBack, onSelect
             <p className="font-sans text-sm text-slate-600 leading-relaxed whitespace-pre-line bg-slate-50/50 p-4 rounded-xl border border-slate-100">
               {renderDescriptionWithLinks(video.description)}
             </p>
+
+            <section className="mt-5 space-y-4" aria-labelledby={`technical-notes-${video.id}`}>
+              <div>
+                <h2 id={`technical-notes-${video.id}`} className="font-sans font-extrabold text-lg text-slate-900">
+                  Technical notes for {video.title}
+                </h2>
+                <p className="mt-2 font-sans text-sm text-slate-600 leading-relaxed">
+                  This {video.category || "aquaculture"} lesson focuses on {(video.description || "the demonstrated farm method").toLowerCase()} Use the demonstration as a practical reference, then verify dimensions, dosages, stocking levels, and equipment capacity for your own species, biomass, climate, and water source.
+                </p>
+              </div>
+
+              <p className="font-sans text-sm text-slate-600 leading-relaxed">
+                {technicalGuide.focus}
+              </p>
+
+              <div>
+                <h3 className="font-sans font-bold text-sm text-slate-900">Field checklist before implementation</h3>
+                <ul className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-600">
+                  {technicalGuide.checkpoints.map((checkpoint) => (
+                    <li key={checkpoint} className="flex items-start gap-2 rounded-lg border border-slate-100 bg-white p-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+                      <span>{checkpoint}.</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <p className="font-sans text-sm text-slate-600 leading-relaxed">
+                Before copying the setup shown in <strong>{video.title}</strong>, write down the starting water parameters, fish number and average weight, daily feed, energy use, and expected outcome. Recheck the same indicators after implementation. This simple before-and-after record helps distinguish a genuine production improvement from a short-term visual change and creates evidence for future stocking, feeding, maintenance, and investment decisions.
+              </p>
+            </section>
           </div>
 
         </div>

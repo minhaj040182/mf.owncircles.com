@@ -1,110 +1,26 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
-    {
-      "source": "/home",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/ras",
-      "destination": "/aquaponic",
-      "permanent": true
-    },
-    {
-      "source": "/ras-farming",
-      "destination": "/aquaponic",
-      "permanent": true
-    },
-    {
-      "source": "/shopping",
-      "destination": "/ourservices",
-      "permanent": true
-    },
-    {
-      "source": "/shop",
-      "destination": "/ourservices",
-      "permanent": true
-    },
-    {
-      "source": "/aquaponics",
-      "destination": "/aquaponics-farming",
-      "permanent": true
-    },
-    {
-      "source": "/biofloc",
-      "destination": "/bioflock",
-      "permanent": true
-    },
-    {
-      "source": "/hydroponics",
-      "destination": "/hydroponic",
-      "permanent": true
-    },
-    {
-      "source": "/pond",
-      "destination": "/pond-farming",
-      "permanent": true
-    },
-    {
-      "source": "/diseases",
-      "destination": "/fish-diseases",
-      "permanent": true
-    },
-    {
-      "source": "/feed",
-      "destination": "/feeding-management",
-      "permanent": true
-    },
-    {
-      "source": "/calculator",
-      "destination": "/calculators",
-      "permanent": true
-    },
-    {
-      "source": "/services",
-      "destination": "/ourservices",
-      "permanent": true
-    },
-    {
-      "source": "/about",
-      "destination": "/about-us",
-      "permanent": true
-    },
-    {
-      "source": "/videos",
-      "destination": "/farming-videos",
-      "permanent": true
-    },
-    {
-      "source": "/faq",
-      "destination": "/frequently-asked-questions",
-      "permanent": true
-    },
-    {
-      "source": "/privacy",
-      "destination": "/privacy-policy",
-      "permanent": true
-    },
-    {
-      "source": "/assets/Docs/:path*",
-      "destination": "/410.html",
-      "statusCode": 410
-    },
-    {
-      "source": "/assets/docs/:path*",
-      "destination": "/410.html",
-      "statusCode": 410
-    },
-    {
-      "source": "/:path*.pdf",
-      "destination": "/410.html",
-      "statusCode": 410
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/((?!assets/Docs/|assets/docs/|.*\\.pdf).*)",
-      "destination": "/index.html"
-    }
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/aquaponic", "destination": "/ras-farming", "permanent": true },
+    { "source": "/ras", "destination": "/ras-farming", "permanent": true },
+    { "source": "/recirculating", "destination": "/ras-farming", "permanent": true },
+    { "source": "/aquaponics", "destination": "/aquaponics-farming", "permanent": true },
+    { "source": "/aquaponic-farming", "destination": "/aquaponics-farming", "permanent": true },
+    { "source": "/biofloc", "destination": "/bioflock", "permanent": true },
+    { "source": "/biofloc-farming", "destination": "/bioflock", "permanent": true },
+    { "source": "/hydroponics", "destination": "/hydroponic", "permanent": true },
+    { "source": "/hydroponics-farming", "destination": "/hydroponic", "permanent": true },
+    { "source": "/pond", "destination": "/pond-farming", "permanent": true },
+    { "source": "/diseases", "destination": "/fish-diseases", "permanent": true },
+    { "source": "/feed", "destination": "/feeding-management", "permanent": true },
+    { "source": "/calculator", "destination": "/calculators", "permanent": true },
+    { "source": "/ourservices", "destination": "/services", "permanent": true },
+    { "source": "/shopping", "destination": "/services", "permanent": true },
+    { "source": "/about", "destination": "/about-us", "permanent": true },
+    { "source": "/farming-videos", "destination": "/videos", "permanent": true },
+    { "source": "/frequently-asked-questions", "destination": "/faq", "permanent": true },
+    { "source": "/privacy", "destination": "/privacy-policy", "permanent": true }
   ]
 }

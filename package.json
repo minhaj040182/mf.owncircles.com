@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-static-routes.js",
+    "build": "vite build && vite build --ssr src/entry-server.tsx --outDir .ssr && node scripts/generate-static-routes.js",
     "sitemap": "node generate-sitemap.js",
     "indexnow": "node scripts/ping-indexnow.js",
+    "indexnow:check": "node scripts/ping-indexnow.js --dry-run",
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"
