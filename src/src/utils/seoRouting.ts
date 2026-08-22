@@ -59,19 +59,19 @@ export function createSlug(text: string): string {
 
 export const PAGE_SEO_PATHS: Record<PageType, string> = {
   home: "/",
-  ras: "/aquaponic",
-  biofloc: "/bioflock",
-  aquaponics: "/aquaponics-farming",
-  hydroponics: "/hydroponic",
-  pond: "/pond-farming",
-  diseases: "/fish-diseases",
-  feed: "/feeding-management",
-  calculators: "/calculators",
-  services: "/ourservices",
-  about: "/about-us",
-  privacy: "/privacy-policy",
-  videos: "/farming-videos",
-  faq: "/frequently-asked-questions",
+  ras: "/ras/",
+  biofloc: "/biofloc/",
+  aquaponics: "/aquaponics/",
+  hydroponics: "/hydroponics/",
+  pond: "/pond-farming/",
+  diseases: "/fish-diseases/",
+  feed: "/feeding-management/",
+  calculators: "/calculators/",
+  services: "/ourservices/",
+  about: "/about-us/",
+  privacy: "/privacy-policy/",
+  videos: "/farming-videos/",
+  faq: "/frequently-asked-questions/",
   "404": "/404",
   "410": "/410",
 };
@@ -431,6 +431,6 @@ export function updateSeoMetadata(page: PageType, video?: Video | null) {
     document.head.appendChild(canonical);
   }
   const relativePath = getPathForPage(page, video);
-  const fullUrl = `https://mf.owncircles.com${relativePath}`;
+  const fullUrl = `https://modernfisheriese.com${relativePath}`;
   canonical.setAttribute("href", fullUrl);
 }

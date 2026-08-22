@@ -7,6 +7,35 @@ const distDir = path.resolve("dist");
 const shellPath = path.join(distDir, "index.html");
 const serverBundle = path.resolve(".ssr/entry-server.js");
 
+// GitHub Pages cannot emit HTTP redirects. These lightweight alias documents
+// preserve previously published URLs, while server-specific files in public/
+// provide real 301 responses on hosts that support them.
+const LEGACY_REDIRECTS = {
+  "/home": "/",
+  "/aquaponic": "/ras/",
+  "/ras-farming": "/ras/",
+  "/recirculating": "/ras/",
+  "/bioflock": "/biofloc/",
+  "/biofloc-farming": "/biofloc/",
+  "/aquaponics-farming": "/aquaponics/",
+  "/aquaponic-farming": "/aquaponics/",
+  "/hydroponic": "/hydroponics/",
+  "/hydroponics-farming": "/hydroponics/",
+  "/soilless": "/hydroponics/",
+  "/pond": "/pond-farming/",
+  "/diseases": "/fish-diseases/",
+  "/feed": "/feeding-management/",
+  "/calculator": "/calculators/",
+  "/calc": "/calculators/",
+  "/services": "/ourservices/",
+  "/shopping": "/ourservices/",
+  "/shop": "/ourservices/",
+  "/about": "/about-us/",
+  "/videos": "/farming-videos/",
+  "/faq": "/frequently-asked-questions/",
+  "/privacy": "/privacy-policy/",
+};
+
 if (!fs.existsSync(shellPath) || !fs.existsSync(serverBundle)) {
   throw new Error("Client or server build is missing. Run the complete build command.");
 }
@@ -56,6 +85,25 @@ function createDocument(urlPath) {
     );
 }
 
+function createRedirectDocument(destinationPath) {
+  const destination = `${SITE_URL}${destinationPath}`;
+  const safeDestination = escapeAttribute(destination);
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="${safeDestination}" />
+    <meta http-equiv="refresh" content="0; url=${safeDestination}" />
+    <title>Page Moved | Modern Fisheries</title>
+  </head>
+  <body>
+    <p>This page has moved permanently to <a href="${safeDestination}">${safeDestination}</a>.</p>
+  </body>
+</html>`;
+}
+
 function writeRoute(urlPath, html) {
   if (urlPath === "/") {
     fs.writeFileSync(shellPath, html);
@@ -67,15 +115,33 @@ function writeRoute(urlPath, html) {
   fs.writeFileSync(path.join(routeDir, "index.html"), html);
 }
 
+function writeHtmlAlias(urlPath, html) {
+  const relative = urlPath.replace(/^\//, "").replace(/\/$/, "");
+  const htmlPath = path.join(distDir, `${relative}.html`);
+  fs.mkdirSync(path.dirname(htmlPath), { recursive: true });
+  fs.writeFileSync(htmlPath, html);
+}
+
 const paths = getStaticPaths();
 for (const urlPath of paths) writeRoute(urlPath, createDocument(urlPath));
+for (const [sourcePath, destinationPath] of Object.entries(LEGACY_REDIRECTS)) {
+  const redirectDocument = createRedirectDocument(destinationPath);
+  writeRoute(sourcePath, redirectDocument);
+  writeHtmlAlias(sourcePath, redirectDocument);
+}
+for (const canonicalPath of paths.filter((urlPath) => urlPath !== "/")) {
+  writeHtmlAlias(canonicalPath, createRedirectDocument(canonicalPath));
+}
 
 // Consolidate previously published .html duplicates into their clean canonical URLs.
 const redirectsPath = path.join(distDir, "_redirects");
 if (fs.existsSync(redirectsPath)) {
   const legacyHtmlRedirects = paths
     .filter((urlPath) => urlPath !== "/")
-    .map((urlPath) => `${urlPath}.html  ${urlPath}  301!`)
+    .map((urlPath) => {
+      const extensionlessPath = urlPath.replace(/\/$/, "");
+      return `${extensionlessPath}.html  ${urlPath}  301!`;
+    })
     .join("\n");
   fs.appendFileSync(redirectsPath, `\n# Previously generated duplicate HTML files\n${legacyHtmlRedirects}\n`);
 }
@@ -113,7 +179,7 @@ const sitemap = [
   ...paths.map((urlPath) => {
     const data = getDocumentData(urlPath);
     const priority = urlPath === "/" ? "1.0" : urlPath.startsWith("/video/") ? "0.6" : "0.8";
-    const frequency = urlPath === "/" || urlPath === "/videos" ? "weekly" : "monthly";
+    const frequency = urlPath === "/" || urlPath === "/farming-videos/" ? "weekly" : "monthly";
     return `  <url><loc>${data.canonical}</loc><lastmod>${today}</lastmod><changefreq>${frequency}</changefreq><priority>${priority}</priority></url>`;
   }),
   "</urlset>",
@@ -122,4 +188,4 @@ const sitemap = [
 fs.writeFileSync(path.join(distDir, "sitemap.xml"), sitemap);
 fs.writeFileSync(path.resolve("public/sitemap.xml"), sitemap);
 
-console.log(`Generated ${paths.length} crawler-visible static pages plus 404 and 410 documents.`);
+console.log(`Generated ${paths.length} crawler-visible static pages, ${Object.keys(LEGACY_REDIRECTS).length} legacy aliases, plus 404 and 410 documents.`);

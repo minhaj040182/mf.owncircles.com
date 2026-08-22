@@ -10,13 +10,13 @@ const ENDPOINT = "https://api.indexnow.org/indexnow";
 const LEGACY_PATHS = [
   "/home",
   "/aquaponic",
-  "/ras",
+  "/ras-farming",
   "/recirculating",
-  "/aquaponics",
+  "/aquaponics-farming",
   "/aquaponic-farming",
-  "/biofloc",
+  "/bioflock",
   "/biofloc-farming",
-  "/hydroponics",
+  "/hydroponic",
   "/hydroponics-farming",
   "/soilless",
   "/pond",
@@ -24,12 +24,12 @@ const LEGACY_PATHS = [
   "/feed",
   "/calculator",
   "/calc",
-  "/ourservices",
+  "/services",
   "/shopping",
   "/shop",
   "/about",
-  "/farming-videos",
-  "/frequently-asked-questions",
+  "/videos",
+  "/faq",
   "/privacy",
 ];
 
@@ -61,7 +61,7 @@ function getSubmissionUrls() {
   const canonicalUrls = getCanonicalUrls();
   const retiredHtmlDuplicates = canonicalUrls
     .filter((url) => url !== `${BASE_URL}/`)
-    .map((url) => `${url}.html`);
+    .map((url) => `${url.replace(/\/$/, "")}.html`);
   const legacyUrls = LEGACY_PATHS.map((legacyPath) => `${BASE_URL}${legacyPath}`);
   return [...new Set([...canonicalUrls, ...retiredHtmlDuplicates, ...legacyUrls])];
 }

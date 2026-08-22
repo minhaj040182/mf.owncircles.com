@@ -1,76 +1,7 @@
-# Modern Fisheries Robots.txt
-# https://mf.owncircles.com/robots.txt
-
 User-agent: *
 Allow: /
-Allow: /assets/*.js$
-Allow: /assets/*.css$
-Allow: /assets/*.png$
-Allow: /assets/*.jpg$
-Allow: /assets/*.webp$
-Allow: /assets/*.svg$
-
-# Disallow permanently removed PDF documents & legacy folders
 Disallow: /assets/Docs/
 Disallow: /assets/docs/
 Disallow: /*.pdf$
-Disallow: /*.pdf
 
-# Disallow 404 & 410 error pages
-Disallow: /404
-Disallow: /404.html
-Disallow: /410
-Disallow: /410.html
-
-# Disallow legacy aliases & redirect patterns to conserve crawl budget
-Disallow: /home
-Disallow: /home/
-Disallow: /ras
-Disallow: /ras/
-Disallow: /ras-farming
-Disallow: /biofloc
-Disallow: /biofloc/
-Disallow: /biofloc-farming
-Disallow: /aquaponics
-Disallow: /aquaponics/
-Disallow: /aquaponic-farming
-Disallow: /hydroponics
-Disallow: /hydroponics/
-Disallow: /hydroponics-farming
-Disallow: /pond
-Disallow: /pond/
-Disallow: /diseases
-Disallow: /diseases/
-Disallow: /feed
-Disallow: /feed/
-Disallow: /calculator
-Disallow: /calculator/
-Disallow: /calc
-Disallow: /calc/
-Disallow: /services
-Disallow: /services/
-Disallow: /shopping
-Disallow: /shopping/
-Disallow: /shop
-Disallow: /shop/
-Disallow: /about
-Disallow: /about/
-Disallow: /videos
-Disallow: /videos/
-Disallow: /faq
-Disallow: /faq/
-Disallow: /privacy
-Disallow: /privacy/
-
-# Googlebot specific directives
-User-agent: Googlebot
-Allow: /
-Disallow: /assets/Docs/
-Disallow: /assets/docs/
-Disallow: /*.pdf$
-Disallow: /*.pdf
-Disallow: /404
-Disallow: /410
-
-# Primary XML Sitemap Location
-Sitemap: https://mf.owncircles.com/sitemap.xml
+Sitemap: https://modernfisheriese.com/sitemap.xml

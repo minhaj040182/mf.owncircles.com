@@ -227,19 +227,19 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
               const Icon = item.icon;
               const pathMap: Record<string, string> = {
                 home: "/",
-                ras: "/aquaponic",
-                biofloc: "/bioflock",
-                aquaponics: "/aquaponics-farming",
-                hydroponics: "/hydroponic",
-                pond: "/pond-farming",
-                diseases: "/fish-diseases",
-                feed: "/feeding-management",
-                calculators: "/calculators",
-                faq: "/frequently-asked-questions",
-                services: "/ourservices",
-                about: "/about-us",
-                privacy: "/privacy-policy",
-                videos: "/farming-videos",
+                ras: "/ras/",
+                biofloc: "/biofloc/",
+                aquaponics: "/aquaponics/",
+                hydroponics: "/hydroponics/",
+                pond: "/pond-farming/",
+                diseases: "/fish-diseases/",
+                feed: "/feeding-management/",
+                calculators: "/calculators/",
+                faq: "/frequently-asked-questions/",
+                services: "/ourservices/",
+                about: "/about-us/",
+                privacy: "/privacy-policy/",
+                videos: "/farming-videos/",
               };
               const hrefPath = pathMap[item.id] || "/";
               return (
@@ -339,19 +339,19 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
               const Icon = item.icon;
               const pathMap: Record<string, string> = {
                 home: "/",
-                ras: "/aquaponic",
-                biofloc: "/bioflock",
-                aquaponics: "/aquaponics-farming",
-                hydroponics: "/hydroponic",
-                pond: "/pond-farming",
-                diseases: "/fish-diseases",
-                feed: "/feeding-management",
-                calculators: "/calculators",
-                faq: "/frequently-asked-questions",
-                services: "/ourservices",
-                about: "/about-us",
-                privacy: "/privacy-policy",
-                videos: "/farming-videos",
+                ras: "/ras/",
+                biofloc: "/biofloc/",
+                aquaponics: "/aquaponics/",
+                hydroponics: "/hydroponics/",
+                pond: "/pond-farming/",
+                diseases: "/fish-diseases/",
+                feed: "/feeding-management/",
+                calculators: "/calculators/",
+                faq: "/frequently-asked-questions/",
+                services: "/ourservices/",
+                about: "/about-us/",
+                privacy: "/privacy-policy/",
+                videos: "/farming-videos/",
               };
               const hrefPath = pathMap[item.id] || "/";
               return (
@@ -379,4 +379,3 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
     </header>
   );
 }
-
