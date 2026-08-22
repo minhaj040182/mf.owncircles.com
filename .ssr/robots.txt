@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /assets/Docs/
+Disallow: /assets/docs/
+Disallow: /*.pdf$
+
+Sitemap: https://modernfisheriese.com/sitemap.xml
