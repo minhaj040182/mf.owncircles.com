@@ -1,32 +1,29 @@
-# Permanently removed PDF documents - HTTP 410 Gone
-/assets/Docs/*  /410.html  410!
-/assets/docs/*  /410.html  410!
-/*.pdf          /410.html  410!
+# Permanently removed documents
+/assets/Docs/*       /410.html             410!
+/assets/docs/*       /410.html             410!
+/*.pdf               /410.html             410!
 
-# Permanent 301 Redirect for legacy and alias paths
-/home           /                      301!
-/home/*         /                      301!
-/ras            /aquaponic             301!
-/ras/*          /aquaponic             301!
-/ras-farming    /aquaponic             301!
-/shopping       /ourservices           301!
-/shopping/*     /ourservices           301!
-/shop           /ourservices           301!
-/shop/*         /ourservices           301!
-/aquaponics     /aquaponics-farming    301!
-/biofloc        /bioflock              301!
-/biofloc-farming /bioflock             301!
-/hydroponics    /hydroponic            301!
-/pond           /pond-farming          301!
-/diseases       /fish-diseases         301!
-/feed           /feeding-management    301!
-/calculator     /calculators           301!
-/calc           /calculators           301!
-/services       /ourservices           301!
-/about          /about-us              301!
-/videos         /farming-videos        301!
-/faq            /frequently-asked-questions 301!
-/privacy        /privacy-policy        301!
-
-# React SPA Fallback for all valid routes
-/*              /index.html 200
+# Legacy and ambiguous URLs
+/home                /                     301!
+/aquaponic           /ras-farming          301!
+/ras                 /ras-farming          301!
+/recirculating       /ras-farming          301!
+/aquaponics          /aquaponics-farming   301!
+/aquaponic-farming   /aquaponics-farming   301!
+/biofloc             /bioflock             301!
+/biofloc-farming     /bioflock             301!
+/hydroponics         /hydroponic            301!
+/hydroponics-farming /hydroponic            301!
+/soilless            /hydroponic            301!
+/pond                /pond-farming          301!
+/diseases            /fish-diseases         301!
+/feed                /feeding-management    301!
+/calculator          /calculators           301!
+/calc                /calculators           301!
+/ourservices         /services              301!
+/shopping            /services              301!
+/shop                /services              301!
+/about               /about-us              301!
+/farming-videos      /videos                301!
+/frequently-asked-questions /faq             301!
+/privacy             /privacy-policy        301!

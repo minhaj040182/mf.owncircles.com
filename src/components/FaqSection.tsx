@@ -16,7 +16,7 @@ export interface FaqItem {
   tags: string[];
 }
 
-const FAQ_DATA: FaqItem[] = [
+export const FAQ_DATA: FaqItem[] = [
   // --- BIOFLOC ---
   {
     id: "faq-biofloc-1",
@@ -380,8 +380,7 @@ export default function FaqSection({ className = "", onContactClick, onBackToDas
                       </button>
 
                       {/* Answer Accordion Content */}
-                      {isOpen && (
-                        <div className="px-4 sm:px-5 pb-5 pt-1 border-t border-slate-100 text-left space-y-4 animate-fadeIn">
+                        <div className={`${isOpen ? "block" : "hidden"} px-4 sm:px-5 pb-5 pt-1 border-t border-slate-100 text-left space-y-4 animate-fadeIn`}>
                           <div className="text-slate-700 text-xs sm:text-sm leading-relaxed whitespace-pre-line font-sans font-normal bg-white p-3.5 sm:p-4 rounded-xl border border-slate-100 shadow-2xs">
                             {faq.answer}
                           </div>
@@ -434,7 +433,6 @@ export default function FaqSection({ className = "", onContactClick, onBackToDas
                             </div>
                           </div>
                         </div>
-                      )}
                     </div>
                   );
                 })

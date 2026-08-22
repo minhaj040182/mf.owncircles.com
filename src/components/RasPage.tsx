@@ -1615,11 +1615,11 @@ export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProp
                       <span className="block font-bold text-slate-800">Email Engineering Desk</span>
                       <p className="mb-1">Click below to send your proposed water volume or coordinates:</p>
                       <a 
-                        href="mailto:mf@modernfisheries.com"
+                        href="mailto:mf@owncircles.com"
                         className="font-mono font-bold text-emerald-700 text-sm hover:underline select-all bg-white px-2.5 py-1 rounded border border-slate-200"
                         title="Draft email in default application"
                       >
-                        mf@modernfisheries.com
+                        mf@owncircles.com
                       </a>
                     </div>
                   </div>

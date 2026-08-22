@@ -1,10 +1,11 @@
 import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
+import {hydrateRoot} from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-createRoot(document.getElementById('root')!).render(
+const staticPage = document.getElementById('static-page')!;
+hydrateRoot(staticPage,
   <StrictMode>
-    <App />
+    <App initialPath={staticPage.dataset.path || window.location.pathname} />
   </StrictMode>,
 );

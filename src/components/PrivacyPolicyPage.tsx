@@ -65,7 +65,7 @@ export default function PrivacyPolicyPage({ onBackToDashboard }: PrivacyPolicyPa
                 1. Overview & Data Controller
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                At <strong>Modern Fisheries</strong> (accessible from modernfisheries.com), the privacy of our visitors is one of our main priorities. This Privacy Policy document contains types of information that is collected and recorded by Modern Fisheries and how we use it to provide online fisheries consultation, equipment supplies, and calculation tools.
+                At <strong>Modern Fisheries</strong> (accessible from modernfisheriese.com), the privacy of our visitors is one of our main priorities. This Privacy Policy document contains types of information that is collected and recorded by Modern Fisheries and how we use it to provide online fisheries consultation, equipment supplies, and calculation tools.
               </p>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
                 If you have additional questions or require more information about our Privacy Policy or AdSense compliance, do not hesitate to contact us at <a href="mailto:mf@owncircles.com" className="text-blue-700 font-bold hover:underline">mf@owncircles.com</a> or via phone/WhatsApp at <strong>+91 97489 52342</strong>.

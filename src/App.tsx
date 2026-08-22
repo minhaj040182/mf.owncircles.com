@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "./components/Header";
 import VideosPage from "./components/VideosPage";
 import VideoDetailView from "./components/VideoDetailView";
@@ -25,18 +25,22 @@ import ProfessionalDashboard from "./components/ProfessionalDashboard";
 import CommercialProductsBanner from "./components/CommercialProductsBanner";
 import HomeVideos from "./components/HomeVideos";
 import FaqSection from "./components/FaqSection";
-import { getEnrichedVideosList } from "./utils/videoMetrics";
-import { parseUrlPath, getPathForPage, updateSeoMetadata, PageType } from "./utils/seoRouting";
+import { parseUrlPath, getPathForPage, PageType } from "./utils/seoRouting";
 
 import { ALL_VIDEOS } from "./data";
 import { Video } from "./types";
 import { Sparkles, MessageSquareCode, Calculator, Droplet, ArrowRight, Waves, CheckCircle, TrendingUp, HelpCircle, ShieldAlert, Award, Sprout, ShoppingBag, Briefcase, ChevronRight, Phone, Play, Star, ExternalLink, ShieldCheck, Home, Video as VideoIcon } from "lucide-react";
 
-export default function App() {
-  // Parse initial SEO URL path/hash on load
-  const initialRoute = parseUrlPath(window.location.pathname + window.location.hash, ALL_VIDEOS);
-  const [currentPage, setCurrentPage] = useState<PageType>(initialRoute.page);
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(initialRoute.video);
+interface AppProps {
+  initialPath?: string;
+}
+
+export default function App({ initialPath }: AppProps) {
+  // The route is fixed by the HTML document. React only hydrates interactions within it.
+  const documentPath = initialPath || (typeof window !== "undefined" ? window.location.pathname : "/");
+  const initialRoute = parseUrlPath(documentPath, ALL_VIDEOS);
+  const currentPage = initialRoute.page;
+  const selectedVideo = initialRoute.video;
   const [showCallModal, setShowCallModal] = useState<boolean>(false);
 
   // Quick Home Calculator states
@@ -48,59 +52,16 @@ export default function App() {
   const calculatedFCR = homeFishGain > 0 ? (homeFeedWeight / homeFishGain).toFixed(2) : "0.00";
   const calculatedVolume = (Math.PI * Math.pow(homeRadius, 2) * homeDepth * 1000).toFixed(0);
 
-  // Synchronize SEO URL, Document Title & Meta Tags on navigation
-  useEffect(() => {
-    try {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      updateSeoMetadata(currentPage, selectedVideo);
-
-      const targetPath = getPathForPage(currentPage, selectedVideo);
-      const currentFull = window.location.pathname + (window.location.hash || "");
-
-      if (currentFull !== targetPath && window.history) {
-        try {
-          if (window.location.hash) {
-            // Clean up legacy hash URL (e.g. /#/aquaponics-farming -> /aquaponics-farming)
-            window.history.replaceState(null, "", targetPath);
-          } else {
-            window.history.pushState(null, "", targetPath);
-          }
-        } catch (err) {
-          // Ignore sandboxed iframe history restriction errors
-        }
-      }
-    } catch (e) {
-      // Ignore
-    }
-  }, [currentPage, selectedVideo]);
-
-  // Support Browser Back/Forward navigation & Hash changes
-  useEffect(() => {
-    const handleLocationChange = () => {
-      const route = parseUrlPath(window.location.pathname + window.location.hash, ALL_VIDEOS);
-      setCurrentPage(route.page);
-      setSelectedVideo(route.video);
-    };
-
-    window.addEventListener("popstate", handleLocationChange);
-    window.addEventListener("hashchange", handleLocationChange);
-    return () => {
-      window.removeEventListener("popstate", handleLocationChange);
-      window.removeEventListener("hashchange", handleLocationChange);
-    };
-  }, []);
-
   const handlePageChange = (page: PageType) => {
-    setSelectedVideo(null); // Clear video player when changing menu sections
-    setCurrentPage(page);
+    if (typeof window !== "undefined") window.location.assign(getPathForPage(page));
   };
 
   const handleVideoSelect = (video: Video) => {
-    setSelectedVideo(video);
+    if (typeof window !== "undefined") window.location.assign(getPathForPage("videos", video));
   };
 
   const handleBackToGallery = () => {
-    setSelectedVideo(null);
+    if (typeof window !== "undefined") window.location.assign(getPathForPage("videos"));
   };
 
   // Get other videos for recommendations, prioritizing same category
@@ -159,7 +120,7 @@ export default function App() {
                   {/* Subtle water texture overlay */}
                   <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-emerald-950/80 to-slate-950/90 z-0"></div>
                   <img 
-                    src="banner.png" 
+                    src="https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?auto=format&fit=crop&w=1600&q=80"
                     alt="Modern Fisheries RAS design for commercial fish farming, Biofloc technology tanks, and precision feeding systems"
                     className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30 z-0"
                     onError={(e) => {
@@ -292,36 +253,36 @@ export default function App() {
             )}
 
             {/* Subpages Navigation Router */}
-            {currentPage === "ras" && <RasPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
-            {currentPage === "biofloc" && <BioflocPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
-            {currentPage === "aquaponics" && <AquaponicsPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
-            {currentPage === "hydroponics" && <HydroponicsPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
-            {currentPage === "pond" && <PondFarmingPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
-            {currentPage === "diseases" && <DiseasesPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
-            {currentPage === "feed" && <FeedingPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
-            {currentPage === "calculators" && <CalculatorsPage onBackToDashboard={() => setCurrentPage("home")} />}
+            {currentPage === "ras" && <RasPage onVideoClick={handleVideoSelect} onBackToDashboard={() => handlePageChange("home")} />}
+            {currentPage === "biofloc" && <BioflocPage onVideoClick={handleVideoSelect} onBackToDashboard={() => handlePageChange("home")} />}
+            {currentPage === "aquaponics" && <AquaponicsPage onVideoClick={handleVideoSelect} onBackToDashboard={() => handlePageChange("home")} />}
+            {currentPage === "hydroponics" && <HydroponicsPage onVideoClick={handleVideoSelect} onBackToDashboard={() => handlePageChange("home")} />}
+            {currentPage === "pond" && <PondFarmingPage onVideoClick={handleVideoSelect} onBackToDashboard={() => handlePageChange("home")} />}
+            {currentPage === "diseases" && <DiseasesPage onVideoClick={handleVideoSelect} onBackToDashboard={() => handlePageChange("home")} />}
+            {currentPage === "feed" && <FeedingPage onVideoClick={handleVideoSelect} onBackToDashboard={() => handlePageChange("home")} />}
+            {currentPage === "calculators" && <CalculatorsPage onBackToDashboard={() => handlePageChange("home")} />}
             {currentPage === "faq" && (
-              <FaqSection onContactClick={() => setShowCallModal(true)} onBackToDashboard={() => setCurrentPage("home")} />
+              <FaqSection onContactClick={() => setShowCallModal(true)} onBackToDashboard={() => handlePageChange("home")} />
             )}
-            {currentPage === "services" && <ServicesPage onBackToDashboard={() => setCurrentPage("home")} />}
-            {currentPage === "about" && <AboutUsPage onBackToDashboard={() => setCurrentPage("home")} />}
-            {currentPage === "privacy" && <PrivacyPolicyPage onBackToDashboard={() => setCurrentPage("home")} />}
+            {currentPage === "services" && <ServicesPage onBackToDashboard={() => handlePageChange("home")} />}
+            {currentPage === "about" && <AboutUsPage onBackToDashboard={() => handlePageChange("home")} />}
+            {currentPage === "privacy" && <PrivacyPolicyPage onBackToDashboard={() => handlePageChange("home")} />}
 
             {currentPage === "videos" && (
-              <VideosPage onVideoSelect={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />
+              <VideosPage onVideoSelect={handleVideoSelect} onBackToDashboard={() => handlePageChange("home")} />
             )}
 
             {currentPage === "404" && (
               <NotFoundPage 
                 onNavigate={handlePageChange} 
-                onBackToDashboard={() => setCurrentPage("home")} 
+                onBackToDashboard={() => handlePageChange("home")}
               />
             )}
 
             {currentPage === "410" && (
               <Gone410Page 
                 onNavigate={handlePageChange} 
-                onBackToDashboard={() => setCurrentPage("home")} 
+                onBackToDashboard={() => handlePageChange("home")}
               />
             )}
           </>
@@ -384,24 +345,24 @@ export default function App() {
                 <span>Modern Fisheries Solutions</span>
               </span>
               <p className="text-slate-400 text-xs mt-1">
-                © {new Date().getFullYear()} Modern Fisheries. All rights reserved. Powered by modernfisheries.com.
+                © {new Date().getFullYear()} Modern Fisheries. All rights reserved. modernfisheriese.com.
               </p>
             </div>
 
             {/* Quick Links */}
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-sans text-slate-500">
-              <a href="/" onClick={(e) => { e.preventDefault(); handlePageChange("home"); }} className="hover:text-emerald-700 cursor-pointer">Home</a>
-              <a href="/aquaponic" onClick={(e) => { e.preventDefault(); handlePageChange("ras"); }} className="hover:text-emerald-700 cursor-pointer">RAS</a>
-              <a href="/bioflock" onClick={(e) => { e.preventDefault(); handlePageChange("biofloc"); }} className="hover:text-emerald-700 cursor-pointer">Biofloc</a>
-              <a href="/aquaponics-farming" onClick={(e) => { e.preventDefault(); handlePageChange("aquaponics"); }} className="hover:text-emerald-700 cursor-pointer">Aquaponics</a>
-              <a href="/hydroponic" onClick={(e) => { e.preventDefault(); handlePageChange("hydroponics"); }} className="hover:text-emerald-700 cursor-pointer">Hydroponics</a>
-              <a href="/pond-farming" onClick={(e) => { e.preventDefault(); handlePageChange("pond"); }} className="hover:text-emerald-700 cursor-pointer">Pond Farming</a>
-              <a href="/fish-diseases" onClick={(e) => { e.preventDefault(); handlePageChange("diseases"); }} className="hover:text-emerald-700 cursor-pointer">Fish Diseases</a>
-              <a href="/feeding-management" onClick={(e) => { e.preventDefault(); handlePageChange("feed"); }} className="hover:text-emerald-700 cursor-pointer">Feeding</a>
-              <a href="/calculators" onClick={(e) => { e.preventDefault(); handlePageChange("calculators"); }} className="hover:text-emerald-700 cursor-pointer">Calculators</a>
-              <a href="/ourservices" onClick={(e) => { e.preventDefault(); handlePageChange("services"); }} className="hover:text-emerald-700 cursor-pointer">Services</a>
-              <a href="/about-us" onClick={(e) => { e.preventDefault(); handlePageChange("about"); }} className="hover:text-emerald-700 cursor-pointer">About Us</a>
-              <a href="/frequently-asked-questions" onClick={(e) => { e.preventDefault(); handlePageChange("faq"); }} className="hover:text-emerald-700 cursor-pointer">FAQ</a>
+              <a href="/" className="hover:text-emerald-700 cursor-pointer">Home</a>
+              <a href="/ras-farming" className="hover:text-emerald-700 cursor-pointer">RAS</a>
+              <a href="/bioflock" className="hover:text-emerald-700 cursor-pointer">Biofloc</a>
+              <a href="/aquaponics-farming" className="hover:text-emerald-700 cursor-pointer">Aquaponics</a>
+              <a href="/hydroponic" className="hover:text-emerald-700 cursor-pointer">Hydroponics</a>
+              <a href="/pond-farming" className="hover:text-emerald-700 cursor-pointer">Pond Farming</a>
+              <a href="/fish-diseases" className="hover:text-emerald-700 cursor-pointer">Fish Diseases</a>
+              <a href="/feeding-management" className="hover:text-emerald-700 cursor-pointer">Feeding</a>
+              <a href="/calculators" className="hover:text-emerald-700 cursor-pointer">Calculators</a>
+              <a href="/services" className="hover:text-emerald-700 cursor-pointer">Services</a>
+              <a href="/about-us" className="hover:text-emerald-700 cursor-pointer">About Us</a>
+              <a href="/faq" className="hover:text-emerald-700 cursor-pointer">FAQ</a>
               <a 
                 href="https://www.amazon.in/shop/trends0628/list/181W960PYPC2?tag=onamztrends06-21&ref_=aip_sf_list_spv_ons_mixed_d" 
                 target="_blank" 
@@ -410,8 +371,8 @@ export default function App() {
               >
                 Shopping
               </a>
-              <a href="/farming-videos" onClick={(e) => { e.preventDefault(); handlePageChange("videos"); }} className="hover:text-red-700 font-bold text-red-600 cursor-pointer">Videos</a>
-              <a href="/privacy-policy" onClick={(e) => { e.preventDefault(); handlePageChange("privacy"); }} className="hover:text-emerald-700 cursor-pointer font-bold text-slate-700">Privacy Policy</a>
+              <a href="/videos" className="hover:text-red-700 font-bold text-red-600 cursor-pointer">Videos</a>
+              <a href="/privacy-policy" className="hover:text-emerald-700 cursor-pointer font-bold text-slate-700">Privacy Policy</a>
             </div>
 
           </div>

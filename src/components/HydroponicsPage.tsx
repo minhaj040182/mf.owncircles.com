@@ -13,6 +13,7 @@ import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
 import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
+import aquaponicsDiagramUrl from "../assets/images/aquaponic_diagram_1784222908220.jpg";
 
 // Check if a video is considered "viral" or highly viewed
 const isVideoViral = (v: Video) => {
@@ -797,7 +798,7 @@ export default function HydroponicsPage({ onVideoClick, onBackToDashboard }: Hyd
               <div className="lg:col-span-7 bg-white p-3 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm space-y-3 sm:space-y-4">
                 <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200">
                   <img 
-                    src="/src/assets/images/aquaponic_diagram_1784222908220.jpg" 
+                    src={aquaponicsDiagramUrl}
                     alt="Types of Hydroponics Farming diagram" 
                     className="w-full h-auto object-cover"
                     referrerPolicy="no-referrer"

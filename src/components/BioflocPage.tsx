@@ -1500,11 +1500,11 @@ export default function BioflocPage({ onVideoClick, onBackToDashboard }: Biofloc
                     <p>
                       <strong>Email Inquiries:</strong><br />
                       <a 
-                        href="mailto:mf@modernfisheries.com" 
+                        href="mailto:mf@owncircles.com"
                         className="font-mono text-sm font-black text-teal-800 hover:underline select-all"
                         title="Click to open default mail client"
                       >
-                        mf@modernfisheries.com
+                        mf@owncircles.com
                       </a>
                     </p>
                   </div>

@@ -1,80 +1,103 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "node:fs";
+import path from "node:path";
 
-const INDEXNOW_KEY = 'bfeda5c9d23544d5a837a93d5fe31830';
-const HOST = 'mf.owncircles.com';
+const INDEXNOW_KEY = "bfeda5c9d23544d5a837a93d5fe31830";
+const HOST = "modernfisheriese.com";
 const BASE_URL = `https://${HOST}`;
 const KEY_LOCATION = `${BASE_URL}/${INDEXNOW_KEY}.txt`;
+const ENDPOINT = "https://api.indexnow.org/indexnow";
 
-function getUrlsFromSitemap() {
-  const sitemapPath = path.resolve('dist/sitemap.xml');
-  const fallbackPath = path.resolve('public/sitemap.xml');
+const LEGACY_PATHS = [
+  "/home",
+  "/aquaponic",
+  "/ras",
+  "/recirculating",
+  "/aquaponics",
+  "/aquaponic-farming",
+  "/biofloc",
+  "/biofloc-farming",
+  "/hydroponics",
+  "/hydroponics-farming",
+  "/soilless",
+  "/pond",
+  "/diseases",
+  "/feed",
+  "/calculator",
+  "/calc",
+  "/ourservices",
+  "/shopping",
+  "/shop",
+  "/about",
+  "/farming-videos",
+  "/frequently-asked-questions",
+  "/privacy",
+];
+
+function getCanonicalUrls() {
+  const sitemapPath = path.resolve("dist/sitemap.xml");
+  const fallbackPath = path.resolve("public/sitemap.xml");
   const targetPath = fs.existsSync(sitemapPath) ? sitemapPath : fallbackPath;
 
   if (!fs.existsSync(targetPath)) {
-    console.warn(`Sitemap not found at ${targetPath}. Using core static URLs.`);
-    return [
-      `${BASE_URL}/`,
-      `${BASE_URL}/aquaponics-farming`,
-      `${BASE_URL}/bioflock`,
-      `${BASE_URL}/aquaponic`,
-      `${BASE_URL}/hydroponic`,
-      `${BASE_URL}/pond-farming`,
-      `${BASE_URL}/fish-diseases`,
-      `${BASE_URL}/feeding-management`,
-      `${BASE_URL}/calculators`,
-      `${BASE_URL}/ourservices`,
-      `${BASE_URL}/about-us`,
-      `${BASE_URL}/farming-videos`,
-      `${BASE_URL}/frequently-asked-questions`,
-      `${BASE_URL}/privacy-policy`
-    ];
+    throw new Error("Build the site before submitting IndexNow URLs: sitemap.xml is missing.");
   }
 
-  const content = fs.readFileSync(targetPath, 'utf-8');
-  const urls = [];
-  const regex = /<loc>(https?:\/\/[^<]+)<\/loc>/g;
-  let match;
-  while ((match = regex.exec(content)) !== null) {
-    urls.push(match[1]);
+  const content = fs.readFileSync(targetPath, "utf8");
+  return [...content.matchAll(/<loc>(https?:\/\/[^<]+)<\/loc>/g)].map((match) => match[1]);
+}
+
+function verifyKeyFile() {
+  const candidates = [
+    path.resolve(`dist/${INDEXNOW_KEY}.txt`),
+    path.resolve(`public/${INDEXNOW_KEY}.txt`),
+  ];
+  const keyPath = candidates.find((candidate) => fs.existsSync(candidate));
+  if (!keyPath || fs.readFileSync(keyPath, "utf8").trim() !== INDEXNOW_KEY) {
+    throw new Error(`IndexNow verification file is missing or invalid: ${INDEXNOW_KEY}.txt`);
   }
-  return urls;
+}
+
+function getSubmissionUrls() {
+  const canonicalUrls = getCanonicalUrls();
+  const retiredHtmlDuplicates = canonicalUrls
+    .filter((url) => url !== `${BASE_URL}/`)
+    .map((url) => `${url}.html`);
+  const legacyUrls = LEGACY_PATHS.map((legacyPath) => `${BASE_URL}${legacyPath}`);
+  return [...new Set([...canonicalUrls, ...retiredHtmlDuplicates, ...legacyUrls])];
 }
 
 async function submitIndexNow() {
-  const urls = getUrlsFromSitemap();
-  console.log(`\n🚀 Submitting ${urls.length} URLs to IndexNow for host: ${HOST}...`);
-  console.log(`Key location: ${KEY_LOCATION}\n`);
-
+  verifyKeyFile();
+  const urlList = getSubmissionUrls();
   const payload = {
     host: HOST,
     key: INDEXNOW_KEY,
     keyLocation: KEY_LOCATION,
-    urlList: urls
+    urlList,
   };
 
-  const endpoints = [
-    'https://api.indexnow.org/indexnow',
-    'https://www.bing.com/indexnow',
-    'https://yandex.com/indexnow'
-  ];
+  console.log(`Submitting ${urlList.length} updated, redirected, and canonical URLs to IndexNow.`);
+  console.log(`Key location: ${KEY_LOCATION}`);
 
-  for (const endpoint of endpoints) {
-    try {
-      console.log(`📡 Pinging ${endpoint}...`);
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify(payload)
-      });
-      console.log(`  └ Status: ${res.status} ${res.statusText}`);
-    } catch (err) {
-      console.error(`  └ Failed to submit to ${endpoint}:`, err.message);
-    }
+  if (process.argv.includes("--dry-run")) {
+    console.log("Dry run complete; no IndexNow request was sent.");
+    return;
   }
-  console.log('\n✓ IndexNow submission complete!\n');
+
+  const response = await fetch(ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+    body: JSON.stringify(payload),
+  });
+
+  console.log(`IndexNow response: ${response.status} ${response.statusText}`);
+  if (![200, 202].includes(response.status)) {
+    const responseBody = await response.text();
+    throw new Error(`IndexNow rejected the submission${responseBody ? `: ${responseBody}` : "."}`);
+  }
 }
 
-submitIndexNow();
+submitIndexNow().catch((error) => {
+  console.error(error.message);
+  process.exitCode = 1;
+});
