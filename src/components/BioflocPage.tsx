@@ -14,6 +14,11 @@ import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
 import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
 
+import tilapiaImg from "../assets/images/tilapia_fish_aquaculture_1788981758389.jpg";
+import shrimpImg from "../assets/images/shrimp_aquaculture_1788981819089.jpg";
+import mangurImg from "../assets/images/mangur_fish_aquaculture_1788981806883.jpg";
+import pangasiusImg from "../assets/images/pangasius_fish_aquaculture_1788981794331.jpg";
+
 // Real, educational Biofloc fish farming YouTube video masterclass guides
 import { BIOFLOC_YOUTUBE_VIDEOS as SHARED_BIOFLOC_YOUTUBE_VIDEOS, isVideoViral } from "../data";
 const BIOFLOC_YOUTUBE_VIDEOS: Video[] = SHARED_BIOFLOC_YOUTUBE_VIDEOS;
@@ -476,7 +481,8 @@ export default function BioflocPage({ onVideoClick, onBackToDashboard }: Biofloc
       survival: "92% - 96%",
       marketPrice: "Medium",
       color: "from-teal-500 to-cyan-500",
-      desc: "Ideal candidate for BFT. Directly consumes bacterial floc as protein-rich supplemental food, improving health and reducing feed bills up to 30%."
+      desc: "Ideal candidate for BFT. Directly consumes bacterial floc as protein-rich supplemental food, improving health and reducing feed bills up to 30%.",
+      image: tilapiaImg
     },
     {
       name: "Whiteleg Shrimp",
@@ -489,20 +495,22 @@ export default function BioflocPage({ onVideoClick, onBackToDashboard }: Biofloc
       survival: "85% - 92%",
       marketPrice: "Very High",
       color: "from-amber-500 to-orange-600",
-      desc: "Thrives in shallow circular biofloc pools. Continuously grazes on floating biological aggregates, boosting carapace growth and reducing disease index."
+      desc: "Thrives in shallow circular biofloc pools. Continuously grazes on floating biological aggregates, boosting carapace growth and reducing disease index.",
+      image: shrimpImg
     },
     {
-      name: "African Catfish",
-      scientific: "Clarias gariepinus",
+      name: "African Catfish / Magur",
+      scientific: "Clarias gariepinus / batrachus",
       density: "80 - 120 kg/m³",
       temp: "25°C - 28°C",
       ph: "6.5 - 8.0",
       cycle: "4 - 5 Months",
       fcr: "1.0 - 1.2",
       survival: "95% - 98%",
-      marketPrice: "Medium",
+      marketPrice: "Medium-High",
       color: "from-slate-600 to-slate-800",
-      desc: "Exceptional tolerance to high stocking density and low dissolved oxygen levels. Air-breathing capabilities allow farming in intense floc concentration."
+      desc: "Exceptional tolerance to high stocking density and low dissolved oxygen levels. Air-breathing capabilities allow farming in intense floc concentration.",
+      image: mangurImg
     },
     {
       name: "Pangasius Catfish",
@@ -513,9 +521,10 @@ export default function BioflocPage({ onVideoClick, onBackToDashboard }: Biofloc
       cycle: "6 - 8 Months",
       fcr: "1.3 - 1.5",
       survival: "90% - 95%",
-      marketPrice: "Medium-High",
+      marketPrice: "Medium",
       color: "from-indigo-400 to-blue-600",
-      desc: "Extremely fast-growing table fish. Readily consumes floc particles, making it efficient for intensive commercial farming under zero-water exchange."
+      desc: "Extremely fast-growing table fish. Readily consumes floc particles, making it efficient for intensive commercial farming under zero-water exchange.",
+      image: pangasiusImg
     }
   ];
 
@@ -1231,17 +1240,27 @@ export default function BioflocPage({ onVideoClick, onBackToDashboard }: Biofloc
                   <button
                     key={index}
                     onClick={() => setSelectedSpecies(index)}
-                    className={`p-3 sm:p-4 rounded-xl text-left border transition-all flex justify-between items-center cursor-pointer shrink-0 lg:shrink w-[180px] sm:w-[220px] lg:w-full ${
+                    className={`p-2.5 sm:p-3.5 rounded-xl text-left border transition-all flex items-center gap-3 cursor-pointer shrink-0 lg:shrink w-[210px] sm:w-[240px] lg:w-full ${
                       selectedSpecies === index 
                         ? "bg-teal-50 border-teal-500 text-teal-950 font-extrabold shadow-xs" 
                         : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 text-slate-700"
                     }`}
                   >
-                    <div>
+                    {fish.image && (
+                      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg overflow-hidden border border-slate-200 shrink-0 bg-slate-100">
+                        <img 
+                          src={fish.image} 
+                          alt={fish.name} 
+                          className="w-full h-full object-cover" 
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                    <div className="min-w-0 flex-1">
                       <span className="block text-[10px] sm:text-xs font-mono opacity-60">Candidate {index + 1}</span>
-                      <span className="text-xs sm:text-base font-sans font-bold">{fish.name}</span>
+                      <span className="text-xs sm:text-sm font-sans font-bold block truncate">{fish.name}</span>
                     </div>
-                    <ArrowRight className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-teal-700 transition-transform ${selectedSpecies === index ? "translate-x-1" : ""}`} />
+                    <ArrowRight className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-teal-700 shrink-0 transition-transform ${selectedSpecies === index ? "translate-x-1" : ""}`} />
                   </button>
                 ))}
               </div>
@@ -1249,16 +1268,27 @@ export default function BioflocPage({ onVideoClick, onBackToDashboard }: Biofloc
               {/* Right Details Panel */}
               <div className="lg:col-span-8 bg-white p-4 sm:p-8 rounded-2xl sm:rounded-3xl border border-teal-100/60 shadow-xs space-y-4 sm:space-y-6 w-full min-w-0">
                 
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4 pb-3 sm:pb-4 border-b border-slate-100">
-                  <div>
-                    <h3 className="font-sans font-black text-xl sm:text-2xl text-slate-900">
-                      {bioflocSpecies[selectedSpecies].name}
-                    </h3>
-                    <p className="text-teal-700 text-xs sm:text-sm font-mono italic mt-0.5">
-                      {bioflocSpecies[selectedSpecies].scientific}
-                    </p>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-4 pb-3 sm:pb-4 border-b border-slate-100">
+                  <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                    {bioflocSpecies[selectedSpecies].image && (
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-teal-200 bg-slate-100 shrink-0 shadow-xs">
+                        <img 
+                          src={bioflocSpecies[selectedSpecies].image} 
+                          alt={bioflocSpecies[selectedSpecies].name} 
+                          className="w-full h-full object-cover" 
+                        />
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <h3 className="font-sans font-black text-xl sm:text-2xl text-slate-900 truncate">
+                        {bioflocSpecies[selectedSpecies].name}
+                      </h3>
+                      <p className="text-teal-700 text-xs sm:text-sm font-mono italic mt-0.5 truncate">
+                        {bioflocSpecies[selectedSpecies].scientific}
+                      </p>
+                    </div>
                   </div>
-                  <span className="inline-flex px-2.5 py-1 bg-teal-50 border border-teal-100 text-teal-800 rounded-full font-mono text-[10px] sm:text-xs font-extrabold self-start sm:self-auto">
+                  <span className="inline-flex px-2.5 py-1 bg-teal-50 border border-teal-100 text-teal-800 rounded-full font-mono text-[10px] sm:text-xs font-extrabold self-start sm:self-auto shrink-0">
                     Market Value: {bioflocSpecies[selectedSpecies].marketPrice}
                   </span>
                 </div>

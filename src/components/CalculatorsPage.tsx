@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import FeedCalculator from "./FeedCalculator";
 import WaterDiagnosticWizard from "./WaterDiagnosticWizard";
 import TreatmentCalculator from "./TreatmentCalculator";
+import FcrEducationalGuide from "./FcrEducationalGuide";
+import BioflocCarbonGuide from "./BioflocCarbonGuide";
+import FeedConversionRatioSolver from "./FeedConversionRatioSolver";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
 import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
@@ -24,6 +27,14 @@ import {
   ChevronLeft
 } from "lucide-react";
 
+// AI Generated aquaculture species assets
+import tilapiaImg from "../assets/images/tilapia_fish_aquaculture_1788981758389.jpg";
+import rohuImg from "../assets/images/rohu_fish_aquaculture_1788981770084.jpg";
+import catlaImg from "../assets/images/catla_fish_aquaculture_1788981783353.jpg";
+import pangasiusImg from "../assets/images/pangasius_fish_aquaculture_1788981794331.jpg";
+import mangurImg from "../assets/images/mangur_fish_aquaculture_1788981806883.jpg";
+import shrimpImg from "../assets/images/shrimp_aquaculture_1788981819089.jpg";
+
 type CalculatorTab = "treatment" | "feed" | "water" | "stocking" | "volume" | "fcr" | "carbon" | "profit";
 
 interface CalculatorsPageProps {
@@ -35,7 +46,7 @@ export default function CalculatorsPage({ onBackToDashboard }: CalculatorsPagePr
 
   // 1. Stocking Density Calculator state
   const [cultureVolume, setCultureVolume] = useState<number>(50); // m3
-  const [species, setSpecies] = useState<"Tilapia" | "Catfish" | "Shrimp">("Tilapia");
+  const [species, setSpecies] = useState<"Tilapia" | "Rohu" | "Catla" | "Pangasius" | "Mangur" | "Shrimp">("Tilapia");
   const [aeration, setAeration] = useState<"None" | "Paddle Wheel" | "Continuous Diffuser">("Paddle Wheel");
 
   // 2. Volume Calculator state
@@ -67,7 +78,18 @@ export default function CalculatorsPage({ onBackToDashboard }: CalculatorsPagePr
   // Stocking Math
   const maxDensityKgM3 = 
     aeration === "None" ? 10 : aeration === "Paddle Wheel" ? 35 : 80;
-  const targetHarvestWeightKg = species === "Tilapia" ? 0.5 : species === "Catfish" ? 0.8 : 0.025;
+
+  const speciesProfiles = {
+    Tilapia: { name: "Nile Tilapia", harvestWtKg: 0.5, image: tilapiaImg, fcr: 1.25 },
+    Rohu: { name: "Rohu (Carp)", harvestWtKg: 1.0, image: rohuImg, fcr: 1.45 },
+    Catla: { name: "Catla (Carp)", harvestWtKg: 1.5, image: catlaImg, fcr: 1.5 },
+    Pangasius: { name: "Pangasius Catfish", harvestWtKg: 1.0, image: pangasiusImg, fcr: 1.35 },
+    Mangur: { name: "Desi Magur", harvestWtKg: 0.2, image: mangurImg, fcr: 1.2 },
+    Shrimp: { name: "Vannamei Shrimp", harvestWtKg: 0.025, image: shrimpImg, fcr: 1.3 },
+  };
+
+  const currentSpeciesInfo = speciesProfiles[species];
+  const targetHarvestWeightKg = currentSpeciesInfo.harvestWtKg;
   const totalSafeBiomassKg = cultureVolume * maxDensityKgM3;
   const recommendedStockingCount = Math.round(totalSafeBiomassKg / targetHarvestWeightKg);
 
@@ -193,7 +215,7 @@ export default function CalculatorsPage({ onBackToDashboard }: CalculatorsPagePr
               activeTab === "fcr" ? "bg-white text-green-950 shadow-sm font-black" : "text-slate-500 hover:text-slate-800"
             }`}
           >
-            📊 FCR Calibration
+            📊 FCR Solver
           </button>
           <button
             onClick={() => setActiveTab("carbon")}
@@ -261,16 +283,42 @@ export default function CalculatorsPage({ onBackToDashboard }: CalculatorsPagePr
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Select Culture Species</label>
-                <select
-                  value={species}
-                  onChange={(e) => setSpecies(e.target.value as any)}
-                  className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:ring-1 focus:ring-green-600"
-                >
-                  <option value="Tilapia">Tilapia (Target harvest weight: 500g)</option>
-                  <option value="Catfish">Catfish (Target harvest weight: 800g)</option>
-                  <option value="Shrimp">Whiteleg Shrimp (Target harvest weight: 25g)</option>
-                </select>
+                <label className="block text-xs font-bold text-slate-700 mb-2">Select Culture Species</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {(["Tilapia", "Rohu", "Catla", "Pangasius", "Mangur", "Shrimp"] as const).map((sp) => {
+                    const prof = speciesProfiles[sp];
+                    const isSelected = species === sp;
+                    return (
+                      <button
+                        key={sp}
+                        type="button"
+                        onClick={() => setSpecies(sp)}
+                        className={`p-1.5 rounded-xl border text-left transition-all ${
+                          isSelected
+                            ? "bg-emerald-50 border-emerald-600 ring-2 ring-emerald-500/20 shadow-xs"
+                            : "bg-white border-slate-200 hover:border-emerald-300 hover:bg-slate-50"
+                        }`}
+                      >
+                        <div className="aspect-square w-full rounded-lg overflow-hidden mb-1.5 bg-slate-100">
+                          <img
+                            src={prof.image}
+                            alt={prof.name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                        <span className={`block text-[11px] font-bold leading-tight line-clamp-1 ${
+                          isSelected ? "text-emerald-950" : "text-slate-800"
+                        }`}>
+                          {prof.name}
+                        </span>
+                        <span className="text-[9px] font-mono text-slate-500 block">
+                          Harvest: {prof.harvestWtKg >= 1 ? `${prof.harvestWtKg} kg` : `${prof.harvestWtKg * 1000} g`}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               <div>
@@ -447,67 +495,10 @@ export default function CalculatorsPage({ onBackToDashboard }: CalculatorsPagePr
         </div>
       )}
 
-      {/* TAB 4: FCR CALIBRATION */}
+      {/* TAB 4: FCR CALIBRATION & SOLVER */}
       {activeTab === "fcr" && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start text-left">
-          {/* Controls */}
-          <div className="lg:col-span-5 bg-white p-6 sm:p-8 rounded-2xl border border-green-100 shadow-sm space-y-6">
-            <h3 className="font-sans font-black text-slate-900 text-lg flex items-center gap-2">
-              <Activity className="w-5 h-5 text-emerald-600" />
-              <span>Feed & Gain Parameters</span>
-            </h3>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Total Distributed Feed Weight (kg)</label>
-                <input
-                  type="number"
-                  value={fcrFeed}
-                  onChange={(e) => setFcrFeed(Math.max(1, Number(e.target.value)))}
-                  className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm font-mono text-slate-800 focus:outline-none"
-                />
-                <span className="text-[10px] text-slate-400 mt-1 block">Accumulated total feed thrown in this batch/period.</span>
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Total Net Body Weight Gain (kg)</label>
-                <input
-                  type="number"
-                  value={fcrGain}
-                  onChange={(e) => setFcrGain(Math.max(1, Number(e.target.value)))}
-                  className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm font-mono text-slate-800 focus:outline-none"
-                />
-                <span className="text-[10px] text-slate-400 mt-1 block">Total estimated biomass weight gain in the same period.</span>
-              </div>
-            </div>
-          </div>
-
-          {/* FCR Diagnostic Display */}
-          <div className="lg:col-span-7 space-y-5">
-            <div className="bg-white p-5 rounded-2xl border border-green-100 shadow-xs">
-              <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block font-bold">Feed Conversion Ratio</span>
-              <div className="flex items-baseline gap-3 mt-1">
-                <span className="text-5xl font-mono font-black text-slate-900">{calculatedFCRValue.toFixed(2)}</span>
-                <span className={`px-2.5 py-1 text-xs font-bold rounded-lg border uppercase tracking-wider ${fcrRating.color}`}>
-                  {fcrRating.label}
-                </span>
-              </div>
-              <p className="text-xs text-slate-500 mt-2 font-sans">For every <strong>{calculatedFCRValue.toFixed(2)} kg</strong> of feed distributed, you harvested exactly <strong>1 kg</strong> of live fish weight.</p>
-            </div>
-
-            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 text-xs text-slate-700 space-y-3 font-sans">
-              <h4 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-emerald-600" />
-                <span>How to Improve Your Feed Conversion Ratio</span>
-              </h4>
-              <ul className="list-disc pl-5 space-y-1.5 leading-relaxed text-slate-600">
-                <li><strong>Feed in fractions:</strong> Break daily allotment into 3 small hand-feedings so dominant fish don't waste pellets.</li>
-                <li><strong>Monitor DO:</strong> If dissolved oxygen drops below 4 ppm, fish metabolism slows down, wasting feed.</li>
-                <li><strong>Select quality feed:</strong> Certified 28-32% crude protein floating feed minimizes fecal sludge loading.</li>
-                <li><strong>Mortality logging:</strong> Ensure you subtract dead fish counts immediately to keep the active biomass weight math precise.</li>
-              </ul>
-            </div>
-          </div>
+        <div className="text-left w-full">
+          <FeedConversionRatioSolver />
         </div>
       )}
 
@@ -578,6 +569,11 @@ export default function CalculatorsPage({ onBackToDashboard }: CalculatorsPagePr
                 <p className="mt-0.5">Dilute the molasses in 5-10L of tank water, mix thoroughly, and spray evenly across the biofloc surface. Keep continuous air blowers on maximum to ensure proper oxygenation during bacterial metabolism.</p>
               </div>
             </div>
+          </div>
+
+          {/* Full Width Comprehensive Masterclass Technical Manual on Carbon-to-Nitrogen Balancing */}
+          <div className="col-span-1 lg:col-span-12">
+            <BioflocCarbonGuide />
           </div>
         </div>
       )}

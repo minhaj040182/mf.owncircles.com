@@ -6,6 +6,13 @@ import {
 import { Video } from "../types";
 import { getEnrichedVideosList } from "../utils/videoMetrics";
 
+import tilapiaImg from "../assets/images/tilapia_fish_aquaculture_1788981758389.jpg";
+import rohuImg from "../assets/images/rohu_fish_aquaculture_1788981770084.jpg";
+import catlaImg from "../assets/images/catla_fish_aquaculture_1788981783353.jpg";
+import pangasiusImg from "../assets/images/pangasius_fish_aquaculture_1788981794331.jpg";
+import mangurImg from "../assets/images/mangur_fish_aquaculture_1788981806883.jpg";
+import shrimpImg from "../assets/images/shrimp_aquaculture_1788981819089.jpg";
+
 // Types
 interface Article {
   id: string;
@@ -27,6 +34,7 @@ interface Species {
   ph: string;
   description: string;
   marketPrice: string;
+  image?: string;
 }
 
 interface ProfessionalDashboardProps {
@@ -98,7 +106,8 @@ const SPECIES: Species[] = [
     temp: "25°C - 32°C",
     ph: "6.5 - 8.5",
     marketPrice: "₹140 - ₹185 / kg",
-    description: "Extremely hardy, omnivorous surface feeders. Perfect for high-density Biofloc and RAS setups as they adapt easily to high turbidity and suspended solids."
+    description: "Extremely hardy, omnivorous surface feeders. Perfect for high-density Biofloc and RAS setups as they adapt easily to high turbidity and suspended solids.",
+    image: tilapiaImg
   },
   {
     id: "sp-2",
@@ -110,7 +119,8 @@ const SPECIES: Species[] = [
     temp: "20°C - 30°C",
     ph: "7.0 - 8.5",
     marketPrice: "₹160 - ₹220 / kg",
-    description: "Indian Major Carp, highly popular in South Asia. A mid-water feeder, excellent for polyculture setups alongside Catla and Mrigal to optimize feed utilization."
+    description: "Indian Major Carp, highly popular in South Asia. A mid-water feeder, excellent for polyculture setups alongside Catla and Mrigal to optimize feed utilization.",
+    image: rohuImg
   },
   {
     id: "sp-3",
@@ -122,7 +132,8 @@ const SPECIES: Species[] = [
     temp: "22°C - 32°C",
     ph: "7.0 - 8.2",
     marketPrice: "₹180 - ₹240 / kg",
-    description: "A surface-feeding major carp known for rapid initial growth. Ideal for larger earth ponds where natural plankton blooms can supplement formulated feeds."
+    description: "A surface-feeding major carp known for rapid initial growth. Ideal for larger earth ponds where natural plankton blooms can supplement formulated feeds.",
+    image: catlaImg
   },
   {
     id: "sp-4",
@@ -134,7 +145,8 @@ const SPECIES: Species[] = [
     temp: "26°C - 30°C",
     ph: "6.5 - 7.8",
     marketPrice: "₹110 - ₹140 / kg",
-    description: "An incredibly fast-growing river catfish. Possesses accessory air-breathing organs, letting it survive in highly dense, lower dissolved oxygen water profiles."
+    description: "An incredibly fast-growing river catfish. Possesses accessory air-breathing organs, letting it survive in highly dense, lower dissolved oxygen water profiles.",
+    image: pangasiusImg
   },
   {
     id: "sp-5",
@@ -146,7 +158,8 @@ const SPECIES: Species[] = [
     temp: "22°C - 30°C",
     ph: "6.0 - 8.0",
     marketPrice: "₹350 - ₹500 / kg",
-    description: "Walking catfish, fetches premium market prices due to delicious taste and high nutritional values. Prefers mud bottom setups or shallow intensive nursery tanks."
+    description: "Walking catfish, fetches premium market prices due to delicious taste and high nutritional values. Prefers mud bottom setups or shallow intensive nursery tanks.",
+    image: mangurImg
   },
   {
     id: "sp-6",
@@ -158,7 +171,8 @@ const SPECIES: Species[] = [
     temp: "26°C - 32°C",
     ph: "7.5 - 8.3",
     marketPrice: "₹380 - ₹550 / kg",
-    description: "Pacific white shrimp, highly lucrative export product. Demands strict water biosecurity, steady salinity profiles (10-25 ppt), and high minerals for molting."
+    description: "Pacific white shrimp, highly lucrative export product. Demands strict water biosecurity, steady salinity profiles (10-25 ppt), and high minerals for molting.",
+    image: shrimpImg
   }
 ];
 
@@ -466,16 +480,31 @@ export default function ProfessionalDashboard({ onVideoClick, onNavigate, trendi
                 key={spec.id} 
                 className="bg-slate-50/80 border border-slate-200 hover:border-emerald-300 rounded-2xl p-3.5 sm:p-4 text-left space-y-3 transition-all hover:bg-white hover:shadow-md flex flex-col justify-between w-full min-w-0"
               >
-                <div className="space-y-1.5 min-w-0">
-                  <div className="flex items-center justify-between gap-2">
-                    <h4 className="font-sans font-extrabold text-sm sm:text-base text-slate-900 truncate min-w-0">{spec.name}</h4>
-                    <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-emerald-100 text-emerald-800 shrink-0">
-                      {spec.scientific.split(" ")[0]}
+                <div className="flex gap-3 items-start">
+                  {spec.image && (
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border border-emerald-200/80 bg-slate-100 shrink-0 shadow-xs">
+                      <img 
+                        src={spec.image} 
+                        alt={spec.name} 
+                        className="w-full h-full object-cover" 
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <div className="space-y-1 min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <h4 className="font-sans font-extrabold text-sm sm:text-base text-slate-900 truncate min-w-0">{spec.name}</h4>
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-emerald-100 text-emerald-800 shrink-0">
+                        {spec.scientific.split(" ")[0]}
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-mono text-emerald-700 font-semibold block italic truncate">
+                      {spec.scientific}
                     </span>
+                    <p className="text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed">
+                      {spec.description}
+                    </p>
                   </div>
-                  <p className="text-sm sm:text-base text-slate-600 line-clamp-2 leading-relaxed">
-                    {spec.description}
-                  </p>
                 </div>
 
                 {/* 4-Box Metric Property Grid */}
@@ -942,13 +971,24 @@ export default function ProfessionalDashboard({ onVideoClick, onNavigate, trendi
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4">
           <div className="w-full max-w-xl bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-green-100 shadow-2xl space-y-4 text-left animate-slide-in max-h-[90vh] overflow-y-auto mx-2">
             <div className="flex justify-between items-start border-b border-slate-100 pb-3 gap-2">
-              <div>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-green-100 text-green-800 inline-block">
-                  {activeSpeciesModal.scientific}
-                </span>
-                <h3 className="font-sans font-black text-slate-900 text-lg sm:text-xl mt-1 leading-snug">
-                  {activeSpeciesModal.name} Slat Sheet
-                </h3>
+              <div className="flex items-center gap-3">
+                {activeSpeciesModal.image && (
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border border-emerald-200 bg-slate-100 shrink-0 shadow-xs">
+                    <img 
+                      src={activeSpeciesModal.image} 
+                      alt={activeSpeciesModal.name} 
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
+                )}
+                <div>
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-green-100 text-green-800 inline-block">
+                    {activeSpeciesModal.scientific}
+                  </span>
+                  <h3 className="font-sans font-black text-slate-900 text-lg sm:text-xl mt-1 leading-snug">
+                    {activeSpeciesModal.name} Datasheet Profile
+                  </h3>
+                </div>
               </div>
               <button 
                 onClick={() => setActiveSpeciesModal(null)}

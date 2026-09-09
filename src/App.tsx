@@ -26,6 +26,7 @@ import CommercialProductsBanner from "./components/CommercialProductsBanner";
 import HomeVideos from "./components/HomeVideos";
 import FaqSection from "./components/FaqSection";
 import BrandLogo, { BrandEmblem } from "./components/BrandLogo";
+import ContentIndexGrid from "./components/ContentIndexGrid";
 import { getEnrichedVideosList } from "./utils/videoMetrics";
 import { parseUrlPath, getPathForPage, updateSeoMetadata, PageType } from "./utils/seoRouting";
 
@@ -302,6 +303,18 @@ export default function App() {
                     </div>
                   </div>
                 </div>
+
+                {/* Flat Semantic Content & SEO Discovery Grid for Crawlers */}
+                <ContentIndexGrid 
+                  onNavigate={(path) => {
+                    const matched = parseUrlPath(path, ALL_VIDEOS);
+                    if (matched.video) {
+                      handleVideoSelect(matched.video);
+                    } else {
+                      handlePageChange(matched.page);
+                    }
+                  }} 
+                />
 
               </div>
             )}

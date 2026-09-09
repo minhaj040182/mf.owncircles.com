@@ -26,7 +26,7 @@ export interface WaterLog {
 }
 
 export interface CalculatorInput {
-  species: "Tilapia" | "Catfish" | "Carp" | "Trout" | "Shrimp";
+  species: "Tilapia" | "Rohu" | "Catla" | "Pangasius" | "Mangur" | "Shrimp" | "Catfish" | "Carp" | "Trout";
   stockingDensity: number; // fish per m3
   pondVolume: number; // m3
   averageWeight: number; // grams

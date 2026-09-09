@@ -14,6 +14,13 @@ import {
   ArrowRight, Flame, Mail
 } from "lucide-react";
 
+import tilapiaImg from "../assets/images/tilapia_fish_aquaculture_1788981758389.jpg";
+import mangurImg from "../assets/images/mangur_fish_aquaculture_1788981806883.jpg";
+import pangasiusImg from "../assets/images/pangasius_fish_aquaculture_1788981794331.jpg";
+import troutImg from "../assets/images/trout_fish_aquaculture_1788982302566.jpg";
+import seabassImg from "../assets/images/seabass_fish_aquaculture_1788982316640.jpg";
+import sturgeonImg from "../assets/images/sturgeon_fish_aquaculture_1788982340555.jpg";
+
 import { RAS_YOUTUBE_VIDEOS as SHARED_RAS_YOUTUBE_VIDEOS, isVideoViral } from "../data";
 const RAS_YOUTUBE_VIDEOS: Video[] = SHARED_RAS_YOUTUBE_VIDEOS;
 /*
@@ -453,7 +460,8 @@ export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProp
       survival: "92% - 95%",
       marketPrice: "Low-Medium",
       color: "from-blue-500 to-cyan-500",
-      desc: "Extremely hardy, high tolerance for dense crowding and lower dissolved oxygen levels. Excellent species for beginners and commercial scaling."
+      desc: "Extremely hardy, high tolerance for dense crowding and lower dissolved oxygen levels. Excellent species for beginners and commercial scaling.",
+      image: tilapiaImg
     },
     {
       name: "African Catfish",
@@ -466,7 +474,8 @@ export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProp
       survival: "95% - 98%",
       marketPrice: "Medium",
       color: "from-slate-600 to-slate-800",
-      desc: "Has an auxiliary breathing organ (can breathe atmospheric air), allowing extreme stocking densities. Very fast growth rate and outstanding FCR."
+      desc: "Has an auxiliary breathing organ (can breathe atmospheric air), allowing extreme stocking densities. Very fast growth rate and outstanding FCR.",
+      image: mangurImg
     },
     {
       name: "Pangasius (Striped Catfish)",
@@ -479,7 +488,8 @@ export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProp
       survival: "90% - 94%",
       marketPrice: "Medium",
       color: "from-sky-400 to-blue-600",
-      desc: "Very popular for white-fillet export. Thrives in warm-water recirculating systems with high biofilter nitrification capacities."
+      desc: "Very popular for white-fillet export. Thrives in warm-water recirculating systems with high biofilter nitrification capacities.",
+      image: pangasiusImg
     },
     {
       name: "Rainbow Trout",
@@ -492,7 +502,8 @@ export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProp
       survival: "88% - 92%",
       marketPrice: "High",
       color: "from-rose-500 to-amber-500",
-      desc: "Cold-water premium carnivorous species. Demands absolute pristine water quality, ultra-high oxygen levels (DO > 8mg/L), and dedicated chillers."
+      desc: "Cold-water premium carnivorous species. Demands absolute pristine water quality, ultra-high oxygen levels (DO > 8mg/L), and dedicated chillers.",
+      image: troutImg
     },
     {
       name: "Barramundi (Asian Seabass)",
@@ -505,7 +516,8 @@ export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProp
       survival: "90% - 93%",
       marketPrice: "High",
       color: "from-teal-500 to-emerald-600",
-      desc: "Highly valued premium table fish. Can adapt smoothly to fresh, brackish, or marine salinity levels within RAS systems."
+      desc: "Highly valued premium table fish. Can adapt smoothly to fresh, brackish, or marine salinity levels within RAS systems.",
+      image: seabassImg
     },
     {
       name: "Sturgeon",
@@ -518,7 +530,8 @@ export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProp
       survival: "85% - 90%",
       marketPrice: "Very High",
       color: "from-indigo-600 to-purple-800",
-      desc: "Grown for high-value meat and black caviar. Requires very long-term investment and highly stable recirculating parameters."
+      desc: "Grown for high-value meat and black caviar. Requires very long-term investment and highly stable recirculating parameters.",
+      image: sturgeonImg
     }
   ];
 
@@ -1208,33 +1221,56 @@ export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProp
                 <button
                   key={idx}
                   onClick={() => setSelectedFish(idx)}
-                  className={`shrink-0 lg:shrink w-[180px] sm:w-[220px] lg:w-full text-left p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-all flex items-center justify-between cursor-pointer ${
+                  className={`shrink-0 lg:shrink w-[210px] sm:w-[240px] lg:w-full text-left p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border transition-all flex items-center gap-3 cursor-pointer ${
                     idx === selectedFish
                       ? "bg-slate-900 border-slate-900 text-white shadow-md scale-[1.01]"
                       : "bg-white border-slate-100 text-slate-700 hover:border-emerald-200"
                   }`}
                 >
-                  <div>
-                    <h4 className="font-sans font-black text-xs sm:text-sm line-clamp-1">{fish.name}</h4>
-                    <span className="font-mono text-[9px] sm:text-[10px] italic opacity-85 line-clamp-1">{fish.scientific}</span>
+                  {fish.image && (
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg overflow-hidden border border-slate-200/40 shrink-0 bg-slate-800">
+                      <img 
+                        src={fish.image} 
+                        alt={fish.name} 
+                        className="w-full h-full object-cover" 
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-sans font-black text-xs sm:text-sm truncate">{fish.name}</h4>
+                    <span className="font-mono text-[9px] sm:text-[10px] italic opacity-85 truncate block">{fish.scientific}</span>
                   </div>
-                  <ChevronRight className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform shrink-0 ${idx === selectedFish ? "translate-x-1" : "text-slate-400"}`} />
+                  <ChevronRight className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform shrink-0 ${idx === selectedFish ? "translate-x-1 text-white" : "text-slate-400"}`} />
                 </button>
               ))}
             </div>
 
             {/* Active Species Detail Card */}
             <div className="lg:col-span-8 bg-white rounded-3xl border border-slate-100 shadow-xs overflow-hidden">
-              <div className={`p-6 sm:p-8 bg-gradient-to-r ${suitableFishes[selectedFish].color} text-white`}>
-                <span className="font-mono text-xs font-bold bg-white/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                  Species Guide Profile
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-sans font-black tracking-tight mt-3">
-                  {suitableFishes[selectedFish].name}
-                </h3>
-                <p className="font-mono text-xs sm:text-sm italic opacity-90 mt-0.5">
-                  {suitableFishes[selectedFish].scientific}
-                </p>
+              <div className={`p-6 sm:p-8 bg-gradient-to-r ${suitableFishes[selectedFish].color} text-white relative overflow-hidden`}>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+                  <div className="space-y-1">
+                    <span className="font-mono text-xs font-bold bg-white/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block">
+                      Species Guide Profile
+                    </span>
+                    <h3 className="text-2xl sm:text-3xl font-sans font-black tracking-tight mt-1">
+                      {suitableFishes[selectedFish].name}
+                    </h3>
+                    <p className="font-mono text-xs sm:text-sm italic opacity-90">
+                      {suitableFishes[selectedFish].scientific}
+                    </p>
+                  </div>
+                  {suitableFishes[selectedFish].image && (
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border-2 border-white/40 shadow-lg shrink-0 bg-white/10">
+                      <img 
+                        src={suitableFishes[selectedFish].image} 
+                        alt={suitableFishes[selectedFish].name} 
+                        className="w-full h-full object-cover" 
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="p-6 sm:p-8 space-y-6">

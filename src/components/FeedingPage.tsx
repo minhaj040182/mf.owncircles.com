@@ -12,6 +12,14 @@ import { Video } from "../types";
 import VideoCard from "./VideoCard";
 import { fetchYouTubeChannelVideos, fetchTrendingTopicVideos } from "../youtubeFeed";
 
+// AI Generated aquaculture species assets
+import tilapiaImg from "../assets/images/tilapia_fish_aquaculture_1788981758389.jpg";
+import rohuImg from "../assets/images/rohu_fish_aquaculture_1788981770084.jpg";
+import catlaImg from "../assets/images/catla_fish_aquaculture_1788981783353.jpg";
+import pangasiusImg from "../assets/images/pangasius_fish_aquaculture_1788981794331.jpg";
+import mangurImg from "../assets/images/mangur_fish_aquaculture_1788981806883.jpg";
+import shrimpImg from "../assets/images/shrimp_aquaculture_1788981819089.jpg";
+
 interface FeedingPageProps {
   onBackToDashboard?: () => void;
   onVideoClick?: (video: Video) => void;
@@ -128,6 +136,7 @@ interface NutritionComponent {
 
 interface FishFeedingConfig {
   species: string;
+  image?: string;
   feedType: string;
   growoutProtein: string;
   fcrRange: string;
@@ -285,6 +294,7 @@ const NUTRITION_COMPONENTS: NutritionComponent[] = [
 const FISH_WISE_CONFIGS: FishFeedingConfig[] = [
   {
     species: "Nile Tilapia (Surface Feeder)",
+    image: tilapiaImg,
     feedType: "Floating",
     growoutProtein: "30% - 32%",
     fcrRange: "1.2 - 1.4",
@@ -296,6 +306,7 @@ const FISH_WISE_CONFIGS: FishFeedingConfig[] = [
   },
   {
     species: "Pangasius Catfish (Column/Bottom)",
+    image: pangasiusImg,
     feedType: "Sinking / Slow-sinking",
     growoutProtein: "26% - 28%",
     fcrRange: "1.3 - 1.5",
@@ -306,7 +317,8 @@ const FISH_WISE_CONFIGS: FishFeedingConfig[] = [
     details: "Pangasius are extremely high-density bottom and water column feeders. Sinking or slow-sinking pellets are preferred to match their native bottom scavenging instincts. Avoid overfeeding as they have an incredibly fast digestion cycle, but high conversion variance."
   },
   {
-    species: "Rohu / Catla (Indian Major Carps)",
+    species: "Rohu & Catla (Indian Major Carps)",
+    image: rohuImg,
     feedType: "Sinking / Slow-sinking",
     growoutProtein: "28% - 32%",
     fcrRange: "1.5 - 1.8",
@@ -317,26 +329,28 @@ const FISH_WISE_CONFIGS: FishFeedingConfig[] = [
     details: "Rohu and Catla are polyculture staples. Catla feeds mostly at the surface (can accept floating), while Rohu is a column feeder. Ensure sinking crumbles are placed on designated underwater feeding trays or broadcast uniformly to minimize sediment waste."
   },
   {
-    species: "Asian Seabass (Barramundi - Carnivorous)",
-    feedType: "High-Energy Floating",
-    growoutProtein: "42% - 45%",
-    fcrRange: "1.1 - 1.3",
-    dailyRateRange: "1.5% - 2.5% body wt",
-    frequency: "1 - 2 times / day",
-    optimalTemp: "26°C - 30°C",
-    keyStrategy: "Strict sizing matching; carnivorous behavior triggers severe cannibalism if sizes vary.",
-    details: "Seabass require highly specialized, marine-sourced fishmeal protein with high lipid energy (8-12%). Feed is highly expensive, so automated timer feeders are recommended to provide precise portions. Perform frequent grading of stock to keep sizes uniform."
+    species: "Desi Magur & Air-Breathing Catfish",
+    image: mangurImg,
+    feedType: "Sinking Moist / High-Protein",
+    growoutProtein: "38% - 42%",
+    fcrRange: "1.2 - 1.4",
+    dailyRateRange: "3.0% - 5.0% body wt",
+    frequency: "2 - 3 times / day (Twilight/Night)",
+    optimalTemp: "26°C - 32°C",
+    keyStrategy: "Night feeding regimen; high moisture content or well-bound dough/sinking pellets to match predatory instincts.",
+    details: "Clarias batrachus (Magur) is a nocturnal predator requiring very high protein diets and low light for optimal feeding. High-protein dense sinking feeds are mandatory to avoid cannibalism in early phases."
   },
   {
-    species: "Common Carp (Bottom Forager)",
-    feedType: "Sinking",
-    growoutProtein: "30% - 34%",
-    fcrRange: "1.4 - 1.6",
-    dailyRateRange: "2.0% - 3.0% body wt",
-    frequency: "2 times / day",
-    optimalTemp: "22°C - 28°C",
-    keyStrategy: "Avoid dusty/crumbled sinking feeds; pellets must be highly compact and clay-bound.",
-    details: "Common carps are bottom rooters that sift sediment. Use hard-pressed sinking pellets that do not disintegrate instantly on contact with water. High carbohydrate levels (up to 30%) are acceptable due to their highly developed intestinal amylase activity."
+    species: "Vannamei Whiteleg Shrimp",
+    image: shrimpImg,
+    feedType: "Water-Stable Sinking Pellet",
+    growoutProtein: "35% - 38%",
+    fcrRange: "1.2 - 1.35",
+    dailyRateRange: "3.0% - 4.5% body wt",
+    frequency: "4 times / day (Check trays)",
+    optimalTemp: "28°C - 32°C",
+    keyStrategy: "Check-tray monitoring within 90 minutes. Pellets must remain intact in saline water for over 2 hours.",
+    details: "Shrimp are slow, continuous bottom nibblers. Pellets must have marine squid meal or fish oil attractants and high water stability (hydro-stability) to prevent premature nutrient breakdown before consumption."
   }
 ];
 
@@ -488,22 +502,35 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
       else if (avgWeight < 100) { baseRate = 5.0; pelletSize = "1.8mm Grower"; proteinPct = "35%"; }
       else if (avgWeight < 300) { baseRate = 3.0; pelletSize = "3.0mm Grower-1"; proteinPct = "32%"; }
       else { baseRate = 2.0; pelletSize = "4.0mm Finisher"; proteinPct = "30%"; }
-    } else if (species === "Pangasius Catfish") {
+    } else if (species === "Pangasius") {
       type = "Sinking / Slow-sinking";
       if (avgWeight < 5) { baseRate = 10.0; pelletSize = "0.6mm Crumble"; proteinPct = "40%"; }
       else if (avgWeight < 20) { baseRate = 6.5; pelletSize = "1.5mm Nursery"; proteinPct = "35%"; }
       else if (avgWeight < 100) { baseRate = 4.0; pelletSize = "2.0mm Micro"; proteinPct = "32%"; }
       else if (avgWeight < 300) { baseRate = 2.5; pelletSize = "3.5mm Grower"; proteinPct = "28%"; }
       else { baseRate = 1.8; pelletSize = "4.5mm Finisher"; proteinPct = "26%"; }
-    } else if (species === "Asian Seabass") {
-      type = "High-Energy Floating";
-      if (avgWeight < 5) { baseRate = 15.0; pelletSize = "0.5mm Starter"; proteinPct = "50%"; }
-      else if (avgWeight < 20) { baseRate = 10.0; pelletSize = "1.2mm Nursery"; proteinPct = "48%"; }
-      else if (avgWeight < 100) { baseRate = 4.5; pelletSize = "2.2mm Grower"; proteinPct = "45%"; }
-      else if (avgWeight < 300) { baseRate = 2.5; pelletSize = "3.5mm Developer"; proteinPct = "42%"; }
-      else { baseRate = 1.6; pelletSize = "5.0mm Finisher"; proteinPct = "40%"; }
-    } else { // Carps / Others
+    } else if (species === "Rohu" || species === "Catla") {
       type = "Sinking Compact";
+      if (avgWeight < 5) { baseRate = 10.0; pelletSize = "0.5mm Crumble"; proteinPct = "42%"; }
+      else if (avgWeight < 20) { baseRate = 7.0; pelletSize = "1.2mm Nursery"; proteinPct = "38%"; }
+      else if (avgWeight < 100) { baseRate = 4.0; pelletSize = "2.0mm Pellet"; proteinPct = "32%"; }
+      else if (avgWeight < 300) { baseRate = 2.8; pelletSize = "3.0mm Pellet"; proteinPct = "30%"; }
+      else { baseRate = 1.8; pelletSize = "4.0mm Pellet"; proteinPct = "28%"; }
+    } else if (species === "Mangur") {
+      type = "High-Protein Sinking";
+      if (avgWeight < 5) { baseRate = 12.0; pelletSize = "0.5mm Starter"; proteinPct = "48%"; }
+      else if (avgWeight < 20) { baseRate = 8.0; pelletSize = "1.2mm Nursery"; proteinPct = "44%"; }
+      else if (avgWeight < 100) { baseRate = 4.5; pelletSize = "2.0mm Grower"; proteinPct = "40%"; }
+      else if (avgWeight < 300) { baseRate = 3.0; pelletSize = "3.0mm Finisher"; proteinPct = "38%"; }
+      else { baseRate = 2.0; pelletSize = "4.0mm Finisher"; proteinPct = "36%"; }
+    } else if (species === "Shrimp") {
+      type = "Marine Dense Sinking";
+      if (avgWeight < 5) { baseRate = 14.0; pelletSize = "0.4mm Starter Crumble"; proteinPct = "40%"; }
+      else if (avgWeight < 12) { baseRate = 8.0; pelletSize = "1.0mm Nursery Pellet"; proteinPct = "38%"; }
+      else if (avgWeight < 25) { baseRate = 4.5; pelletSize = "1.6mm Grower Pellet"; proteinPct = "36%"; }
+      else { baseRate = 3.0; pelletSize = "2.0mm Finisher Pellet"; proteinPct = "35%"; }
+    } else { // Generic
+      type = "Standard Extruded";
       if (avgWeight < 5) { baseRate = 10.0; pelletSize = "0.5mm Crumble"; proteinPct = "42%"; }
       else if (avgWeight < 20) { baseRate = 7.0; pelletSize = "1.2mm Nursery"; proteinPct = "38%"; }
       else if (avgWeight < 100) { baseRate = 4.0; pelletSize = "2.0mm Pellet"; proteinPct = "32%"; }
@@ -838,13 +865,27 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
                   <div key={idx} className="bg-slate-50/50 rounded-2xl p-6 border border-slate-200 shadow-2xs hover:shadow-xs transition-all flex flex-col lg:flex-row gap-6">
                     {/* Left block - title */}
                     <div className="lg:w-1/3 space-y-3">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
-                          <Fish className="w-5 h-5" />
+                      <div className="flex items-center gap-3">
+                        {config.image ? (
+                          <div className="w-14 h-14 rounded-xl overflow-hidden border border-emerald-200 bg-slate-100 shrink-0 shadow-xs">
+                            <img 
+                              src={config.image} 
+                              alt={config.species} 
+                              className="w-full h-full object-cover" 
+                              loading="lazy"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+                            <Fish className="w-5 h-5" />
+                          </div>
+                        )}
+                        <div>
+                          <h4 className="font-sans font-black text-slate-900 text-base leading-snug">
+                            {config.species}
+                          </h4>
+                          <span className="text-[10px] font-mono text-emerald-700 font-semibold block">Commercial Aquaculture</span>
                         </div>
-                        <h4 className="font-sans font-black text-slate-900 text-base">
-                          {config.species}
-                        </h4>
                       </div>
                       
                       <div className="bg-white p-3 rounded-xl border border-slate-200 space-y-2 text-xs font-mono">
@@ -916,20 +957,42 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
                 {/* Species Choice */}
                 <div>
                   <label className="block text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-2">Species Selection</label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                    {["Tilapia", "Pangasius Catfish", "Asian Seabass", "Carps / Others"].map((spec) => (
-                      <button
-                        key={spec}
-                        onClick={() => setSpecies(spec)}
-                        className={`py-2 px-2 rounded-xl text-xs font-sans font-bold border transition-all ${
-                          species === spec
-                            ? "bg-emerald-600 border-emerald-600 text-white shadow-xs"
-                            : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100"
-                        }`}
-                      >
-                        {spec}
-                      </button>
-                    ))}
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { id: "Tilapia", name: "Tilapia", img: tilapiaImg },
+                      { id: "Rohu", name: "Rohu", img: rohuImg },
+                      { id: "Catla", name: "Catla", img: catlaImg },
+                      { id: "Pangasius", name: "Pangasius", img: pangasiusImg },
+                      { id: "Mangur", name: "Magur", img: mangurImg },
+                      { id: "Shrimp", name: "Shrimp", img: shrimpImg }
+                    ].map((item) => {
+                      const isSelected = species === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => setSpecies(item.id)}
+                          className={`p-1.5 rounded-xl text-left border transition-all ${
+                            isSelected
+                              ? "bg-emerald-50 border-emerald-600 ring-2 ring-emerald-500/20 shadow-xs"
+                              : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-emerald-300"
+                          }`}
+                        >
+                          <div className="aspect-square w-full rounded-lg overflow-hidden mb-1 bg-slate-100">
+                            <img 
+                              src={item.img} 
+                              alt={item.name} 
+                              className="w-full h-full object-cover" 
+                              loading="lazy"
+                            />
+                          </div>
+                          <span className={`block text-[11px] font-bold text-center truncate ${
+                            isSelected ? "text-emerald-950" : "text-slate-700"
+                          }`}>
+                            {item.name}
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
