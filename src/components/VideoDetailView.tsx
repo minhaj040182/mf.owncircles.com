@@ -306,6 +306,10 @@ export default function VideoDetailView({ video, relatedVideos, onBack, onSelect
                     <img 
                       src={item.thumbnail} 
                       alt={item.title}
+                      width={224}
+                      height={126}
+                      loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />

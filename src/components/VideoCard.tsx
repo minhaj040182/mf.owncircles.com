@@ -25,6 +25,10 @@ export default function VideoCard({ video, onVideoClick }: VideoCardProps) {
         <img 
           src={video.thumbnail} 
           alt={video.title}
+          width={640}
+          height={360}
+          loading="lazy"
+          decoding="async"
           referrerPolicy="no-referrer"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />

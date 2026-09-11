@@ -174,9 +174,12 @@ export default function AquacultureArticle({
               <img
                 src={author.avatarUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256&h=256"}
                 alt={author.name}
+                width={56}
+                height={56}
                 itemProp="image"
                 className="w-full h-full object-cover"
                 loading="eager"
+                decoding="async"
               />
             </div>
             <div>
@@ -351,6 +354,10 @@ export default function AquacultureArticle({
                 <img
                   src={author.avatarUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256&h=256"}
                   alt={author.name}
+                  width={80}
+                  height={80}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               </div>

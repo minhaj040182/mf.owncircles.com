@@ -177,6 +177,10 @@ export default function VideosPage({ onVideoSelect, onBackToDashboard }: VideosP
                     <img 
                       src={featuredVideo.thumbnail} 
                       alt={featuredVideo.title}
+                      width={640}
+                      height={360}
+                      loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />

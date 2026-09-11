@@ -1232,8 +1232,11 @@ export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProp
                       <img 
                         src={fish.image} 
                         alt={fish.name} 
-                        className="w-full h-full object-cover" 
+                        width={48}
+                        height={48}
                         loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover" 
                       />
                     </div>
                   )}
@@ -1266,6 +1269,10 @@ export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProp
                       <img 
                         src={suitableFishes[selectedFish].image} 
                         alt={suitableFishes[selectedFish].name} 
+                        width={96}
+                        height={96}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover" 
                       />
                     </div>

@@ -871,8 +871,11 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
                             <img 
                               src={config.image} 
                               alt={config.species} 
-                              className="w-full h-full object-cover" 
+                              width={56}
+                              height={56}
                               loading="lazy"
+                              decoding="async"
+                              className="w-full h-full object-cover" 
                             />
                           </div>
                         ) : (
@@ -981,8 +984,11 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
                             <img 
                               src={item.img} 
                               alt={item.name} 
-                              className="w-full h-full object-cover" 
+                              width={80}
+                              height={80}
                               loading="lazy"
+                              decoding="async"
+                              className="w-full h-full object-cover" 
                             />
                           </div>
                           <span className={`block text-[11px] font-bold text-center truncate ${

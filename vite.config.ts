@@ -216,6 +216,10 @@ export default defineConfig(() => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    esbuild: {
+      pure: process.env.NODE_ENV === 'production' ? ['console.log', 'console.debug', 'console.info'] : [],
+      drop: process.env.NODE_ENV === 'production' ? (['debugger'] as ('console' | 'debugger')[]) : [],
+    },
     server: {
       port: 3000,
       host: '0.0.0.0',

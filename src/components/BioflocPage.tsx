@@ -1251,8 +1251,11 @@ export default function BioflocPage({ onVideoClick, onBackToDashboard }: Biofloc
                         <img 
                           src={fish.image} 
                           alt={fish.name} 
-                          className="w-full h-full object-cover" 
+                          width={48}
+                          height={48}
                           loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover" 
                         />
                       </div>
                     )}
@@ -1275,6 +1278,10 @@ export default function BioflocPage({ onVideoClick, onBackToDashboard }: Biofloc
                         <img 
                           src={bioflocSpecies[selectedSpecies].image} 
                           alt={bioflocSpecies[selectedSpecies].name} 
+                          width={80}
+                          height={80}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover" 
                         />
                       </div>
