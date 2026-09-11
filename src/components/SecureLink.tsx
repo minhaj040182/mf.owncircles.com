@@ -31,18 +31,11 @@ export default function SecureLink({
     ? isExternal 
     : /^https?:\/\//i.test(href);
 
-  // If opening in new tab or external, enforce noopener noreferrer
+  // If opening in new tab or external, enforce noopener noreferrer without allocations
   const effectiveTarget = target || (isCrossOrigin ? '_blank' : undefined);
-  
-  let effectiveRel = rel;
-  if (effectiveTarget === '_blank' || isCrossOrigin) {
-    const existingRels = (rel || '').split(/\s+/).filter(Boolean);
-    const required = ['noopener', 'noreferrer'];
-    required.forEach((r) => {
-      if (!existingRels.includes(r)) existingRels.push(r);
-    });
-    effectiveRel = existingRels.join(' ');
-  }
+  const effectiveRel = effectiveTarget === '_blank'
+    ? (rel ? (rel.includes('noopener') ? rel : `${rel} noopener noreferrer`) : 'noopener noreferrer')
+    : rel;
 
   return (
     <a

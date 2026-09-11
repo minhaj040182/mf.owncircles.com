@@ -4,11 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Security & Lighthouse Best Practices Meta Policies -->
+    <!-- Performance-Optimized Security & Lighthouse Best Practices Policies -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()" />
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://oac.owncircles.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://images.unsplash.com https://i.ytimg.com https://modernfisheriese.com https:; connect-src 'self' https://oac.owncircles.com https: data: wss:; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self';" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; object-src 'none'; base-uri 'self';" />
+
+    <!-- Non-blocking Link Security Observer (requestIdleCallback & passive delegation) -->
+    <script>
+      (function() {
+        // 1. Passive event delegation: zero render-time cost, validates external links at click/touch time
+        document.addEventListener('click', function(e) {
+          var a = e.target && e.target.closest ? e.target.closest('a') : null;
+          if (a && a.target === '_blank' && (!a.rel || a.rel.indexOf('noopener') === -1)) {
+            a.rel = (a.rel ? a.rel + ' ' : '') + 'noopener noreferrer';
+          }
+        }, { passive: true, capture: true });
+
+        // 2. Idle sweep: validates dynamically mounted DOM links without blocking initial paint
+        var sweepLinks = function() {
+          var links = document.querySelectorAll('a[target="_blank"]:not([rel*="noopener"])');
+          for (var i = 0; i < links.length; i++) {
+            links[i].rel = (links[i].rel ? links[i].rel + ' ' : '') + 'noopener noreferrer';
+          }
+        };
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(sweepLinks, { timeout: 3000 });
+        } else {
+          setTimeout(sweepLinks, 1500);
+        }
+      })();
+    </script>
 
     <!-- Headless bot, Lighthouse & sandboxed iframe postMessage safety guard -->
     <script>
