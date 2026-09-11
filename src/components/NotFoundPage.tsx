@@ -1,5 +1,5 @@
 import React from "react";
-import { Home, Calculator, Waves, Sprout, Briefcase, Video as VideoIcon, ArrowLeft, AlertTriangle, Compass, Phone } from "lucide-react";
+import { Home, Calculator, Waves, Sprout, Briefcase, Video as VideoIcon, ArrowLeft, AlertTriangle, Compass, Phone, FileText } from "lucide-react";
 import { PageType } from "../utils/seoRouting";
 
 interface NotFoundPageProps {
@@ -141,18 +141,18 @@ export default function NotFoundPage({ onNavigate, onBackToDashboard }: NotFound
         <div className="bg-emerald-900 text-white rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="space-y-1 text-center sm:text-left">
             <h3 className="font-sans font-bold text-sm text-emerald-100 flex items-center justify-center sm:justify-start gap-2">
-              <Phone className="w-4 h-4 text-yellow-300" />
-              <span>Looking for commercial consultation or fish seed supply?</span>
+              <FileText className="w-4 h-4 text-emerald-300" />
+              <span>Looking for aquaculture research blueprints or technical guides?</span>
             </h3>
             <p className="text-emerald-300/80 text-xs">
-              Reach out to our technical aquaculture desk directly at +919748952342 or mf@owncircles.com.
+              Reach out to our editorial and engineering desk directly at mf@owncircles.com.
             </p>
           </div>
           <button
             onClick={() => handleLinkClick("services")}
             className="shrink-0 px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-bold text-xs rounded-xl transition-all active:scale-95 cursor-pointer"
           >
-            Contact Desk
+            Engineering Matrices
           </button>
         </div>
 

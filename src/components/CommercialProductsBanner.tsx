@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { 
-  ShieldCheck, Package, Fish, Wrench, MessageCircle, Mail, Phone, 
-  ChevronLeft, ChevronRight, Sparkles, CheckCircle2, ExternalLink, 
-  Send, Copy, Truck, Zap, Clock, ArrowRight, ShoppingBag, ShieldAlert, Award
+  BookOpen, Calculator, Layers, Waves, Droplet, Microscope,
+  ChevronLeft, ChevronRight, Sparkles, CheckCircle2, 
+  FileText, ArrowRight, Binary, Compass, Activity, ShieldCheck
 } from "lucide-react";
 
-export interface ProductSlide {
+export interface ResearchSlide {
   id: string;
   category: string;
   badge: string;
@@ -19,142 +19,132 @@ export interface ProductSlide {
   icon: React.ElementType;
   specs: { label: string; detail: string }[];
   bulletPoints: string[];
-  pricingHint: string;
-  whatsappMessage: string;
-  emailSubject: string;
-  emailBody: string;
+  formulaHint: string;
+  formulaCode: string;
 }
 
-const PRODUCT_SLIDES: ProductSlide[] = [
+const RESEARCH_SLIDES: ResearchSlide[] = [
   {
-    id: "tanks",
-    category: "Tarpaulin Tanks",
-    badge: "Biofloc & RAS Heavy-Duty Tanks",
-    title: "HDPE & PVC Tarpaulin Biofloc Tanks",
-    subtitle: "650+ GSM Multi-layer Food-Grade Waterproof Tanks",
-    description: "Factory-fabricated round and rectangular tarpaulin tanks designed for high-density Biofloc, RAS, and hatchery fish farming. Engineered with 100% UV-stabilized virgin PVC, double-welded leakproof seams, and galvanized protective steel mesh.",
-    gradient: "from-slate-900 via-emerald-950 to-slate-950",
-    accentColor: "emerald",
-    borderColor: "border-emerald-500/30",
-    bgGlow: "bg-emerald-500/15",
-    icon: ShieldCheck,
-    specs: [
-      { label: "Material Grade", detail: "650 to 900 GSM Heavy PVC" },
-      { label: "Durability", detail: "5+ Years UV Stabilized" },
-      { label: "Available Sizes", detail: "3,000L to 40,000L (2m - 5m Dia)" },
-      { label: "Frame & Outlet", detail: "Galvanized Mesh + Bottom Purge" }
-    ],
-    bulletPoints: [
-      "100% Non-toxic food grade layer safe for Tilapia, Catfish & Prawns",
-      "Reinforced bottom drain valve for rapid sludge flushing",
-      "Turnkey bundle includes steel mesh frame, protective liner & drain kit"
-    ],
-    pricingHint: "Factory Wholesale Rates • Sizes Custom Tailored",
-    whatsappMessage: "Hello Modern Fisheries Team,\n\nI am interested in purchasing Tarpaulin Tanks for my fish farm.\n• Required Tank Size/Capacity: \n• Location: \n• Contact Number: \n\nPlease send me the best price quotation and technical specifications.",
-    emailSubject: "Inquiry for Tarpaulin Tanks Wholesale Quotation",
-    emailBody: "Hello Modern Fisheries Sales Team,\n\nI am looking to buy heavy-duty Tarpaulin Tanks for Biofloc/RAS farming.\n\n- Tank Capacity/Diameter needed:\n- Quantity:\n- Delivery Location / Pin Code:\n- Phone / WhatsApp:\n\nPlease share your best factory quotation and delivery timeframe.\n\nThank you!"
-  },
-  {
-    id: "food",
-    category: "Fish Foods",
-    badge: "High Protein Floating & Sinking Feeds",
-    title: "Commercial High-Protein Fish Food Pellets",
-    subtitle: "28% to 45% Crude Protein • Minimal FCR Formula",
-    description: "Direct factory supply of premium extruded floating and sinking pellets formulated with fishmeal, essential amino acids, spirulina, and gut probiotics. Speeds up fish growth while keeping tank and pond water crystal clean.",
+    id: "nutrition-hub",
+    category: "Fish Nutrition & FCR",
+    badge: "Open-Access Nutritional Science",
+    title: "The Open-Access Research Hub for Fish Nutrition, FCR Optimization, and Protein Metrics",
+    subtitle: "Ontogenetic Amino Acid Profiles • Bioenergetics • Apparent Digestibility Models",
+    description: "A comprehensive scientific repository documenting the biochemical requirements of finfish across life stages. Investigates digestible protein-to-energy ratios (DP:DE), micro-extruded pellet buoyancy mechanics, and mathematical feed conversion ratio (FCR) formulas designed to minimize nitrogenous aquatic discharge.",
     gradient: "from-slate-900 via-teal-950 to-slate-950",
     accentColor: "teal",
     borderColor: "border-teal-500/30",
     bgGlow: "bg-teal-500/15",
-    icon: Package,
+    icon: Calculator,
     specs: [
-      { label: "Protein Range", detail: "28% to 45% Crude Protein" },
-      { label: "Target FCR", detail: "1.10 - 1.30 Conversion Ratio" },
-      { label: "Pellet Sizes", detail: "0.5mm Fry Crumble to 6mm Pellets" },
-      { label: "Packaging", detail: "Bulk 25kg & 40kg Sealed Bags" }
+      { label: "Crude Protein Range", detail: "28% to 45% Ontogenetic Scale" },
+      { label: "Optimal Target FCR", detail: "1.10 - 1.25 Conversion Efficiency" },
+      { label: "Digestible Energy", detail: "14.5 - 17.0 MJ/kg Formulation" },
+      { label: "Pellet Water Stability", detail: "> 4 Hours Flotation Integrity" }
     ],
     bulletPoints: [
-      "4+ Hours floating stability prevents organic water pollution",
-      "Formulated for Tilapia, Pangasius, Rohu/Carps, Magur & Seabass",
-      "Enriched with digestive enzymes for maximum nutrient absorption"
+      "Mathematical biomass sampling equations for dynamic feed rationing",
+      "Essential amino acid balance curves: Lysine (5.1%) and Methionine (2.8%) benchmarks",
+      "Digestibility coefficients for alternative insect meals and single-cell proteins"
     ],
-    pricingHint: "Direct Bulk Wholesale Pricing • Fast Dispatch",
-    whatsappMessage: "Hello Modern Fisheries Team,\n\nI am interested in purchasing Commercial Fish Food Pellets.\n• Fish Species: \n• Feed Type/Protein %: \n• Required Quantity (kg/tons): \n• Location: \n\nPlease share your best wholesale price quotation.",
-    emailSubject: "Inquiry for Bulk Commercial Fish Food Quotation",
-    emailBody: "Hello Modern Fisheries Sales Team,\n\nI would like to request a quotation for purchasing commercial fish food:\n\n- Fish Species:\n- Required Protein % / Pellet Size:\n- Required Quantity (Tons/Bags):\n- Delivery Location:\n- Contact Number:\n\nPlease reply with your best quotation.\n\nThank you!"
+    formulaHint: "Mathematical FCR Equation: FCR = Total Dry Feed Distributed (kg) ÷ Wet Biomass Weight Gained (kg)",
+    formulaCode: "FCR = Σ(Feed_Distributed_kg) / (Biomass_Harvest_kg - Biomass_Stocked_kg)"
   },
   {
-    id: "fingerlings",
-    category: "Fish Fingerlings",
-    badge: "High Survival Seed & Fingerlings",
-    title: "Certified Fast-Growing Fish Fingerlings",
-    subtitle: "100% Monosex Tilapia, Pangasius, Carps & Catfish Seed",
-    description: "Nursery-reared, disease-screened high-genetics fish seeds and fingerlings. Treated for stress resistance and packed in oxygen-infused oxygenated bags for safe nationwide transportation with 95%+ survival guarantee.",
-    gradient: "from-slate-900 via-cyan-950 to-slate-950",
-    accentColor: "cyan",
-    borderColor: "border-cyan-500/30",
-    bgGlow: "bg-cyan-500/15",
-    icon: Fish,
-    specs: [
-      { label: "Available Seed", detail: "Monosex Tilapia, Pangasius, Carps, Magur" },
-      { label: "Survival Guarantee", detail: "95%+ Safe Transit Delivery" },
-      { label: "Seed Size Range", detail: "1 inch (Line 100) to 3+ inches" },
-      { label: "Packaging", detail: "Oxygen-Charged Multi-wall Bags" }
-    ],
-    bulletPoints: [
-      "Genetically selected fast-growth broodstock for rapid harvest",
-      "Screened for parasites, bacterial pathogens, and body lesions",
-      "Complete acclimatization guide & stocking assistance included"
-    ],
-    pricingHint: "Live Stocking Guarantees • All India Shipping",
-    whatsappMessage: "Hello Modern Fisheries Team,\n\nI want to purchase Fish Fingerlings/Seed for my farm.\n• Fish Variety: \n• Quantity Needed (Pieces): \n• Size Required: \n• Delivery Location: \n\nPlease send me the price quotation and availability.",
-    emailSubject: "Inquiry for Fish Fingerlings / Seed Supply",
-    emailBody: "Hello Modern Fisheries Seed Desk,\n\nI would like to inquire about purchasing fish seed/fingerlings:\n\n- Fish Species needed:\n- Quantity (Pcs):\n- Target Stocking Date:\n- Delivery Location / Airport / Station:\n- Phone / WhatsApp:\n\nPlease share availability and best price.\n\nThank you!"
-  },
-  {
-    id: "equipment",
-    category: "Equipment",
-    badge: "Turnkey RAS, Biofloc & Pond Automation",
-    title: "Commercial Aquaculture Equipment & Spares",
-    subtitle: "Aeration Systems, Auto Feeders, Sludge Pumps & Test Kits",
-    description: "Complete range of heavy-duty aeration blowers, nanobubble aero-tubes, paddlewheel aerators, solar digital automatic feeders, and water testing meters. Built for 24/7 continuous operation in intensive fish farming.",
+    id: "ras-blueprints",
+    category: "RAS Design Matrix",
+    badge: "Hydraulic Engineering Schematics",
+    title: "Educational Blueprint Matrix for Recirculating Aquaculture Systems Design",
+    subtitle: "Mass-Balance Sizing • Moving Bed Biofilm Kinetics • Solid Partitioning Schematics",
+    description: "Engineering design framework providing open mathematical formulas and schematics for closed-loop Recirculating Aquaculture Systems (RAS). Explores hydraulic residence times, micro-screen drum filtration solid-liquid separation, moving bed biofilm reactor (MBBR) ammonia oxidation rates, and germicidal UV dosage calculations.",
     gradient: "from-slate-900 via-blue-950 to-slate-950",
     accentColor: "blue",
     borderColor: "border-blue-500/30",
     bgGlow: "bg-blue-500/15",
-    icon: Wrench,
+    icon: Layers,
     specs: [
-      { label: "Aeration Systems", detail: "Roots Blowers, Ring Blowers, Aero-Tubes" },
-      { label: "Automated Feeding", detail: "Solar Timer Feeders (1-14 Meals/Day)" },
-      { label: "Pond Aerators", detail: "1HP - 3HP Electric Paddlewheels" },
-      { label: "Water Quality", detail: "Digital DO, pH, EC & TAN Test Kits" }
+      { label: "Hydraulic Turnover", detail: "1.0 to 1.5 System Volumes / Hour" },
+      { label: "Drum Filter Mesh", detail: "60 to 80 Micron Micro-screen" },
+      { label: "MBBR Specific Surface", detail: "≥ 800 m²/m³ Protected Surface Area" },
+      { label: "UV Radiation Dose", detail: "≥ 30,000 µW·s/cm² Disinfection Index" }
     ],
     bulletPoints: [
-      "Energy-efficient aeration setups reducing electricity bills by 30%",
-      "Solar auto-feeders eliminate manual labor and prevent overfeeding",
-      "Full 1-Year manufacturer warranty & spare parts availability"
+      "Volumetric TAN removal kinetics: 0.8 to 1.2 g TAN/m²/day for Nitrosomonas biofilms",
+      "Counter-current cascade degassing equations for dissolved CO₂ stripping",
+      "Total dynamic head (TDH) and pump friction loss hydraulic computations"
     ],
-    pricingHint: "Turnkey Hardware Solutions • Warranty Backed",
-    whatsappMessage: "Hello Modern Fisheries Team,\n\nI need a quotation for Aquaculture Equipment.\n• Equipment Needed (Blower/Feeder/Aerator/Test Kit): \n• Specifications/HP: \n• Delivery Location: \n\nPlease share your best prices.",
-    emailSubject: "Inquiry for Aquaculture Equipment & Aerators",
-    emailBody: "Hello Modern Fisheries Equipment Division,\n\nI am looking to buy aquaculture equipment:\n\n- Product(s) required:\n- Specifications/Pond Size:\n- Delivery Location:\n- Contact Number:\n\nPlease send product catalog and price quote.\n\nThank you!"
+    formulaHint: "Flow Turnover Equation: Q (m³/h) = Tank Culture Volume (m³) × Turnover Frequency (h⁻¹)",
+    formulaCode: "Q_required = V_total × 1.25 hr⁻¹ | TAN_Load = Biomass_kg × Feed_Rate% × Protein% × 0.092"
+  },
+  {
+    id: "biofloc-dynamics",
+    category: "Biofloc Equilibrium",
+    badge: "Microbial Ecology Dynamics",
+    title: "Heterotrophic Microbial Consortiums and C:N Equilibrium in Biofloc Systems",
+    subtitle: "Nitrogen Immobilization Dynamics • Floc Volume Indexing • Zero-Water Remediation",
+    description: "Academic guide explaining the microbiological conversion of toxic nitrogenous metabolites into single-cell protein aggregates. Models the carbon-to-nitrogen stoichiometric threshold (15:1) required for heterotrophic bacteria to assimilate ammonium without requiring mechanical water replacement.",
+    gradient: "from-slate-900 via-emerald-950 to-slate-950",
+    accentColor: "emerald",
+    borderColor: "border-emerald-500/30",
+    bgGlow: "bg-emerald-500/15",
+    icon: Waves,
+    specs: [
+      { label: "Stoichiometric C:N", detail: "15:1 Carbon-to-Nitrogen Ratio" },
+      { label: "Target Floc Volume", detail: "25 - 35 mL/L in Imhoff Settling Cone" },
+      { label: "Dissolved O₂ Threshold", detail: "≥ 5.5 mg/L Continuous Saturation" },
+      { label: "Alkalinity Reserve", detail: "120 - 180 mg/L as CaCO₃" }
+    ],
+    bulletPoints: [
+      "Heterotrophic ammonium assimilation stoichiometry using molasses and sucrose",
+      "Imhoff cone settling curves for monitoring bacterial floc density",
+      "Alkalinity depletion mitigation via agricultural limestone and calcium hydroxide"
+    ],
+    formulaHint: "Carbon Requirement: ΔCarbon = [Feed_kg × %CP × 0.16] × Target C:N ÷ Carbon_Purity%",
+    formulaCode: "ΔC_Molasses = (Feed_kg × 0.32 × 0.16 × 15) / 0.50 ≈ 1.53 kg Molasses per kg 32% Feed"
+  },
+  {
+    id: "aeration-kinetics",
+    category: "Aeration & Hydrodynamics",
+    badge: "Gas Transfer Modeling",
+    title: "Hydrodynamic Aeration Modeling and Dissolved Oxygen Kinetics in Aquaculture",
+    subtitle: "Standard Oxygen Transfer Rate (SOTR) • Fine-Bubble Diffusers • Mass-Transfer (KLa)",
+    description: "Computational guide on gas dissolution physics in high-density aquaculture tanks. Analyzes the two-film theory of gas transfer, Standard Oxygen Transfer Rate (SOTR), Standard Aeration Efficiency (SAE), and aerodynamic friction coefficients across microporous diffuser tubes and venturi injectors.",
+    gradient: "from-slate-900 via-cyan-950 to-slate-950",
+    accentColor: "cyan",
+    borderColor: "border-cyan-500/30",
+    bgGlow: "bg-cyan-500/15",
+    icon: Droplet,
+    specs: [
+      { label: "Standard Aeration Eff.", detail: "2.0 - 3.5 kg O₂ / kWh Energy Index" },
+      { label: "Microbubble Diameter", detail: "1.0 - 2.5 mm High-Transfer Size" },
+      { label: "Blower Pressure Range", detail: "18 - 25 kPa Head Calibration" },
+      { label: "Oxygen Saturation Target", detail: "> 85% Saturated Dissolved O₂" }
+    ],
+    bulletPoints: [
+      "Oxygen transfer coefficient (KLa) optimization under variable salinity and temperature",
+      "Roots blower dynamic displacement sizing for continuous 24/7 industrial culture",
+      "Power consumption minimization algorithms using dissolved oxygen sensor feedback loops"
+    ],
+    formulaHint: "SOTR Formulation: SOTR = KLa20 × C*20 × V (Two-Film Gas Absorption Theory)",
+    formulaCode: "SOTR = [V × (Cs - C0) / Δt] × α × β × θ^(T-20) | SAE = SOTR / Power_Input_kW"
   }
 ];
 
 export default function CommercialProductsBanner() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [copiedContact, setCopiedContact] = useState<string | null>(null);
+  const [copiedFormula, setCopiedFormula] = useState<string | null>(null);
   const autoSlideTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const activeSlide = PRODUCT_SLIDES[activeSlideIndex];
+  const activeSlide = RESEARCH_SLIDES[activeSlideIndex];
 
-  // Auto-play sliding banner (5-second interval)
+  // Auto-play sliding banner (6-second interval for educational reading)
   useEffect(() => {
     if (isPaused) return;
 
     autoSlideTimerRef.current = setInterval(() => {
-      setActiveSlideIndex((prev) => (prev + 1) % PRODUCT_SLIDES.length);
-    }, 5500);
+      setActiveSlideIndex((prev) => (prev + 1) % RESEARCH_SLIDES.length);
+    }, 6500);
 
     return () => {
       if (autoSlideTimerRef.current) clearInterval(autoSlideTimerRef.current);
@@ -162,35 +152,28 @@ export default function CommercialProductsBanner() {
   }, [isPaused]);
 
   const handlePrev = () => {
-    setActiveSlideIndex((prev) => (prev - 1 + PRODUCT_SLIDES.length) % PRODUCT_SLIDES.length);
+    setActiveSlideIndex((prev) => (prev - 1 + RESEARCH_SLIDES.length) % RESEARCH_SLIDES.length);
   };
 
   const handleNext = () => {
-    setActiveSlideIndex((prev) => (prev + 1) % PRODUCT_SLIDES.length);
+    setActiveSlideIndex((prev) => (prev + 1) % RESEARCH_SLIDES.length);
   };
 
-  const handleCopy = (text: string, label: string) => {
+  const handleCopyFormula = (formula: string, title: string) => {
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(text);
-      setCopiedContact(label);
-      setTimeout(() => setCopiedContact(null), 2500);
+      navigator.clipboard.writeText(formula);
+      setCopiedFormula(title);
+      setTimeout(() => setCopiedFormula(null), 2500);
     }
-  };
-
-  const getWhatsAppUrl = (msg: string) => {
-    return `https://wa.me/919748952342?text=${encodeURIComponent(msg)}`;
-  };
-
-  const getEmailUrl = (subject: string, body: string) => {
-    return `mailto:mf@owncircles.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   const SlideIcon = activeSlide.icon;
 
   return (
-    <div 
-      id="commercial-products-banner"
-      className="w-full my-6 rounded-3xl overflow-hidden shadow-2xl border border-emerald-500/30 relative"
+    <section 
+      id="research-blueprint-portal"
+      aria-label="Open-Access Research Hub and Educational Blueprints"
+      className="w-full my-6 rounded-3xl overflow-hidden shadow-xl border border-emerald-500/30 relative"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -204,9 +187,9 @@ export default function CommercialProductsBanner() {
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-slate-400 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest mr-1 hidden sm:inline">
-                Factory Direct Sales:
+                Research Modules:
               </span>
-              {PRODUCT_SLIDES.map((slide, index) => {
+              {RESEARCH_SLIDES.map((slide, index) => {
                 const IconComp = slide.icon;
                 const isActive = index === activeSlideIndex;
                 return (
@@ -215,7 +198,7 @@ export default function CommercialProductsBanner() {
                     onClick={() => setActiveSlideIndex(index)}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-sans font-bold text-xs transition-all cursor-pointer ${
                       isActive
-                        ? "bg-emerald-500 text-slate-950 shadow-md scale-105"
+                        ? "bg-emerald-500 text-slate-950 shadow-md scale-105 font-extrabold"
                         : "bg-white/10 hover:bg-white/20 text-slate-200 border border-white/10"
                     }`}
                   >
@@ -231,17 +214,19 @@ export default function CommercialProductsBanner() {
               <button
                 onClick={handlePrev}
                 className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all cursor-pointer active:scale-95"
-                title="Previous Product Slide"
+                title="Previous Research Module"
+                aria-label="Previous Module"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <span className="text-xs font-mono font-bold text-emerald-300 px-1">
-                0{activeSlideIndex + 1} / 0{PRODUCT_SLIDES.length}
+                0{activeSlideIndex + 1} / 0{RESEARCH_SLIDES.length}
               </span>
               <button
                 onClick={handleNext}
                 className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all cursor-pointer active:scale-95"
-                title="Next Product Slide"
+                title="Next Research Module"
+                aria-label="Next Module"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -251,10 +236,10 @@ export default function CommercialProductsBanner() {
           {/* Main Slide Content Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             
-            {/* Left Column: Product Information & Value Props */}
-            <div className="lg:col-span-7 space-y-4">
+            {/* Left Column: Research Information & Scientific Principles */}
+            <div className="lg:col-span-7 space-y-4 text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold uppercase tracking-wider">
-                <SlideIcon className="w-4 h-4 text-emerald-400" />
+                <Microscope className="w-4 h-4 text-emerald-400" />
                 <span>{activeSlide.badge}</span>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               </div>
@@ -268,11 +253,11 @@ export default function CommercialProductsBanner() {
                 </h3>
               </div>
 
-              <p className="text-slate-200/90 text-xs sm:text-sm leading-relaxed">
+              <p className="text-slate-200/95 text-xs sm:text-sm leading-relaxed">
                 {activeSlide.description}
               </p>
 
-              {/* Quick Bullet Feature Highlights */}
+              {/* Research Highlight Bullets */}
               <div className="space-y-1.5 pt-1">
                 {activeSlide.bulletPoints.map((point, idx) => (
                   <div key={idx} className="flex items-start gap-2 text-xs text-emerald-100/90">
@@ -282,21 +267,25 @@ export default function CommercialProductsBanner() {
                 ))}
               </div>
 
-              {/* Pricing & Guarantee Hint Badge */}
-              <div className="inline-flex items-center gap-2 bg-slate-950/70 border border-emerald-500/30 px-3.5 py-1.5 rounded-xl text-xs font-mono text-emerald-300">
-                <Sparkles className="w-3.5 h-3.5 text-yellow-300 shrink-0" />
-                <span>{activeSlide.pricingHint}</span>
+              {/* Formula & Scientific Hint Bar */}
+              <div className="p-3 bg-slate-950/70 border border-emerald-500/30 rounded-xl text-xs font-mono text-emerald-300 flex items-start gap-2">
+                <Binary className="w-4 h-4 text-yellow-300 shrink-0 mt-0.5" />
+                <div className="min-w-0">
+                  <span className="font-bold text-yellow-300 block text-[11px] uppercase tracking-wider">Scientific Formulation Rule</span>
+                  <span className="text-slate-200 text-xs">{activeSlide.formulaHint}</span>
+                </div>
               </div>
             </div>
 
-            {/* Right Column: Specs Card & Instant Inquiry Buttons */}
-            <div className="lg:col-span-5 space-y-4">
+            {/* Right Column: Bio-Engineering Parameters & Formula Snippet */}
+            <div className="lg:col-span-5 space-y-4 text-left">
               <div className="bg-slate-900/90 border border-emerald-500/30 rounded-2xl p-4 sm:p-5 shadow-xl space-y-4">
                 <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
-                  <span className="font-mono text-xs font-bold uppercase text-emerald-400 tracking-wider">
-                    Product Technical Specs
+                  <span className="font-mono text-xs font-bold uppercase text-emerald-400 tracking-wider flex items-center gap-1.5">
+                    <Compass className="w-4 h-4" />
+                    <span>Bio-Engineering Parameter Benchmarks</span>
                   </span>
-                  <Truck className="w-4 h-4 text-emerald-400 opacity-80" />
+                  <Activity className="w-4 h-4 text-emerald-400 opacity-80" />
                 </div>
 
                 {/* Specs Grid */}
@@ -309,41 +298,24 @@ export default function CommercialProductsBanner() {
                   ))}
                 </div>
 
-                {/* Direct Action Inquiry Buttons */}
-                <div className="space-y-2.5 pt-1">
-                  <a
-                    href={getWhatsAppUrl(activeSlide.whatsappMessage)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full flex items-center justify-center gap-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-sans font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl shadow-lg transition-all active:scale-95 cursor-pointer group"
-                  >
-                    <MessageCircle className="w-4 h-4 fill-current" />
-                    <span>Send Inquiry for Best Quote</span>
-                    <Send className="w-3.5 h-3.5 opacity-80 group-hover:translate-x-0.5 transition-transform" />
-                  </a>
-
-                  <a
-                    href={getEmailUrl(activeSlide.emailSubject, activeSlide.emailBody)}
-                    className="w-full flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-sans font-bold text-xs py-2.5 px-4 rounded-xl border border-white/15 transition-all cursor-pointer active:scale-95"
-                  >
-                    <Mail className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Email: mf@owncircles.com</span>
-                  </a>
+                {/* Code / Mathematical Equation Block */}
+                <div className="space-y-1.5 pt-1">
+                  <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block">
+                    Mathematical Expression / Computation Algorithm:
+                  </span>
+                  <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs font-mono text-emerald-400 break-all leading-relaxed">
+                    {activeSlide.formulaCode}
+                  </div>
                 </div>
 
-                {/* Direct Phone / WhatsApp Quick Copy Strip */}
-                <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-800">
-                  <div className="flex items-center gap-1.5">
-                    <Phone className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>WhatsApp Desk: <strong>+91 97489 52342</strong></span>
-                  </div>
+                {/* Copy Formula Button */}
+                <div className="pt-1">
                   <button
-                    onClick={() => handleCopy("+919748952342", "Phone")}
-                    className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1 cursor-pointer"
-                    title="Copy Phone Number"
+                    onClick={() => handleCopyFormula(activeSlide.formulaCode, activeSlide.category)}
+                    className="w-full flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-sans font-extrabold text-xs py-2.5 px-4 rounded-xl shadow-md transition-all active:scale-95 cursor-pointer"
                   >
-                    <Copy className="w-3 h-3" />
-                    <span>Copy</span>
+                    <Binary className="w-4 h-4" />
+                    <span>Copy Mathematical Formula to Clipboard</span>
                   </button>
                 </div>
               </div>
@@ -354,7 +326,7 @@ export default function CommercialProductsBanner() {
           {/* Bottom Slide Indicators Bar */}
           <div className="flex items-center justify-between pt-2">
             <div className="flex items-center gap-2">
-              {PRODUCT_SLIDES.map((_, index) => (
+              {RESEARCH_SLIDES.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveSlideIndex(index)}
@@ -369,18 +341,18 @@ export default function CommercialProductsBanner() {
             </div>
 
             <div className="text-[11px] text-emerald-200/70 font-mono hidden sm:block">
-              Auto-advancing • Hover to pause
+              Open-Access Educational Repository • Hover to pause
             </div>
           </div>
 
-          {copiedContact && (
+          {copiedFormula && (
             <div className="text-center text-xs font-bold text-emerald-300 bg-emerald-500/20 py-1.5 rounded-xl border border-emerald-500/30">
-              ✓ {copiedContact} copied to clipboard!
+              ✓ {copiedFormula} formula copied to clipboard for computational modeling!
             </div>
           )}
 
         </div>
       </div>
-    </div>
+    </section>
   );
 }

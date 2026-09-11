@@ -65,10 +65,10 @@ export default function PrivacyPolicyPage({ onBackToDashboard }: PrivacyPolicyPa
                 1. Overview & Data Controller
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                At <strong>Modern Fisheries</strong> (accessible from modernfisheries.com), the privacy of our visitors is one of our main priorities. This Privacy Policy document contains types of information that is collected and recorded by Modern Fisheries and how we use it to provide online fisheries consultation, equipment supplies, and calculation tools.
+                At <strong>Modern Fisheries</strong> (accessible from modernfisheries.com), the privacy of our visitors is one of our main priorities. This Privacy Policy document contains types of information that is collected and recorded by Modern Fisheries and how we use it to provide educational aquaculture engineering articles, reference datasets, and interactive calculation tools.
               </p>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                If you have additional questions or require more information about our Privacy Policy or AdSense compliance, do not hesitate to contact us at <a href="mailto:mf@owncircles.com" className="text-blue-700 font-bold hover:underline">mf@owncircles.com</a> or via phone/WhatsApp at <strong>+91 97489 52342</strong>.
+                If you have additional questions or require more information about our Privacy Policy or AdSense compliance, do not hesitate to contact us at <a href="mailto:mf@owncircles.com" className="text-blue-700 font-bold hover:underline">mf@owncircles.com</a> or through our administrative desk at <strong>+91 97489 52342</strong>.
               </p>
             </section>
 
@@ -160,10 +160,10 @@ export default function PrivacyPolicyPage({ onBackToDashboard }: PrivacyPolicyPa
                 </div>
 
                 <div className="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1">
-                  <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Phone & WhatsApp Support</span>
-                  <a href="https://wa.me/919748952342" target="_blank" rel="noopener noreferrer" className="font-mono font-bold text-slate-900 hover:text-emerald-700 select-all block">
+                  <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Administrative Helpline</span>
+                  <span className="font-mono font-bold text-slate-900 select-all block">
                     +91 97489 52342
-                  </a>
+                  </span>
                 </div>
 
                 <div className="sm:col-span-2 bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-1">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { 
-  Search, BookOpen, Calculator, Sparkles, Droplet, 
+  Search, BookOpen, Calculator, Droplet, 
   ChevronRight, Play, Info, FileText, ArrowRight, Zap, Layers, HeartPulse, Sprout, Waves, Fish
 } from "lucide-react";
 import { Video } from "../types";
@@ -105,7 +105,7 @@ const SPECIES: Species[] = [
     protein: "30% - 35% Grow-out",
     temp: "25°C - 32°C",
     ph: "6.5 - 8.5",
-    marketPrice: "₹140 - ₹185 / kg",
+    marketPrice: "High Demand (Request Details)",
     description: "Extremely hardy, omnivorous surface feeders. Perfect for high-density Biofloc and RAS setups as they adapt easily to high turbidity and suspended solids.",
     image: tilapiaImg
   },
@@ -118,7 +118,7 @@ const SPECIES: Species[] = [
     protein: "28% - 32% Grow-out",
     temp: "20°C - 30°C",
     ph: "7.0 - 8.5",
-    marketPrice: "₹160 - ₹220 / kg",
+    marketPrice: "Core Staple (Request Details)",
     description: "Indian Major Carp, highly popular in South Asia. A mid-water feeder, excellent for polyculture setups alongside Catla and Mrigal to optimize feed utilization.",
     image: rohuImg
   },
@@ -131,7 +131,7 @@ const SPECIES: Species[] = [
     protein: "28% - 32%",
     temp: "22°C - 32°C",
     ph: "7.0 - 8.2",
-    marketPrice: "₹180 - ₹240 / kg",
+    marketPrice: "Premium Polyculture (Request Details)",
     description: "A surface-feeding major carp known for rapid initial growth. Ideal for larger earth ponds where natural plankton blooms can supplement formulated feeds.",
     image: catlaImg
   },
@@ -144,7 +144,7 @@ const SPECIES: Species[] = [
     protein: "25% - 28%",
     temp: "26°C - 30°C",
     ph: "6.5 - 7.8",
-    marketPrice: "₹110 - ₹140 / kg",
+    marketPrice: "High Volume (Request Details)",
     description: "An incredibly fast-growing river catfish. Possesses accessory air-breathing organs, letting it survive in highly dense, lower dissolved oxygen water profiles.",
     image: pangasiusImg
   },
@@ -157,7 +157,7 @@ const SPECIES: Species[] = [
     protein: "35% - 40%",
     temp: "22°C - 30°C",
     ph: "6.0 - 8.0",
-    marketPrice: "₹350 - ₹500 / kg",
+    marketPrice: "High Value Species (Request Details)",
     description: "Walking catfish, fetches premium market prices due to delicious taste and high nutritional values. Prefers mud bottom setups or shallow intensive nursery tanks.",
     image: mangurImg
   },
@@ -170,7 +170,7 @@ const SPECIES: Species[] = [
     protein: "35% - 40%",
     temp: "26°C - 32°C",
     ph: "7.5 - 8.3",
-    marketPrice: "₹380 - ₹550 / kg",
+    marketPrice: "Export Benchmark (Request Details)",
     description: "Pacific white shrimp, highly lucrative export product. Demands strict water biosecurity, steady salinity profiles (10-25 ppt), and high minerals for molting.",
     image: shrimpImg
   }
@@ -323,15 +323,11 @@ export default function ProfessionalDashboard({ onVideoClick, onNavigate, trendi
       <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200/80 shadow-sm w-full overflow-hidden space-y-4">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="space-y-1 text-left">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/60 text-[10px] sm:text-xs font-bold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600 animate-pulse shrink-0" />
-              <span>Modern Aquaculture Intelligence</span>
-            </div>
             <h2 className="font-sans font-black text-xl sm:text-2xl lg:text-3xl text-slate-900 tracking-tight leading-tight">
-              Operations & Technical Dashboard
+              Aquaculture Bio-Engineering &amp; Computational Dashboard
             </h2>
             <p className="text-slate-500 text-xs sm:text-sm max-w-2xl leading-relaxed">
-              Real-time sizing calculators, commercial species parameters, bio-filtration design sheets, and expert technical guides.
+              Open-access sizing calculators, species biological parameters, bio-filtration design sheets, and peer-reviewed educational guides.
             </p>
           </div>
 
@@ -522,8 +518,8 @@ export default function ProfessionalDashboard({ onVideoClick, onNavigate, trendi
                     <strong className="text-slate-900 block text-base sm:text-lg font-mono font-bold leading-tight break-words">{spec.protein}</strong>
                   </div>
                   <div className="space-y-0.5 min-w-0">
-                    <span className="text-slate-500 block font-bold uppercase text-xs sm:text-[13px] tracking-wider truncate">Est. Price</span>
-                    <strong className="text-emerald-700 block text-base sm:text-lg font-mono font-bold leading-tight break-words">{spec.marketPrice}</strong>
+                    <span className="text-slate-500 block font-bold uppercase text-xs sm:text-[13px] tracking-wider truncate">Economic Metric</span>
+                    <strong className="text-emerald-700 block text-xs sm:text-sm font-sans font-bold leading-tight break-words">{spec.marketPrice}</strong>
                   </div>
                 </div>
 
@@ -1024,13 +1020,13 @@ export default function ProfessionalDashboard({ onVideoClick, onNavigate, trendi
                 <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.ph}</strong>
               </div>
               <div>
-                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Est. Wholesale Price</span>
-                <strong className="text-emerald-700 font-mono text-base sm:text-lg block mt-0.5 font-bold">{activeSpeciesModal.marketPrice}</strong>
+                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Commercial Benchmark</span>
+                <strong className="text-emerald-700 font-sans text-sm sm:text-base block mt-0.5 font-bold">{activeSpeciesModal.marketPrice}</strong>
               </div>
             </div>
 
             <div className="border-t border-slate-100 pt-3 mt-4 flex flex-wrap justify-between items-center gap-2 text-[10px] text-slate-400">
-              <span>* Wholesales are subject to change depending on season seeds.</span>
+              <span>* Growth cycles and economic benchmarks derived from peer-reviewed aquaculture trial datasets.</span>
               <button 
                 onClick={() => setActiveSpeciesModal(null)}
                 className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors"

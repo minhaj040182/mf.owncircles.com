@@ -310,15 +310,15 @@ export function getSeoMetaData(page: PageType, video?: Video | null): SeoMetaDat
       };
     case "services":
       return {
-        title: "Aquaculture Consultancy & Feed Supply | Modern Fisheries", // 56 chars
-        description: "Professional aquaculture consultancy services: turnkey RAS system design, commercial fish feed supply, certified seed distribution, and farm diagnostics.", // 154 chars
-        keywords: "aquaculture consultancy, RAS design, fish feed supply, fish seeds supplier, farm setup, water testing, modern fisheries services",
+        title: "Engineering Blueprints & Research Specifications | Modern Fisheries",
+        description: "Peer-reviewed engineering schematics, mass-balance bio-filtration modeling, aquatic diagnostic frameworks, and educational consultation blueprints.",
+        keywords: "aquaculture engineering, RAS blueprint, biofiltration models, water testing protocols, modern fisheries research",
       };
     case "about":
       return {
-        title: "About Modern Fisheries | Aquaculture Solutions & Services", // 57 chars
-        description: "Learn about Modern Fisheries - India's premier aquaculture portal offering turnkey RAS design, commercial fish feed supply, seed distribution & consultancy.", // 156 chars
-        keywords: "about modern fisheries, aquaculture company india, modern farming, RAS design, aquaculture consultancy",
+        title: "About Modern Fisheries | Aquaculture Research & Bio-Engineering",
+        description: "Modern Fisheries is an open-access educational journal and research portal for precision aquaculture engineering, biofloc microbiology, and species nutrition.",
+        keywords: "about modern fisheries, aquaculture journal india, bioengineering portal, RAS design, precision aquaculture research",
       };
     case "privacy":
       return {
@@ -353,9 +353,9 @@ export function getSeoMetaData(page: PageType, video?: Video | null): SeoMetaDat
     case "home":
     default:
       return {
-        title: "Modern Fisheries | Turnkey RAS Design & Fish Feed Supply", // 56 chars
-        description: "Premier online portal for turnkey RAS design, expert aquaculture consultancy, commercial fish feed supply, certified seeds, and precision calculation tools.", // 156 chars
-        keywords: "modern fisheries, RAS design, aquaculture consultancy, fish feed supply, biofloc, aquaponics, hydroponics, fish farming india, FCR calculator, Biofloc tank installation cost in India, Tilapia feed manufacturing companies, PMMSY subsidy for fish farming, GIFT tilapia culture, Pangasius fish farming, Singhi Magur catfish, Rohu Catla carp hatchery, high protein fish feed",
+        title: "Modern Fisheries | Journal of Precision Aquaculture & Bio-Engineering",
+        description: "An open-access educational journal and engineering portal featuring peer-reviewed biofloc C:N dynamics, recirculating system blueprints, and precision calculation algorithms.",
+        keywords: "modern fisheries, precision aquaculture, recirculating aquaculture systems design, RAS blueprint, fish nutrition research, FCR optimization, protein metrics, biofloc technology",
       };
   }
 }

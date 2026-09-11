@@ -12,7 +12,8 @@ import {
   Printer, 
   PhoneCall, 
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  FileText
 } from "lucide-react";
 
 interface ParameterStatus {
@@ -624,17 +625,17 @@ export default function WaterDiagnosticWizard() {
             </div>
           )}
 
-          {/* Emergency Hotline Callout */}
-          <div className="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white p-4 rounded-xl flex items-center justify-between gap-4 text-xs font-sans">
-            <div className="flex items-center gap-2">
-              <PhoneCall className="w-4 h-4 text-emerald-400 shrink-0 animate-pulse" />
-              <span>Need Urgent Help with Water Parameters or Fish Disease?</span>
+          {/* Technical Guidance Desk Callout */}
+          <div className="bg-slate-900 text-white p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans">
+            <div className="flex items-center gap-2 text-center sm:text-left">
+              <FileText className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Need peer consultation on complex water chemistry or ammonia spikes?</span>
             </div>
             <a
-              href="tel:+919748952342"
-              className="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold rounded-lg shrink-0 transition-colors"
+              href="mailto:mf@owncircles.com?subject=Water%20Diagnostic%20Consultation"
+              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg shrink-0 transition-colors"
             >
-              +919748952342
+              Contact Agronomy Desk
             </a>
           </div>
 

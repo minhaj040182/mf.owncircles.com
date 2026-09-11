@@ -89,17 +89,17 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
 
   const navItems = [
     { id: "home", label: "Home", icon: Home },
-    { id: "ras", label: "RAS Aqua", icon: Layers },
-    { id: "biofloc", label: "Biofloc", icon: Waves },
+    { id: "ras", label: "RAS Blueprints", icon: Layers },
+    { id: "biofloc", label: "Biofloc Ecology", icon: Waves },
     { id: "aquaponics", label: "Aquaponics", icon: Sprout },
     { id: "hydroponics", label: "Hydroponics", icon: Droplet },
-    { id: "pond", label: "Pond Farming", icon: Fish },
-    { id: "diseases", label: "Fish Diseases", icon: HeartPulse },
-    { id: "feed", label: "Feed & Sizing", icon: Calculator },
-    { id: "calculators", label: "Calculators", icon: Calculator },
-    { id: "faq", label: "FAQ", icon: HelpCircle },
-    { id: "services", label: "Our Services", icon: Info },
-    { id: "about", label: "About Us", icon: Info },
+    { id: "pond", label: "Pond Ecology", icon: Fish },
+    { id: "diseases", label: "Fish Pathology", icon: HeartPulse },
+    { id: "feed", label: "Feed & FCR Science", icon: Calculator },
+    { id: "calculators", label: "Calculators Lab", icon: Calculator },
+    { id: "faq", label: "Research FAQ", icon: HelpCircle },
+    { id: "services", label: "Engineering Specs", icon: Layers },
+    { id: "about", label: "Editorial Board", icon: Info },
   ];
 
   return (
@@ -309,7 +309,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
           </div>
 
           <div className="text-[10px] uppercase font-bold text-blue-200 tracking-wider px-2 pt-1">
-            Aquaculture Modules & Pages
+            Research Modules &amp; Technical Sections
           </div>
           <div className="grid grid-cols-2 gap-1.5">
             {navItems.map((item) => {

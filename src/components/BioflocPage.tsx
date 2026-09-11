@@ -4,7 +4,7 @@ import {
   Settings, Thermometer, Gauge, Phone, FlaskConical, 
   AlertTriangle, Info, ArrowRight, Leaf, ShieldAlert, 
   CheckCircle2, Users, Beaker, HelpCircle, Flame, 
-  Droplet, Microscope, Scale, Check
+  Droplet, Microscope, Scale, Check, FileText
 } from "lucide-react";
 import { Video } from "../types";
 import VideoCard from "./VideoCard";
@@ -682,8 +682,8 @@ export default function BioflocPage({ onVideoClick, onBackToDashboard }: Biofloc
               : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
           }`}
         >
-          <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-          <span>Service Desk</span>
+          <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          <span>Research Inquiries</span>
         </button>
       </div>
 
@@ -1502,33 +1502,30 @@ export default function BioflocPage({ onVideoClick, onBackToDashboard }: Biofloc
           </div>
         )}
 
-        {/* Tab 6: Provider & Consult */}
+        {/* Tab 6: Research & Inquiries */}
         {activeTab === "provider" && (
           <div className="space-y-6 sm:space-y-8 animate-fade-in">
             <div className="bg-slate-50 border border-slate-150 p-5 sm:p-12 rounded-2xl sm:rounded-3xl text-center space-y-4 sm:space-y-6 max-w-3xl mx-auto">
               <div className="w-12 h-12 sm:w-16 sm:h-16 bg-teal-100 text-teal-800 rounded-full flex items-center justify-center mx-auto">
-                <Phone className="w-6 h-6 sm:w-8 sm:h-8" />
+                <FileText className="w-6 h-6 sm:w-8 sm:h-8" />
               </div>
               
               <div className="space-y-1.5 sm:space-y-2">
+                <span className="text-teal-800 font-mono text-xs uppercase font-bold tracking-wider">Educational Blueprints & Engineering Portal</span>
                 <h3 className="font-sans font-black text-xl sm:text-2xl text-slate-900">
-                  Looking for professional Biofloc Service Providers?
+                  Peer-Reviewed Engineering Consultations & Research Inquiries
                 </h3>
                 <p className="text-slate-500 text-xs sm:text-sm max-w-lg mx-auto">
-                  Our professional team provides premium circular PVC tanks, continuous high-volume ring blowers, activated Bacillus cultures, and direct seed shipping consults.
+                  Access open-source circular tank design matrices, high-volume ring blower formulas, microbial floc starter protocols, and empirical water quality trial datasets.
                 </p>
               </div>
 
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 p-4 sm:p-6 bg-white rounded-2xl border border-slate-100 max-w-xl mx-auto">
                 <div className="text-left space-y-2">
-                  <span className="text-[10px] font-mono font-bold text-teal-800 uppercase tracking-widest block">Direct Communications Desk</span>
+                  <span className="text-[10px] font-mono font-bold text-teal-800 uppercase tracking-widest block">Technical Communications Desk</span>
                   <div className="text-xs text-slate-600 space-y-2">
                     <p>
-                      <strong>WhatsApp Support Helpline:</strong><br />
-                      <span className="font-mono text-sm font-black text-slate-800 select-all">+919748952342</span>
-                    </p>
-                    <p>
-                      <strong>Email Inquiries:</strong><br />
+                      <strong>Research Correspondence:</strong><br />
                       <a 
                         href="mailto:mf@modernfisheries.com" 
                         className="font-mono text-sm font-black text-teal-800 hover:underline select-all"
@@ -1537,12 +1534,15 @@ export default function BioflocPage({ onVideoClick, onBackToDashboard }: Biofloc
                         mf@modernfisheries.com
                       </a>
                     </p>
+                    <p className="text-slate-400 text-[11px]">
+                      Peer-reviewed aquaculture inquiries are addressed within two business days.
+                    </p>
                   </div>
                 </div>
               </div>
 
               <div className="pt-3 sm:pt-4 border-t border-slate-200 text-[10px] sm:text-xs text-slate-400 font-mono">
-                Modern Fisheries Aquaculture desk is available Monday - Saturday, 9:00 AM - 6:00 PM (IST).
+                Modern Fisheries Aquaculture Research Desk is available Monday - Friday, 9:00 AM - 5:00 PM (IST).
               </div>
             </div>
           </div>

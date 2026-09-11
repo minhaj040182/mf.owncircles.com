@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { 
   HelpCircle, Search, ChevronDown, ThumbsUp, ThumbsDown, 
-  Sparkles, Layers, Waves, Sprout, Droplet, Fish, HeartPulse, Calculator, Phone, CheckCircle2, MessageSquare, ChevronLeft
+  Sparkles, Layers, Waves, Sprout, Droplet, Fish, HeartPulse, Calculator, Phone, CheckCircle2, MessageSquare, ChevronLeft, FileText
 } from "lucide-react";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
@@ -11,7 +11,7 @@ export interface FaqItem {
   id: string;
   question: string;
   answer: string;
-  category: "biofloc" | "ras" | "aquaponics" | "pond" | "diseases" | "feeding" | "services";
+  category: "biofloc" | "ras" | "aquaponics" | "pond" | "diseases" | "feeding" | "services" | "engineering";
   categoryLabel: string;
   tags: string[];
 }
@@ -165,22 +165,22 @@ const FAQ_DATA: FaqItem[] = [
     tags: ["crude protein", "floating feed", "fry", "fingerling", "grow out"]
   },
 
-  // --- SERVICES & BUSINESS ---
+  // --- ENGINEERING & BLUEPRINTS ---
   {
     id: "faq-service-1",
-    question: "Does Modern Fisheries supply high-quality fish seed / fingerlings?",
-    answer: "Yes! Modern Fisheries provides certified disease-free high-growth fish seed (Mono-sex Tilapia, Jayanti Rohu, Catla, Pangasius, Magur, and Shrimp post-larvae) with doorstep delivery support and oxygen-packing protocols across major farming regions.",
-    category: "services",
-    categoryLabel: "Services & Supplies",
-    tags: ["seed", "fingerlings", "monosex tilapia", "jayanti rohu", "delivery", "supplies"]
+    question: "Does Modern Fisheries publish biological standards and acclimation guides for fish seed?",
+    answer: "Yes. Modern Fisheries publishes peer-reviewed acclimation matrices for high-density species (Mono-sex Tilapia, Jayanti Rohu, Catla, Pangasius, Magur, and Litopenaeus vannamei) detailing salinity transitions, dissolved oxygen packing protocols, and temperature equilibration benchmarks.",
+    category: "engineering",
+    categoryLabel: "Engineering Blueprints",
+    tags: ["seed", "fingerlings", "monosex tilapia", "jayanti rohu", "acclimation", "research"]
   },
   {
     id: "faq-service-2",
-    question: "Can Modern Fisheries help me design and set up Biofloc or RAS plants?",
-    answer: "Absolutely. We offer complete turn-key engineering solutions including site survey, tarpaulin tank setup, aeration system design, MBBR biofilter sizing, probiotic starter kits, and hands-on staff training. Contact our help desk (+919748952342) to request consultation.",
-    category: "services",
-    categoryLabel: "Services & Supplies",
-    tags: ["turnkey", "consultation", "ras setup", "biofloc tank", "engineering"]
+    question: "Where can I find open-access engineering design blueprints for Biofloc and RAS setups?",
+    answer: "Our open-access portal provides complete engineering matrices including circular tarpaulin tank geometry, aeration ring-blower sizing equations, MBBR biofilter volume calculations, and carbon dosing calculators. Contact our technical desk at mf@owncircles.com to submit research inquiries.",
+    category: "engineering",
+    categoryLabel: "Engineering Blueprints",
+    tags: ["blueprints", "engineering", "ras setup", "biofloc tank", "research"]
   }
 ];
 
@@ -204,7 +204,7 @@ export default function FaqSection({ className = "", onContactClick, onBackToDas
     { id: "pond", label: "Pond Farming", icon: Fish },
     { id: "diseases", label: "Diseases & Water", icon: HeartPulse },
     { id: "feeding", label: "Feeding & FCR", icon: Calculator },
-    { id: "services", label: "Seed & Services", icon: Sparkles },
+    { id: "engineering", label: "Engineering Blueprints", icon: Sparkles },
   ];
 
   const filteredFaqs = FAQ_DATA.filter((item) => {
@@ -449,10 +449,10 @@ export default function FaqSection({ className = "", onContactClick, onBackToDas
                   <span>Have a Specific Farming Query?</span>
                 </div>
                 <h3 className="font-sans font-extrabold text-base sm:text-lg text-white tracking-tight">
-                  Need Direct Consultation or Technical Assistance?
+                  Need Direct Engineering Consultation or Technical Guidance?
                 </h3>
                 <p className="text-slate-300 text-xs max-w-xl leading-relaxed">
-                  Our aquaculture experts offer technical guidance on tarpaulin tank setups, feed optimization, seed supply, and disease management.
+                  Our aquaculture research desk provides peer-reviewed specifications for tank hydraulics, feed optimization matrices, seed acclimation, and water diagnostic protocols.
                 </p>
               </div>
 
@@ -460,8 +460,8 @@ export default function FaqSection({ className = "", onContactClick, onBackToDas
                 onClick={onContactClick}
                 className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-sans font-extrabold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md active:scale-95 shrink-0 cursor-pointer"
               >
-                <Phone className="w-4 h-4 animate-pulse shrink-0" />
-                <span>Ask Our Experts (+919748952342)</span>
+                <FileText className="w-4 h-4 shrink-0" />
+                <span>Contact Research Desk</span>
               </button>
             </div>
 

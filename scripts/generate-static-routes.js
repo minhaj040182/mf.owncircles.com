@@ -53,11 +53,11 @@ const PAGE_METADATA = [
     path: '/',
     aliases: ['/home'],
     canonical: `${BASE_URL}/`,
-    title: 'Modern Fisheries | Turnkey RAS Design & Fish Feed Supply',
-    description: 'Premier online portal for turnkey RAS design, expert aquaculture consultancy, commercial fish feed supply, certified seeds, and precision calculation tools.', // 156 chars
-    keywords: 'modern fisheries, RAS design, aquaculture consultancy, fish feed supply, fish seeds supplier, biofloc technology, recirculating aquaculture system, aquaponics, hydroponics, fish farming, fcr calculator',
-    h1: 'Modern Fisheries - Turnkey Aquaculture Solutions & Consultancy',
-    bodyText: 'Premier aquaculture portal for turn-key RAS design, professional aquaculture consultancy, high-protein fish feed supply, certified fish seeds, Biofloc technology guides, and precision farm calculation tools.',
+    title: 'Modern Fisheries | Journal of Precision Aquaculture & Bio-Engineering Research',
+    description: 'Open-access educational journal and engineering portal providing peer-reviewed guides, RAS engineering blueprints, and precision aquaculture calculation tools.',
+    keywords: 'modern fisheries, precision aquaculture, recirculating aquaculture systems design, RAS blueprint, fish nutrition research, FCR optimization, protein metrics, biofloc technology',
+    h1: 'Modern Fisheries - Precision Aquaculture Engineering & Research Journal',
+    bodyText: 'Open-access educational journal and engineering portal providing peer-reviewed guides, RAS engineering blueprints, fish nutrition metrics, and precision calculation tools.',
     changefreq: 'daily',
     priority: '1.0',
     isPrimary: true
@@ -170,11 +170,11 @@ const PAGE_METADATA = [
     path: '/ourservices',
     aliases: ['/services', '/shopping', '/shop'],
     canonical: `${BASE_URL}/ourservices`,
-    title: 'Aquaculture Consultancy & Feed Supply | Modern Fisheries',
-    description: 'Professional aquaculture consultancy services: turnkey RAS system design, commercial fish feed supply, certified seed distribution, and farm diagnostics.', // 154 chars
-    keywords: 'aquaculture consultancy, RAS design, fish feed supply, fish seeds supplier, farm setup, water testing, modern fisheries services',
-    h1: 'Turn-key Aquaculture Consultancy & Feed Supply Services',
-    bodyText: 'Modern Fisheries provides commercial consultation, certified fingerlings & seeds, premium floating fish feed distribution, water quality laboratory analysis, and custom RAS system fabrication.',
+    title: 'Engineering Resources & Scientific Consultancy | Modern Fisheries',
+    description: 'Educational engineering resources, RAS blueprint consultations, bio-filtration models, and aquatic diagnostic methodologies.',
+    keywords: 'aquaculture engineering, RAS design, biofiltration models, water testing, modern fisheries research',
+    h1: 'Aquaculture Bio-Engineering & Technical Resources',
+    bodyText: 'Modern Fisheries provides peer-reviewed engineering schematics, water quality diagnostic frameworks, and educational consultations for recirculating aquaculture systems.',
     changefreq: 'monthly',
     priority: '0.8',
     isPrimary: true

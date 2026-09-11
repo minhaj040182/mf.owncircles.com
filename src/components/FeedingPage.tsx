@@ -3,7 +3,7 @@ import {
   ArrowLeft, Calculator, Scale, Sparkles, CheckCircle2, 
   Info, ShieldCheck, Layers, Activity, TrendingUp, HelpCircle,
   Award, Fish, Thermometer, Droplet, Zap, HeartPulse, ChevronLeft, ChevronRight, Flame, Check,
-  ShoppingBag, Package, ExternalLink, Truck, ShoppingCart, Mail, MessageSquare, Phone, Send, FileText, PhoneCall, Copy, MessageCircle
+  ShoppingBag, Package, ExternalLink, Truck, ShoppingCart, Mail, MessageSquare, Phone, Send, FileText, PhoneCall, Copy, MessageCircle, BookOpen
 } from "lucide-react";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
@@ -376,13 +376,13 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
   };
 
   const getWhatsAppInquiryUrl = () => {
-    const msg = `Hello Modern Fisheries Team,\n\nI want to get the best price quotation for Fish Food Supply:\n\n• Fish Species: ${inquirySpecies}\n• Feed Type: ${inquiryFeedType}\n• Required Quantity: ${inquiryQuantity}\n• Delivery Location: ${inquiryLocation || "Not specified"}\n• Contact Info: ${inquiryContact || "Direct WhatsApp"}\n• Additional Notes: ${inquiryNotes || "N/A"}\n\nPlease share your best quotation & delivery terms. Thank you!`;
-    return `https://wa.me/919748952342?text=${encodeURIComponent(msg)}`;
+    const msg = `Hello Modern Fisheries Research Team,\n\nNutritional Formulation & FCR Specification Request:\n\n• Fish Species: ${inquirySpecies}\n• Feed Type: ${inquiryFeedType}\n• Volume/Cohort Scale: ${inquiryQuantity}\n• Farm/Lab Location: ${inquiryLocation || "Not specified"}\n• Contact: ${inquiryContact || "N/A"}\n• Specific Requirements: ${inquiryNotes || "N/A"}`;
+    return `mailto:mf@owncircles.com?subject=${encodeURIComponent(`Formulation Inquiry - ${inquirySpecies}`)}&body=${encodeURIComponent(msg)}`;
   };
 
   const getEmailInquiryUrl = () => {
-    const subject = `Fish Food Wholesale Quotation Inquiry - ${inquirySpecies}`;
-    const body = `Hello Modern Fisheries Sales Team,\n\nI would like to request a quotation for purchasing commercial fish food:\n\n- Fish Species: ${inquirySpecies}\n- Feed Type: ${inquiryFeedType}\n- Required Quantity: ${inquiryQuantity}\n- Delivery Location / Pin Code: ${inquiryLocation || "N/A"}\n- Phone / WhatsApp: ${inquiryContact || "N/A"}\n- Specific Requirements: ${inquiryNotes || "N/A"}\n\nPlease reply with the best price quotation and product specifications.\n\nThank you!`;
+    const subject = `Nutritional Formulation & FCR Research Inquiry - ${inquirySpecies}`;
+    const body = `Hello Modern Fisheries Research Team,\n\nI would like to request technical specifications and trial data for aquaculture feeding:\n\n- Fish Species: ${inquirySpecies}\n- Feed Type / Protein Grade: ${inquiryFeedType}\n- Estimated Biomass / Cohort Scale: ${inquiryQuantity}\n- Research/Farm Location: ${inquiryLocation || "N/A"}\n- Contact Info: ${inquiryContact || "N/A"}\n- Technical Specifications: ${inquiryNotes || "N/A"}\n\nThank you!`;
     return `mailto:mf@owncircles.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
@@ -1151,37 +1151,26 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-emerald-500/20 pb-6">
             <div className="space-y-2">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold uppercase tracking-wider">
-                <Package className="w-4 h-4 text-emerald-400" />
-                <span>Modern Fisheries Direct Factory Sales</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                <BookOpen className="w-4 h-4 text-emerald-400" />
+                <span>The Open-Access Research Hub for Fish Nutrition</span>
               </div>
               <h3 className="font-sans font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight leading-tight">
-                High-Protein Commercial Fish Food & Bulk Supply
+                Fish Nutrition, FCR Optimization, and Protein Metrics
               </h3>
               <p className="text-emerald-100/80 text-xs sm:text-sm max-w-3xl leading-relaxed">
-                Direct factory supply of high-grade extruded floating and sinking pellets (28% to 45% crude protein). Specially formulated to minimize Feed Conversion Ratio (FCR 1.1–1.3), boost fish immunity, and keep water clean.
+                Peer-reviewed research and nutritional profiles for extruded floating and sinking pellets (28% to 45% crude protein). Formulated for Feed Conversion Ratio (FCR 1.1–1.3) optimization, metabolic nutrient uptake, and nitrogen waste minimization.
               </p>
             </div>
 
-            {/* Direct Contact Buttons */}
+            {/* Academic Inquiry Links */}
             <div className="flex flex-wrap items-center gap-3 shrink-0">
               <a
-                href="https://wa.me/919748952342?text=Hello%20Modern%20Fisheries,%20I%20am%20interested%20in%20purchasing%20Fish%20Food.%20Please%20send%20me%20the%20best%20price%20quotation."
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:mf@owncircles.com?subject=Nutritional%20Formulation%20and%20FCR%20Research%20Inquiry"
                 className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-sans font-extrabold text-xs sm:text-sm px-5 py-3 rounded-2xl transition-all shadow-lg hover:shadow-emerald-500/20 active:scale-95 cursor-pointer group"
               >
-                <MessageCircle className="w-4 h-4 text-slate-950 fill-current" />
-                <span>WhatsApp: +91 97489 52342</span>
+                <Mail className="w-4 h-4 text-slate-950" />
+                <span>Inquire with Nutrition Research Desk</span>
                 <ExternalLink className="w-3.5 h-3.5 opacity-70 group-hover:translate-x-0.5 transition-transform" />
-              </a>
-
-              <a
-                href="mailto:mf@owncircles.com?subject=Inquiry%20for%20Fish%20Food%20Bulk%20Quotation"
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-sans font-bold text-xs sm:text-sm px-4 py-3 rounded-2xl border border-white/20 backdrop-blur-md transition-all active:scale-95 cursor-pointer"
-              >
-                <Mail className="w-4 h-4 text-emerald-400" />
-                <span>mf@owncircles.com</span>
               </a>
             </div>
           </div>
@@ -1230,7 +1219,7 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
                     }}
                     className="text-emerald-300 hover:text-white font-bold text-xs underline cursor-pointer"
                   >
-                    Get Quote →
+                    Request Specs →
                   </button>
                 </div>
               </div>
@@ -1256,7 +1245,7 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
                   </ul>
                 </div>
                 <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
-                  <span className="text-emerald-400 font-mono font-bold">500 kg to Bulk Tons</span>
+                  <span className="text-emerald-400 font-mono font-bold">500 kg to Bulk Research Lots</span>
                   <button
                     onClick={() => {
                       setInquirySpecies("Rohu / Katla / Carps");
@@ -1266,7 +1255,7 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
                     }}
                     className="text-emerald-300 hover:text-white font-bold text-xs underline cursor-pointer"
                   >
-                    Get Quote →
+                    Request Specs →
                   </button>
                 </div>
               </div>
@@ -1302,7 +1291,7 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
                     }}
                     className="text-emerald-300 hover:text-white font-bold text-xs underline cursor-pointer"
                   >
-                    Get Quote →
+                    Request Specs →
                   </button>
                 </div>
               </div>
@@ -1338,37 +1327,37 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
                     }}
                     className="text-emerald-300 hover:text-white font-bold text-xs underline cursor-pointer"
                   >
-                    Get Quote →
+                    Request Specs →
                   </button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Interactive Quotation & Bulk Inquiry Form */}
+          {/* Interactive Formulation & Feed Specification Form */}
           <div id="quote-inquiry-form" className="bg-slate-900/95 border border-emerald-500/30 rounded-2xl p-5 sm:p-6 shadow-xl">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 border-b border-slate-800 pb-4">
               <div>
                 <h4 className="font-sans font-black text-lg sm:text-xl text-white flex items-center gap-2">
                   <FileText className="w-5 h-5 text-emerald-400" />
-                  <span>Send Inquiry for the Best Price Quotation</span>
+                  <span>Request Nutritional Formulation & Trial Specifications</span>
                 </h4>
                 <p className="text-slate-400 text-xs mt-0.5">
-                  Select your fish details and quantity below to get an instant tailored quotation directly via WhatsApp or Email.
+                  Submit target aquaculture species parameters to receive peer-reviewed trial formulations and FCR optimization matrices.
                 </p>
               </div>
 
-              {/* Direct Quick Contact Info Box */}
+              {/* Research Desk Info Box */}
               <div className="flex items-center gap-3 bg-slate-950/80 border border-emerald-500/20 px-3.5 py-2 rounded-xl shrink-0">
                 <div className="text-right text-xs">
-                  <div className="text-slate-400 text-[10px] uppercase tracking-wider font-mono">Contact Sales Directly</div>
-                  <div className="text-emerald-300 font-bold font-mono">+91 97489 52342</div>
-                  <div className="text-slate-300 text-[11px]">mf@owncircles.com</div>
+                  <div className="text-slate-400 text-[10px] uppercase tracking-wider font-mono">Nutrition Research Desk</div>
+                  <div className="text-emerald-300 font-bold font-mono">mf@owncircles.com</div>
+                  <div className="text-slate-400 text-[11px]">Peer-Reviewed Support</div>
                 </div>
                 <button
-                  onClick={() => handleCopy("+919748952342", "phone")}
+                  onClick={() => handleCopy("mf@owncircles.com", "email")}
                   className="p-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition-colors cursor-pointer"
-                  title="Copy Phone Number"
+                  title="Copy Research Email"
                 >
                   <Copy className="w-4 h-4" />
                 </button>
@@ -1479,29 +1468,18 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
             <div className="mt-6 pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-xs text-slate-400 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Fast response within 1 hour. Factory-direct pricing & shipping support.</span>
+                <span>Peer-reviewed nutrition data curated by fisheries agronomists & engineers.</span>
               </div>
 
               <div className="flex items-center gap-3 w-full sm:w-auto shrink-0">
                 <a
-                  href={getWhatsAppInquiryUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setInquirySubmitted(true)}
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-sans font-extrabold text-xs sm:text-sm px-5 py-3 rounded-xl transition-all shadow-lg hover:shadow-emerald-500/20 active:scale-95 cursor-pointer"
-                >
-                  <MessageCircle className="w-4 h-4 fill-current" />
-                  <span>Send Inquiry via WhatsApp</span>
-                  <Send className="w-3.5 h-3.5 opacity-80" />
-                </a>
-
-                <a
                   href={getEmailInquiryUrl()}
                   onClick={() => setInquirySubmitted(true)}
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-sans font-bold text-xs sm:text-sm px-4 py-3 rounded-xl border border-slate-700 transition-all active:scale-95 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-sans font-extrabold text-xs sm:text-sm px-5 py-3 rounded-xl transition-all shadow-lg hover:shadow-emerald-500/20 active:scale-95 cursor-pointer"
                 >
-                  <Mail className="w-4 h-4 text-emerald-400" />
-                  <span>Send via Email</span>
+                  <Mail className="w-4 h-4 text-slate-950" />
+                  <span>Submit Specification Request</span>
+                  <Send className="w-3.5 h-3.5 opacity-80" />
                 </a>
               </div>
             </div>
@@ -1515,7 +1493,7 @@ export default function FeedingPage({ onBackToDashboard, onVideoClick }: Feeding
             {inquirySubmitted && (
               <div className="mt-3 p-3 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-300 text-xs flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Inquiry generated! If your browser did not open automatically, please contact us directly on WhatsApp <strong>+91 97489 52342</strong> or Email <strong>mf@owncircles.com</strong>.</span>
+                <span>Specification request generated! You can also contact our research desk directly at <strong>mf@owncircles.com</strong>.</span>
               </div>
             )}
           </div>

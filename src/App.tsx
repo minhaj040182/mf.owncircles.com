@@ -23,6 +23,8 @@ import Gone410Page from "./components/Gone410Page";
 import CookieConsentBanner from "./components/CookieConsentBanner";
 import ProfessionalDashboard from "./components/ProfessionalDashboard";
 import CommercialProductsBanner from "./components/CommercialProductsBanner";
+import EditorialArticleSection from "./components/EditorialArticleSection";
+import EditorialArticleFeed from "./components/EditorialArticleFeed";
 import HomeVideos from "./components/HomeVideos";
 import FaqSection from "./components/FaqSection";
 import BrandLogo, { BrandEmblem } from "./components/BrandLogo";
@@ -32,7 +34,7 @@ import { parseUrlPath, getPathForPage, updateSeoMetadata, PageType } from "./uti
 
 import { ALL_VIDEOS } from "./data";
 import { Video } from "./types";
-import { Sparkles, MessageSquareCode, Calculator, Droplet, ArrowRight, Waves, CheckCircle, TrendingUp, HelpCircle, ShieldAlert, Award, Sprout, ShoppingBag, Briefcase, ChevronRight, Phone, Play, Star, ExternalLink, ShieldCheck, Home, Video as VideoIcon } from "lucide-react";
+import { MessageSquareCode, Calculator, Droplet, ArrowRight, Waves, CheckCircle, TrendingUp, HelpCircle, ShieldAlert, Award, Sprout, ShoppingBag, Briefcase, ChevronRight, Phone, Play, Star, ExternalLink, ShieldCheck, Home, Video as VideoIcon, BookOpen, FileText, Mail } from "lucide-react";
 
 export default function App() {
   // Parse initial SEO URL path/hash on load
@@ -171,11 +173,6 @@ export default function App() {
                   
                   <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="max-w-3xl mx-auto space-y-4 text-center flex flex-col items-center justify-center">
-                      
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold tracking-wide">
-                        <Sparkles className="w-3.5 h-3.5 text-yellow-300 shrink-0" />
-                        <span>Advanced Aquaculture Engineering & Solutions</span>
-                      </div>
 
                       {/* Official Modern Fisheries Brand Lockup */}
                       <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 my-1">
@@ -193,7 +190,7 @@ export default function App() {
                           <div className="flex items-center gap-2 mt-1.5 sm:mt-2">
                             <span className="h-[2px] w-5 sm:w-8 bg-[#00E5FF] rounded-full"></span>
                             <p className="text-white font-sans font-black text-[10px] sm:text-xs tracking-[0.22em] uppercase whitespace-nowrap">
-                              Fish &amp; Seeds Supplier
+                              Aquaculture Research &amp; Engineering Journal
                             </p>
                             <span className="h-[2px] w-5 sm:w-8 bg-[#00E5FF] rounded-full"></span>
                           </div>
@@ -201,17 +198,20 @@ export default function App() {
                       </div>
 
                       <p className="text-slate-300 font-sans text-xs sm:text-sm max-w-2xl leading-relaxed text-center mx-auto px-2">
-                        Providing high-density biofloc tank setups, energy-efficient recirculating aquatic setups (RAS), expert consultation, and interactive calculation tools.
+                        Peer-reviewed educational guides, biological engineering blueprints for Recirculating Aquaculture Systems (RAS), heterotrophic biofloc dynamics, and precision calculation algorithms.
                       </p>
 
-                      {/* Banner Action Buttons */}
+                      {/* Educational Action Navigation Buttons */}
                       <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                         <button
-                          onClick={() => setShowCallModal(true)}
-                          className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-sans font-extrabold text-xs sm:text-sm transition-all shadow-lg active:scale-95 cursor-pointer"
+                          onClick={() => {
+                            const el = document.getElementById("research-blueprint-portal");
+                            if (el) el.scrollIntoView({ behavior: "smooth" });
+                          }}
+                          className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 rounded-xl font-sans font-extrabold text-xs sm:text-sm transition-all shadow-lg active:scale-95 cursor-pointer"
                         >
-                          <Phone className="w-4 h-4 text-white animate-bounce shrink-0" />
-                          <span>Contact Desk (+919748952342)</span>
+                          <BookOpen className="w-4 h-4 text-slate-950 shrink-0" />
+                          <span>Research Blueprints</span>
                         </button>
                         <button
                           onClick={() => handlePageChange("calculators")}
@@ -220,22 +220,22 @@ export default function App() {
                           <Calculator className="w-4 h-4 text-yellow-300 shrink-0" />
                           <span>Calculators Lab</span>
                         </button>
-                        <a
-                          href="https://www.amazon.in/shop/trends0628/list/181W960PYPC2?tag=onamztrends06-21&ref_=aip_sf_list_spv_ons_mixed_d"
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button
+                          onClick={() => {
+                            const el = document.getElementById("state-of-aquaculture-editorial");
+                            if (el) el.scrollIntoView({ behavior: "smooth" });
+                          }}
                           className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl font-sans font-bold text-xs sm:text-sm transition-all active:scale-95 cursor-pointer backdrop-blur-xs"
                         >
-                          <ShoppingBag className="w-4 h-4 text-amber-300 shrink-0" />
-                          <span>Shopping</span>
-                          <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-70" />
-                        </a>
+                          <FileText className="w-4 h-4 text-emerald-300 shrink-0" />
+                          <span>India Aquaculture Paper</span>
+                        </button>
                         <button
                           onClick={() => handlePageChange("videos")}
                           className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-sans font-bold text-xs sm:text-sm transition-all active:scale-95 cursor-pointer shadow-md"
                         >
                           <VideoIcon className="w-4 h-4 text-white shrink-0" />
-                          <span>Videos</span>
+                          <span>Video Lectures</span>
                         </button>
                       </div>
 
@@ -244,13 +244,10 @@ export default function App() {
                 </section>
 
                 {/* 2. Responsive Social Strip */}
-                <div className="bg-slate-900 text-white py-2.5 px-4 border-b border-slate-800 shadow-sm w-full">
-                  <div className="max-w-[1440px] mx-auto px-2 sm:px-4 flex flex-wrap items-center justify-between gap-3 text-xs font-semibold">
-                    <span className="text-slate-400 text-[10px] sm:text-xs font-mono uppercase tracking-wider">
-                      Trusted Aquaculture Knowledge & Innovation Network
-                    </span>
+                <div className="bg-slate-900 text-white py-2 px-4 border-b border-slate-800 shadow-xs w-full">
+                  <div className="max-w-[1440px] mx-auto px-2 sm:px-4 flex items-center justify-center sm:justify-end gap-3 text-xs font-semibold">
                     <div className="flex items-center gap-3 shrink-0">
-                      <span className="text-slate-400 text-[10px] uppercase font-mono tracking-widest hidden sm:inline">Follow Us:</span>
+                      <span className="text-slate-400 text-[10px] uppercase font-mono tracking-widest">Follow Us:</span>
                       <a href="https://www.youtube.com/channel/UChChDXzRMI9g1lgcTo5KA3A" target="_blank" rel="noopener noreferrer" className="p-1.5 bg-red-600 rounded-full hover:bg-red-700 transition-all flex items-center justify-center hover:scale-105" title="Subscribe on YouTube">
                         <svg className="w-3.5 h-3.5 fill-current text-white" viewBox="0 0 24 24">
                           <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -288,10 +285,25 @@ export default function App() {
                         trendingVideos={ALL_VIDEOS}
                       />
 
-                      {/* Commercial Factory Direct Sales Banner Card */}
+                      {/* Open-Access Research Hub & Educational Blueprint Matrix */}
                       <CommercialProductsBanner />
 
-                      {/* Home Videos Portal (Modern Fisheries Exclusive Videos + YouTube Best Ideas Pane) */}
+                      {/* Featured Educational Guides and Research Papers Grid */}
+                      <EditorialArticleFeed 
+                        onSelectArticle={(path: string) => {
+                          const matched = parseUrlPath(path, ALL_VIDEOS);
+                          if (matched.video) {
+                            handleVideoSelect(matched.video);
+                          } else {
+                            handlePageChange(matched.page);
+                          }
+                        }}
+                      />
+
+                      {/* Peer-Reviewed Major Editorial Review */}
+                      <EditorialArticleSection />
+
+                      {/* Educational Video Lectures Portal */}
                       <HomeVideos 
                         onVideoClick={handleVideoSelect}
                         onViewMore={() => handlePageChange("videos")}
@@ -356,26 +368,21 @@ export default function App() {
         )}
       </main>
 
-       {/* Modern Fisheries Call Modal/Popup */}
+       {/* Modern Fisheries Editorial & Research Desk Modal */}
        {showCallModal && (
          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-           <div className="w-full max-w-sm bg-white rounded-3xl p-6 border border-green-100 shadow-2xl space-y-4 animate-slide-in text-center">
-             <div className="w-12 h-12 bg-green-100 text-green-700 rounded-full flex items-center justify-center mx-auto">
-               <Phone className="w-6 h-6 animate-pulse" />
+           <div className="w-full max-w-sm bg-white rounded-3xl p-6 border border-emerald-100 shadow-2xl space-y-4 animate-slide-in text-center">
+             <div className="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto">
+               <Mail className="w-6 h-6" />
              </div>
              <div className="space-y-1">
-               <h3 className="font-sans font-black text-slate-900 text-base">Connect with Us</h3>
-               <p className="text-slate-500 text-xs">Reach out to our seed supplying desk and technical consult team directly.</p>
+               <h3 className="font-sans font-black text-slate-900 text-base">Editorial & Research Desk</h3>
+               <p className="text-slate-500 text-xs">Reach out for academic citations, research inquiries, or technical blueprint submissions.</p>
              </div>
              
              <div className="space-y-3 pt-2 text-left text-xs text-slate-600">
                <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                 <span className="block font-bold text-slate-700 uppercase tracking-wider text-[9px] mb-1">WhatsApp Support (No call-link)</span>
-                 <span className="font-mono font-black text-slate-900 text-base select-all">+919748952342</span>
-               </div>
-               
-               <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                 <span className="block font-bold text-slate-700 uppercase tracking-wider text-[9px] mb-1">Email Helpline</span>
+                 <span className="block font-bold text-slate-700 uppercase tracking-wider text-[9px] mb-1">Official Research Desk</span>
                  <a 
                    href="mailto:mf@owncircles.com"
                    className="font-mono font-black text-emerald-800 text-base hover:underline select-all block"
@@ -387,7 +394,7 @@ export default function App() {
              </div>
 
              <div className="text-[10px] text-slate-400 font-sans pt-1">
-               Office Hours: Monday - Saturday (09:00 AM - 06:00 PM IST)
+               Review Hours: Monday - Friday (09:00 AM - 05:00 PM IST)
              </div>
 
              <button 
@@ -416,26 +423,18 @@ export default function App() {
             {/* Quick Links */}
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-sans text-slate-500">
               <a href="/" onClick={(e) => { e.preventDefault(); handlePageChange("home"); }} className="hover:text-emerald-700 cursor-pointer">Home</a>
-              <a href="/aquaponic" onClick={(e) => { e.preventDefault(); handlePageChange("ras"); }} className="hover:text-emerald-700 cursor-pointer">RAS</a>
-              <a href="/bioflock" onClick={(e) => { e.preventDefault(); handlePageChange("biofloc"); }} className="hover:text-emerald-700 cursor-pointer">Biofloc</a>
+              <a href="/aquaponic" onClick={(e) => { e.preventDefault(); handlePageChange("ras"); }} className="hover:text-emerald-700 cursor-pointer">RAS Blueprints</a>
+              <a href="/bioflock" onClick={(e) => { e.preventDefault(); handlePageChange("biofloc"); }} className="hover:text-emerald-700 cursor-pointer">Biofloc Ecology</a>
               <a href="/aquaponics-farming" onClick={(e) => { e.preventDefault(); handlePageChange("aquaponics"); }} className="hover:text-emerald-700 cursor-pointer">Aquaponics</a>
               <a href="/hydroponic" onClick={(e) => { e.preventDefault(); handlePageChange("hydroponics"); }} className="hover:text-emerald-700 cursor-pointer">Hydroponics</a>
-              <a href="/pond-farming" onClick={(e) => { e.preventDefault(); handlePageChange("pond"); }} className="hover:text-emerald-700 cursor-pointer">Pond Farming</a>
-              <a href="/fish-diseases" onClick={(e) => { e.preventDefault(); handlePageChange("diseases"); }} className="hover:text-emerald-700 cursor-pointer">Fish Diseases</a>
-              <a href="/feeding-management" onClick={(e) => { e.preventDefault(); handlePageChange("feed"); }} className="hover:text-emerald-700 cursor-pointer">Feeding</a>
-              <a href="/calculators" onClick={(e) => { e.preventDefault(); handlePageChange("calculators"); }} className="hover:text-emerald-700 cursor-pointer">Calculators</a>
-              <a href="/ourservices" onClick={(e) => { e.preventDefault(); handlePageChange("services"); }} className="hover:text-emerald-700 cursor-pointer">Services</a>
-              <a href="/about-us" onClick={(e) => { e.preventDefault(); handlePageChange("about"); }} className="hover:text-emerald-700 cursor-pointer">About Us</a>
-              <a href="/frequently-asked-questions" onClick={(e) => { e.preventDefault(); handlePageChange("faq"); }} className="hover:text-emerald-700 cursor-pointer">FAQ</a>
-              <a 
-                href="https://www.amazon.in/shop/trends0628/list/181W960PYPC2?tag=onamztrends06-21&ref_=aip_sf_list_spv_ons_mixed_d" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="hover:text-amber-700 font-bold text-amber-600 cursor-pointer"
-              >
-                Shopping
-              </a>
-              <a href="/farming-videos" onClick={(e) => { e.preventDefault(); handlePageChange("videos"); }} className="hover:text-red-700 font-bold text-red-600 cursor-pointer">Videos</a>
+              <a href="/pond-farming" onClick={(e) => { e.preventDefault(); handlePageChange("pond"); }} className="hover:text-emerald-700 cursor-pointer">Pond Limnology</a>
+              <a href="/fish-diseases" onClick={(e) => { e.preventDefault(); handlePageChange("diseases"); }} className="hover:text-emerald-700 cursor-pointer">Fish Pathology</a>
+              <a href="/feeding-management" onClick={(e) => { e.preventDefault(); handlePageChange("feed"); }} className="hover:text-emerald-700 cursor-pointer">Feed Science</a>
+              <a href="/calculators" onClick={(e) => { e.preventDefault(); handlePageChange("calculators"); }} className="hover:text-emerald-700 cursor-pointer">Calculators Lab</a>
+              <a href="/ourservices" onClick={(e) => { e.preventDefault(); handlePageChange("services"); }} className="hover:text-emerald-700 cursor-pointer">Engineering Specs</a>
+              <a href="/about-us" onClick={(e) => { e.preventDefault(); handlePageChange("about"); }} className="hover:text-emerald-700 cursor-pointer">Editorial Board &amp; Contact</a>
+              <a href="/frequently-asked-questions" onClick={(e) => { e.preventDefault(); handlePageChange("faq"); }} className="hover:text-emerald-700 cursor-pointer">Research FAQ</a>
+              <a href="/farming-videos" onClick={(e) => { e.preventDefault(); handlePageChange("videos"); }} className="hover:text-red-700 font-bold text-red-600 cursor-pointer">Video Lectures</a>
               <a href="/privacy-policy" onClick={(e) => { e.preventDefault(); handlePageChange("privacy"); }} className="hover:text-emerald-700 cursor-pointer font-bold text-slate-700">Privacy Policy</a>
             </div>
 
@@ -486,11 +485,22 @@ export default function App() {
         </button>
 
         <button
-          onClick={() => setShowCallModal(true)}
-          className="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-emerald-800 bg-emerald-100 font-bold active:scale-95 transition-all"
+          onClick={() => {
+            if (currentPage !== "home") {
+              handlePageChange("home");
+              setTimeout(() => {
+                const el = document.getElementById("featured-educational-guides");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }, 100);
+            } else {
+              const el = document.getElementById("featured-educational-guides");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }
+          }}
+          className="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl text-slate-600 hover:text-emerald-700 active:scale-95 transition-all"
         >
-          <Phone className="w-5 h-5 shrink-0 text-emerald-700 animate-pulse" />
-          <span className="text-[10px]">Call</span>
+          <BookOpen className="w-5 h-5 shrink-0 text-emerald-600" />
+          <span className="text-[10px]">Research</span>
         </button>
       </nav>
 

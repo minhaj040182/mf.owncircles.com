@@ -186,7 +186,7 @@ export default function BrandLogo({
             <div className="flex items-center gap-1.5 mt-1">
               <span className="h-[1.5px] w-3 bg-[#0099FF] rounded-full"></span>
               <span className="text-[8.5px] font-mono font-extrabold tracking-[0.16em] uppercase text-slate-500">
-                Fish & Seeds Supplier
+                Aquaculture Research &amp; Engineering
               </span>
               <span className="h-[1.5px] w-3 bg-[#0099FF] rounded-full"></span>
             </div>
@@ -221,7 +221,7 @@ export default function BrandLogo({
               <div className="flex items-center gap-2 sm:gap-3 mt-2 sm:mt-3 w-full">
                 <span className="h-[2px] sm:h-[3px] flex-1 bg-[#00E5FF] rounded-full max-w-[80px]"></span>
                 <span className="text-[9px] sm:text-xs lg:text-sm font-sans font-extrabold tracking-[0.22em] uppercase text-white whitespace-nowrap">
-                  Fish & Seeds Supplier
+                  Aquaculture Research &amp; Engineering
                 </span>
                 <span className="h-[2px] sm:h-[3px] flex-1 bg-[#00E5FF] rounded-full max-w-[80px]"></span>
               </div>
@@ -260,7 +260,7 @@ export default function BrandLogo({
           <div className="flex items-center gap-1 sm:gap-1.5 mt-0.5">
             <span className="h-[1.5px] w-2 sm:w-3 bg-[#00E5FF] rounded-full opacity-90 shrink-0"></span>
             <span className="block text-[7.5px] sm:text-[8.5px] font-sans font-black tracking-[0.16em] sm:tracking-[0.2em] text-white uppercase whitespace-nowrap">
-              Fish & Seeds Supplier
+              Aquaculture Research &amp; Engineering
             </span>
             <span className="h-[1.5px] w-2 sm:w-3 bg-[#00E5FF] rounded-full opacity-90 shrink-0"></span>
           </div>

@@ -1619,44 +1619,36 @@ export default function RasPage({ onVideoClick, onBackToDashboard }: RasPageProp
               </div>
             </div>
 
-            {/* Callback Request Form card replaced with static secure options */}
+            {/* Consultation Inquiry Card */}
             <div className="lg:col-span-6 bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-xs space-y-6">
               
               <div className="border-b border-slate-100 pb-4 text-center sm:text-left">
-                <span className="text-emerald-700 font-mono text-[10px] uppercase font-bold tracking-wider">Secure Engineering Consultation</span>
-                <h3 className="font-sans font-black text-slate-900 text-lg sm:text-xl">Request a Callback & Layout Estimate</h3>
-                <p className="text-slate-400 text-xs mt-0.5">To safeguard user information, all active form data storage and transmission have been removed.</p>
+                <span className="text-emerald-700 font-mono text-[10px] uppercase font-bold tracking-wider">Educational Blueprint Matrix</span>
+                <h3 className="font-sans font-black text-slate-900 text-lg sm:text-xl">Engineering Consultation & Technical Inquiry</h3>
+                <p className="text-slate-400 text-xs mt-0.5">Academic inquiries, hydraulic calculation models, and technical design verification.</p>
               </div>
 
               <div className="p-5 bg-slate-50 border border-slate-100 rounded-2xl space-y-4">
-                <h4 className="font-sans font-bold text-slate-800 text-xs uppercase tracking-wider border-b border-slate-200 pb-2">Direct Contact Channels:</h4>
+                <h4 className="font-sans font-bold text-slate-800 text-xs uppercase tracking-wider border-b border-slate-200 pb-2">Technical Inquiry Desk:</h4>
                 
                 <div className="space-y-4 font-sans text-xs text-slate-600">
                   <div className="flex items-start gap-2.5">
-                    <div className="p-1.5 bg-green-100 text-green-800 rounded-lg shrink-0 mt-0.5">
-                      <Phone className="w-4 h-4 text-green-600" />
-                    </div>
-                    <div>
-                      <span className="block font-bold text-slate-800">WhatsApp Support (No call-dial link)</span>
-                      <p className="mb-1">Message our chief RAS design engineer directly at:</p>
-                      <span className="font-mono font-bold text-slate-900 text-sm select-all bg-white px-2.5 py-1 rounded border border-slate-200">+919748952342</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5 pt-2">
                     <div className="p-1.5 bg-emerald-100 text-emerald-800 rounded-lg shrink-0 mt-0.5">
                       <Mail className="w-4 h-4 text-emerald-600" />
                     </div>
                     <div>
                       <span className="block font-bold text-slate-800">Email Engineering Desk</span>
-                      <p className="mb-1">Click below to send your proposed water volume or coordinates:</p>
+                      <p className="mb-1">Send proposed water volumes, biofilter dimensions, or CAD layouts to:</p>
                       <a 
                         href="mailto:mf@modernfisheries.com"
-                        className="font-mono font-bold text-emerald-700 text-sm hover:underline select-all bg-white px-2.5 py-1 rounded border border-slate-200"
+                        className="font-mono font-bold text-emerald-700 text-sm hover:underline select-all bg-white px-2.5 py-1 rounded border border-slate-200 inline-block"
                         title="Draft email in default application"
                       >
                         mf@modernfisheries.com
                       </a>
+                      <p className="text-[11px] text-slate-400 mt-2">
+                        Technical inquiries are reviewed by licensed aquaculture systems engineers.
+                      </p>
                     </div>
                   </div>
                 </div>

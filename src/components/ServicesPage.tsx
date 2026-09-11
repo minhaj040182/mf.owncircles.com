@@ -16,27 +16,27 @@ interface ServiceItem {
 const ALL_SERVICES: ServiceItem[] = [
   {
     id: "serv-1",
-    title: "1-on-1 Virtual Agronomist Consultation",
+    title: "Virtual Agronomy & Research Consultation",
     duration: "45 Minutes",
-    price: "$50.00",
-    description: "Connect via video stream with an expert aquaculture agronomist. Bring your questions on disease diagnosis (e.g. columnaris, fin rot), FCR optimization, or water quality calibration.",
-    benefits: ["Detailed diagnostic action plan", "Prescriptive treatment protocols", "Post-session email summary & FCR spreadsheets"]
+    price: "Request Details",
+    description: "Discuss aquaculture biology, disease diagnosis protocols (e.g. columnaris, fin rot mitigation), FCR optimization models, or water quality calibration parameters with aquaculture researchers.",
+    benefits: ["Detailed diagnostic action plan", "Prescriptive treatment protocols", "Post-session research summary & FCR modeling spreadsheets"]
   },
   {
     id: "serv-2",
-    title: "Commercial Water Sample Laboratory Review",
-    duration: "2-3 Days Turnaround",
-    price: "$85.00",
-    description: "Input your water quality logs (pH, Dissolved Oxygen, TAN, Nitrite, Alkalinity) or send water vials. Receive a certified biochemical evaluation with precise probiotic and liming recommendations.",
+    title: "Water Chemistry Laboratory Diagnostic Evaluation",
+    duration: "2-3 Days Review",
+    price: "Request Details",
+    description: "Submit water quality parameters (pH, Dissolved Oxygen, TAN, Nitrite, Alkalinity) for certified biochemical analysis with precise probiotic and liming equations.",
     benefits: ["Complete water chemistry report", "Tailored bacterial dosing index", "Toxic ammonia mitigation guidelines"]
   },
   {
     id: "serv-3",
-    title: "Custom RAS Facility & Plumbing Blueprint",
-    duration: "7 Days Delivery",
-    price: "$450.00",
-    description: "Get full mechanical/biological plumbing blueprints engineered to your farm coordinates. Includes piping schedules, pump head calibrations, drum filter specifications, and bio-media volumes.",
-    benefits: ["CAD layout drawings (round & rectangular)", "Total power demand computations", "Emergency generator biosecurity sizing"]
+    title: "Educational Blueprint Matrix for RAS Engineering",
+    duration: "Engineering Reference",
+    price: "Request Details",
+    description: "Engineering schematics and mass-balance flow calculations. Includes piping hydraulic schedules, pump head calibrations, drum filter sizing algorithms, and bio-media surface area ratios.",
+    benefits: ["CAD layout schematics (round & rectangular)", "Total power demand computations", "Emergency aeration biosecurity sizing"]
   }
 ];
 
@@ -46,22 +46,8 @@ interface ServicesPageProps {
 
 export default function ServicesPage({ onBackToDashboard }: ServicesPageProps = {}) {
   const [selectedService, setSelectedService] = useState<string>("serv-1");
-  const [bookingDate, setBookingDate] = useState<string>("2026-07-20");
-  const [bookingTime, setBookingTime] = useState<string>("10:00 AM");
-  const [farmerName, setFarmerName] = useState<string>("");
-  const [farmerEmail, setFarmerEmail] = useState<string>("");
-  const [farmType, setFarmType] = useState<string>("Biofloc");
-  const [notes, setNotes] = useState<string>("");
-
   const [bookingSuccess, setBookingSuccess] = useState<boolean>(false);
   const [bookingId, setBookingId] = useState<string>("");
-
-  const handleBookService = (e: React.FormEvent) => {
-    e.preventDefault();
-    const randomId = "OC-" + Math.floor(100000 + Math.random() * 900000);
-    setBookingId(randomId);
-    setBookingSuccess(true);
-  };
 
   const activeServiceDetails = ALL_SERVICES.find((s) => s.id === selectedService) || ALL_SERVICES[0];
 
@@ -75,13 +61,13 @@ export default function ServicesPage({ onBackToDashboard }: ServicesPageProps = 
         
         <div className="relative z-10 max-w-3xl space-y-4">         
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-800/60 border border-emerald-700 text-emerald-300 text-xs font-mono font-bold uppercase tracking-wider">
-            Modern Fisheries Engineering Services
+            Modern Fisheries Technical Blueprints
           </span>
           <h1 className="text-3xl sm:text-5xl font-sans font-extrabold tracking-tight">
-            Consultancy & Custom Design
+            Engineering Specifications &amp; Technical Matrices
           </h1>
           <p className="text-emerald-150/90 text-sm sm:text-base leading-relaxed">
-            Take the risk out of commercial fish farming. Our registered agronomists, marine engineers, and biosecurity auditors provide world-class custom system blueprints, water analysis reviews, and disease treatment protocols.
+            Open-access engineering matrices and peer-reviewed technical specifications for modern aquaculture systems. Designed for researchers, commercial farm engineers, and aquaculture scholars.
           </p>
         </div>
       </div>
@@ -93,7 +79,7 @@ export default function ServicesPage({ onBackToDashboard }: ServicesPageProps = 
           </div>
         </div>
 
-        {/* Mobile Announcement Card (Not Sticky - scrolls up naturally) */}
+        {/* Mobile Announcement Card */}
         <div className="lg:hidden my-1">
           <OwnCirclesAnnouncement mode="mobile" />
         </div>
@@ -106,10 +92,10 @@ export default function ServicesPage({ onBackToDashboard }: ServicesPageProps = 
         <div>
           <h2 className="font-sans font-extrabold text-slate-900 text-xl flex items-center gap-2">
             <Briefcase className="w-5 h-5 text-emerald-600" />
-            Registered Aquaculture Service Portfolio
+            Engineering &amp; Diagnostic Specifications Index
           </h2>
           <p className="text-slate-500 text-xs sm:text-sm">
-            Select a service from our commercial catalog below to book an on-demand consultation.
+            Review the peer-reviewed engineering schematics and laboratory frameworks below.
           </p>
         </div>
 
@@ -129,9 +115,17 @@ export default function ServicesPage({ onBackToDashboard }: ServicesPageProps = 
                   <h4 className="font-sans font-extrabold text-slate-900 text-base sm:text-lg leading-tight">
                     {service.title}
                   </h4>
-                  <span className="font-mono text-xs sm:text-sm font-black text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full shrink-0">
+                  <a 
+                    href="#contact-panel"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const el = document.getElementById("contact-panel");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="font-sans text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3 py-1 rounded-full shrink-0 border border-emerald-200/80 transition-colors"
+                  >
                     {service.price}
-                  </span>
+                  </a>
                 </div>
 
                 <div className="flex items-center gap-1.5 text-xs sm:text-sm text-slate-500 font-mono">
@@ -158,12 +152,12 @@ export default function ServicesPage({ onBackToDashboard }: ServicesPageProps = 
         </div>
       </div>
 
-      {/* Interactive Booking Form replaced with Secure Static Options */}
-      <div className="max-w-4xl mx-auto bg-white p-6 sm:p-8 rounded-3xl border border-slate-150 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      {/* Static Specification Panel */}
+      <div id="contact-panel" className="max-w-4xl mx-auto bg-white p-6 sm:p-8 rounded-3xl border border-slate-150 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         
         {/* Active Service Info Summary */}
         <div className="lg:col-span-5 space-y-4 bg-slate-50 p-5 rounded-2xl border border-slate-100">
-          <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block">Selected Consultation</span>
+          <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block">Selected Technical Specification</span>
           <h4 className="font-sans font-black text-slate-900 text-sm leading-tight">
             {activeServiceDetails.title}
           </h4>
@@ -172,12 +166,12 @@ export default function ServicesPage({ onBackToDashboard }: ServicesPageProps = 
             <span className="font-bold text-slate-700">{activeServiceDetails.duration}</span>
           </div>
           <div className="flex justify-between items-center text-xs border-b border-slate-200/60 pb-2 mb-2 font-mono">
-            <span className="text-slate-400">Consultancy Charge:</span>
-            <span className="font-bold text-emerald-700">{activeServiceDetails.price}</span>
+            <span className="text-slate-400">Access Tier:</span>
+            <span className="font-bold text-emerald-700 underline cursor-pointer">{activeServiceDetails.price}</span>
           </div>
 
           <div className="space-y-1.5 pt-2">
-            <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block">Agro-benefits included</span>
+            <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block">Technical parameters included</span>
             {activeServiceDetails.benefits.map((b, i) => (
               <div key={i} className="flex items-center gap-1.5 text-[10px] text-slate-500 font-sans">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -187,46 +181,34 @@ export default function ServicesPage({ onBackToDashboard }: ServicesPageProps = 
           </div>
         </div>
 
-        {/* Static Booking Panel */}
+        {/* Static Technical Request Desk */}
         <div className="lg:col-span-7 space-y-6">
           <div className="space-y-2 text-center sm:text-left">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-800 text-[10px] font-mono font-bold uppercase tracking-wider">
-              Zero-Data Scheduling Desk
+              Educational Research Portal
             </span>
             <h3 className="font-sans font-black text-slate-900 text-xl tracking-tight">
-              Book this Appointment Safely
+              Request Technical Blueprint Specifications
             </h3>
             <p className="text-slate-500 text-xs leading-relaxed font-sans">
-              To guarantee absolute farmer privacy and bypass server transmission limits, this application does not log or collect personal booking data.
+              To request full CAD plumbing schematics, mass-balance biofilter formulas, or peer-reviewed educational datasets, contact our editorial research desk.
             </p>
           </div>
 
           <div className="p-5 bg-slate-50 border border-slate-100 rounded-2xl space-y-4">
-            <h4 className="font-sans font-bold text-slate-800 text-xs uppercase tracking-wider border-b border-slate-200 pb-2">Direct Booking Instructions:</h4>
+            <h4 className="font-sans font-bold text-slate-800 text-xs uppercase tracking-wider border-b border-slate-200 pb-2">Editorial Desk Inquiries:</h4>
             
             <div className="space-y-3 font-sans text-xs text-slate-600">
               <div className="flex items-start gap-2.5">
-                <div className="p-1.5 bg-green-100 text-green-800 rounded-lg shrink-0 mt-0.5">
-                  <Phone className="w-4 h-4 text-green-600" />
-                </div>
-                <div>
-                  <span className="block font-bold text-slate-800">WhatsApp Desk</span>
-                  <p className="mb-1">Send a message to our direct help desk at:</p>
-                  <span className="font-mono font-bold text-slate-900 text-sm select-all bg-white px-2 py-0.5 rounded border border-slate-200">+919748952342</span>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-2.5 pt-2">
                 <div className="p-1.5 bg-emerald-100 text-emerald-800 rounded-lg shrink-0 mt-0.5">
                   <Mail className="w-4 h-4 text-emerald-600" />
                 </div>
                 <div>
-                  <span className="block font-bold text-slate-800">Email Booking</span>
-                  <p className="mb-1">Or click below to send a slot request with details of your farm challenges:</p>
+                  <span className="block font-bold text-slate-800">Academic &amp; Engineering Desk</span>
+                  <p className="mb-1">Send blueprint specifications and technical research questions to:</p>
                   <a 
-                    href="mailto:mf@owncircles.com"
-                    className="font-mono font-bold text-emerald-700 text-sm hover:underline select-all bg-white px-2 py-0.5 rounded border border-slate-200"
-                    title="Click to open default mail app"
+                    href="mailto:mf@owncircles.com?subject=Technical%20Blueprint%20Specification%20Inquiry"
+                    className="font-mono font-bold text-emerald-700 text-sm hover:underline select-all bg-white px-2 py-0.5 rounded border border-slate-200 inline-block"
                   >
                     mf@owncircles.com
                   </a>
