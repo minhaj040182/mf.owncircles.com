@@ -3,6 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Headless bot & sandboxed iframe postMessage safety guard -->
+    <script>
+      (function() {
+        if (typeof Window !== 'undefined' && Window.prototype && Window.prototype.postMessage) {
+          var nativePostMessage = Window.prototype.postMessage;
+          Window.prototype.postMessage = function(message, targetOrigin, transfer) {
+            var target = targetOrigin;
+            if (!target || target === 'null' || target === 'about:blank') {
+              var loc = window.location.origin;
+              target = (loc && loc !== 'null') ? loc : '*';
+            }
+            try {
+              return transfer !== undefined ? nativePostMessage.call(this, message, target, transfer) : nativePostMessage.call(this, message, target);
+            } catch (err) {
+              if (target !== '*') {
+                try { return nativePostMessage.call(this, message, '*'); } catch (ignored) {}
+              }
+            }
+          };
+        }
+      })();
+    </script>
     <title>Modern Fisheries | Journal of Precision Aquaculture &amp; Bio-Engineering Research</title>
     <meta name="description" content="Modern Fisheries is an open-access educational journal and bio-engineering portal dedicated to precision aquaculture science, recirculating aquaculture systems (RAS) blueprints, fish nutrition metrics, and water chemistry models." />
     <meta name="keywords" content="modern fisheries, precision aquaculture, recirculating aquaculture systems design, RAS blueprint, fish nutrition research, FCR optimization, protein metrics, biofloc technology, zero water exchange, C:N ratio formula, fish farming biology, high density aquaculture, Indian aquaculture statistics" />
