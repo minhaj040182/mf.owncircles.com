@@ -29,12 +29,29 @@ import HomeVideos from "./components/HomeVideos";
 import FaqSection from "./components/FaqSection";
 import BrandLogo, { BrandEmblem } from "./components/BrandLogo";
 import ContentIndexGrid from "./components/ContentIndexGrid";
+import BreadcrumbSchema from "./components/BreadcrumbSchema";
 import { getEnrichedVideosList } from "./utils/videoMetrics";
-import { parseUrlPath, getPathForPage, updateSeoMetadata, PageType } from "./utils/seoRouting";
+import { parseUrlPath, getPathForPage, updateSeoMetadata, PageType, PAGE_SEO_PATHS } from "./utils/seoRouting";
 
 import { ALL_VIDEOS } from "./data";
 import { Video } from "./types";
 import { MessageSquareCode, Calculator, Droplet, ArrowRight, Waves, CheckCircle, TrendingUp, HelpCircle, ShieldAlert, Award, Sprout, ShoppingBag, Briefcase, ChevronRight, Phone, Play, Star, ExternalLink, ShieldCheck, Home, Video as VideoIcon, BookOpen, FileText, Mail } from "lucide-react";
+
+const PAGE_BREADCRUMBS: Record<string, { category: string; categoryUrl: string; pageName: string }> = {
+  ras: { category: "Engineering Blueprints", categoryUrl: "/aquaponic", pageName: "Recirculating Aquaculture Systems (RAS)" },
+  biofloc: { category: "Biotechnology & Microbiomes", categoryUrl: "/bioflock", pageName: "Biofloc Technology (BFT)" },
+  aquaponics: { category: "Integrated Agro-Aquaculture", categoryUrl: "/aquaponics-farming", pageName: "Commercial Aquaponics Systems" },
+  hydroponics: { category: "Soilless Cultivation", categoryUrl: "/hydroponic", pageName: "Hydroponics Engineering" },
+  pond: { category: "Aquaculture Limnology", categoryUrl: "/pond-farming", pageName: "Earthen Pond Management" },
+  diseases: { category: "Aquatic Pathology", categoryUrl: "/fish-diseases", pageName: "Fish Disease Diagnosis & Prevention" },
+  feed: { category: "Nutrition & Feed Science", categoryUrl: "/feeding-management", pageName: "FCR & Feeding Management" },
+  calculators: { category: "Computational Tools", categoryUrl: "/calculators", pageName: "Precision Aquaculture Calculators Lab" },
+  services: { category: "Technical Services", categoryUrl: "/ourservices", pageName: "Engineering Specifications" },
+  about: { category: "Institutional Information", categoryUrl: "/about-us", pageName: "About Modern Fisheries" },
+  privacy: { category: "Legal & Disclosures", categoryUrl: "/privacy-policy", pageName: "Privacy Policy & Disclosures" },
+  videos: { category: "Multimedia Lectures", categoryUrl: "/farming-videos", pageName: "Aquaculture Video Tutorials" },
+  faq: { category: "Knowledge Base", categoryUrl: "/frequently-asked-questions", pageName: "Aquaculture FAQ" },
+};
 
 export default function App() {
   // Parse initial SEO URL path/hash on load
@@ -132,6 +149,25 @@ export default function App() {
 
       {/* Main Container Content */}
       <main className="flex-1 w-full max-w-full">
+        {/* Dynamic Google-compliant BreadcrumbList Schema */}
+        {selectedVideo ? (
+          <BreadcrumbSchema
+            category={{ name: "Video Lectures", url: "/farming-videos" }}
+            currentPage={{ name: selectedVideo.title, url: getPathForPage(currentPage, selectedVideo) }}
+          />
+        ) : currentPage !== "home" && PAGE_BREADCRUMBS[currentPage] ? (
+          <BreadcrumbSchema
+            category={{ 
+              name: PAGE_BREADCRUMBS[currentPage].category, 
+              url: PAGE_BREADCRUMBS[currentPage].categoryUrl 
+            }}
+            currentPage={{ 
+              name: PAGE_BREADCRUMBS[currentPage].pageName, 
+              url: PAGE_SEO_PATHS[currentPage] 
+            }}
+          />
+        ) : null}
+
         {selectedVideo ? (
           // Video Player Page takes priority with responsive sticky sidebar placement
           <div className="w-full">

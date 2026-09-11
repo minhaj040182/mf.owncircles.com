@@ -74,4 +74,3 @@ Disallow: /410
 
 # Primary XML Sitemap Location
 Sitemap: https://modernfisheriese.com/sitemap.xml
-Sitemap: https://mf.owncircles.com/sitemap.xml
