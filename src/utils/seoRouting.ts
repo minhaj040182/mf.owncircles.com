@@ -71,7 +71,7 @@ export const PAGE_SEO_PATHS: Record<PageType, string> = {
   about: "/about-us",
   privacy: "/privacy-policy",
   videos: "/farming-videos",
-  faq: "/frequently-asked-questions",
+  faq: "/faq",
   "404": "/404",
   "410": "/410",
 };

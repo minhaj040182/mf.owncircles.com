@@ -3,45 +3,6 @@
 /assets/docs/*  /410.html  410!
 /*.pdf          /410.html  410!
 
-# Permanent 301 Redirect for legacy and alias paths
-/home           /                      301!
-/home/*         /                      301!
-/ras            /aquaponic             301!
-/ras/*          /aquaponic             301!
-/ras-farming    /aquaponic             301!
-/shopping       /ourservices           301!
-/shopping/*     /ourservices           301!
-/shop           /ourservices           301!
-/shop/*         /ourservices           301!
-/aquaponics     /aquaponics-farming    301!
-/biofloc        /bioflock              301!
-/biofloc-farming /bioflock             301!
-/hydroponics    /hydroponic            301!
-/pond           /pond-farming          301!
-/diseases       /fish-diseases         301!
-/feed           /feeding-management    301!
-/calculator     /calculators           301!
-/calc           /calculators           301!
-/services       /ourservices           301!
-/about          /about-us              301!
-/videos         /farming-videos        301!
-/faq            /frequently-asked-questions 301!
-/privacy        /privacy-policy        301!
-
-# Trailing-slash normalization to canonical clean paths
-/hydroponic/      /hydroponic            301!
-/farming-videos/  /farming-videos        301!
-/pond-farming/    /pond-farming          301!
-/aquaponics-farming/ /aquaponics-farming 301!
-/bioflock/        /bioflock              301!
-/aquaponic/       /aquaponic             301!
-/fish-diseases/   /fish-diseases         301!
-/feeding-management/ /feeding-management 301!
-/calculators/     /calculators           301!
-/ourservices/     /ourservices           301!
-/about-us/        /about-us              301!
-/frequently-asked-questions/ /frequently-asked-questions 301!
-/privacy-policy/  /privacy-policy        301!
-
-# React SPA Fallback for all valid routes
+# React SPA Fallback for all routes
 /*              /index.html 200
+

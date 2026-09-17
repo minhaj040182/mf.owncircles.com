@@ -87,13 +87,13 @@ const PRIMARY_PAGES = [
   {
     path: '/about-us',
     changefreq: 'monthly',
-    priority: '0.7',
+    priority: '0.8',
     title: 'About Modern Fisheries'
   },
   {
     path: '/privacy-policy',
     changefreq: 'monthly',
-    priority: '0.5',
+    priority: '0.8',
     title: 'Privacy Policy & Terms of Service'
   },
   {
@@ -103,35 +103,19 @@ const PRIMARY_PAGES = [
     title: 'Aquaculture Video Tutorials & Farm Guides'
   },
   {
-    path: '/frequently-asked-questions',
+    path: '/faq',
     changefreq: 'weekly',
     priority: '0.8',
     title: 'Aquaculture FAQ & Knowledge Base'
   }
 ];
 
-// 2. Blacklist / Excluded URLs (Decommissioned PDFs, 404/410, and redirect aliases)
+// 2. Blacklist / Excluded URLs (Decommissioned PDFs, 404/410, and legacy patterns)
 const EXCLUDED_PATTERNS = [
   /assets\/docs/i,
   /\.pdf$/i,
   /\/404/i,
   /\/410/i,
-  /\/home$/i,
-  /\/ras$/i,
-  /\/biofloc$/i,
-  /\/hydroponics$/i,
-  /\/pond$/i,
-  /\/diseases$/i,
-  /\/feed$/i,
-  /\/calculator$/i,
-  /\/calc$/i,
-  /\/services$/i,
-  /\/shopping$/i,
-  /\/shop$/i,
-  /\/about$/i,
-  /\/videos$/i,
-  /\/faq$/i,
-  /\/privacy$/i
 ];
 
 // 3. Extract Video Sub-pages dynamically from src/data.ts
@@ -167,18 +151,16 @@ export function generateSitemap() {
 
   const sitemapEntries = [];
 
-  // Add Primary Pages
+  // Add All 14 Primary Canonical Pillar Pages
   PRIMARY_PAGES.forEach((page) => {
     const fullUrl = `${BASE_URL}${page.path === '/' ? '/' : page.path}`;
-    if (!isUrlExcluded(fullUrl)) {
-      sitemapEntries.push({
-        loc: fullUrl,
-        lastmod: TODAY,
-        changefreq: page.changefreq,
-        priority: page.priority,
-        type: 'Page'
-      });
-    }
+    sitemapEntries.push({
+      loc: fullUrl,
+      lastmod: TODAY,
+      changefreq: page.changefreq,
+      priority: page.priority,
+      type: 'Page'
+    });
   });
 
   // Add Video Guides
@@ -204,8 +186,12 @@ export function generateSitemap() {
   xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
   sitemapEntries.forEach((entry) => {
+    let cleanLoc = entry.loc.trim();
+    if (cleanLoc !== `${BASE_URL}/` && cleanLoc.endsWith('/')) {
+      cleanLoc = cleanLoc.replace(/\/+$/, '');
+    }
     xml += `  <url>\n`;
-    xml += `    <loc>${entry.loc}</loc>\n`;
+    xml += `    <loc>${cleanLoc}</loc>\n`;
     xml += `    <lastmod>${entry.lastmod}</lastmod>\n`;
     xml += `    <changefreq>${entry.changefreq}</changefreq>\n`;
     xml += `    <priority>${entry.priority}</priority>\n`;

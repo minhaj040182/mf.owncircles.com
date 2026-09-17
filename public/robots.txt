@@ -1,8 +1,11 @@
 # Modern Fisheries Robots.txt
-# https://mf.owncircles.com/robots.txt
+# https://modernfisheriese.com/robots.txt
+# Validated for Google Search Central and Google AdSense Crawlers
 
+# 1. Global directives for all compliant web crawlers
 User-agent: *
 Allow: /
+Allow: /assets/
 Allow: /assets/*.js$
 Allow: /assets/*.css$
 Allow: /assets/*.png$
@@ -10,67 +13,41 @@ Allow: /assets/*.jpg$
 Allow: /assets/*.webp$
 Allow: /assets/*.svg$
 
-# Disallow permanently removed PDF documents & legacy folders
+# Disallow permanently decommissioned PDF documents & legacy directories
 Disallow: /assets/Docs/
 Disallow: /assets/docs/
 Disallow: /*.pdf$
 Disallow: /*.pdf
 
-# Disallow 404 & 410 error pages
+# Disallow error pages
 Disallow: /404
 Disallow: /404.html
 Disallow: /410
 Disallow: /410.html
 
-# Disallow legacy aliases & redirect patterns to conserve crawl budget
-Disallow: /home
-Disallow: /home/
-Disallow: /ras
-Disallow: /ras/
-Disallow: /ras-farming
-Disallow: /biofloc
-Disallow: /biofloc/
-Disallow: /biofloc-farming
-Disallow: /aquaponics
-Disallow: /aquaponics/
-Disallow: /aquaponic-farming
-Disallow: /hydroponics
-Disallow: /hydroponics/
-Disallow: /hydroponics-farming
-Disallow: /pond
-Disallow: /pond/
-Disallow: /diseases
-Disallow: /diseases/
-Disallow: /feed
-Disallow: /feed/
-Disallow: /calculator
-Disallow: /calculator/
-Disallow: /calc
-Disallow: /calc/
-Disallow: /services
-Disallow: /services/
-Disallow: /shopping
-Disallow: /shopping/
-Disallow: /shop
-Disallow: /shop/
-Disallow: /about
-Disallow: /about/
-Disallow: /videos
-Disallow: /videos/
-Disallow: /faq
-Disallow: /faq/
-Disallow: /privacy
-Disallow: /privacy/
-
-# Googlebot specific directives
+# 2. Googlebot directives (ensure complete resource crawling for accurate page rendering)
 User-agent: Googlebot
 Allow: /
+Allow: /assets/
+Allow: /assets/*.js$
+Allow: /assets/*.css$
+Allow: /assets/*.png$
+Allow: /assets/*.jpg$
+Allow: /assets/*.webp$
+Allow: /assets/*.svg$
 Disallow: /assets/Docs/
 Disallow: /assets/docs/
 Disallow: /*.pdf$
 Disallow: /*.pdf
 Disallow: /404
+Disallow: /404.html
 Disallow: /410
+Disallow: /410.html
 
-# Primary XML Sitemap Location
+# 3. Google AdSense crawler directives (guarantee unrestricted access for ad inventory review)
+User-agent: Mediapartners-Google
+Allow: /
+
+# 4. Primary XML Sitemap Location
 Sitemap: https://modernfisheriese.com/sitemap.xml
+

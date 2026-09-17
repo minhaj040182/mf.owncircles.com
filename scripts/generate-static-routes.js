@@ -206,9 +206,9 @@ const PAGE_METADATA = [
     isPrimary: true
   },
   {
-    path: '/frequently-asked-questions',
-    aliases: ['/faq'],
-    canonical: `${BASE_URL}/frequently-asked-questions`,
+    path: '/faq',
+    aliases: ['/frequently-asked-questions'],
+    canonical: `${BASE_URL}/faq`,
     title: 'Fish Farming FAQ & Knowledge Base Guide | Modern Fisheries',
     description: 'Get expert answers to Frequently Asked Questions about Biofloc C:N ratios, RAS design, biofilter sizing, fish stocking density, and disease treatments.', // 152 chars
     keywords: 'fish farming faq, biofloc questions, RAS design questions, fish disease treatment, FCR calculator, modern fisheries faq',
@@ -472,6 +472,8 @@ function renderRedirectPageHtml(primaryCanonical, pageTitle) {
     <meta charset="UTF-8" />
     <title>${escapeHtml(redirectTitle)}</title>
     <meta name="description" content="${escapeHtml(redirectDesc)}" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="googlebot" content="noindex, follow" />
     <meta http-equiv="refresh" content="0;url=${primaryCanonical}" />
     <link rel="canonical" href="${primaryCanonical}" />
     <script type="text/javascript">
@@ -528,17 +530,18 @@ PAGE_METADATA.forEach((page) => {
     console.log(`✓ Generated primary static route: dist/${routeName}/index.html & dist/${routeName}.html`);
   }
 
-  // Generate 301 redirects for aliases so search engine crawlers don't flag duplicate titles
+  // Generate physical HTML pages for aliases so every URL represents a real physical page without redirects
   if (page.aliases && page.aliases.length > 0) {
     page.aliases.forEach((aliasPath) => {
       const aliasName = aliasPath.replace(/^\//, '');
       const aliasDir = path.join(distDir, aliasName);
       fs.mkdirSync(aliasDir, { recursive: true });
 
-      const redirectHtml = renderRedirectPageHtml(page.canonical, page.title);
-      fs.writeFileSync(path.join(aliasDir, 'index.html'), redirectHtml);
-      fs.writeFileSync(path.join(distDir, `${aliasName}.html`), redirectHtml);
-      console.log(`✓ Generated alias redirect (no-duplicate): dist/${aliasName}/index.html -> ${page.canonical}`);
+      // Physical HTML page for alias with canonical tag pointing to primary canonical URL
+      const physicalAliasHtml = renderCustomPageHtml(baseIndexHtml, page);
+      fs.writeFileSync(path.join(aliasDir, 'index.html'), physicalAliasHtml);
+      fs.writeFileSync(path.join(distDir, `${aliasName}.html`), physicalAliasHtml);
+      console.log(`✓ Generated physical alias page: dist/${aliasName}/index.html & dist/${aliasName}.html -> canonical: ${page.canonical}`);
     });
   }
 
@@ -550,14 +553,19 @@ PAGE_METADATA.forEach((page) => {
   });
 });
 
-// 3. Generate static HTML files for video pages (full slug primary, short alias redirect)
+// 3. Generate static HTML files for video pages (full physical pages for all routes)
 const videoBaseDir = path.join(distDir, 'video');
 fs.mkdirSync(videoBaseDir, { recursive: true });
 
-// Also generate /video.html and /videos.html alias redirects to /farming-videos
-const redirectAllVideosHtml = renderRedirectPageHtml(`${BASE_URL}/farming-videos`, 'Aquaculture Video Tutorials & Farm Masterclasses');
-fs.writeFileSync(path.join(distDir, 'video.html'), redirectAllVideosHtml);
-fs.writeFileSync(path.join(distDir, 'videos.html'), redirectAllVideosHtml);
+// Also generate physical /video.html, /videos.html, /video/index.html, and /videos/index.html for farming videos hub
+const farmingVideosPageMeta = PAGE_METADATA.find((p) => p.path === '/farming-videos') || PAGE_METADATA[0];
+const farmingVideosHtml = renderCustomPageHtml(baseIndexHtml, farmingVideosPageMeta);
+fs.writeFileSync(path.join(distDir, 'video.html'), farmingVideosHtml);
+fs.writeFileSync(path.join(distDir, 'videos.html'), farmingVideosHtml);
+const videosDir = path.join(distDir, 'videos');
+fs.mkdirSync(videosDir, { recursive: true });
+fs.writeFileSync(path.join(videosDir, 'index.html'), farmingVideosHtml);
+fs.writeFileSync(path.join(videoBaseDir, 'index.html'), farmingVideosHtml);
 
 videos.forEach((v) => {
   const slug = createSlug(v.title);
@@ -574,31 +582,18 @@ videos.forEach((v) => {
     bodyText: v.description
   };
 
-  // Primary full slug video page (clean .html without trailing slash conflicts)
+  // Primary full slug video page: both .html and /index.html so trailing slash also serves physical page directly
   const customVideoHtml = renderCustomPageHtml(baseIndexHtml, videoMeta);
   fs.writeFileSync(path.join(distDir, `${fullSlugRoute}.html`), customVideoHtml);
+  const fullSlugDir = path.join(distDir, fullSlugRoute);
+  fs.mkdirSync(fullSlugDir, { recursive: true });
+  fs.writeFileSync(path.join(fullSlugDir, 'index.html'), customVideoHtml);
 
-  // Short ID alias redirect to primary slug URL
-  const redirectVideoHtml = renderRedirectPageHtml(videoCanonical, v.title);
-  fs.writeFileSync(path.join(distDir, `${shortRoute}.html`), redirectVideoHtml);
-
-  // Remove any legacy directory for this video to eliminate directory-slash redirection loops
-  const legacyPrimaryDir = path.join(distDir, fullSlugRoute);
-  if (fs.existsSync(legacyPrimaryDir) && fs.statSync(legacyPrimaryDir).isDirectory()) {
-    try {
-      fs.rmSync(legacyPrimaryDir, { recursive: true, force: true });
-    } catch (e) {
-      // Ignore
-    }
-  }
-  const legacyShortDir = path.join(distDir, shortRoute);
-  if (fs.existsSync(legacyShortDir) && fs.statSync(legacyShortDir).isDirectory()) {
-    try {
-      fs.rmSync(legacyShortDir, { recursive: true, force: true });
-    } catch (e) {
-      // Ignore
-    }
-  }
+  // Short ID physical page: both .html and /index.html with canonical pointing to primary slug URL
+  fs.writeFileSync(path.join(distDir, `${shortRoute}.html`), customVideoHtml);
+  const shortDir = path.join(distDir, shortRoute);
+  fs.mkdirSync(shortDir, { recursive: true });
+  fs.writeFileSync(path.join(shortDir, 'index.html'), customVideoHtml);
 
   sitemapUrls.push({
     url: videoCanonical,
@@ -606,16 +601,21 @@ videos.forEach((v) => {
     priority: '0.8'
   });
 
-  console.log(`✓ Generated video route: dist/${fullSlugRoute}.html (canonical) & dist/${shortRoute}.html (alias)`);
+  console.log(`✓ Generated physical video routes: dist/${fullSlugRoute}.html, dist/${fullSlugRoute}/index.html, dist/${shortRoute}.html, dist/${shortRoute}/index.html`);
 });
 
-// 4. Generate XML Sitemap
+// 4. Generate XML Sitemap with strict canonical filtering (no trailing slashes except root)
 let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
 sitemapXml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
 sitemapUrls.forEach((item) => {
+  let cleanUrl = item.url.trim();
+  // Strip trailing slashes from any subpage URL so trailing slash links are never crawled
+  if (cleanUrl !== `${BASE_URL}/` && cleanUrl.endsWith('/')) {
+    cleanUrl = cleanUrl.replace(/\/+$/, '');
+  }
   sitemapXml += `  <url>\n`;
-  sitemapXml += `    <loc>${item.url}</loc>\n`;
+  sitemapXml += `    <loc>${cleanUrl}</loc>\n`;
   sitemapXml += `    <lastmod>${TODAY}</lastmod>\n`;
   sitemapXml += `    <changefreq>${item.changefreq}</changefreq>\n`;
   sitemapXml += `    <priority>${item.priority}</priority>\n`;
@@ -630,7 +630,7 @@ fs.writeFileSync(path.resolve('public/sitemap.xml'), sitemapXml);
 console.log(`✓ Generated sitemap.xml with ${sitemapUrls.length} indexed URLs in dist/sitemap.xml & public/sitemap.xml`);
 
 // 5. Ensure robots.txt, 410.html, configs, and IndexNow key file are in dist
-const filesToCopy = ['robots.txt', '410.html', '404.html', '_redirects', '.htaccess', 'vercel.json', 'web.config'];
+const filesToCopy = ['robots.txt', '410.html', '404.html', '_redirects', '.htaccess', 'vercel.json', 'web.config', '2eb92cb04ff4a9ef0c97.txt'];
 filesToCopy.forEach((filename) => {
   const src = path.resolve(`public/${filename}`);
   if (fs.existsSync(src)) {

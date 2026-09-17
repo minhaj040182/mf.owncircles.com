@@ -881,5 +881,34 @@ export const RICH_PAGE_BODIES = {
         </div>
       </section>
     </article>
+  `,
+
+  '/faq': `
+    <article style="max-width:1000px;margin:0 auto;color:#1e293b;line-height:1.75;font-size:16px;">
+      <header style="margin-bottom:36px;border-bottom:1px solid #e2e8f0;padding-bottom:24px;">
+        <span style="font-size:14px;font-weight:700;color:#0284c7;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:8px;">Aquaculture Knowledge Base</span>
+        <h1 style="font-size:32px;font-weight:800;color:#0f172a;line-height:1.25;margin:0 0 16px 0;letter-spacing:-0.5px;">Aquaculture Frequently Asked Questions (FAQ) &amp; Technical Reference</h1>
+        <p style="font-size:18px;color:#475569;margin:0;line-height:1.6;">
+          Authoritative answers to the most common questions on Biofloc Technology, Recirculating Aquaculture Systems (RAS), fish health, feeding schedules, and commercial farm profitability.
+        </p>
+      </header>
+
+      <section style="display:flex;flex-direction:column;gap:16px;margin-bottom:40px;">
+        <div style="background:#ffffff;border:1px solid #e2e8f0;padding:20px;border-radius:10px;">
+          <h2 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">What is Biofloc Technology (BFT) and how does it save feed costs?</h2>
+          <p style="margin:0;color:#334155;font-size:15px;">Biofloc is a closed, zero-exchange aquaculture system where heterotrophic bacteria convert toxic fish ammonia waste into protein-rich microbial biomass. Fish graze continuously on these suspended flocs, reducing purchased commercial feed requirements by 20% to 30%.</p>
+        </div>
+
+        <div style="background:#ffffff;border:1px solid #e2e8f0;padding:20px;border-radius:10px;">
+          <h2 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">How does a Recirculating Aquaculture System (RAS) filter water?</h2>
+          <p style="margin:0;color:#334155;font-size:15px;">A commercial RAS cleans and recycles up to 95-99% of water via mechanical drum filters (trapping solid feces), moving bed biofilm reactors or MBBRs (converting ammonia to nitrate), degassing towers (stripping CO2), and ultraviolet sterilizers (killing pathogens) before pumping clean oxygenated water back to culture tanks.</p>
+        </div>
+
+        <div style="background:#ffffff;border:1px solid #e2e8f0;padding:20px;border-radius:10px;">
+          <h2 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">What is a good Feed Conversion Ratio (FCR) in commercial aquaculture?</h2>
+          <p style="margin:0;color:#334155;font-size:15px;">FCR measures kilograms of feed required to produce one kilogram of fish body weight (Total Feed &divide; Net Weight Gained). An FCR of 1.1 to 1.3 is considered world-class in intensive Biofloc or RAS systems, while 1.4 to 1.7 is typical in traditional semi-intensive earthen ponds.</p>
+        </div>
+      </section>
+    </article>
   `
 };

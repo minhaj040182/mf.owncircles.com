@@ -121,7 +121,7 @@ const PAGE_BREADCRUMBS: Record<string, { category: string; categoryUrl: string; 
   about: { category: "Institutional Information", categoryUrl: "/about-us", pageName: "About Modern Fisheries" },
   privacy: { category: "Legal & Disclosures", categoryUrl: "/privacy-policy", pageName: "Privacy Policy & Disclosures" },
   videos: { category: "Multimedia Lectures", categoryUrl: "/farming-videos", pageName: "Aquaculture Video Tutorials" },
-  faq: { category: "Knowledge Base", categoryUrl: "/frequently-asked-questions", pageName: "Aquaculture FAQ" },
+  faq: { category: "Knowledge Base", categoryUrl: "/faq", pageName: "Aquaculture FAQ" },
 };
 
 export default function App() {
@@ -535,7 +535,7 @@ export default function App() {
               <a href="/calculators" onClick={(e) => { e.preventDefault(); handlePageChange("calculators"); }} className="hover:text-emerald-700 cursor-pointer">Calculators Lab</a>
               <a href="/ourservices" onClick={(e) => { e.preventDefault(); handlePageChange("services"); }} className="hover:text-emerald-700 cursor-pointer">Engineering Specs</a>
               <a href="/about-us" onClick={(e) => { e.preventDefault(); handlePageChange("about"); }} className="hover:text-emerald-700 cursor-pointer">Editorial Board &amp; Contact</a>
-              <a href="/frequently-asked-questions" onClick={(e) => { e.preventDefault(); handlePageChange("faq"); }} className="hover:text-emerald-700 cursor-pointer">Research FAQ</a>
+              <a href="/faq" onClick={(e) => { e.preventDefault(); handlePageChange("faq"); }} className="hover:text-emerald-700 cursor-pointer">Research FAQ</a>
               <a href="/farming-videos" onClick={(e) => { e.preventDefault(); handlePageChange("videos"); }} className="hover:text-red-700 font-bold text-red-600 cursor-pointer">Video Lectures</a>
               <a href="/privacy-policy" onClick={(e) => { e.preventDefault(); handlePageChange("privacy"); }} className="hover:text-emerald-700 cursor-pointer font-bold text-slate-700">Privacy Policy</a>
             </div>

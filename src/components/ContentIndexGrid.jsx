@@ -160,7 +160,7 @@ export default function ContentIndexGrid({ onNavigate }) {
         {
           title: 'Frequently Asked Commercial Farming Questions (FAQ)',
           subtitle: 'Electricity backup requirements, profitability projections & mortality fixes',
-          href: '/frequently-asked-questions',
+          href: '/faq',
           tag: 'Knowledge'
         }
       ]
