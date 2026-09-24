@@ -76,37 +76,6 @@
         font-size: 14px;
       }
     </style>
-    <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // https://github.com/rafgraph/spa-github-pages
-      var pathSegmentsToKeep = 0;
-      var l = window.location;
-      
-      // Known static or valid alias routes
-      var knownRoutes = [
-        "/home", "/ras", "/ras-farming", "/shopping", "/shop", "/aquaponics", 
-        "/aquaponics-farming", "/aquaponic", "/biofloc", "/bioflock", 
-        "/biofloc-farming", "/hydroponic", "/hydroponics", "/pond", 
-        "/pond-farming", "/diseases", "/fish-diseases", "/feed", 
-        "/feeding-management", "/calculator", "/calculators", "/services", 
-        "/ourservices", "/about", "/about-us", "/videos", "/farming-videos", 
-        "/faq", "/frequently-asked-questions", "/privacy", "/privacy-policy"
-      ];
-      
-      var isKnown = knownRoutes.some(function(r) {
-        return l.pathname.toLowerCase().indexOf(r) === 0;
-      });
-
-      if (isKnown || l.pathname.indexOf("/video/") === 0) {
-        var cleanPath = l.pathname.replace(/^\/+/, "");
-        l.replace(
-          l.protocol + '//' + l.host + '/?p=/' +
-          cleanPath.split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-          (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-          l.hash
-        );
-      }
-    </script>
   </head>
   <body>
     <div class="card">

@@ -1,7 +1,25 @@
-# Permanently removed PDF documents - HTTP 410 Gone
-/assets/Docs/*  /410.html  410!
-/assets/docs/*  /410.html  410!
-/*.pdf          /410.html  410!
+# Permanently removed PDF documents & deprecated legacy alias routes - HTTP 410 Gone
+/assets/Docs/*            /410.html  410!
+/assets/docs/*            /410.html  410!
+/*.pdf                    /410.html  410!
+/pond                     /410.html  410!
+/pond/*                   /410.html  410!
+/home                     /410.html  410!
+/home/*                   /410.html  410!
+/videos                   /410.html  410!
+/videos/*                 /410.html  410!
+/biofloc                  /410.html  410!
+/biofloc/*                /410.html  410!
+/hydroponics              /410.html  410!
+/hydroponics/*            /410.html  410!
+/feed                     /410.html  410!
+/feed/*                   /410.html  410!
+/diseases                 /410.html  410!
+/diseases/*               /410.html  410!
+/ras                      /410.html  410!
+/ras/*                    /410.html  410!
+/aquaponics               /410.html  410!
+/aquaponics/*             /410.html  410!
 
 # React SPA Fallback for all routes
 /*              /index.html 200

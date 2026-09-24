@@ -9,6 +9,10 @@
     "sitemap": "node scripts/generate-sitemap.js",
     "indexnow": "node scripts/ping-indexnow.js",
     "clean": "rm -rf dist",
+    "backup": "node scripts/backup.js",
+    "restore": "node scripts/restore.js",
+    "restore:list": "node scripts/restore.js list",
+    "restore:git": "node scripts/restore.js git",
     "lint": "tsc --noEmit",
     "preview": "vite preview"
   },

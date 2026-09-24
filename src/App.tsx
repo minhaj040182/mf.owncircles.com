@@ -16,7 +16,7 @@ import { getEnrichedVideosList } from "./utils/videoMetrics";
 import { parseUrlPath, getPathForPage, updateSeoMetadata, PageType, PAGE_SEO_PATHS } from "./utils/seoRouting";
 import { ALL_VIDEOS } from "./data";
 import { Video } from "./types";
-import { MessageSquareCode, Calculator, Droplet, ArrowRight, Waves, CheckCircle, TrendingUp, HelpCircle, ShieldAlert, Award, Sprout, ShoppingBag, Briefcase, ChevronRight, Phone, Play, Star, ExternalLink, ShieldCheck, Home, Video as VideoIcon, BookOpen, FileText, Mail } from "lucide-react";
+import { MessageSquareCode, Calculator, Droplet, ArrowRight, Waves, CheckCircle, TrendingUp, HelpCircle, ShieldAlert, Award, Sprout, ShoppingBag, Briefcase, ChevronRight, Phone, Play, Star, ExternalLink, ShieldCheck, Home, Video as VideoIcon, BookOpen, FileText, Mail, Wrench } from "lucide-react";
 
 // ============================================================================
 // Code-Splitting: Lazy-load all heavy subpages and standalone route modules
@@ -32,6 +32,7 @@ const PondFarmingPage = lazy(() => import("./components/PondFarmingPage"));
 const DiseasesPage = lazy(() => import("./components/DiseasesPage"));
 const FeedingPage = lazy(() => import("./components/FeedingPage"));
 const CalculatorsPage = lazy(() => import("./components/CalculatorsPage"));
+const EquipmentFinderPage = lazy(() => import("./components/EquipmentFinderPage"));
 const ServicesPage = lazy(() => import("./components/ServicesPage"));
 const AboutUsPage = lazy(() => import("./components/AboutUsPage"));
 const PrivacyPolicyPage = lazy(() => import("./components/PrivacyPolicyPage"));
@@ -146,15 +147,29 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: "smooth" });
       updateSeoMetadata(currentPage, selectedVideo);
 
+      // Do NOT execute pushState for 404 Not Found or 410 Gone error pages (preserves user requested URL)
+      if (currentPage === "404" || currentPage === "410") {
+        return;
+      }
+
       const targetPath = getPathForPage(currentPage, selectedVideo);
       const currentFull = window.location.pathname + (window.location.hash || "");
+      const currentPathOnly = window.location.pathname || "/";
+      const normalizedCurrent = currentPathOnly.replace(/\/+$/, "") || "/";
+      const normalizedTarget = targetPath.replace(/\/+$/, "") || "/";
 
-      if (currentFull !== targetPath && window.history) {
+      // If already on the canonical path (even if trailing slash differs), do NOT pushState
+      // This prevents Googlebot from recording a client-side redirect on URLs like /feeding-management/ or /hydroponic/
+      if (normalizedCurrent === normalizedTarget && !window.location.hash) {
+        return;
+      }
+
+      if (window.history) {
         try {
           if (window.location.hash) {
             // Clean up legacy hash URL (e.g. /#/aquaponics-farming -> /aquaponics-farming)
             window.history.replaceState(null, "", targetPath);
-          } else {
+          } else if (normalizedCurrent !== normalizedTarget) {
             window.history.pushState(null, "", targetPath);
           }
         } catch (err) {
@@ -322,6 +337,13 @@ export default function App() {
                           <span>Calculators Lab</span>
                         </button>
                         <button
+                          onClick={() => handlePageChange("equipment-finder")}
+                          className="inline-flex items-center gap-2 px-5 py-2.5 bg-teal-500 hover:bg-teal-600 text-slate-950 rounded-xl font-sans font-extrabold text-xs sm:text-sm transition-all shadow-lg active:scale-95 cursor-pointer"
+                        >
+                          <Wrench className="w-4 h-4 text-slate-950 shrink-0" />
+                          <span>Equipment Finder</span>
+                        </button>
+                        <button
                           onClick={() => {
                             const el = document.getElementById("state-of-aquaculture-editorial");
                             if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -439,10 +461,16 @@ export default function App() {
                 {currentPage === "biofloc" && <BioflocPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
                 {currentPage === "aquaponics" && <AquaponicsPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
                 {currentPage === "hydroponics" && <HydroponicsPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
-                {currentPage === "pond" && <PondFarmingPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
+                {currentPage === "pond" && <PondFarmingPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} onNavigatePage={handlePageChange} />}
                 {currentPage === "diseases" && <DiseasesPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
                 {currentPage === "feed" && <FeedingPage onVideoClick={handleVideoSelect} onBackToDashboard={() => setCurrentPage("home")} />}
                 {currentPage === "calculators" && <CalculatorsPage onBackToDashboard={() => setCurrentPage("home")} />}
+                {currentPage === "equipment-finder" && (
+                  <EquipmentFinderPage 
+                    onBackToDashboard={() => setCurrentPage("home")} 
+                    onNavigatePage={handlePageChange} 
+                  />
+                )}
                 {currentPage === "faq" && (
                   <FaqSection onContactClick={() => setShowCallModal(true)} onBackToDashboard={() => setCurrentPage("home")} />
                 )}
@@ -533,6 +561,7 @@ export default function App() {
               <a href="/fish-diseases" onClick={(e) => { e.preventDefault(); handlePageChange("diseases"); }} className="hover:text-emerald-700 cursor-pointer">Fish Pathology</a>
               <a href="/feeding-management" onClick={(e) => { e.preventDefault(); handlePageChange("feed"); }} className="hover:text-emerald-700 cursor-pointer">Feed Science</a>
               <a href="/calculators" onClick={(e) => { e.preventDefault(); handlePageChange("calculators"); }} className="hover:text-emerald-700 cursor-pointer">Calculators Lab</a>
+              <a href="/equipment-finder" onClick={(e) => { e.preventDefault(); handlePageChange("equipment-finder"); }} className="hover:text-teal-700 font-bold text-teal-700 cursor-pointer">Equipment Finder</a>
               <a href="/ourservices" onClick={(e) => { e.preventDefault(); handlePageChange("services"); }} className="hover:text-emerald-700 cursor-pointer">Engineering Specs</a>
               <a href="/about-us" onClick={(e) => { e.preventDefault(); handlePageChange("about"); }} className="hover:text-emerald-700 cursor-pointer">Editorial Board &amp; Contact</a>
               <a href="/faq" onClick={(e) => { e.preventDefault(); handlePageChange("faq"); }} className="hover:text-emerald-700 cursor-pointer">Research FAQ</a>

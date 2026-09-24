@@ -15,9 +15,10 @@ Options -Indexes
   RewriteCond %{HTTP_HOST} ^www\.modernfisheriese\.com$ [NC]
   RewriteRule ^(.*)$ https://modernfisheriese.com/$1 [L,R=301]
 
-  # 2. Return HTTP 410 Gone for permanently removed PDF documents & assets/Docs
+  # 2. Return HTTP 410 Gone for permanently removed PDF documents & deprecated legacy alias routes
   RewriteRule ^assets/(docs|Docs)/ - [G,NC,L]
   RewriteRule \.(pdf)$ - [G,NC,L]
+  RewriteRule ^(pond|home|videos|biofloc|hydroponics|diseases|feed|ras|ras-farming|aquaponics|aquaponic-farming|calculator|calc|services|shopping|shop|about|privacy|frequently-asked-questions)(/.*)?$ - [G,NC,L]
 
   # 3. Serve physical HTML file directly if it exists with .html (e.g. /hydroponic -> hydroponic.html, /home -> home.html)
   RewriteCond %{DOCUMENT_ROOT}/$1.html -f

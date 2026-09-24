@@ -16,11 +16,61 @@
       "source": "/:path*.pdf",
       "destination": "/410.html",
       "statusCode": 410
+    },
+    {
+      "source": "/pond",
+      "destination": "/410.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/pond/:path*",
+      "destination": "/410.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/home",
+      "destination": "/410.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/home/:path*",
+      "destination": "/410.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/videos",
+      "destination": "/410.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/videos/:path*",
+      "destination": "/410.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/biofloc",
+      "destination": "/410.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/biofloc/:path*",
+      "destination": "/410.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/hydroponics",
+      "destination": "/410.html",
+      "statusCode": 410
+    },
+    {
+      "source": "/hydroponics/:path*",
+      "destination": "/410.html",
+      "statusCode": 410
     }
   ],
   "rewrites": [
     {
-      "source": "/((?!assets/Docs/|assets/docs/|.*\\.pdf).*)",
+      "source": "/((?!assets/Docs/|assets/docs/|.*\\.pdf|pond|home|videos|biofloc|hydroponics).*)",
       "destination": "/index.html"
     }
   ]

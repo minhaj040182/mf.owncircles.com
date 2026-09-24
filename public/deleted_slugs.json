@@ -1,0 +1,13 @@
+{
+  "description": "Registry of permanently deleted URLs (410 Gone) and mapped article replacements (301 Moved Permanently)",
+  "deletedSlugs": [
+    "vehicles-shane-van-gisbergen-on-difference-between-racing-supercars-and-nascar",
+    "faltu-engineers-ep01-desi-dan-bilzenian",
+    "attendance-system-smart-emp-lets-explore",
+    "restoring-your-core-strength-after-pregnancy-a-gradual-and-safe-approach"
+  ],
+  "deletedPrefixes": [
+    "vehicles-"
+  ],
+  "redirects": {}
+}

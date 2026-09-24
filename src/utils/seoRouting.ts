@@ -10,6 +10,7 @@ export type PageType =
   | "diseases" 
   | "feed" 
   | "calculators" 
+  | "equipment-finder"
   | "services" 
   | "about" 
   | "privacy"
@@ -42,7 +43,42 @@ export const REMOVED_LEGACY_PDF_AND_DEPRECATED_PATHS = [
   "/downloads",
   "/download",
   "/410",
-  "/410.html"
+  "/410.html",
+  // Decommissioned legacy alias routes that caused redirects in search engines
+  "/pond",
+  "/pond/",
+  "/home",
+  "/home/",
+  "/videos",
+  "/videos/",
+  "/biofloc",
+  "/biofloc/",
+  "/biofloc-farming",
+  "/hydroponics",
+  "/hydroponics/",
+  "/hydroponics-farming",
+  "/soilless",
+  "/feed",
+  "/feed/",
+  "/diseases",
+  "/diseases/",
+  "/ras",
+  "/ras/",
+  "/ras-farming",
+  "/recirculating",
+  "/aquaponics",
+  "/aquaponics/",
+  "/aquaponic-farming",
+  "/calculator",
+  "/calc",
+  "/services",
+  "/shopping",
+  "/shop",
+  "/about",
+  "/about/",
+  "/privacy",
+  "/privacy/",
+  "/frequently-asked-questions"
 ];
 
 // Backwards compatibility alias
@@ -67,6 +103,7 @@ export const PAGE_SEO_PATHS: Record<PageType, string> = {
   diseases: "/fish-diseases",
   feed: "/feeding-management",
   calculators: "/calculators",
+  "equipment-finder": "/equipment-finder",
   services: "/ourservices",
   about: "/about-us",
   privacy: "/privacy-policy",
@@ -148,21 +185,27 @@ export function parseUrlPath(pathnameOrHash: string, allVideos: Video[]): { page
     return { page: "404", video: null };
   }
 
-  // Exact or legacy path matches
-  if (normalized === "/" || normalized === "/home") return { page: "home", video: null };
-  if (normalized === "/aquaponics-farming" || normalized === "/aquaponics" || normalized === "/aquaponic-farming") return { page: "aquaponics", video: null };
-  if (normalized === "/aquaponic" || normalized === "/ras" || normalized === "/ras-farming" || normalized === "/recirculating") return { page: "ras", video: null };
-  if (normalized === "/bioflock" || normalized === "/biofloc" || normalized === "/biofloc-farming") return { page: "biofloc", video: null };
-  if (normalized === "/hydroponic" || normalized === "/hydroponics" || normalized === "/hydroponics-farming" || normalized === "/soilless") return { page: "hydroponics", video: null };
-  if (normalized === "/pond-farming" || normalized === "/pond") return { page: "pond", video: null };
-  if (normalized === "/fish-diseases" || normalized === "/diseases") return { page: "diseases", video: null };
-  if (normalized === "/feeding-management" || normalized === "/feed") return { page: "feed", video: null };
-  if (normalized === "/calculators" || normalized === "/calculator" || normalized === "/calc") return { page: "calculators", video: null };
-  if (normalized === "/ourservices" || normalized === "/services" || normalized === "/shopping" || normalized === "/shop") return { page: "services", video: null };
-  if (normalized === "/about-us" || normalized === "/about") return { page: "about", video: null };
-  if (normalized === "/privacy-policy" || normalized === "/privacy") return { page: "privacy", video: null };
-  if (normalized === "/farming-videos" || normalized === "/videos") return { page: "videos", video: null };
-  if (normalized === "/frequently-asked-questions" || normalized === "/faq") return { page: "faq", video: null };
+  // Equipment individual and finder routes
+  if (normalized.startsWith("/equipment/")) {
+    return { page: "equipment-finder", video: null };
+  }
+
+  // Exact Canonical Path Matches (Legacy aliases removed to eliminate redirects)
+  if (normalized === "/") return { page: "home", video: null };
+  if (normalized === "/aquaponics-farming") return { page: "aquaponics", video: null };
+  if (normalized === "/aquaponic") return { page: "ras", video: null };
+  if (normalized === "/bioflock") return { page: "biofloc", video: null };
+  if (normalized === "/hydroponic") return { page: "hydroponics", video: null };
+  if (normalized === "/pond-farming") return { page: "pond", video: null };
+  if (normalized === "/fish-diseases") return { page: "diseases", video: null };
+  if (normalized === "/feeding-management") return { page: "feed", video: null };
+  if (normalized === "/calculators") return { page: "calculators", video: null };
+  if (normalized === "/equipment-finder") return { page: "equipment-finder", video: null };
+  if (normalized === "/ourservices") return { page: "services", video: null };
+  if (normalized === "/about-us") return { page: "about", video: null };
+  if (normalized === "/privacy-policy") return { page: "privacy", video: null };
+  if (normalized === "/farming-videos") return { page: "videos", video: null };
+  if (normalized === "/faq") return { page: "faq", video: null };
 
   // Unknown, moved, or deleted path -> Explicit 404
   return { page: "404", video: null };
@@ -262,57 +305,63 @@ export function getSeoMetaData(page: PageType, video?: Video | null): SeoMetaDat
   switch (page) {
     case "ras":
       return {
-        title: "Recirculating Aquaculture System (RAS) | Modern Fisheries", // 57 chars
-        description: "Complete guide to Recirculating Aquaculture Systems (RAS). Master mechanical & biological filtration, oxygenation, stocking density, and commercial setups.", // 156 chars
-        keywords: "RAS fish farming, recirculating aquaculture system, mechanical filtration, biofilter, indoor aquaculture, modern fisheries",
+        title: "RAS Fish Farming Machinery & Equipment | Modern Fisheries", // 58 chars
+        description: "Commercial RAS fish farming machinery: automatic rotary drum filters, MBBR biofilters, protein skimmers, UV sterilizers, oxygen cones & compact indoor RAS skids.", // 164 chars
+        keywords: "ras fish farming machinery, all in one ras, indoor ras system, rotary drum filter aquaculture, mbbr biofilter, protein skimmer, uv sterilizer, speece oxygen cone, modern fisheries",
       };
     case "biofloc":
       return {
-        title: "Biofloc Technology (BFT) Fish Farming | Modern Fisheries", // 56 chars
-        description: "Master Biofloc Technology (BFT) fish culture. Learn carbon-nitrogen ratio calculations, floc management, aeration grid setup, and high-density tank setup.", // 154 chars
-        keywords: "biofloc technology, BFT fish farming, carbon nitrogen ratio, floc volume, biofloc calculator, modern fisheries",
+        title: "Biofloc Fish Farming Equipment & BFT Systems | Modern Fisheries", // 63 chars
+        description: "Master Biofloc fish farming equipment: Roots air blowers, micro-pore diffuser grids, 650 GSM PVC tarpaulin tanks, Imhoff cones, C:N ratio & sludge pumps.", // 158 chars
+        keywords: "biofloc equipment cost, biofloc technology, roots air blower, biofloc tarpaulin tanks, aeration diffuser grid, imhoff cone, C:N ratio calculator, submersible sludge pump, BFT fish farming",
       };
     case "aquaponics":
       return {
-        title: "Commercial Aquaponics Farming Systems | Modern Fisheries", // 56 chars
-        description: "Integrated commercial Aquaponics guides combining aquaculture and hydroponic crop production. Learn dual-revenue sustainable farming setups & biofiltration.", // 155 chars
-        keywords: "aquaponics farming, dual culture fish vegetables, deep water culture, media bed, aquaponics design",
+        title: "Commercial Aquaponics Farming Systems & Equipment Guide", // 56 chars
+        description: "Commercial aquaponics systems & hardware: auto bell siphons, sump tanks, radial flow settlers, mineralization filters, DWC rafts & water circulation pumps.", // 159 chars
+        keywords: "aquaponics equipment, commercial aquaponics systems, bell siphon, radial flow settler, dual culture fish vegetables, mineralization tank, aquaponic pumps, modern fisheries",
       };
     case "hydroponics":
       return {
-        title: "Hydroponic System Management & Nutrients | Modern Fisheries", // 58 chars
-        description: "Comprehensive soil-less hydroponic farming guides. Master NFT channels, Deep Water Culture, custom nutrient solutions, EC/pH balance, and crop yields.", // 154 chars
-        keywords: "hydroponics system, NFT hydroponics, nutrient film technique, DWC, EC pH balance, indoor farming",
+        title: "Hydroponic System Equipment & Nutrient Balancing Guide", // 55 chars
+        description: "Commercial soil-less hydroponic farming equipment: food-grade PVC NFT channels, Deep Water Culture tanks, EC/pH inline sensors, dosing pumps & chiller units.", // 160 chars
+        keywords: "hydroponics equipment, NFT channels, nutrient film technique, DWC rafts, EC pH doser, hydroponic water chiller, soilless indoor farming, modern fisheries",
       };
     case "pond":
       return {
-        title: "Earthen Pond Fish Farming & Ecosystem | Modern Fisheries", // 56 chars
-        description: "Comprehensive earthen pond fish culture guides. Master pond liming, organic fertilization, stocking density, water quality testing, and natural productivity.", // 158 chars
-        keywords: "earthen pond fish culture, pond liming, plankton bloom, fish stocking density, pond management",
+        title: "Earthen Pond Fish Farming Machinery & Equipment Guide", // 53 chars
+        description: "Master earthen pond fish farming machinery & management: paddle wheel aerators, submersible pond bottom sludge cleaners, dredgers, seine drag nets & pumps.", // 158 chars
+        keywords: "earthen fish pond equipment, paddle wheel aerator price india, pond bottom cleaner, silt dredger pump, earthen pond fish culture, fish harvesting nets, pond liming, pond aeration machinery",
       };
     case "diseases":
       return {
-        title: "Fish Disease Diagnosis & Prevention Guide | Modern Fisheries", // 60 chars
-        description: "Identify and treat bacterial, parasitic, fungal, and viral fish diseases. Master biosecurity protocols, water parameter thresholds, and treatment dosages.", // 156 chars
-        keywords: "fish diseases diagnosis, ich disease, tail rot, red spot disease, aquaculture biosecurity, fish treatment",
+        title: "Fish Disease Diagnosis & Water Quality Testing Equipment", // 58 chars
+        description: "Aquaculture disease prevention & diagnostic equipment: optical DO meters, multiparameter photometers, compound microscopes, UV-C sterilizers & quarantine protocols.", // 166 chars
+        keywords: "aquaculture testing equipment, optical DO meter, fish disease diagnosis, aquaculture microscope, multiparameter photometer, UV water sterilizer, biosecurity protocols, water testing kit",
       };
     case "feed":
       return {
-        title: "Aquaculture Feed Management & FCR Sizing | Modern Fisheries", // 58 chars
-        description: "Optimize Feed Conversion Ratio (FCR) and fish nutrition. Detailed feeding rate charts, protein requirements, floating feed selection, and biomass growth.", // 154 chars
-        keywords: "FCR calculator, fish feed management, protein percentage, floating fish feed, feeding rate chart",
+        title: "Fish Feed Machinery, Extruders & Automated Solar Feeders", // 56 chars
+        description: "Aquaculture feed machinery & management: programmable solar fish feeders, floating pellet extruders, hammer mills, batch mixers, FCR sizing & growth charts.", // 159 chars
+        keywords: "automatic fish feeder, solar fish feeder, fish feed pellet machine, floating feed extruder, hammer mill pulverizer, FCR calculator, feed conversion ratio, aquaculture nutrition",
       };
     case "calculators":
       return {
-        title: "Aquaculture Calculators & FCR Sizing | Modern Fisheries", // 56 chars
-        description: "Free online precision aquaculture calculators for fish farmers. Instant calculation tools for FCR, tank volume, biomass growth, C:N ratio, and feed rates.", // 155 chars
-        keywords: "aquaculture calculator, FCR calculator, tank volume calculator, fish biomass calculator, stocking density",
+        title: "Aquaculture Equipment & FCR Sizing Calculators | Modern Fisheries", // 65 chars
+        description: "Free precision aquaculture calculators: aerator horsepower sizing, biofilter volume, tank capacity, FCR, biomass growth, C:N ratio & daily feeding rates.", // 157 chars
+        keywords: "aquaculture calculator, aerator sizing calculator, biofilter calculator, FCR calculator, tank volume calculator, fish biomass calculator, stocking density",
+      };
+    case "equipment-finder":
+      return {
+        title: "Fish Farming Machinery & Processing Equipment | Modern Fisheries", // 63 chars
+        description: "Commercial fish farming machinery list & sizing in India: fish processing, transfer pumps, pond bottom cleaners, RAS filters & Biofloc blowers. Direct inquiry.", // 160 chars
+        keywords: "fish processing machine india, fish transfer pump, pond bottom cleaner, earthen fish pond equipment, ras fish farming machinery, all in one ras, indoor ras system, biofloc equipment cost, paddle wheel aerator price india, modern fisheries",
       };
     case "services":
       return {
-        title: "Engineering Blueprints & Research Specifications | Modern Fisheries",
-        description: "Peer-reviewed engineering schematics, mass-balance bio-filtration modeling, aquatic diagnostic frameworks, and educational consultation blueprints.",
-        keywords: "aquaculture engineering, RAS blueprint, biofiltration models, water testing protocols, modern fisheries research",
+        title: "Turnkey Aquaculture Machinery Setup & RAS Engineering Blueprints", // 65 chars
+        description: "Professional aquaculture engineering & equipment procurement: turnkey RAS modular skids, pond aeration grids, biofloc blowers, and fish processing machinery.", // 161 chars
+        keywords: "turnkey ras setup, aquaculture equipment supplier, fish processing machinery india, commercial aeration engineering, hatchery equipment setup, modern fisheries consultancy",
       };
     case "about":
       return {

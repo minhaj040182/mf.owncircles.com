@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { 
   Sparkles, ChevronLeft, ChevronRight, ArrowRight, Info, ShieldAlert, CheckCircle2,
-  HelpCircle, Droplet, Scale, Check, DollarSign, TrendingUp, AlertTriangle, Activity, Flame
+  HelpCircle, Droplet, Scale, Check, DollarSign, TrendingUp, AlertTriangle, Activity, Flame,
+  Wrench, Wind, Droplets, Filter, Utensils, PackageCheck, Zap, SlidersHorizontal, ChevronDown, ChevronUp, Send
 } from "lucide-react";
 import { Video } from "../types";
 import VideoCard from "./VideoCard";
@@ -9,15 +10,23 @@ import TechnologyComparison from "./TechnologyComparison";
 import AdBanner from "./AdBanner";
 import RightSidebarAd from "./RightSidebarAd";
 import OwnCirclesAnnouncement from "./OwnCirclesAnnouncement";
+import QuoteRequestModal from "./QuoteRequestModal";
+import { EQUIPMENT_DATABASE } from "../data/equipmentData";
 import { fetchTrendingTopicVideos, fetchYouTubeChannelVideos } from "../youtubeFeed";
 
 interface PondFarmingPageProps {
   onVideoClick?: (video: Video) => void;
   onBackToDashboard?: () => void;
+  onNavigatePage?: (page: string) => void;
 }
 
-export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: PondFarmingPageProps) {
-  const [activeTab, setActiveTab] = useState<"overview" | "problems" | "comparison" | "calculator" | "videos">("overview");
+export default function PondFarmingPage({ onVideoClick, onBackToDashboard, onNavigatePage }: PondFarmingPageProps) {
+  const [activeTab, setActiveTab] = useState<"overview" | "problems" | "comparison" | "equipment" | "calculator" | "videos">("overview");
+
+  // Equipment Quote Modal State
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [selectedEquipmentForQuote, setSelectedEquipmentForQuote] = useState<{ slug: string; name: string } | null>(null);
+  const [expandedEquipmentSlug, setExpandedEquipmentSlug] = useState<string | null>("paddle-wheel-aerator");
 
   // Lime & Starter Manure Calculator State
   const [pondArea, setPondArea] = useState<number>(1); // In Acres
@@ -251,6 +260,7 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
               { id: "overview", label: "System Overview" },
               { id: "problems", label: "Benefits & Problems" },
               { id: "comparison", label: "Feasibility Matrix" },
+              { id: "equipment", label: "Pond Machinery & Equipment" },
               { id: "calculator", label: "Lime & Fertilizer Calc" },
               { id: "videos", label: "Video Masterclasses" }
             ].map((tab) => (
@@ -349,6 +359,30 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
                     Agricultural Lime (CaCO3) is then applied uniformly to elevate soil pH above 7.0 and maintain water alkalinity above 100 mg/L. Once limed, the pond is filled with water and fertilized with organic manure (cow dung) and nitrogenous compounds (Urea, Single Super Phosphate) to trigger the growth of beneficial green phytoplankton and nutrient-dense zooplankton.
                   </p>
                 </div>
+              </div>
+
+              {/* Machinery & Hardware Callout Banner */}
+              <div className="mt-4 p-4 sm:p-5 bg-gradient-to-r from-slate-900 to-emerald-950 border border-emerald-500/30 rounded-2xl text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1 max-w-xl">
+                  <div className="inline-flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider">
+                    <Wrench className="w-3.5 h-3.5" />
+                    Mechanization &amp; Yield Optimization
+                  </div>
+                  <h4 className="text-sm sm:text-base font-sans font-black text-white">
+                    Commercial Pond Machinery &amp; Aeration Equipment
+                  </h4>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Deploy paddle wheel aerators, submersible bottom sludge cleaners, and knotless harvest seine nets to triple carrying capacity and eliminate morning fish mortality.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("equipment")}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-xs font-bold rounded-xl shrink-0 transition-all cursor-pointer self-start sm:self-center shadow-xs"
+                >
+                  <span>View Pond Machinery</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
               </div>
             </div>
           </div>
@@ -484,7 +518,279 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
           </div>
         )}
 
-        {/* Tab 4: Interactive Lime & Fertilizer Calculator */}
+        {/* Tab 4: Pond Equipment & Machinery Catalog */}
+        {activeTab === "equipment" && (
+          <div className="space-y-6 sm:space-y-8 animate-fade-in">
+            {/* Header / Benchmark Banner */}
+            <div className="bg-gradient-to-br from-emerald-900 via-slate-900 to-emerald-950 text-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-md relative overflow-hidden">
+              <div className="max-w-3xl relative z-10 space-y-2.5 sm:space-y-3">
+                <span className="inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 font-mono text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                  <Wrench className="w-3.5 h-3.5" />
+                  Earthen Pond Farm Engineering & Sizing
+                </span>
+                <h2 className="text-xl sm:text-3xl font-sans font-black tracking-tight text-white">
+                  Essential Earthen Pond Machinery & Hardware Catalog
+                </h2>
+                <p className="text-xs sm:text-sm text-emerald-100/80 leading-relaxed">
+                  Semi-intensive and commercial earthen pond aquaculture requires purpose-built machinery to prevent nocturnal oxygen crashes, evacuate toxic benthic sludge, harvest live fish without scale loss, and automate feed delivery.
+                </p>
+
+                {/* Sizing Benchmarks Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-3">
+                  <div className="bg-white/10 rounded-xl p-3 border border-white/10">
+                    <span className="block text-[10px] font-mono text-emerald-300 uppercase">Aeration Standard</span>
+                    <strong className="text-sm sm:text-base font-bold text-white">1.0 HP / 1,000 kg</strong>
+                    <span className="block text-[10px] text-emerald-100/70">Target harvest biomass</span>
+                  </div>
+                  <div className="bg-white/10 rounded-xl p-3 border border-white/10">
+                    <span className="block text-[10px] font-mono text-emerald-300 uppercase">Sludge Extraction</span>
+                    <strong className="text-sm sm:text-base font-bold text-white">Vortex Cutter</strong>
+                    <span className="block text-[10px] text-emerald-100/70">Submersible pond dredger</span>
+                  </div>
+                  <div className="bg-white/10 rounded-xl p-3 border border-white/10">
+                    <span className="block text-[10px] font-mono text-emerald-300 uppercase">Live Harvest</span>
+                    <strong className="text-sm sm:text-base font-bold text-white">Knotless Nylon</strong>
+                    <span className="block text-[10px] text-emerald-100/70">Seine drag nets with mud weights</span>
+                  </div>
+                  <div className="bg-white/10 rounded-xl p-3 border border-white/10">
+                    <span className="block text-[10px] font-mono text-emerald-300 uppercase">Telemetry</span>
+                    <strong className="text-sm sm:text-base font-bold text-white">Optical DO Probe</strong>
+                    <span className="block text-[10px] text-emerald-100/70">Pre-dawn dissolved oxygen</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Sizing Estimator for Pond Equipment */}
+            <div className="bg-white border border-emerald-100 rounded-2xl p-4 sm:p-6 shadow-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3 mb-4">
+                <div>
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
+                    <SlidersHorizontal className="w-4 h-4 text-emerald-700" />
+                    Pond Machinery Quick Sizing Calculator
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-slate-500">
+                    Instantly calculate required paddle wheel aerator units, sludge dredging requirements, and net lengths.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono text-emerald-800 font-bold bg-emerald-50 px-2.5 py-1 rounded-lg">
+                    Area: {pondArea} Acre(s)
+                  </span>
+                </div>
+              </div>
+
+              {(() => {
+                const estHarvestTons = Math.round(pondArea * 4); // 4 tons/acre conservative commercial yield
+                const requiredHp = Math.max(2, Math.round(estHarvestTons * 1.0));
+                const fourImpellerUnits = Math.ceil(requiredHp / 2);
+                const suggestedNetLengthM = Math.round(Math.sqrt(pondArea * 4046) * 1.25);
+
+                return (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div className="p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl space-y-1">
+                      <span className="text-[10px] font-mono uppercase text-slate-500 font-bold">Paddle Wheel Sizing</span>
+                      <div className="text-lg font-black text-slate-900">{fourImpellerUnits} &times; 2 HP Units ({requiredHp} HP Total)</div>
+                      <p className="text-[11px] text-slate-600 leading-snug">
+                        Position at opposing corners to induce circular current and concentrate center sludge.
+                      </p>
+                    </div>
+
+                    <div className="p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl space-y-1">
+                      <span className="text-[10px] font-mono uppercase text-slate-500 font-bold">Seine Drag Net Sizing</span>
+                      <div className="text-lg font-black text-slate-900">{suggestedNetLengthM}m Length &times; 2.5m Depth</div>
+                      <p className="text-[11px] text-slate-600 leading-snug">
+                        Calculated with 25% bag slack ratio for thorough drag across a {pondArea}-acre basin.
+                      </p>
+                    </div>
+
+                    <div className="p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl space-y-1">
+                      <span className="text-[10px] font-mono uppercase text-slate-500 font-bold">Sludge Evacuation</span>
+                      <div className="text-lg font-black text-slate-900">3-Inch Submersible Dredger</div>
+                      <p className="text-[11px] text-slate-600 leading-snug">
+                        Pumps 40–60 m³/hr slurry to external drying bunds without lowering pond water level.
+                      </p>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+
+            {/* List of Dedicated Pond Equipment Items */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-sans font-black text-base sm:text-xl text-slate-900">
+                    Comprehensive Pond Machinery Directory
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Click each equipment unit below to view engineering specifications, maintenance protocols, and buyer checklists.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    if (onNavigatePage) {
+                      onNavigatePage("equipment-finder");
+                    } else {
+                      window.location.href = "/equipment-finder";
+                    }
+                  }}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-xl cursor-pointer"
+                >
+                  <span>Open Full Finder</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              {EQUIPMENT_DATABASE.filter(item => item.farmingSystems.includes("pond")).map((item) => {
+                const isExpanded = expandedEquipmentSlug === item.slug;
+
+                return (
+                  <div 
+                    key={item.id}
+                    id={`pond-eq-${item.slug}`}
+                    className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-xs transition-all hover:border-emerald-300"
+                  >
+                    {/* Header bar */}
+                    <div 
+                      onClick={() => setExpandedEquipmentSlug(isExpanded ? null : item.slug)}
+                      className="p-4 sm:p-5 flex items-start justify-between gap-4 cursor-pointer select-none bg-white hover:bg-slate-50/80 transition-colors"
+                    >
+                      <div className="space-y-1.5 min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-[10px] font-mono uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800">
+                            {item.category.toUpperCase()}
+                          </span>
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-100 text-slate-700">
+                            {item.importanceTier}
+                          </span>
+                        </div>
+                        <h4 className="text-base sm:text-lg font-sans font-black text-slate-950">
+                          {item.name}
+                        </h4>
+                        <p className="text-xs text-slate-600 line-clamp-2">
+                          {item.tagline}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedEquipmentForQuote({ slug: item.slug, name: item.name });
+                            setIsQuoteModalOpen(true);
+                          }}
+                          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-sans text-xs font-bold shadow-xs cursor-pointer"
+                        >
+                          <Send className="w-3 h-3" />
+                          <span>Get Quote</span>
+                        </button>
+                        <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center">
+                          {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Expanded details */}
+                    {isExpanded && (
+                      <div className="px-4 pb-5 sm:px-6 sm:pb-6 pt-2 border-t border-slate-100 space-y-4 bg-slate-50/50">
+                        {/* Purpose & Why Required */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                          <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 space-y-1">
+                            <span className="text-[10px] font-mono font-bold uppercase text-slate-500 block">Primary Operating Purpose</span>
+                            <p className="text-slate-700 leading-relaxed">{item.purpose}</p>
+                          </div>
+                          <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 space-y-1">
+                            <span className="text-[10px] font-mono font-bold uppercase text-rose-600 block">Why Essential in Earthen Ponds</span>
+                            <p className="text-slate-700 leading-relaxed">{item.whyRequired}</p>
+                          </div>
+                        </div>
+
+                        {/* Engineering Specs & Sizing Guidance */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                          <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 space-y-1">
+                            <span className="text-[10px] font-mono font-bold uppercase text-emerald-700 block">Specification Guidance</span>
+                            <p className="text-slate-700 leading-relaxed">{item.specificationGuidance}</p>
+                          </div>
+                          <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 space-y-1">
+                            <span className="text-[10px] font-mono font-bold uppercase text-blue-700 block">Standard Sizing Rule</span>
+                            <p className="text-slate-700 leading-relaxed">{item.sizingGuidance}</p>
+                          </div>
+                        </div>
+
+                        {/* Power Considerations */}
+                        {item.powerConsiderations && (
+                          <div className="p-3 bg-amber-50/80 border border-amber-200 rounded-xl text-xs flex items-start gap-2.5">
+                            <Zap className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                            <div className="text-amber-900 leading-relaxed">
+                              <strong>Electrical &amp; Duty Cycle:</strong> {item.powerConsiderations}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Maintenance & Buyer Precautions */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                          <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 space-y-2">
+                            <span className="text-[10px] font-mono font-bold uppercase text-slate-700 block">Preventative Maintenance</span>
+                            <ul className="space-y-1 text-slate-600 list-disc pl-4">
+                              {item.maintenanceGuidance.map((mg, i) => (
+                                <li key={i}>{mg}</li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 space-y-2">
+                            <span className="text-[10px] font-mono font-bold uppercase text-slate-700 block">Buyer Procurement Checklist</span>
+                            <ul className="space-y-1 text-slate-600 list-disc pl-4">
+                              {item.buyingChecklist.map((bc, i) => (
+                                <li key={i}>{bc}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+
+                        {/* Action buttons */}
+                        <div className="flex flex-wrap items-center justify-between gap-2.5 pt-2">
+                          <div className="text-[11px] text-slate-500 font-mono">
+                            Applicable Species: {item.applicableSpecies.join(", ")}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedEquipmentForQuote({ slug: item.slug, name: item.name });
+                                setIsQuoteModalOpen(true);
+                              }}
+                              className="px-3.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-sans text-xs font-bold shadow-xs cursor-pointer"
+                            >
+                              Request Manufacturer Price &amp; BOQ
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (onNavigatePage) {
+                                  onNavigatePage("equipment-finder");
+                                } else {
+                                  window.location.href = `/equipment-finder?item=${item.slug}`;
+                                }
+                              }}
+                              className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 font-sans text-xs font-bold cursor-pointer"
+                            >
+                              View Verified Suppliers
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Tab 5: Interactive Lime & Fertilizer Calculator */}
         {activeTab === "calculator" && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 animate-fade-in">
             
@@ -738,6 +1044,21 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard }: Pon
           </div>
         </div>
       </main>
+
+      {/* Equipment Quote Request Modal */}
+      {isQuoteModalOpen && (
+        <QuoteRequestModal
+          isOpen={isQuoteModalOpen}
+          onClose={() => {
+            setIsQuoteModalOpen(false);
+            setSelectedEquipmentForQuote(null);
+          }}
+          initialEquipmentSlug={selectedEquipmentForQuote?.slug}
+          initialEquipmentName={selectedEquipmentForQuote?.name}
+          farmingSystem="pond"
+          farmVolumeM3={Math.round(pondArea * 4046 * 1.5)}
+        />
+      )}
     </div>
   );
 }

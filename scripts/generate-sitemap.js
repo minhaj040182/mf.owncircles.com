@@ -79,6 +79,12 @@ const PRIMARY_PAGES = [
     title: 'Precision Aquaculture Calculators & FCR Sizing'
   },
   {
+    path: '/equipment-finder',
+    changefreq: 'weekly',
+    priority: '0.95',
+    title: 'Commercial Fish Farming Machinery & Equipment Finder'
+  },
+  {
     path: '/ourservices',
     changefreq: 'monthly',
     priority: '0.85',
@@ -140,6 +146,28 @@ function extractVideos() {
   return videoList;
 }
 
+// 4. Extract Equipment items dynamically from src/data/equipmentData.ts
+function extractEquipment() {
+  const eqPath = path.resolve('src/data/equipmentData.ts');
+  if (!fs.existsSync(eqPath)) {
+    console.warn('Warning: src/data/equipmentData.ts not found. Equipment routes skipped.');
+    return [];
+  }
+  const content = fs.readFileSync(eqPath, 'utf-8');
+  const items = [];
+  const regex = /id:\s*["']([^"']+)["'],\s*slug:\s*["']([^"']+)["'],\s*name:\s*["']([^"']+)["'],\s*category:\s*["']([^"']+)["']/g;
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    items.push({
+      id: match[1],
+      slug: match[2],
+      name: match[3],
+      category: match[4]
+    });
+  }
+  return items;
+}
+
 function isUrlExcluded(url) {
   return EXCLUDED_PATTERNS.some((pattern) => pattern.test(url));
 }
@@ -161,6 +189,23 @@ export function generateSitemap() {
       priority: page.priority,
       type: 'Page'
     });
+  });
+
+  // Add All Commercial Equipment Detail Pages
+  const equipment = extractEquipment();
+  console.log(`✓ Found ${equipment.length} commercial equipment items in src/data/equipmentData.ts`);
+
+  equipment.forEach((eq) => {
+    const eqUrl = `${BASE_URL}/equipment/${eq.slug}`;
+    if (!isUrlExcluded(eqUrl)) {
+      sitemapEntries.push({
+        loc: eqUrl,
+        lastmod: TODAY,
+        changefreq: 'weekly',
+        priority: '0.9',
+        type: 'Equipment'
+      });
+    }
   });
 
   // Add Video Guides

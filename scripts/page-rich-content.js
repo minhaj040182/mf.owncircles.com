@@ -277,10 +277,224 @@ export const RICH_PAGE_BODIES = {
         </p>
       </section>
 
+      <!-- Section 3: Commercial RAS Machinery Specifications & Hardware Guide -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">3. Commercial RAS Machinery &amp; Hardware Specifications</h2>
+        <p>
+          Industrial indoor RAS facilities rely on specialized, precision-engineered hardware components designed for continuous 24/7 duty:
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:20px;margin-top:20px;">
+          <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">A. Automatic Micro-Screen Rotary Drum Filter (SS316)</h3>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Principle:</strong> Effluent water flows into an internal rotating cylindrical drum lined with 40 to 60 micron stainless steel 316L woven mesh. Suspended fish feces and uneaten feed pellets are trapped on the inner mesh surface. As solids accumulate, water head rises, triggering an optical or conductivity water level sensor that activates the high-pressure backwash pump and geared rotation motor.
+            </p>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Sizing Benchmark:</strong> Rated hydraulic throughput must exceed 100% to 150% of total farm volume per hour. Backwash pressure is maintained at 6 to 8 bar using filtered system water.
+            </p>
+            <div style="background:#f8fafc;padding:12px;border-radius:6px;font-size:14px;color:#475569;">
+              <strong>Key Features:</strong> Automatic PLC timer/level controls, internal waste sludge collection hopper, UV-stabilized corrosion-resistant casing, and emergency bypass overflow channels.
+            </div>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">B. Moving Bed Biofilm Reactor (MBBR) &amp; Virgin K1 Media</h3>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Principle:</strong> Fluidized plastic carriers (virgin HDPE K1 or K3 media) provide protected surface area (&gt;800 m²/m³) for autotrophic nitrifying bacteria. Coarse bubble aeration grids at the tank bottom keep the media in constant continuous motion, self-cleaning old biofilm slough while supplying oxygen for nitrification.
+            </p>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Sizing Formula:</strong> Required media volume = (Daily Feed kg &times; 0.03 &times; 1000) / (0.55 g TAN conversion/m²/day &times; Protected Area m²/m³). Standard benchmark requires 75 to 90 Litres of K1 media per 1.0 kg of 32% protein feed distributed daily.
+            </p>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">C. Industrial Germicidal UV-C Water Sterilizers</h3>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Principle:</strong> High-output amalgam lamps housed inside quartz sleeves emit UV radiation at 254 nm wavelength, disrupting the DNA and RNA of bacterial pathogens (Aeromonas, Flavobacterium, Vibrio) and viruses without altering water chemistry.
+            </p>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Dosage Standard:</strong> Minimum 30 to 45 mJ/cm² (30,000 to 45,000 µW·s/cm²) at end-of-lamp-life (EOLL) under 85% UV transmittance (UVT). Stainless steel 316L reactor chambers feature automatic wiper mechanisms to prevent quartz bio-fouling.
+            </p>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">D. Downflow Pure Oxygen Saturator Cones (Speece Cones)</h3>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Principle:</strong> Pure gaseous oxygen is injected at the apex of a conical vessel while water is pumped downward. As the cone widens, downward water velocity decreases until it matches the upward buoyant velocity of oxygen bubbles, trapping gas in intense counter-current shear for &gt;95% dissolution efficiency.
+            </p>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Parameters:</strong> Working pressure 1.5 to 2.2 bar. Dissolved oxygen levels in the sidestream effluent reach 25 to 45 mg/L, allowing rapid re-oxygenation of large fish rearing tanks without excess foaming.
+            </p>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">E. Commercial Protein Skimmers / Foam Fractionators</h3>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Principle:</strong> Fine micro-bubbles created via Venturi injection or pin-wheel impellers strip surface-active dissolved organic compounds (DOC), protein surfactants, and colloidal fines (&lt;30 microns) that pass through drum filters, discharging dry foam into an overhead drain.
+            </p>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">F. All-In-One Compact Modular Indoor RAS Skids</h3>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Principle:</strong> Turnkey, factory-plumbed filtration stations integrating a 50-micron drum filter, K1 fluid-bed MBBR chamber, inline amalgam UV-C sterilizer, and high-efficiency low-head circulation pump on a single structural base. Pre-tested plug-and-play setup for 10 to 60 m³ culture volumes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: RAS Machinery Sizing & Technical Specification Table -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">4. RAS Machinery Sizing &amp; Electrical Benchmark Matrix</h2>
+        <div style="overflow-x:auto;margin:20px 0;">
+          <table style="width:100%;border-collapse:collapse;font-size:14px;text-align:left;">
+            <thead>
+              <tr style="background:#0f172a;color:#ffffff;">
+                <th style="padding:12px;border:1px solid #334155;">Machinery Unit</th>
+                <th style="padding:12px;border:1px solid #334155;">Capacity Range</th>
+                <th style="padding:12px;border:1px solid #334155;">Power / Phase</th>
+                <th style="padding:12px;border:1px solid #334155;">Key Engineering Sizing Standard</th>
+                <th style="padding:12px;border:1px solid #334155;">Maintenance Interval</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:700;">Micro-Screen Drum Filter</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">20 to 120 m³/hr</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">0.37 – 1.1 kW (1/3-Phase)</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">40–60 micron SS316, 100% farm volume/hr turnover</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Inspect spray nozzles weekly, descale mesh monthly</td>
+              </tr>
+              <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:700;">MBBR Moving-Bed Reactor</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">500 to 5,000 Litres media</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Aeration blower 0.75 – 2.2 kW</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">75–90 L K1 media per kg of 32% protein feed fed daily</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Check media fluidization &amp; DO daily (&gt;4.0 mg/L)</td>
+              </tr>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:700;">Amalgam UV-C Sterilizer</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">15 to 80 m³/hr flow</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">120W – 800W (Low-Pressure)</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">&gt;30 mJ/cm² radiation dosage at 254 nm</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Replace lamps after 9,000 – 12,000 hours runtime</td>
+              </tr>
+              <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:700;">Oxygen Speece Cone</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">10 to 60 m³/hr sidestream</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">1.5 – 3.7 kW booster pump</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">&gt;95% dissolution efficiency at 1.5–2.0 bar pressure</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Inspect safety pressure relief valve every 3 months</td>
+              </tr>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:700;">All-In-One Indoor RAS Skid</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">10 to 60 m³ system volume</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">1.5 – 3.0 kW total skid load</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Modular plug-and-play skid, 100% hourly turnover</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Inspect union seals, motor bearings every 500 hours</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 5: Decoupled RAS-Aquaponics Integration -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">5. Decoupled RAS &amp; Commercial Aquaponics Coupling</h2>
+        <p>
+          In modern commercial facilities, high-density Recirculating Aquaculture Systems (RAS) are often coupled with hydroponic grow beds in a <strong>decoupled (dual-loop) aquaponic architecture</strong>. Rather than running plant bed effluent directly back into fish tanks (which can compromise fish biosecurity and limit plant nutrient optimization), decoupled RAS operates two independent circulation loops:
+        </p>
+        <ol style="padding-left:24px;margin-bottom:16px;">
+          <li style="margin-bottom:8px;"><strong>Fish Culture Loop (Intensive RAS):</strong> Operates at optimal water quality parameters for finfish (pH 7.2–7.8, zero pesticide exposure, high DO &gt;6.0 mg/L) with 95% internal recirculation.</li>
+          <li style="margin-bottom:8px;"><strong>Mineralization Digester:</strong> Backwash discharge from the automatic drum filter (concentrated fish feces and feed solids) is routed to an aerobic sludge digestion tank where heterotrophic bacteria break organic sludge down into bioavailable ionic minerals (N, P, K, Ca, Mg).</li>
+          <li style="margin-bottom:8px;"><strong>Hydroponic Plant Loop (DWC &amp; NFT):</strong> Mineralized water is dosed into Deep Water Culture (DWC) or Nutrient Film Technique (NFT) channels at plant-optimal pH (5.8–6.4) and supplemented with chelated iron (Fe-DTPA) without risking toxicity to the fish.</li>
+        </ol>
+      </section>
+
+      <!-- Section 6: Water Quality Parameter Standards -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">6. RAS &amp; Aquaponic Water Quality Engineering Thresholds</h2>
+        <div style="overflow-x:auto;margin:20px 0;">
+          <table style="width:100%;border-collapse:collapse;font-size:14px;text-align:left;">
+            <thead>
+              <tr style="background:#0f172a;color:#ffffff;">
+                <th style="padding:10px;border:1px solid #334155;">Parameter</th>
+                <th style="padding:10px;border:1px solid #334155;">Target Range (RAS Fish)</th>
+                <th style="padding:10px;border:1px solid #334155;">Target Range (Aquaponic Plants)</th>
+                <th style="padding:10px;border:1px solid #334155;">Correction Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:600;">Dissolved Oxygen (DO)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">&gt; 5.5 – 8.0 mg/L</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">&gt; 4.0 – 6.0 mg/L</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Increase oxygen cone pure O2 injection or blower airflow</td>
+              </tr>
+              <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:600;">pH</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">7.0 – 7.6</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">5.8 – 6.8</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Buffer with Calcium Hydroxide Ca(OH)2 or Potassium Hydroxide KOH</td>
+              </tr>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:600;">Total Ammonia Nitrogen (TAN)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">&lt; 0.50 mg/L</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Non-toxic to plants</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Increase MBBR aeration, check biofilter media fluidization</td>
+              </tr>
+              <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:600;">Nitrite (NO2-)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">&lt; 0.20 mg/L</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Non-toxic at low levels</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Add non-iodized NaCl to reach 0.1–0.2 ppt salinity to block gill uptake</td>
+              </tr>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:600;">Carbon Dioxide (CO2)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">&lt; 15 mg/L</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Beneficial in greenhouse air</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Increase blower CFM in counter-current stripping degassing column</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 7: RAS Knowledge Base FAQ -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">7. Recirculating Aquaculture Systems (RAS) Technical FAQ</h2>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="background:#ffffff;border:1px solid #e2e8f0;padding:16px;border-radius:8px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">What is a Recirculating Aquaculture System (RAS) and how does it integrate with aquaponics?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">RAS is a closed-loop land-based aquaculture engineering system that recycles 90% to 99% of culture water by cycling it through mechanical solids removal (drum filters), biological nitrification (MBBR), CO2 degassing, and UV sterilization. In commercial decoupled aquaponics, nutrient-rich solids and nitrate effluent from the RAS are mineralized and delivered to hydroponic plant beds to produce both fish and organic vegetables.</p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;padding:16px;border-radius:8px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">How do I size an automatic rotary drum filter for an indoor RAS setup?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">Drum filters are sized based on total hourly hydraulic flow rate and peak suspended solids load. The drum filter's rated hydraulic throughput must match 100% to 150% of the entire farm water volume per hour, using a 40 to 60 micron stainless steel 316L woven screen mesh to capture intact fecal pellets before they dissolve into ammonia.</p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;padding:16px;border-radius:8px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">What volume of K1 / MBBR biofilter media is required per kilogram of feed fed daily?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">For commercial 32% protein extruded fish feed, every 1.0 kg of daily feed generates approximately 30 grams of Total Ammonia Nitrogen (TAN). At a biological conversion rate of 0.55 g TAN/m²/day on virgin HDPE K1 media (800 m²/m³ protected surface area), each kilogram of feed requires approximately 75 to 90 litres of fluidized K1 media.</p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;padding:16px;border-radius:8px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">Why are Speece oxygen cones and pure oxygen systems necessary in high-density RAS?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">Atmospheric air contains only 21% oxygen, which limits DO saturation to ~8 mg/L at 28°C. In high-density culture (&gt;60 kg/m³), biological oxygen demand quickly exceeds atmospheric transfer rates. Speece cones dissolve 95%+ pure O2 at 1.5–2.0 bar pressure, supersaturating sidestream water up to 30–45 mg/L to maintain tank DO safely above 6.0 mg/L.</p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;padding:16px;border-radius:8px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">What UV-C germicidal dosage is needed to eliminate fish pathogens in recirculation loops?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">Commercial RAS requires a minimum germicidal UV-C radiation dosage of 30 to 45 mJ/cm² (30,000 to 45,000 µW·s/cm²) at 254 nm wavelength at end-of-lamp-life (EOLL) under 85% UV transmittance. This destroys viral pathogens, Aeromonas bacteria, and free-swimming parasite tomites.</p>
+          </div>
+        </div>
+      </section>
+
       <section style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:20px;margin-bottom:32px;">
         <h3 style="font-size:18px;font-weight:700;color:#0369a1;margin:0 0 10px 0;">Professional Turnkey RAS Consultancy &amp; Equipment Supply</h3>
-        <p style="margin:0 0 12px 0;color:#475569;">Modern Fisheries designs, manufactures, and commissions commercial RAS hatcheries and grow-out facilities nationwide. We supply automated rotary drum filters, MBBR biofilter media, protein skimmers, and pure oxygen generation skids.</p>
-        <a href="/ourservices" style="color:#0284c7;font-weight:700;text-decoration:none;">Consult Our Aquaculture Engineering Team &rarr;</a>
+        <p style="margin:0 0 12px 0;color:#475569;">Modern Fisheries designs, manufactures, and commissions commercial RAS hatcheries and grow-out facilities nationwide. We supply automated rotary drum filters, MBBR biofilter media, protein skimmers, pure oxygen generation skids, and all-in-one indoor RAS skids.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="/equipment-finder" style="background:#0284c7;color:#ffffff;padding:10px 20px;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px;">Open Equipment Sizing Finder &rarr;</a>
+          <a href="/ourservices" style="background:#334155;color:#ffffff;padding:10px 20px;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px;">Consult Our Engineering Team &rarr;</a>
+        </div>
       </section>
     </article>
   `,
@@ -372,52 +586,378 @@ export const RICH_PAGE_BODIES = {
           <li><strong>Bottom Layer (Mrigal / Common Carp):</strong> Grazes on organic detritus, benthic insects, and fallen feed pellets. Stocked at 25% to 30% of population.</li>
         </ul>
       </section>
+
+      <!-- Section 3: Essential Earthen Pond Machinery & Hardware Guide -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">3. Essential Earthen Pond Machinery &amp; Equipment Guide</h2>
+        <p>
+          Moving from subsistence pond farming (1–2 tons/ha) to commercial high-density production (6–12 tons/ha) requires purpose-built aquaculture machinery to safeguard dissolved oxygen, manage benthic muck, and automate operations:
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:20px;margin-top:20px;">
+          <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">A. Paddle Wheel Aerators (2HP / 4-Impeller &amp; 6-Impeller)</h3>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Principle:</strong> High-speed nylon and polypropylene blades violently splash surface pond water into atmospheric mist while simultaneously driving a directional surface current. This de-stratifies sharp daytime thermal layers, driving oxygen-rich water to the anoxic pond bottom while sweeping accumulated sediment toward the center drain.
+            </p>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Sizing Benchmark:</strong> Deploy <strong>1.0 HP of aeration per 1,000 kg</strong> of anticipated harvest biomass. For a 4-ton/acre carp pond, deploy two 2.0 HP 4-impeller units placed diagonally to create a circular vortex. Operate nocturnal aeration from 11:00 PM to 06:00 AM when photosynthesis is zero.
+            </p>
+            <div style="background:#f8fafc;padding:12px;border-radius:6px;font-size:14px;color:#475569;">
+              <strong>Specification Standard:</strong> Cast iron or SS304 frame, bevel gearbox with synthetic lubricant, high-density polyethylene (HDPE) pontoon floats, and 100% copper-wound IP55 motors.
+            </div>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">B. Submersible Pond Bottom Sludge Cleaners &amp; Dredgers</h3>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Principle:</strong> Heavy-duty submersible cutter slurry pumps mounted on floating pontoons or guided via telescopic aluminum booms. Tungsten-carbide cutter teeth break up hard bottom silt, pumping anaerobic black muck (decaying feed and feces) out through 3-inch lay-flat hoses to drying bunds.
+            </p>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Aquaculture Benefit:</strong> Eliminates lethal hydrogen sulfide (H2S), methane (CH4), and un-ionized ammonia (NH3) pockets from the pond bottom without requiring expensive complete pond dewatering or fish transfer.
+            </p>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">C. Knotless Nylon Seine &amp; Pond Drag Nets</h3>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Principle:</strong> Commercial drag netting manufactured with Raschel knotless nylon netting. The smooth diamond mesh protects delicate fish slime coats and scales from friction abrasions, eliminating post-harvest fungal Saprolegnia infections and bacterial ulcers.
+            </p>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Rigging Specifications:</strong> Heavy lead bottom sinker chain to keep the net hugging the earthen floor mud contours, coupled with high-buoyancy closed-cell PVC top floats to prevent fish from leaping over the top line during seining.
+            </p>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">D. High-Volume Submersible Axial Dewatering Pumps</h3>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Principle:</strong> Low-head, high-discharge axial-flow impeller pumps engineered to transfer massive water volumes (100 to 300 m³/hr) with minimal electrical wattage. Used for seasonal pond filling from canals or rivers, emergency flushing, and rapid pre-harvest dewatering.
+            </p>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">E. Solar &amp; Electric Programmable Automatic Fish Feeders</h3>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Principle:</strong> Weatherproof stainless steel or polyethylene hopper (50 kg to 150 kg pellet capacity) equipped with a 12V DC timer controller and high-speed broadcast spreader disc. Disperses floating pellets in a 120-degree or 360-degree arc across 15 to 25 meters of pond surface, ensuring equal feed access for all fish and reducing FCR by 0.2 to 0.3.
+            </p>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">F. Insulated Live Fish Transport Hauling Tanks</h3>
+            <p style="margin:0 0 10px 0;color:#334155;">
+              <strong>Operating Principle:</strong> Heavy-duty fiberglass (FRP) tanks insulated with 50mm polyurethane foam (PUF) core to maintain steady water temperatures during highway transit. Features integrated liquid oxygen micro-diffuser hoses, anti-slosh top baffles, and bottom quick-opening knife gate valves for rapid live fish unloading at wholesale markets.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Earthen Pond Machinery Sizing Benchmark Matrix -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">4. Earthen Pond Machinery Sizing &amp; Electrical Benchmark Matrix</h2>
+        <div style="overflow-x:auto;margin:20px 0;">
+          <table style="width:100%;border-collapse:collapse;font-size:14px;text-align:left;">
+            <thead>
+              <tr style="background:#0f172a;color:#ffffff;">
+                <th style="padding:12px;border:1px solid #334155;">Equipment Unit</th>
+                <th style="padding:12px;border:1px solid #334155;">Rated Specification</th>
+                <th style="padding:12px;border:1px solid #334155;">Pond Sizing Formula</th>
+                <th style="padding:12px;border:1px solid #334155;">Operating Protocol</th>
+                <th style="padding:12px;border:1px solid #334155;">Routine Maintenance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:700;">Paddle Wheel Aerator</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">2.0 HP (1.5 kW), 4-Impeller, 105 RPM</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">1.0 HP per 1,000 kg harvest biomass (~2 units per acre)</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Run nightly 11:00 PM to 06:00 AM + cloudy afternoons</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Check gearbox oil level monthly, replace worn nylon bearings</td>
+              </tr>
+              <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:700;">Pond Sludge Dredger</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">3.0 HP (2.2 kW) Cutter Vortex Pump</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">1 pump covers 1.0 to 5.0 acres modular rotation</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Operate monthly in central accumulation trench</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Inspect tungsten cutter blade sharpness every 100 operating hours</td>
+              </tr>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:700;">Knotless Seine Drag Net</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">50m – 100m Length &times; 3.0m Depth</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Net length must equal 1.25 &times; max pond diagonal width</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Slow uniform haul at dawn to minimize fish panic</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Wash with freshwater and shade dry completely after every harvest</td>
+              </tr>
+              <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:700;">Axial Dewatering Pump</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">5.0 HP (3.7 kW), 150–250 m³/hr discharge</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">1 pump drains 1 acre pond (1.5m depth) within 24–36 hours</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Seasonal filling, water exchange, and harvest drain</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Clean intake suction strainer basket bi-weekly</td>
+              </tr>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:700;">Solar Broadcast Feeder</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">100 kg hopper, 30W solar panel + 12V battery</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">1 automatic feeder serves 0.5 to 1.0 acre water surface</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Timed 4–6 feedings per day between 08:00 AM and 05:00 PM</td>
+                <td style="padding:12px;border:1px solid #e2e8f0;">Keep hopper seal clean; inspect battery voltage monthly</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 5: Call to Action -->
+      <section style="background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%);color:#ffffff;padding:28px;border-radius:12px;margin-bottom:32px;">
+        <h2 style="font-size:20px;font-weight:700;color:#ffffff;margin:0 0 8px 0;">Looking for Earthen Pond Machinery Quotations?</h2>
+        <p style="font-size:15px;color:#cbd5e1;margin:0 0 16px 0;">Modern Fisheries supplies factory-tested paddle wheel aerators, submersible bottom muck dredgers, knotless drag nets, and solar fish feeders with doorstep freight across India.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="/equipment-finder" style="background:#0284c7;color:#ffffff;padding:10px 20px;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px;">Open Equipment Sizing Finder &rarr;</a>
+          <a href="/calculators" style="background:#334155;color:#ffffff;padding:10px 20px;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px;">Calculate Lime &amp; Fertilizer Sizing &rarr;</a>
+        </div>
+      </section>
     </article>
   `,
 
   '/fish-diseases': `
     <article style="max-width:1000px;margin:0 auto;color:#1e293b;line-height:1.75;font-size:16px;">
       <header style="margin-bottom:36px;border-bottom:1px solid #e2e8f0;padding-bottom:24px;">
-        <span style="font-size:14px;font-weight:700;color:#0284c7;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:8px;">Aquaculture Veterinary Guide</span>
-        <h1 style="font-size:32px;font-weight:800;color:#0f172a;line-height:1.25;margin:0 0 16px 0;letter-spacing:-0.5px;">Fish Disease Diagnosis &amp; Treatment Handbook</h1>
+        <span style="font-size:14px;font-weight:700;color:#0284c7;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:8px;">Aquaculture Veterinary &amp; Pathology Guide</span>
+        <h1 style="font-size:32px;font-weight:800;color:#0f172a;line-height:1.25;margin:0 0 16px 0;letter-spacing:-0.5px;">Fish Disease Diagnosis &amp; Treatment Handbook: Prevention, Symptoms &amp; Field Dosages</h1>
         <p style="font-size:18px;color:#475569;margin:0;line-height:1.6;">
-          Identify, diagnose, and treat common freshwater fish pathogens. Step-by-step veterinary protocols for White Spot (Ich), Bacterial Gill Rot, Dropsy, Argulus fish lice, Epizootic Ulcerative Syndrome (EUS), and chemical bath dosages.
+          Authoritative technical manual for commercial fish farmers, hatchery operators, and aquaculture biologists. Identify, diagnose, and treat common and lethal freshwater fish pathogens with verified clinical immersion bath protocols, diagnostic microscopy, and quarantine biosecurity.
         </p>
       </header>
 
+      <!-- Section 1: Comprehensive Diagnostic Matrix -->
       <section style="margin-bottom:40px;">
-        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">1. Diagnostic Matrix of Common Fish Diseases</h2>
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">1. Diagnostic Matrix of Major Freshwater Fish Pathogens</h2>
+        <p>
+          Fish disease outbreaks in intensive ponds, Biofloc tanks, and RAS systems are typically triggered by environmental stressors (sub-lethal hypoxia, unionized ammonia spikes, sudden pH shifts, or mechanical net abrasions). Rapid visual triage and microscopic examination are critical to halt transmission before severe mortality occurs:
+        </p>
         <div style="overflow-x:auto;margin:20px 0;">
-          <table style="width:100%;border-collapse:collapse;text-align:left;font-size:15px;">
+          <table style="width:100%;border-collapse:collapse;text-align:left;font-size:14px;">
             <thead>
               <tr style="background:#0f172a;color:#ffffff;">
-                <th style="padding:12px;border:1px solid #334155;">Disease</th>
-                <th style="padding:12px;border:1px solid #334155;">Pathogen Type</th>
-                <th style="padding:12px;border:1px solid #334155;">Clinical Symptoms</th>
-                <th style="padding:12px;border:1px solid #334155;">Approved Treatment Protocol</th>
+                <th style="padding:10px;border:1px solid #334155;">Pathogen &amp; Scientific Name</th>
+                <th style="padding:10px;border:1px solid #334155;">Type</th>
+                <th style="padding:10px;border:1px solid #334155;">Primary Clinical Symptoms</th>
+                <th style="padding:10px;border:1px solid #334155;">Susceptible Species</th>
+                <th style="padding:10px;border:1px solid #334155;">Approved Veterinary Protocol</th>
               </tr>
             </thead>
             <tbody>
               <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
-                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:600;">White Spot (Ich)</td>
-                <td style="padding:12px;border:1px solid #e2e8f0;">Protozoan (I. multifiliis)</td>
-                <td style="padding:12px;border:1px solid #e2e8f0;">Tiny white cysts on skin and fins, fish flashing against tank walls.</td>
-                <td style="padding:12px;border:1px solid #e2e8f0;">2–3% Salt bath (20–30 g/L for 10 min) or Formalin at 25 ppm.</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Ich / White Spot<br /><span style="font-size:12px;color:#64748b;">Ichthyophthirius multifiliis</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;"><span style="background:#fee2e2;color:#991b1b;padding:2px 8px;border-radius:4px;font-weight:600;font-size:12px;">Parasitic</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Salt-grain-sized white nodules on fins and skin, flashing against tank edges, clamped fins, gasping at surface.</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">IMC (Rohu, Catla), Tilapia, Pangasius, Carp</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Non-iodized salt bath (20–30 g/L for 10–15 min) or continuous 3–5 ppt pond salinity; Formalin at 25 ppm.</td>
               </tr>
               <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
-                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:600;">Bacterial Gill Rot</td>
-                <td style="padding:12px;border:1px solid #e2e8f0;">Bacterial (F. columnare)</td>
-                <td style="padding:12px;border:1px solid #e2e8f0;">Frayed, discolored necrotic gill filaments, fish piping for air at surface.</td>
-                <td style="padding:12px;border:1px solid #e2e8f0;">Potassium Permanganate (KMnO4) bath at 2–4 ppm or Oxytetracycline feed dosing.</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Bacterial Gill Rot / Columnaris<br /><span style="font-size:12px;color:#64748b;">Flavobacterium columnare</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;"><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:4px;font-weight:600;font-size:12px;">Bacterial</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Frayed, necrotic white or yellowish gill filaments, excessive mucus, saddleback lesions, extreme respiratory distress.</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Tilapia, Catfish (Magur, Singhi), IMC, Trout</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Potassium Permanganate (KMnO4) bath at 2–4 mg/L or Oxytetracycline feed dressing at 50–75 mg/kg body weight for 7 days.</td>
               </tr>
               <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
-                <td style="padding:12px;border:1px solid #e2e8f0;font-weight:600;">Argulus (Fish Lice)</td>
-                <td style="padding:12px;border:1px solid #e2e8f0;">Crustacean Ectoparasite</td>
-                <td style="padding:12px;border:1px solid #e2e8f0;">Visible disc-shaped green lice attached to scales, erratic swimming.</td>
-                <td style="padding:12px;border:1px solid #e2e8f0;">Emamectin benzoate or organophosphate dip under professional veterinary supervision.</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Fin &amp; Tail Rot<br /><span style="font-size:12px;color:#64748b;">Aeromonas &amp; Pseudomonas spp.</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;"><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:4px;font-weight:600;font-size:12px;">Bacterial</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Ragged, disintegrating fin rays with red inflamed margins, fin erosion exposing bony rays, feed refusal.</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">All freshwater species, especially in high organic load tanks</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Immediate 30–50% water exchange; KMnO4 bath at 2 mg/L; apply topical povidone-iodine to valuable broodstock.</td>
+              </tr>
+              <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Epizootic Ulcerative Syndrome (EUS)<br /><span style="font-size:12px;color:#64748b;">Aphanomyces invadans</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;"><span style="background:#f3e8ff;color:#6b21a8;padding:2px 8px;border-radius:4px;font-weight:600;font-size:12px;">Fungal / Oomycete</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Deep hemorrhagic red circular ulcers, raw exposed muscle cavities, sloughing skin, severe lethargy.</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Snakehead (Channa), Puntius, Rohu, Mrigal</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Pond liming with agricultural lime (CaCO3) or quicklime (CaO) at 200–400 kg/ha; CIFAX liquid formulation treatment.</td>
+              </tr>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Cotton Wool Disease (Saprolegniasis)<br /><span style="font-size:12px;color:#64748b;">Saprolegnia parasitica</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;"><span style="background:#f3e8ff;color:#6b21a8;padding:2px 8px;border-radius:4px;font-weight:600;font-size:12px;">Fungal</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Fluffy, cotton-like greyish-white filamentous tufts covering unfertilized eggs or damaged epidermis in cold seasons.</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Carp broodstock, hatchery egg incubation trays, Pangasius</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Hydrogen Peroxide (H2O2 3%) bath at 250–500 mg/L for 15 min; Salt bath (20 g/L) for 10 min.</td>
+              </tr>
+              <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Infectious Dropsy &amp; Ascites<br /><span style="font-size:12px;color:#64748b;">Aeromonas hydrophila &amp; Edwardsiella</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;"><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:4px;font-weight:600;font-size:12px;">Bacterial</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Massive abdominal fluid swelling (pine-cone appearance as scales stick out), protruding pop-eye (exophthalmia), pale gills.</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Goldfish, Koi, Indian Major Carps, Clarias Catfish</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Isolate infected fish immediately; medicated feed with Enrofloxacin or Oxytetracycline; Epsom salt bath (1 g/L) to draw out excess fluid.</td>
+              </tr>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Argulus (Fish Lice)<br /><span style="font-size:12px;color:#64748b;">Argulus foliaceus</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;"><span style="background:#fee2e2;color:#991b1b;padding:2px 8px;border-radius:4px;font-weight:600;font-size:12px;">Crustacean Ectoparasite</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Flat, disc-shaped saucer-like green parasites (4–8mm) moving across skin, localized bleeding puncture sores, erratic darting.</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Rohu, Catla, Common Carp, Grass Carp</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Emamectin benzoate (0.05 mg/kg biomass in feed) or approved organophosphate dip under veterinary prescription; short KMnO4 dip.</td>
+              </tr>
+              <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Gill &amp; Skin Flukes<br /><span style="font-size:12px;color:#64748b;">Dactylogyrus &amp; Gyrodactylus</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;"><span style="background:#fee2e2;color:#991b1b;padding:2px 8px;border-radius:4px;font-weight:600;font-size:12px;">Trematode Parasite</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Microscopic worms hooked into gill filaments or skin, rapid opercular movement, excessive mucus production, surface gasping.</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Fingerlings of all freshwater species, hatchery nursery tanks</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Praziquantel bath at 2–5 mg/L or Formalin immersion bath at 150–250 ppm for 30–60 minutes with vigorous aeration.</td>
+              </tr>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Koi Herpesvirus (KHV)<br /><span style="font-size:12px;color:#64748b;">Cyprinid herpesvirus 3 (CyHV-3)</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;"><span style="background:#f1f5f9;color:#0f172a;border:1px solid #cbd5e1;padding:2px 8px;border-radius:4px;font-weight:700;font-size:12px;">Viral (OIE Notifiable)</span></td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Severe necrotic gill patches (red/white mottling), sunken eyes, rapid mass mortality (80–100%) between 18°C and 28°C.</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Common Carp, Koi Carp</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">No chemical cure exists. Mandatory strict farm quarantine, total pond isolation, SPF seed sourcing, and strict equipment disinfection.</td>
               </tr>
             </tbody>
           </table>
+        </div>
+      </section>
+
+      <!-- Section 2: Clinical Treatment Protocols & Dosages -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">2. Clinical Chemical Treatment Protocols &amp; Immersion Bath Dosages</h2>
+        <p>
+          Always calculate total water volume accurately before dosing therapeutic chemicals. <strong>Never treat fish in stagnant or hypoxic water; provide supplemental aeration during all dip and bath procedures:</strong>
+        </p>
+        <div style="overflow-x:auto;margin:20px 0;">
+          <table style="width:100%;border-collapse:collapse;font-size:14px;text-align:left;">
+            <thead>
+              <tr style="background:#0f172a;color:#ffffff;">
+                <th style="padding:10px;border:1px solid #334155;">Therapeutic Agent</th>
+                <th style="padding:10px;border:1px solid #334155;">Treatment Method</th>
+                <th style="padding:10px;border:1px solid #334155;">Recommended Dosage</th>
+                <th style="padding:10px;border:1px solid #334155;">Duration</th>
+                <th style="padding:10px;border:1px solid #334155;">Key Safety Precaution</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Non-Iodized Salt (NaCl)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Short-Duration Dip</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">20 to 30 g/L (2.0–3.0%)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">10 to 15 minutes</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Remove fish immediately if they lose equilibrium or roll sideways.</td>
+              </tr>
+              <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Non-Iodized Salt (NaCl)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Prolonged Pond Bath</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">3 to 5 kg per 1,000 L (3–5 ppt)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Continuous (7–10 days)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Osmoregulatory relief for gill stress and nitrite toxicity barrier.</td>
+              </tr>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Potassium Permanganate (KMnO4)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Pond / Tank Water Bath</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">2.0 to 4.0 mg/L (PPM)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Maintain purple hue &gt;4 hrs</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Strong oxidizer. Deactivates rapidly in high organic muck; neutralize with H2O2 if over-dosed.</td>
+              </tr>
+              <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Hydrogen Peroxide (H2O2)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Immersion Bath</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">250 to 500 mg/L</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">15 to 30 minutes</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Eco-friendly fungicide; breaks down into pure water and oxygen with zero toxic residue.</td>
+              </tr>
+              <tr style="background:#ffffff;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Formalin (37% Formaldehyde)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Short Immersion Bath</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">150 to 250 mg/L</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">30 to 60 minutes</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Depletes dissolved oxygen by 1 mg/L for every 5 ppm applied. Run maximum aeration!</td>
+              </tr>
+              <tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px;border:1px solid #e2e8f0;font-weight:700;">Oxytetracycline (OTC)</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Medicated Feed Dressing</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">50 to 75 mg / kg live fish weight</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">7 to 10 consecutive days</td>
+                <td style="padding:10px;border:1px solid #e2e8f0;">Bind to dry pellets using edible vegetable oil or gelatin. Observe mandatory 21-day withdrawal period before harvest.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 3: Diagnostic Instruments & Biosecurity Gear -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">3. Essential Diagnostic &amp; Biosecurity Equipment</h2>
+        <p>
+          Preventative biosecurity and rapid diagnostic instrumentation are the primary barriers protecting commercial aquaculture operations against catastrophic disease outbreaks:
+        </p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:16px;margin:20px 0;">
+          <div style="background:#ffffff;border:1px solid #cbd5e1;padding:18px;border-radius:10px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">Optical Dissolved Oxygen (DO) Field Meter</h3>
+            <p style="font-size:14px;color:#475569;margin:0 0 8px 0;">Luminescent sensor probe requiring no electrolyte replenishment. Delivers instant ±0.01 mg/L accuracy to catch sub-lethal hypoxia before opportunistic pathogens strike.</p>
+            <strong style="font-size:13px;color:#0284c7;">Target: Maintain DO &gt; 5.0 mg/L continuously</strong>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;padding:18px;border-radius:10px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">Aquaculture Multi-Parameter Photometer</h3>
+            <p style="font-size:14px;color:#475569;margin:0 0 8px 0;">Digital reagent colorimeter testing Total Ammonia Nitrogen (TAN), Nitrite (NO2-), Nitrate (NO3-), and Alkalinity to identify chemical gill burning.</p>
+            <strong style="font-size:13px;color:#0284c7;">Target: TAN &lt; 0.5 mg/L, NO2 &lt; 0.2 mg/L</strong>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;padding:18px;border-radius:10px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">Compound Clinical Biological Microscope</h3>
+            <p style="font-size:14px;color:#475569;margin:0 0 8px 0;">40x to 1000x magnification with mechanical stage for fresh gill snips and skin scrapes to identify mobile protozoan parasites (Trichodina, Ich, Dactylogyrus).</p>
+            <strong style="font-size:13px;color:#0284c7;">Routine: Weekly microscopic scrape audits</strong>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;padding:18px;border-radius:10px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">Industrial Germicidal UV-C In-line Barriers</h3>
+            <p style="font-size:14px;color:#475569;margin:0 0 8px 0;">Low-pressure amalgam quartz units delivering &gt;35 mJ/cm² dosage to disinfect incoming hatchery water supplies, quarantine systems, and live transport recycling loops.</p>
+            <strong style="font-size:13px;color:#0284c7;">Target: 99.9% pathogen microbial inactivation</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Quarantine & Farm Biosecurity Protocol -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">4. Three-Step Quarantine Routine for New Fingerlings</h2>
+        <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">
+          <ol style="margin:0;padding-left:24px;color:#334155;">
+            <li style="margin-bottom:12px;"><strong>Visual Inspection &amp; Temperature Acclimatization:</strong> Float oxygen transport bags in the quarantine tank for 20–30 minutes until water temperatures equilibrate to within ±1°C before opening. Inspect gill movement and look for fin pinching.</li>
+            <li style="margin-bottom:12px;"><strong>Prophylactic Immersion Dip:</strong> Give fingerlings a 5–10 minute prophylactic dip in a 20 g/L (2%) non-iodized salt bath with mild aeration. This burns off external protozoan hitchhikers (Ich, Costia, Trichodina) without stressing internal organs.</li>
+            <li style="margin-bottom:8px;"><strong>14-Day Quarantine Isolation:</strong> House fingerlings in a dedicated quarantine tank equipped with standalone filtration and UV-C sterilization for 14 days. Monitor feed consumption, verify normal swimming posture, and test water parameters before releasing fish into production systems.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Section 5: Fish Disease Frequently Asked Questions -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">5. Fish Disease Diagnosis &amp; Veterinary FAQ</h2>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="background:#ffffff;border:1px solid #e2e8f0;padding:16px;border-radius:8px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">What are the earliest warning signs of disease in commercial fish tanks?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">The earliest behavioral indicator is sudden feed refusal or reduction in feeding vigor. Other subtle signs include fish grouping near water inlets or aeration stones (piping for air), flashing against tank walls, clamped dorsal and pectoral fins, excess body mucus, and erratic solitary swimming away from the main school.</p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;padding:16px;border-radius:8px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">How do I safely calculate Potassium Permanganate (KMnO4) bath dosages?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">Calculate exact tank volume in cubic meters. Apply 2.0 to 4.0 grams of KMnO4 per cubic meter (1 m³ = 1,000 Litres). Pre-dissolve KMnO4 crystals completely in a bucket of warm water before broadcasting evenly across the pond surface. Ensure the water retains a wine-red or pinkish hue for at least 4 hours. If it turns muddy brown within 30 minutes, organic matter has neutralized the chemical.</p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;padding:16px;border-radius:8px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">How can I differentiate between Bacterial Gill Rot and sub-lethal hypoxia?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">In sub-lethal hypoxia (low dissolved oxygen), all fish gasp at the surface simultaneously during dawn, but their gill filaments appear cherry-red and intact. In Bacterial Gill Rot (Columnaris), individual fish show localized white or yellowish necrotic patches, ragged ragged filaments covered in grey mucus, and continue gasping even when dissolved oxygen levels are elevated above 6.0 mg/L.</p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;padding:16px;border-radius:8px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">Why do common salt baths work effectively against freshwater fish parasites?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">Freshwater fish and protozoan parasites maintain internal body osmolarity around 9 to 10 ppt. When placed in a 20 to 30 ppt (2–3%) salt bath, rapid osmotic shock draws water out of microscopic single-celled parasites (Ich, Costia, Trichodina), causing them to collapse and detach. Freshwater fish tolerate this osmotic shift for 10–15 minutes while shedding compromised skin mucus.</p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;padding:16px;border-radius:8px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">What biosecurity measures prevent introducing pathogens into high-density RAS or Biofloc systems?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">Strict biosecurity requires: 1) Sourcing certified disease-free (SPF) fingerlings, 2) Maintaining dedicated nets and buckets per tank, sanitized in 200 ppm chlorine between uses, 3) Implementing a 14-day quarantine tank routine for all new stock, 4) Operating inline germicidal UV-C sterilizers at &gt;30 mJ/cm², and 5) Maintaining disinfectant footwear footbaths at farm entry points.</p>
+          </div>
+        </div>
+      </section>
+
+      <section style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:20px;margin-bottom:32px;">
+        <h3 style="font-size:18px;font-weight:700;color:#0369a1;margin:0 0 10px 0;">Aquaculture Veterinary Support &amp; Diagnostic Consultations</h3>
+        <p style="margin:0 0 12px 0;color:#475569;">Need emergency disease diagnosis or water quality troubleshooting? Connect with Modern Fisheries veterinary and technical specialists via WhatsApp or consult our interactive calculators.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="/calculators" style="background:#0284c7;color:#ffffff;padding:10px 20px;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px;">Open Chemical Dosing Calculators &rarr;</a>
+          <a href="https://wa.me/919748952342?text=Hello%20Modern%20Fisheries,%20I%20need%20emergency%20fish%20disease%20guidance." style="background:#16a34a;color:#ffffff;padding:10px 20px;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px;">WhatsApp Veterinary Desk &rarr;</a>
         </div>
       </section>
     </article>
@@ -455,6 +995,37 @@ export const RICH_PAGE_BODIES = {
           <li style="margin-bottom:8px;"><strong>Fingerlings (5g – 50g):</strong> 32% – 36% Crude Protein floating pellets (1.5mm – 2.0mm) fed at 4% – 6% of body weight daily across 3 feedings.</li>
           <li><strong>Grow-Out Stage (50g to Harvest):</strong> 28% – 32% Crude Protein floating pellets (3.0mm – 4.0mm) fed at 2% – 3% of body weight daily across 2 feedings.</li>
         </ul>
+      </section>
+
+      <!-- Section 3: Commercial Feed Manufacturing Machinery & Feeding Automation -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">3. Commercial Feed Manufacturing Machinery &amp; Automation</h2>
+        <p>
+          Large commercial aquaculture enterprises lower production costs by 20% to 35% through on-farm feed extrusion and automate daily feeding schedules:
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:16px;margin:20px 0;">
+          <div style="background:#ffffff;border:1px solid #cbd5e1;padding:18px;border-radius:10px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">Small-Scale On-Farm Floating Feed Pellet Extruder</h3>
+            <p style="font-size:14px;color:#475569;margin:0 0 8px 0;">
+              High-shear single or twin-screw extrusion cooker producing 1.0mm to 6.0mm floating pellets. High temperature and pressure cook and gelatinize starches, providing 100% pellet buoyancy for &gt;12 hours on water. Output capacities range from 80 kg/hr to 350 kg/hr on 15 to 30 HP electric or diesel power.
+            </p>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;padding:18px;border-radius:10px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">Stainless Steel Hammer Mill Pulverizer</h3>
+            <p style="font-size:14px;color:#475569;margin:0 0 8px 0;">
+              High-speed rotating beaters pulverize raw soya, fishmeal, maize, and rice bran down to fine flour (60 to 80 mesh) to ensure consistent pellet binding and prevent extruder die clogging.
+            </p>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #cbd5e1;padding:18px;border-radius:10px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 6px 0;">Solar / Electric Programmable Automatic Fish Feeders</h3>
+            <p style="font-size:14px;color:#475569;margin:0 0 8px 0;">
+              Automated broadcast spreaders programmed to feed fish at precise intervals throughout peak daytime metabolism. Delivers smaller, frequent meals that increase digestion efficiency and prevent water fouling.
+            </p>
+          </div>
+        </div>
       </section>
     </article>
   `,
@@ -907,6 +1478,203 @@ export const RICH_PAGE_BODIES = {
         <div style="background:#ffffff;border:1px solid #e2e8f0;padding:20px;border-radius:10px;">
           <h2 style="font-size:18px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">What is a good Feed Conversion Ratio (FCR) in commercial aquaculture?</h2>
           <p style="margin:0;color:#334155;font-size:15px;">FCR measures kilograms of feed required to produce one kilogram of fish body weight (Total Feed &divide; Net Weight Gained). An FCR of 1.1 to 1.3 is considered world-class in intensive Biofloc or RAS systems, while 1.4 to 1.7 is typical in traditional semi-intensive earthen ponds.</p>
+        </div>
+      </section>
+    </article>
+  `,
+
+  '/equipment-finder': `
+    <article style="max-width:1000px;margin:0 auto;color:#1e293b;line-height:1.75;font-size:16px;">
+      <header style="margin-bottom:36px;border-bottom:1px solid #e2e8f0;padding-bottom:24px;">
+        <span style="font-size:14px;font-weight:700;color:#0284c7;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:8px;">Aquaculture Engineering Decision-Support Handbook</span>
+        <h1 style="font-size:32px;font-weight:800;color:#0f172a;line-height:1.25;margin:0 0 16px 0;letter-spacing:-0.5px;">Aquaculture Equipment Finder &amp; Sizing Decision Guide</h1>
+        <p style="font-size:18px;color:#475569;margin:0;line-height:1.6;">
+          Identify essential aquaculture machinery for Recirculating Aquaculture Systems (RAS), Biofloc, Earthen Ponds, Aquaponics, and Hatcheries. Calculate precise dynamic capacity requirements for aeration air blowers, micro-screen drum filters, water pumps, and explore verified suppliers across India.
+        </p>
+      </header>
+
+      <!-- Section 1: System-by-System Equipment Overview -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">1. System-Specific Aquaculture Machinery Requirements</h2>
+        <p>
+          Aquaculture facilities require distinct mechanical infrastructures depending on their biological stocking density and water exchange turnover. Selecting mismatched equipment causes high mortality, energy waste, and catastrophic biofilter failures.
+        </p>
+        <div style="overflow-x:auto;margin:20px 0;">
+          <table style="width:100%;border-collapse:collapse;text-align:left;font-size:14px;">
+            <thead>
+              <tr style="background:#0f172a;color:#ffffff;">
+                <th style="padding:12px;border:1px solid #334155;">Culture System</th>
+                <th style="padding:12px;border:1px solid #334155;">Stocking Density</th>
+                <th style="padding:12px;border:1px solid #334155;">Core Essential Machinery</th>
+                <th style="padding:12px;border:1px solid #334155;">Primary Sizing Constraint</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#ffffff;">
+                <td style="padding:12px;border:1px solid #cbd5e1;font-weight:700;">Biofloc (BFT)</td>
+                <td style="padding:12px;border:1px solid #cbd5e1;">30 – 60 kg/m³</td>
+                <td style="padding:12px;border:1px solid #cbd5e1;">Continuous Roots Air Blower, Micro-pore Diffusers, DO Meter, Emergency Generator</td>
+                <td style="padding:12px;border:1px solid #cbd5e1;">25–35 LPM air flow per m³ against 140 mbar head pressure</td>
+              </tr>
+              <tr style="background:#f8fafc;">
+                <td style="padding:12px;border:1px solid #cbd5e1;font-weight:700;">Recirculating (RAS)</td>
+                <td style="padding:12px;border:1px solid #cbd5e1;">40 – 80 kg/m³</td>
+                <td style="padding:12px;border:1px solid #cbd5e1;">Automatic Rotary Drum Filter, MBBR Biofilter, Axial Circulation Pump, UV Sterilizer, DO Meter</td>
+                <td style="padding:12px;border:1px solid #cbd5e1;">Turnover 100–150% farm volume/hour, solids removal &lt;45 min</td>
+              </tr>
+              <tr style="background:#ffffff;">
+                <td style="padding:12px;border:1px solid #cbd5e1;font-weight:700;">Earthen Ponds</td>
+                <td style="padding:12px;border:1px solid #cbd5e1;">3 – 12 kg/m³</td>
+                <td style="padding:12px;border:1px solid #cbd5e1;">Paddle Wheel Aerators, Dewatering Pumps, Automatic Solar Feeders, Seine Drag Nets</td>
+                <td style="padding:12px;border:1px solid #cbd5e1;">1.0 to 1.5 HP aeration per 1,000 kg harvest biomass</td>
+              </tr>
+              <tr style="background:#f8fafc;">
+                <td style="padding:12px;border:1px solid #cbd5e1;font-weight:700;">Aquaponics</td>
+                <td style="padding:12px;border:1px solid #cbd5e1;">15 – 35 kg/m³</td>
+                <td style="padding:12px;border:1px solid #cbd5e1;">Submersible Low-Head Pump, Swirl Solid Separator, Ring Blower, Digital pH/EC Monitor</td>
+                <td style="padding:12px;border:1px solid #cbd5e1;">Continuous low-energy recirculating lift and plant root aeration</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 2: Technical Sizing Formulas -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">2. Engineering Sizing Formulas &amp; Calculations</h2>
+        <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:20px;margin:20px 0;">
+          <h3 style="font-size:18px;font-weight:700;color:#0369a1;margin:0 0 10px 0;">A. Aeration Air Blower Airflow Equation</h3>
+          <p style="margin:0 0 10px 0;">
+            To maintain dissolved oxygen above 5.0 mg/L in Biofloc tanks with active bacterial respiration:
+          </p>
+          <p style="font-family:monospace;background:#ffffff;padding:12px;border-radius:6px;border:1px solid #e2e8f0;margin:0 0 10px 0;">
+            Required Airflow (LPM) = Water Volume (m³) &times; 28 LPM/m³ &times; Safety Factor (1.25)
+          </p>
+          <p style="font-size:14px;color:#475569;margin:0;">
+            For a standard 50 m³ system, minimum airflow is 50 &times; 28 &times; 1.25 = <strong>1,750 LPM (~62 CFM)</strong> at ≥150 mbar hydrostatic discharge backpressure.
+          </p>
+        </div>
+
+        <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:20px;margin:20px 0;">
+          <h3 style="font-size:18px;font-weight:700;color:#0369a1;margin:0 0 10px 0;">B. Moving Bed Biofilm Reactor (MBBR) Media Sizing</h3>
+          <p style="margin:0 0 10px 0;">
+            Nitrifying bacteria on virgin K1/K3 Kaldnes media convert toxic TAN at an active rate of 0.55 g TAN/m² protected surface area per day:
+          </p>
+          <p style="font-family:monospace;background:#ffffff;padding:12px;border-radius:6px;border:1px solid #e2e8f0;margin:0 0 10px 0;">
+            K1 Media Volume (Litres) = Daily Feed (kg) &times; 0.03 &times; 1,000 / (0.55 &times; 800 m²/m³) &times; 1,000
+          </p>
+          <p style="font-size:14px;color:#475569;margin:0;">
+            Rule of thumb: Feed load requires approximately <strong>75 to 90 Litres of K1 media per 1.0 kg of 32% protein feed</strong> fed daily.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 3: Buyer Precautions & Maintenance Checklist -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">3. Buyer Checklist &amp; Equipment Maintenance Protocol</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div style="background:#ffffff;border:1px solid #e2e8f0;padding:20px;border-radius:10px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 10px 0;">Common Procurement Pitfalls:</h3>
+            <ul style="margin:0;padding-left:20px;font-size:14px;color:#475569;">
+              <li style="margin-bottom:6px;">Buying unrated vortex blowers unable to overcome hydrostatic water depth head.</li>
+              <li style="margin-bottom:6px;">Omitting dual air filters in dusty, humid agricultural environments.</li>
+              <li style="margin-bottom:6px;">Operating without non-return check valves, allowing culture water to siphoning back into the blower stator.</li>
+              <li>Purchasing cast-iron pumps for saline or brackish shrimp culture instead of SS316 marine-grade units.</li>
+            </ul>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #e2e8f0;padding:20px;border-radius:10px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 10px 0;">Routine Preventative Maintenance:</h3>
+            <ul style="margin:0;padding-left:20px;font-size:14px;color:#475569;">
+              <li style="margin-bottom:6px;">Wash intake foam air filters bi-weekly using clean freshwater and low-pressure air.</li>
+              <li style="margin-bottom:6px;">Inspect micro-pore diffuser tubing every 30 days for bacterial carbonate scale buildup.</li>
+              <li style="margin-bottom:6px;">Soak optical DO sensor membranes in deionized water and calibrate monthly.</li>
+              <li>Test emergency auto-start diesel generator (DG ATS) under live load every 7 days.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Direct Equipment Inquiry Desk -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">4. Direct Equipment Inquiry &amp; Technical Sizing Desk</h2>
+        <p>
+          Need verified manufacturer pricing, single-phase vs three-phase motor compatibility advice, or customized aeration manifold design? Contact the Modern Fisheries Engineering Desk directly:
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px;">
+          <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:20px;border-radius:12px;">
+            <h3 style="font-size:16px;font-weight:700;color:#166534;margin:0 0 8px 0;">Instant WhatsApp Technical Desk</h3>
+            <p style="font-size:14px;color:#1e293b;margin:0 0 12px 0;">Fast technical responses on equipment availability, power compatibility, and pan-India freight delivery.</p>
+            <p style="font-size:15px;font-weight:700;color:#15803d;margin:0 0 12px 0;">WhatsApp: +91 97489 52342</p>
+            <a href="https://wa.me/919748952342?text=Hello%20Modern%20Fisheries,%20I%20am%20inquiring%20about%20commercial%20aquaculture%20equipment%20specifications%20and%20procurement." style="display:inline-block;background:#16a34a;color:#ffffff;padding:8px 16px;border-radius:8px;font-weight:700;text-decoration:none;font-size:13px;">Chat on WhatsApp &rarr;</a>
+          </div>
+          <div style="background:#f8fafc;border:1px solid #cbd5e1;padding:20px;border-radius:12px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">Email Engineering Desk</h3>
+            <p style="font-size:14px;color:#334155;margin:0 0 12px 0;">Submit project layouts, commercial farm blueprints, tenders, or itemized Bills of Quantities (BOQ).</p>
+            <p style="font-size:15px;font-weight:700;color:#0284c7;margin:0 0 12px 0;">Email: mf@owncircles.com</p>
+            <a href="mailto:mf@owncircles.com?subject=Equipment%20Inquiry%20-%20Modern%20Fisheries" style="display:inline-block;background:#0f172a;color:#ffffff;padding:8px 16px;border-radius:8px;font-weight:700;text-decoration:none;font-size:13px;">Send Email &rarr;</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Real Search Queries & Frequently Asked Questions -->
+      <section style="margin-bottom:40px;">
+        <h2 style="font-size:24px;font-weight:700;color:#0f172a;margin-bottom:16px;border-left:4px solid #0284c7;padding-left:12px;">5. Aquaculture Machinery FAQ &amp; Search Queries</h2>
+        <div style="display:flex;flex-direction:column;gap:16px;margin-top:16px;">
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">What equipment do I need for a 10,000 liter Biofloc fish tank?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">
+              A 10,000-liter (10 m³) commercial Biofloc tank requires: (1) High-pressure Roots air blower or diaphragm pump delivering 250–350 LPM at &ge;140 mbar, (2) 16mm micro-pore aeration diffuser rings, (3) Optical DO meter for monitoring dissolved oxygen above 5.0 mg/L, (4) Commercial tarpaulin circular tank (550–650 GSM PVC/HDPE with GI mesh frame), (5) Imhoff cone for floc volume tracking (15–25 mL/L target), and (6) Emergency generator backup with an ATS switch.
+            </p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">What is the typical price range and cost of aquaculture equipment in India?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">
+              Commercial equipment prices in India vary by capacity and motor specification: (1) Twin-Lobe Roots Blowers (1.5 HP to 3 HP): ₹24,000 – ₹58,000, (2) Rotary Drum Filters (20 m³/hr to 60 m³/hr capacity): ₹95,000 – ₹2,40,000, (3) 1 HP to 2 HP 4-Paddle Wheel Aerators: ₹18,000 – ₹32,000, (4) Optical Dissolved Oxygen (DO) Meters: ₹35,000 – ₹65,000, (5) Circular Tarpaulin Tanks (10,000L to 30,000L): ₹12,000 – ₹35,000, and (6) Submersible Solids-Handling Sludge Pumps: ₹8,500 – ₹22,000.
+            </p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">How do I calculate air blower size (CFM &amp; LPM) for Biofloc aeration?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">
+              In intensive Biofloc systems, heterotrophic bacteria and fish create massive continuous biological oxygen demand (BOD). The engineering standard is 25 to 35 Litres Per Minute (LPM) of air per cubic meter (m³) of water. For example, a 60 m³ system requires: 60 m³ &times; 30 LPM = 1,800 LPM. To convert LPM to CFM (Cubic Feet per Minute), divide by 28.317: 1,800 LPM &divide; 28.317 &asymp; 63.6 CFM.
+            </p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">Why do ring blowers fail in deep fish tanks and what is the alternative?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">
+              Ring blowers (regenerative blowers) are designed to move high volumes of air at low static head pressure (typically &lt;80–100 mbar). When submerged diffusers are placed at 1.2m to 1.5m water depth, the hydrostatic water column pushes back with 120–150 mbar of head pressure. This forces the ring blower into stall mode, causing the motor coils to overheat and trip the thermal breaker. The correct engineering solution is a positive-displacement Twin-Lobe Roots Blower, which maintains constant volumetric displacement regardless of water depth.
+            </p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">Can commercial aquaculture machinery run on domestic single-phase electricity in India?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">
+              Small-scale equipment up to 1.5 HP (such as small blowers, mini aeration pumps, and dosing units) can run on 220V single-phase power. However, commercial 2.0 HP+ Roots blowers, industrial drum filters, and large circulation pumps require 415V 3-phase industrial power to prevent excessive starting current draws and voltage drops. If 3-phase is unavailable at your site, you must install a single-phase to 3-phase Variable Frequency Drive (VFD).
+            </p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">What fish processing and handling machinery is required for commercial fish harvesting?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">
+              A commercial aquaculture harvest line requires: (1) Knotless seine nets and live fish transfer pumps (4-inch to 6-inch non-clog vortex or vacuum) to move fish without scale loss, (2) Stainless steel (SS304) live fish grading boxes to sort fingerlings or market biomass by size, (3) Rotary fish descaling machines capable of scaling 25–30 kg per 3-minute batch, (4) Food-grade SS304 filleting and evisceration tables with overhead washdown nozzles, and (5) Commercial flake ice machines (1 to 3 tons/day) maintaining a 1:1 ice-to-fish rapid chilling ratio for cold chain transport.
+            </p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">How does a pond bottom sludge cleaner work in earthen fish ponds?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">
+              A submersible pond bottom sludge cleaner utilizes a heavy-duty slurry pump fitted with a tungsten-carbide vortex cutter impeller. Guided along the pond floor via floating pontoons or telescopic booms, it vacuums accumulated black anaerobic muck (decaying feed and fecal waste) and pumps it out through a 3-inch discharge hose to exterior drying beds. This clears toxic hydrogen sulfide (H2S) deposits without draining the pond or halting fish growth.
+            </p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">What is an all-in-one compact indoor RAS skid and what tank volume does it support?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">
+              An all-in-one indoor RAS skid is a factory pre-engineered, plug-and-play water treatment station combining a 50-micron automatic rotary drum filter, an aerated moving bed biofilm reactor (MBBR) filled with K1 virgin media, a counter-current protein skimmer, an inline amalgam UV-C sterilizer, and a high-flow circulation pump on a single structural base. Modular skids typically support culture volumes between 10 m³ and 60 m³ with zero on-site piping errors.
+            </p>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:18px;">
+            <h3 style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 8px 0;">How do live fish transfer pumps move fish without mortality or scale damage?</h3>
+            <p style="font-size:14px;color:#334155;margin:0;line-height:1.6;">
+              Modern fish transfer pumps utilize recessed vortex impellers or dual-chamber vacuum suction tanks where live fish are suspended in a continuous water stream (typically 3 parts water to 1 part fish). Because fish never touch moving mechanical impeller blades directly, scale mucus membranes remain intact, eliminating transit abrasions and stress-induced bacterial ulcers during grading or harvest loading.
+            </p>
+          </div>
         </div>
       </section>
     </article>

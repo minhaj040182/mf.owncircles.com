@@ -47,11 +47,35 @@ function extractVideos() {
 const videos = extractVideos();
 console.log(`✓ Extracted ${videos.length} videos from src/data.ts for SEO route generation.`);
 
-// SEO Metadata Dictionary for Main Pages
+// Extract Equipment from src/data/equipmentData.ts
+function extractEquipment() {
+  const eqPath = path.resolve('src/data/equipmentData.ts');
+  if (!fs.existsSync(eqPath)) return [];
+  const content = fs.readFileSync(eqPath, 'utf-8');
+  const items = [];
+  const regex = /id:\s*["']([^"']+)["'],\s*slug:\s*["']([^"']+)["'],\s*name:\s*["']([^"']+)["'],\s*category:\s*["']([^"']+)["'][\s\S]*?tagline:\s*["']([^"']+)["'][\s\S]*?purpose:\s*["']([^"']+)["'][\s\S]*?whyRequired:\s*["']([^"']+)["']/g;
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    items.push({
+      id: match[1],
+      slug: match[2],
+      name: match[3],
+      category: match[4],
+      tagline: match[5],
+      purpose: match[6],
+      whyRequired: match[7]
+    });
+  }
+  return items;
+}
+
+const equipmentList = extractEquipment();
+console.log(`✓ Extracted ${equipmentList.length} equipment items from src/data/equipmentData.ts for SEO route generation.`);
+
+// SEO Metadata Dictionary for Main Pages (Strict Canonical Routes Only)
 const PAGE_METADATA = [
   {
     path: '/',
-    aliases: ['/home'],
     canonical: `${BASE_URL}/`,
     title: 'Modern Fisheries | Journal of Precision Aquaculture & Bio-Engineering Research',
     description: 'Open-access educational journal and engineering portal providing peer-reviewed guides, RAS engineering blueprints, and precision aquaculture calculation tools.',
@@ -64,124 +88,126 @@ const PAGE_METADATA = [
   },
   {
     path: '/aquaponics-farming',
-    aliases: ['/aquaponics', '/aquaponic-farming'],
     canonical: `${BASE_URL}/aquaponics-farming`,
-    title: 'Commercial Aquaponics Farming Systems | Modern Fisheries',
-    description: 'Integrated commercial Aquaponics guides combining aquaculture and hydroponic crop production. Learn dual-revenue sustainable farming setups & biofiltration.', // 155 chars
-    keywords: 'aquaponics farming, dual culture fish vegetables, deep water culture, bell siphon, media bed, aquaponics design, commercial aquaponics',
-    h1: 'Aquaponics Farming Systems & Commercial Sizing',
-    bodyText: 'Learn to design and construct high-efficiency commercial aquaponics systems integrating fish culture with soilless plant farming. Detailed calculations for stocking densities, biofilter media, and siphon mechanisms.',
+    title: 'Commercial Aquaponics Farming Systems & Equipment Guide',
+    description: 'Commercial aquaponics systems & hardware: auto bell siphons, sump tanks, radial flow settlers, mineralization filters, DWC rafts & water circulation pumps.',
+    keywords: 'aquaponics equipment, commercial aquaponics systems, bell siphon, radial flow settler, dual culture fish vegetables, mineralization tank, aquaponic pumps, modern fisheries',
+    h1: 'Aquaponics Farming Systems, Hardware & Commercial Sizing',
+    bodyText: 'Learn to design and construct high-efficiency commercial aquaponics systems integrating fish culture with soilless plant farming. Detailed engineering specifications for bell siphons, radial flow settlers, mineralization tanks, and DWC aeration grids.',
     changefreq: 'weekly',
     priority: '0.9',
     isPrimary: true
   },
   {
     path: '/bioflock',
-    aliases: ['/biofloc-farming', '/biofloc'],
     canonical: `${BASE_URL}/bioflock`,
-    title: 'Biofloc Technology (BFT) Fish Farming | Modern Fisheries',
-    description: 'Master Biofloc Technology (BFT) fish culture. Learn carbon-nitrogen ratio calculations, floc management, aeration grid setup, and high-density tank setup.', // 154 chars
-    keywords: 'biofloc technology, BFT fish farming, carbon nitrogen ratio, floc volume, biofloc calculator, tarpaulin tank, modern fisheries',
-    h1: 'Biofloc Technology (BFT) High-Density Fish Farming',
-    bodyText: 'Comprehensive technical handbook and tools for Biofloc technology. Calculate carbon-to-nitrogen ratios, maintain 15-25 ml/L floc volume, select aeration blowers, and manage probiotic water inoculation.',
+    title: 'Biofloc Fish Farming Equipment & BFT Systems | Modern Fisheries',
+    description: 'Master Biofloc fish farming equipment: Roots air blowers, micro-pore diffuser grids, 650 GSM PVC tarpaulin tanks, Imhoff cones, C:N ratio & sludge pumps.',
+    keywords: 'biofloc equipment cost, biofloc technology, roots air blower, biofloc tarpaulin tanks, aeration diffuser grid, imhoff cone, C:N ratio calculator, submersible sludge pump, BFT fish farming',
+    h1: 'Biofloc Fish Farming Equipment & High-Density BFT Systems',
+    bodyText: 'Comprehensive engineering handbook for Biofloc technology equipment and hardware. Sizing guides for twin-lobe Roots air blowers, 650 GSM circular tarpaulin tanks, bottom central drain vortex pumps, and Imhoff cone floc volume diagnostics.',
     changefreq: 'weekly',
     priority: '0.9',
     isPrimary: true
   },
   {
     path: '/aquaponic',
-    aliases: ['/ras-farming', '/ras'],
     canonical: `${BASE_URL}/aquaponic`,
-    title: 'Recirculating Aquaculture System (RAS) | Modern Fisheries',
-    description: 'Complete guide to Recirculating Aquaculture Systems (RAS). Master mechanical & biological filtration, oxygenation, stocking density, and commercial setups.', // 156 chars
-    keywords: 'RAS fish farming, recirculating aquaculture system, mechanical filtration, biofilter, drum filter, indoor aquaculture, modern fisheries',
-    h1: 'Recirculating Aquaculture System (RAS) Design & Setup',
-    bodyText: 'Turn-key indoor Recirculating Aquaculture System engineering. Includes drum filtration, MBBR biofilters, oxygen cones, UV sterilizers, degassers, and biosecurity protocols for commercial fish hatcheries.',
+    title: 'RAS Fish Farming Machinery & Equipment | Modern Fisheries',
+    description: 'Commercial RAS fish farming machinery: automatic rotary drum filters, MBBR biofilters, protein skimmers, UV sterilizers, oxygen cones & compact indoor RAS skids.',
+    keywords: 'ras fish farming machinery, all in one ras, indoor ras system, rotary drum filter aquaculture, mbbr biofilter, protein skimmer, uv sterilizer, speece oxygen cone, modern fisheries',
+    h1: 'Recirculating Aquaculture System (RAS) Machinery & Equipment Setup',
+    bodyText: 'Turn-key commercial indoor Recirculating Aquaculture System engineering. Technical specifications for automatic micro-screen rotary drum filters (40-60 micron SS316), fluid bed MBBR biofilters with virgin K1 media, protein skimmers, amalgam UV-C sterilizers, and downflow pure oxygen cones.',
     changefreq: 'weekly',
     priority: '0.9',
     isPrimary: true
   },
   {
     path: '/hydroponic',
-    aliases: ['/hydroponics-farming', '/hydroponics'],
     canonical: `${BASE_URL}/hydroponic`,
-    title: 'Hydroponic System Management & Nutrients | Modern Fisheries',
-    description: 'Comprehensive soil-less hydroponic farming guides. Master NFT channels, Deep Water Culture, custom nutrient solutions, EC/pH balance, and crop yields.', // 154 chars
-    keywords: 'hydroponics system, NFT hydroponics, nutrient film technique, DWC, EC pH balance, indoor farming, soilless culture, modern fisheries',
-    h1: 'Hydroponics System Management & Nutrient Balancing',
-    bodyText: 'Master commercial hydroponics production using NFT channels and Deep Water Culture (DWC). Guidance on nutrient A/B formulation, electrical conductivity (EC) control, and pH stabilization.',
+    title: 'Hydroponic System Equipment & Nutrient Balancing Guide',
+    description: 'Commercial soil-less hydroponic farming equipment: food-grade PVC NFT channels, Deep Water Culture tanks, EC/pH inline sensors, dosing pumps & chiller units.',
+    keywords: 'hydroponics equipment, NFT channels, nutrient film technique, DWC rafts, EC pH doser, hydroponic water chiller, soilless indoor farming, modern fisheries',
+    h1: 'Hydroponics System Equipment & Nutrient Management',
+    bodyText: 'Master commercial hydroponics production using NFT channels, Dutch buckets, and Deep Water Culture (DWC). Hardware guidelines for food-grade PVC gullies, automated EC/pH dosing injection, nutrient chillers, and dissolved oxygen maintenance.',
     changefreq: 'weekly',
     priority: '0.9',
     isPrimary: true
   },
   {
     path: '/pond-farming',
-    aliases: ['/pond'],
     canonical: `${BASE_URL}/pond-farming`,
-    title: 'Earthen Pond Fish Farming & Ecosystem | Modern Fisheries',
-    description: 'Comprehensive earthen pond fish culture guides. Master pond liming, organic fertilization, stocking density, water quality testing, and natural productivity.', // 158 chars
-    keywords: 'earthen pond fish culture, pond liming, plankton bloom, fish stocking density, pond management, rohu carp tilapia, modern fisheries',
-    h1: 'Earthen Pond Fish Farming & Water Management',
-    bodyText: 'Step-by-step guides for earthen pond construction, soil liming, organic manuring, natural plankton culture, multi-species carp stocking, and harvest management.',
+    title: 'Earthen Pond Fish Farming Machinery & Equipment Guide',
+    description: 'Master earthen pond fish farming machinery & management: paddle wheel aerators, submersible pond bottom sludge cleaners, dredgers, seine drag nets & pumps.',
+    keywords: 'earthen fish pond equipment, paddle wheel aerator price india, pond bottom cleaner, silt dredger pump, earthen pond fish culture, fish harvesting nets, pond liming, pond aeration machinery',
+    h1: 'Earthen Pond Fish Farming Machinery & Water Management',
+    bodyText: 'Comprehensive technical handbook for earthen fish pond machinery: 2-paddle & 4-paddle wheel aerators, submersible bottom sludge cleaners, cutter dredgers, high-flow axial dewatering pumps, knotless nylon seine drag nets, and plankton bloom management.',
     changefreq: 'weekly',
     priority: '0.9',
     isPrimary: true
   },
   {
     path: '/fish-diseases',
-    aliases: ['/diseases'],
     canonical: `${BASE_URL}/fish-diseases`,
-    title: 'Fish Disease Diagnosis & Prevention Guide | Modern Fisheries',
-    description: 'Identify and treat bacterial, parasitic, fungal, and viral fish diseases. Master biosecurity protocols, water parameter thresholds, and treatment dosages.', // 156 chars
-    keywords: 'fish diseases diagnosis, ich disease, tail rot, red spot disease, aquaculture biosecurity, fish treatment, water quality',
-    h1: 'Fish Disease Diagnosis & Pathogen Treatment Guide',
-    bodyText: 'Diagnostic tools and treatment protocols for common freshwater fish diseases including White Spot (Ich), Gill Flukes, Bacterial Tail Rot, Saprolegnia Fungal infections, and Ammonia Toxicity.',
+    title: 'Fish Disease Diagnosis & Water Quality Testing Equipment',
+    description: 'Fish disease prevention & diagnostic equipment: optical DO meters, multiparameter photometers, compound microscopes, UV-C sterilizers & quarantine routine.',
+    keywords: 'aquaculture testing equipment, optical DO meter, fish disease diagnosis, aquaculture microscope, multiparameter photometer, UV water sterilizer, biosecurity protocols, water testing kit',
+    h1: 'Fish Disease Diagnosis, Prevention & Testing Equipment',
+    bodyText: 'Diagnostic tools, field testing gear, and biosecurity hardware for commercial fish farming. Master optical dissolved oxygen sensors, multi-parameter photometers (Ammonia/Nitrite/pH), 1000x biological microscopes, and UV-C disinfection barriers.',
     changefreq: 'weekly',
     priority: '0.9',
     isPrimary: true
   },
   {
     path: '/feeding-management',
-    aliases: ['/feed'],
     canonical: `${BASE_URL}/feeding-management`,
-    title: 'Aquaculture Feed Management & FCR Sizing | Modern Fisheries',
-    description: 'Optimize Feed Conversion Ratio (FCR) and fish nutrition. Detailed feeding rate charts, protein requirements, floating feed selection, and biomass growth.', // 154 chars
-    keywords: 'FCR calculator, fish feed management, protein percentage, floating fish feed, feeding rate chart, feed supply, modern fisheries',
-    h1: 'Aquaculture Feed Management & FCR Sizing',
-    bodyText: 'Professional feeding management guides. Calculate body-weight feeding percentages, crude protein requirements across growth stages, and optimize Feed Conversion Ratios (FCR) for higher profitability.',
+    title: 'Fish Feed Machinery, Extruders & Automated Solar Feeders',
+    description: 'Aquaculture feed machinery & management: programmable solar fish feeders, floating pellet extruders, hammer mills, batch mixers, FCR sizing & growth charts.',
+    keywords: 'automatic fish feeder, solar fish feeder, fish feed pellet machine, floating feed extruder, hammer mill pulverizer, FCR calculator, feed conversion ratio, aquaculture nutrition',
+    h1: 'Aquaculture Feed Machinery, Automated Feeders & FCR Sizing',
+    bodyText: 'Commercial feed manufacturing machinery and smart feeding automation. Specifications for floating fish feed pellet extruders, stainless steel hammer mills, horizontal ribbon mixers, solar automatic broadcast feeders, and scientific FCR optimization formulas.',
     changefreq: 'weekly',
     priority: '0.9',
     isPrimary: true
   },
   {
     path: '/calculators',
-    aliases: ['/calculator', '/calc'],
     canonical: `${BASE_URL}/calculators`,
-    title: 'Aquaculture Calculators & FCR Sizing | Modern Fisheries',
-    description: 'Free online precision aquaculture calculators for fish farmers. Instant calculation tools for FCR, tank volume, biomass growth, C:N ratio, and feed rates.', // 155 chars
-    keywords: 'aquaculture calculator, FCR calculator, tank volume calculator, fish biomass calculator, stocking density, biofloc C:N calculator',
+    title: 'Aquaculture Equipment & FCR Sizing Calculators | Modern Fisheries',
+    description: 'Free precision aquaculture calculators: aerator horsepower sizing, biofilter volume, tank capacity, FCR, biomass growth, C:N ratio & daily feeding rates.',
+    keywords: 'aquaculture calculator, aerator sizing calculator, biofilter calculator, FCR calculator, tank volume calculator, fish biomass calculator, stocking density',
     h1: 'Precision Aquaculture Calculators & Engineering Tools',
-    bodyText: 'Interactive calculators for aquaculture practitioners: Feed Conversion Ratio (FCR) solver, biofloc C:N ratio balance, circular & rectangular tank volume, stocking density, and daily feed charts.',
+    bodyText: 'Interactive engineering calculators: Paddle wheel and blower aeration horsepower sizing, moving bed biofilter media volume, circular tank water volume, FCR solver, and daily feed requirement charts.',
+    changefreq: 'weekly',
+    priority: '0.9',
+    isPrimary: true
+  },
+  {
+    path: '/equipment-finder',
+    canonical: `${BASE_URL}/equipment-finder`,
+    title: 'Fish Farming Machinery & Processing Equipment | Modern Fisheries',
+    description: 'Commercial fish farming machinery list & sizing in India: fish processing, transfer pumps, pond bottom cleaners, RAS filters & Biofloc blowers. Direct inquiry.',
+    keywords: 'fish processing machine india, fish transfer pump, pond bottom cleaner, earthen fish pond equipment, ras fish farming machinery, all in one ras, indoor ras system, biofloc equipment cost, paddle wheel aerator price india, modern fisheries',
+    h1: 'Commercial Fish Farming Machinery, Processing Equipment & Technical Sizing Desk',
+    bodyText: 'Authoritative engineering decision-support tool for commercial fish farmers. Size fish processing and scaling machinery, non-clog live fish transfer pumps, pond bottom sludge cleaners, aeration Roots blowers, and all-in-one indoor RAS skids in India. Direct technical inquiries via WhatsApp and Email.',
     changefreq: 'weekly',
     priority: '0.9',
     isPrimary: true
   },
   {
     path: '/ourservices',
-    aliases: ['/services', '/shopping', '/shop'],
     canonical: `${BASE_URL}/ourservices`,
-    title: 'Engineering Resources & Scientific Consultancy | Modern Fisheries',
-    description: 'Educational engineering resources, RAS blueprint consultations, bio-filtration models, and aquatic diagnostic methodologies.',
-    keywords: 'aquaculture engineering, RAS design, biofiltration models, water testing, modern fisheries research',
-    h1: 'Aquaculture Bio-Engineering & Technical Resources',
-    bodyText: 'Modern Fisheries provides peer-reviewed engineering schematics, water quality diagnostic frameworks, and educational consultations for recirculating aquaculture systems.',
-    changefreq: 'monthly',
-    priority: '0.8',
+    title: 'Turnkey Aquaculture Machinery Setup & RAS Engineering Blueprints',
+    description: 'Professional aquaculture engineering & equipment procurement: turnkey RAS modular skids, pond aeration grids, biofloc blowers, and fish processing machinery.',
+    keywords: 'turnkey ras setup, aquaculture equipment supplier, fish processing machinery india, commercial aeration engineering, hatchery equipment setup, modern fisheries consultancy',
+    h1: 'Turnkey Aquaculture Machinery Engineering & Equipment Setup',
+    bodyText: 'Modern Fisheries provides full-scope turnkey aquaculture engineering, commercial equipment procurement, RAS modular skid integration, pond aeration grid sizing, and hatchery incubation machinery.',
+    changefreq: 'weekly',
+    priority: '0.85',
     isPrimary: true
   },
   {
     path: '/about-us',
-    aliases: ['/about'],
     canonical: `${BASE_URL}/about-us`,
     title: 'About Modern Fisheries | Aquaculture Solutions & Services',
     description: "Learn about Modern Fisheries - India's premier aquaculture portal offering turnkey RAS design, commercial fish feed supply, seed distribution & consultancy.", // 156 chars
@@ -194,7 +220,6 @@ const PAGE_METADATA = [
   },
   {
     path: '/farming-videos',
-    aliases: ['/videos'],
     canonical: `${BASE_URL}/farming-videos`,
     title: 'Aquaculture Video Tutorials & Farm Guides | Modern Fisheries',
     description: 'Watch high-definition aquaculture video tutorials on RAS design, Biofloc systems, Aquaponics, fish disease diagnosis, and feeding by Modern Fisheries.', // 153 chars
@@ -207,7 +232,6 @@ const PAGE_METADATA = [
   },
   {
     path: '/faq',
-    aliases: ['/frequently-asked-questions'],
     canonical: `${BASE_URL}/faq`,
     title: 'Fish Farming FAQ & Knowledge Base Guide | Modern Fisheries',
     description: 'Get expert answers to Frequently Asked Questions about Biofloc C:N ratios, RAS design, biofilter sizing, fish stocking density, and disease treatments.', // 152 chars
@@ -220,7 +244,6 @@ const PAGE_METADATA = [
   },
   {
     path: '/privacy-policy',
-    aliases: ['/privacy'],
     canonical: `${BASE_URL}/privacy-policy`,
     title: 'Privacy Policy & Terms of Service | Modern Fisheries',
     description: 'Official privacy policy, Google AdSense cookie disclosures, user data protection guidelines, and technical aquaculture disclaimers for Modern Fisheries.', // 152 chars
@@ -329,6 +352,273 @@ function renderCustomPageHtml(baseHtml, meta) {
     html = html.replace(/<!-- Schema\.org FAQPage Structured Data -->[\s\S]*?<\/script>/s, calculatorSchema);
   }
 
+  if (meta.path === '/equipment-finder') {
+    const equipmentSchema = `<!-- Schema.org WebApplication & Custom FAQPage for Equipment Finder -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Modern Fisheries Commercial Aquaculture Equipment Sizing Guide & Inquiry Desk",
+        "url": "https://modernfisheriese.com/equipment-finder",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "description": "Comprehensive engineering directory and sizing calculator for Biofloc, RAS, and pond aquaculture machinery in India. Inquire specifications directly via WhatsApp and Email.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What equipment do I need for a 10,000 liter Biofloc fish tank?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A 10,000-liter (10 m³) commercial Biofloc tank requires: (1) High-pressure Roots air blower or diaphragm pump delivering 250–350 LPM at ≥140 mbar, (2) 16mm micro-pore aeration diffuser rings, (3) Optical DO meter for monitoring dissolved oxygen above 5.0 mg/L, (4) Commercial tarpaulin circular tank (550–650 GSM PVC/HDPE with GI mesh frame), (5) Imhoff cone for floc volume tracking (15–25 mL/L target), and (6) Emergency generator backup with an ATS switch."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the typical price range and cost of aquaculture equipment in India?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Commercial equipment prices in India vary by capacity and motor specification: (1) Twin-Lobe Roots Blowers (1.5 HP to 3 HP): ₹24,000 – ₹58,000, (2) Rotary Drum Filters (20 m³/hr to 60 m³/hr capacity): ₹95,000 – ₹2,40,000, (3) 1 HP to 2 HP 4-Paddle Wheel Aerators: ₹18,000 – ₹32,000, (4) Optical Dissolved Oxygen (DO) Meters: ₹35,000 – ₹65,000, (5) Circular Tarpaulin Tanks (10,000L to 30,000L): ₹12,000 – ₹35,000, and (6) Submersible Solids-Handling Sludge Pumps: ₹8,500 – ₹22,000."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I calculate air blower size (CFM & LPM) for Biofloc aeration?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In intensive Biofloc systems, heterotrophic bacteria and fish create massive continuous biological oxygen demand (BOD). The engineering standard is 25 to 35 Litres Per Minute (LPM) of air per cubic meter (m³) of water. For example, a 60 m³ system requires: 60 m³ × 30 LPM = 1,800 LPM. To convert LPM to CFM (Cubic Feet per Minute), divide by 28.317: 1,800 LPM ÷ 28.317 ≈ 63.6 CFM."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why do ring blowers fail in deep fish tanks and what is the alternative?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ring blowers (regenerative blowers) are designed to move high volumes of air at low static head pressure (typically <80–100 mbar). When submerged diffusers are placed at 1.2m to 1.5m water depth, the hydrostatic water column pushes back with 120–150 mbar of head pressure. This forces the ring blower into stall mode, causing the motor coils to overheat and trip the thermal breaker. The correct engineering solution is a positive-displacement Twin-Lobe Roots Blower, which maintains constant volumetric displacement regardless of water depth."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What micron rating is required for an automatic drum filter in RAS?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For Recirculating Aquaculture Systems (RAS), micro-screen drum filters must use a 40 to 60 micron mesh (316L stainless steel or woven polyester). A mesh coarser than 70–80 microns allows intact fecal pellets to degrade into dissolved toxic ammonia (TAN). Conversely, a mesh finer than 30 microns blinds within minutes, triggering non-stop backwashing and wasting system water."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many paddle wheel aerators do I need per acre of earthen pond?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The standard rule of thumb for semi-intensive fish and shrimp farming is 1.0 HP of paddle wheel aeration for every 1,000 kg of target harvest biomass. For a pond with a harvest target of 4,000 kg per acre, deploy four 1.0 HP units or two 2.0 HP units. Position aerators in opposing corners to create a circular water current that concentrates pond sediment in the center drain."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can commercial aquaculture machinery run on domestic single-phase electricity in India?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Small-scale equipment up to 1.5 HP (such as small blowers, mini aeration pumps, and dosing units) can run on 220V single-phase power. However, commercial 2.0 HP+ Roots blowers, industrial drum filters, and large circulation pumps require 415V 3-phase industrial power to prevent excessive starting current draws and voltage drops. If 3-phase is unavailable at your site, you must install a single-phase to 3-phase Variable Frequency Drive (VFD)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What fish processing and handling machinery is required for commercial fish harvesting?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A commercial aquaculture harvest line requires: (1) Knotless seine nets and live fish transfer pumps (4-inch to 6-inch non-clog vortex or vacuum) to move fish without scale loss, (2) Stainless steel (SS304) live fish grading boxes to sort fingerlings or market biomass by size, (3) Rotary fish descaling machines capable of scaling 25–30 kg per 3-minute batch, (4) Food-grade SS304 filleting and evisceration tables with overhead washdown nozzles, and (5) Commercial flake ice machines (1 to 3 tons/day) maintaining a 1:1 ice-to-fish rapid chilling ratio for cold chain transport."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does a pond bottom sludge cleaner work in earthen fish ponds?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A submersible pond bottom sludge cleaner utilizes a heavy-duty slurry pump fitted with a tungsten-carbide vortex cutter impeller. Guided along the pond floor via floating pontoons or telescopic booms, it vacuums accumulated black anaerobic muck (decaying feed and fecal waste) and pumps it out through a 3-inch discharge hose to exterior drying beds. This clears toxic hydrogen sulfide (H2S) deposits without draining the pond or halting fish growth."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is an all-in-one compact indoor RAS skid and what tank volume does it support?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An all-in-one indoor RAS skid is a factory pre-engineered, plug-and-play water treatment station combining a 50-micron automatic rotary drum filter, an aerated moving bed biofilm reactor (MBBR) filled with K1 virgin media, a counter-current protein skimmer, an inline amalgam UV-C sterilizer, and a high-flow circulation pump on a single structural base. Modular skids typically support culture volumes between 10 m³ and 60 m³ with zero on-site piping errors."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do live fish transfer pumps move fish without mortality or scale damage?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Modern fish transfer pumps utilize recessed vortex impellers or dual-chamber vacuum suction tanks where live fish are suspended in a continuous water stream (typically 3 parts water to 1 part fish). Because fish never touch moving mechanical impeller blades directly, scale mucus membranes remain intact, eliminating transit abrasions and stress-induced bacterial ulcers during grading or harvest loading."
+            }
+          }
+        ]
+      }
+    </script>`;
+    html = html.replace(/<!-- Schema\.org FAQPage Structured Data -->[\s\S]*?<\/script>/s, equipmentSchema);
+  }
+
+  if (meta.path === '/fish-diseases') {
+    const diseasesSchema = `<!-- Schema.org MedicalWebPage & Custom FAQPage for Fish Diseases -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MedicalWebPage",
+        "name": "Freshwater Fish Disease Diagnosis & Veterinary Treatment Handbook",
+        "url": "https://modernfisheriese.com/fish-diseases",
+        "description": "Comprehensive diagnostic handbook and immersion bath treatment guide for freshwater fish pathogens including Ich, Bacterial Gill Rot, EUS, Saprolegnia, Dropsy, and Argulus.",
+        "about": [
+          "Fish Pathology",
+          "Aquaculture Veterinary Medicine",
+          "Fish Disease Treatment",
+          "Biosecurity Protocols"
+        ],
+        "publisher": {
+          "@type": "Organization",
+          "name": "Modern Fisheries Health Desk",
+          "url": "https://modernfisheriese.com/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What are the earliest warning signs of disease in commercial fish tanks?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The earliest behavioral indicator is sudden feed refusal or reduction in feeding vigor. Other subtle signs include fish grouping near water inlets or aeration stones (piping for air), flashing against tank walls, clamped dorsal and pectoral fins, excess body mucus, and erratic solitary swimming away from the main school."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I safely calculate Potassium Permanganate (KMnO4) bath dosages?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Calculate exact tank volume in cubic meters. Apply 2.0 to 4.0 grams of KMnO4 per cubic meter (1 m³ = 1,000 Litres). Pre-dissolve KMnO4 crystals completely in a bucket of warm water before broadcasting evenly across the pond surface. Ensure the water retains a wine-red or pinkish hue for at least 4 hours. If it turns muddy brown within 30 minutes, organic matter has neutralized the chemical."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I differentiate between Bacterial Gill Rot and sub-lethal hypoxia?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In sub-lethal hypoxia (low dissolved oxygen), all fish gasp at the surface simultaneously during dawn, but their gill filaments appear cherry-red and intact. In Bacterial Gill Rot (Columnaris), individual fish show localized white or yellowish necrotic patches, ragged ragged filaments covered in grey mucus, and continue gasping even when dissolved oxygen levels are elevated above 6.0 mg/L."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why do common salt baths work effectively against freshwater fish parasites?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Freshwater fish and protozoan parasites maintain internal body osmolarity around 9 to 10 ppt. When placed in a 20 to 30 ppt (2–3%) salt bath, rapid osmotic shock draws water out of microscopic single-celled parasites (Ich, Costia, Trichodina), causing them to collapse and detach. Freshwater fish tolerate this osmotic shift for 10–15 minutes while shedding compromised skin mucus."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What biosecurity measures prevent introducing pathogens into high-density RAS or Biofloc systems?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Strict biosecurity requires: 1) Sourcing certified disease-free (SPF) fingerlings, 2) Maintaining dedicated nets and buckets per tank, sanitized in 200 ppm chlorine between uses, 3) Implementing a 14-day quarantine tank routine for all new stock, 4) Operating inline germicidal UV-C sterilizers at >30 mJ/cm², and 5) Maintaining disinfectant footwear footbaths at farm entry points."
+            }
+          }
+        ]
+      }
+    </script>`;
+    html = html.replace(/<!-- Schema\.org FAQPage Structured Data -->[\s\S]*?<\/script>/s, diseasesSchema);
+  }
+
+  if (meta.path === '/aquaponic') {
+    const rasSchema = `<!-- Schema.org TechArticle & Custom FAQPage for RAS & Aquaponics -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Recirculating Aquaculture System (RAS) Machinery Specifications & Aquaponics Engineering",
+        "url": "https://modernfisheriese.com/aquaponic",
+        "description": "Commercial engineering blueprint for industrial indoor RAS and decoupled aquaponics. Sizing automated rotary drum filters, MBBR biofilters, pure oxygen Speece cones, and UV sterilizers.",
+        "author": {
+          "@type": "Organization",
+          "name": "Modern Fisheries Engineering Desk"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Modern Fisheries",
+          "url": "https://modernfisheriese.com/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is a Recirculating Aquaculture System (RAS) and how does it integrate with aquaponics?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "RAS is a closed-loop land-based aquaculture engineering system that recycles 90% to 99% of culture water by cycling it through mechanical solids removal (drum filters), biological nitrification (MBBR), CO2 degassing, and UV sterilization. In commercial decoupled aquaponics, nutrient-rich solids and nitrate effluent from the RAS are mineralized and delivered to hydroponic plant beds to produce both fish and organic vegetables."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I size an automatic rotary drum filter for an indoor RAS setup?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Drum filters are sized based on total hourly hydraulic flow rate and peak suspended solids load. The drum filter's rated hydraulic throughput must match 100% to 150% of the entire farm water volume per hour, using a 40 to 60 micron stainless steel 316L woven screen mesh to capture intact fecal pellets before they dissolve into ammonia."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What volume of K1 / MBBR biofilter media is required per kilogram of feed fed daily?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For commercial 32% protein extruded fish feed, every 1.0 kg of daily feed generates approximately 30 grams of Total Ammonia Nitrogen (TAN). At a biological conversion rate of 0.55 g TAN/m²/day on virgin HDPE K1 media (800 m²/m³ protected surface area), each kilogram of feed requires approximately 75 to 90 litres of fluidized K1 media."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why are Speece oxygen cones and pure oxygen systems necessary in high-density RAS?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Atmospheric air contains only 21% oxygen, which limits DO saturation to ~8 mg/L at 28°C. In high-density culture (>60 kg/m³), biological oxygen demand quickly exceeds atmospheric transfer rates. Speece cones dissolve 95%+ pure O2 at 1.5–2.0 bar pressure, supersaturating sidestream water up to 30–45 mg/L to maintain tank DO safely above 6.0 mg/L."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What UV-C germicidal dosage is needed to eliminate fish pathogens in recirculation loops?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Commercial RAS requires a minimum germicidal UV-C radiation dosage of 30 to 45 mJ/cm² (30,000 to 45,000 µW·s/cm²) at 254 nm wavelength at end-of-lamp-life (EOLL) under 85% UV transmittance. This destroys viral pathogens, Aeromonas bacteria, and free-swimming parasite tomites."
+            }
+          }
+        ]
+      }
+    </script>`;
+    html = html.replace(/<!-- Schema\.org FAQPage Structured Data -->[\s\S]*?<\/script>/s, rasSchema);
+  }
+
+  // Remove homepage Periodical structured data from non-root pages to eliminate duplicate cross-page signals
+  if (meta.path !== '/') {
+    html = html.replace(/<!-- Schema\.org Periodical \/ Academic Journal Structured Data -->[\s\S]*?<\/script>\s*/s, '');
+  }
+
   // Pre-render rich semantic HTML inside <div id="root">
   if (meta.path !== '/') {
     const mainBody = RICH_PAGE_BODIES[meta.path] || `
@@ -355,6 +645,10 @@ function renderCustomPageHtml(baseHtml, meta) {
             <a href="/aquaponics-farming" style="color:#0284c7;text-decoration:none;">Aquaponics</a>
             <a href="/bioflock" style="color:#0284c7;text-decoration:none;">Biofloc</a>
             <a href="/aquaponic" style="color:#0284c7;text-decoration:none;">RAS</a>
+            <a href="/pond-farming" style="color:#0284c7;text-decoration:none;">Pond</a>
+            <a href="/fish-diseases" style="color:#0284c7;text-decoration:none;">Diseases</a>
+            <a href="/feeding-management" style="color:#0284c7;text-decoration:none;">Feeding</a>
+            <a href="/equipment-finder" style="color:#0284c7;text-decoration:none;">Equipment</a>
             <a href="/calculators" style="color:#0284c7;text-decoration:none;">Calculators</a>
             <a href="/ourservices" style="color:#0284c7;text-decoration:none;">Services</a>
           </nav>
@@ -363,12 +657,24 @@ function renderCustomPageHtml(baseHtml, meta) {
           ${mainBody}
         </main>
         <footer style="border-top:1px solid #e2e8f0;padding-top:20px;margin-top:32px;color:#64748b;font-size:14px;">
-          Modern Fisheries &copy; Turnkey Aquaculture Portal. Phone: +91 97489 52342
+          Modern Fisheries &copy; 2026 Turnkey Aquaculture Portal. WhatsApp &amp; Engineering Support: +91 97489 52342
         </footer>
       </div>
     </div>`.trim();
 
-    html = html.replace(/<div id="root">[\s\S]*?<\/div>\s*<\/body>/s, `${rootContent}\n  </body>`);
+    const rootStart = html.indexOf('<div id="root">');
+    let scriptStart = html.indexOf('<!-- Application Script Entry Point -->');
+    if (scriptStart === -1) {
+      scriptStart = html.indexOf('<script type="module"');
+    }
+    if (scriptStart === -1) {
+      scriptStart = html.indexOf('</body>');
+    }
+    if (rootStart !== -1 && scriptStart !== -1 && scriptStart > rootStart) {
+      html = html.slice(0, rootStart) + rootContent + '\n\n    ' + html.slice(scriptStart);
+    } else {
+      html = html.replace(/<div id="root">[\s\S]*?<\/div>(\s*<!-- Application Script Entry Point -->)?\s*<script[^>]*><\/script>/s, `${rootContent}\n\n    <script type="module" src="/src/main.tsx"></script>`);
+    }
   }
 
   return html;
@@ -456,32 +762,41 @@ function formatSeoDescription(desc, suffix = 'Watch expert aquaculture video tut
   return combined.padEnd(152, '.');
 }
 
-// Function to generate 301-style HTML redirect for alias routes to avoid duplicate title tags in search engines
-function renderRedirectPageHtml(primaryCanonical, pageTitle) {
-  let redirectTitle = `Redirecting to ${pageTitle}`;
-  if (redirectTitle.length < 50) {
-    redirectTitle = `Redirecting to ${pageTitle} | Modern Fisheries`;
-  }
-  if (redirectTitle.length > 60) {
-    redirectTitle = redirectTitle.slice(0, 57) + '...';
-  }
-  const redirectDesc = formatSeoDescription(`Official redirect link to ${pageTitle} at Modern Fisheries premier aquaculture portal.`);
+// Function to generate HTTP 410 Gone HTML for permanently removed legacy alias routes
+function render410PageHtml(removedPath) {
+  const cleanPath = removedPath.replace(/^\//, '');
   return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>${escapeHtml(redirectTitle)}</title>
-    <meta name="description" content="${escapeHtml(redirectDesc)}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>410 Gone | Resource Permanently Removed - Modern Fisheries</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="googlebot" content="noindex, follow" />
-    <meta http-equiv="refresh" content="0;url=${primaryCanonical}" />
-    <link rel="canonical" href="${primaryCanonical}" />
-    <script type="text/javascript">
-      window.location.replace("${primaryCanonical}");
-    </script>
+    <meta name="prerender-status-code" content="410" />
+    <meta name="description" content="The requested legacy resource has been permanently removed and decommissioned at Modern Fisheries." />
+    <style>
+      body { font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; color: #1e293b; margin: 0; padding: 40px 20px; display: flex; align-items: center; justify-content: center; min-height: 80vh; }
+      .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; max-width: 540px; width: 100%; padding: 36px 28px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+      .badge { display: inline-block; background: #fee2e2; color: #b91c1c; font-weight: 700; font-size: 13px; padding: 4px 12px; border-radius: 9999px; margin-bottom: 14px; text-transform: uppercase; }
+      h1 { font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 12px 0; }
+      p { font-size: 15px; color: #475569; line-height: 1.6; margin: 0 0 24px 0; }
+      .links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+      .btn { display: inline-block; background: #059669; color: #fff; text-decoration: none; font-weight: 600; padding: 10px 18px; border-radius: 8px; font-size: 14px; }
+      .btn-outline { display: inline-block; background: #f1f5f9; color: #334155; text-decoration: none; font-weight: 600; padding: 10px 18px; border-radius: 8px; font-size: 14px; }
+    </style>
   </head>
   <body>
-    <p>Redirecting to <a href="${primaryCanonical}">${escapeHtml(pageTitle)}</a>...</p>
+    <div class="card">
+      <div class="badge">HTTP 410 Gone</div>
+      <h1>Resource Permanently Removed</h1>
+      <p>The requested URL (<code>/${escapeHtml(cleanPath)}</code>) has been permanently removed and decommissioned. Explore our official aquaculture guides and calculation tools below.</p>
+      <div class="links">
+        <a href="/" class="btn">Modern Fisheries Home</a>
+        <a href="/pond-farming" class="btn-outline">Pond Limnology</a>
+        <a href="/calculators" class="btn-outline">Calculators</a>
+      </div>
+    </div>
   </body>
 </html>`;
 }
@@ -530,21 +845,6 @@ PAGE_METADATA.forEach((page) => {
     console.log(`✓ Generated primary static route: dist/${routeName}/index.html & dist/${routeName}.html`);
   }
 
-  // Generate physical HTML pages for aliases so every URL represents a real physical page without redirects
-  if (page.aliases && page.aliases.length > 0) {
-    page.aliases.forEach((aliasPath) => {
-      const aliasName = aliasPath.replace(/^\//, '');
-      const aliasDir = path.join(distDir, aliasName);
-      fs.mkdirSync(aliasDir, { recursive: true });
-
-      // Physical HTML page for alias with canonical tag pointing to primary canonical URL
-      const physicalAliasHtml = renderCustomPageHtml(baseIndexHtml, page);
-      fs.writeFileSync(path.join(aliasDir, 'index.html'), physicalAliasHtml);
-      fs.writeFileSync(path.join(distDir, `${aliasName}.html`), physicalAliasHtml);
-      console.log(`✓ Generated physical alias page: dist/${aliasName}/index.html & dist/${aliasName}.html -> canonical: ${page.canonical}`);
-    });
-  }
-
   // Add primary page URL to sitemap
   sitemapUrls.push({
     url: page.canonical,
@@ -553,19 +853,47 @@ PAGE_METADATA.forEach((page) => {
   });
 });
 
+// 2.5 Generate static 410 Gone HTML files for decommissioned legacy alias routes
+// Clean up any legacy alias directories to eliminate directory trailing-slash redirects
+const DEPRECATED_LEGACY_ROUTES = [
+  'pond',
+  'home',
+  'videos',
+  'biofloc',
+  'hydroponics',
+  'feed',
+  'diseases',
+  'ras',
+  'aquaponics',
+  'calculator',
+  'services',
+  'about',
+  'privacy'
+];
+
+DEPRECATED_LEGACY_ROUTES.forEach((legacyRoute) => {
+  // Remove legacy directory if it exists to eliminate directoryslash redirects
+  const legacyDir = path.join(distDir, legacyRoute);
+  if (fs.existsSync(legacyDir)) {
+    fs.rmSync(legacyDir, { recursive: true, force: true });
+    console.log(`✓ Cleaned up deprecated directory: dist/${legacyRoute}`);
+  }
+  // Write static 410 HTML file
+  const html410 = render410PageHtml(`/${legacyRoute}`);
+  fs.writeFileSync(path.join(distDir, `${legacyRoute}.html`), html410);
+  console.log(`✓ Generated 410 Gone response: dist/${legacyRoute}.html`);
+});
+
+// Also write dist/410.html and dist/410/index.html
+const generic410Html = render410PageHtml('/resource');
+fs.writeFileSync(path.join(distDir, '410.html'), generic410Html);
+const dist410Dir = path.join(distDir, '410');
+fs.mkdirSync(dist410Dir, { recursive: true });
+fs.writeFileSync(path.join(dist410Dir, 'index.html'), generic410Html);
+
 // 3. Generate static HTML files for video pages (full physical pages for all routes)
 const videoBaseDir = path.join(distDir, 'video');
 fs.mkdirSync(videoBaseDir, { recursive: true });
-
-// Also generate physical /video.html, /videos.html, /video/index.html, and /videos/index.html for farming videos hub
-const farmingVideosPageMeta = PAGE_METADATA.find((p) => p.path === '/farming-videos') || PAGE_METADATA[0];
-const farmingVideosHtml = renderCustomPageHtml(baseIndexHtml, farmingVideosPageMeta);
-fs.writeFileSync(path.join(distDir, 'video.html'), farmingVideosHtml);
-fs.writeFileSync(path.join(distDir, 'videos.html'), farmingVideosHtml);
-const videosDir = path.join(distDir, 'videos');
-fs.mkdirSync(videosDir, { recursive: true });
-fs.writeFileSync(path.join(videosDir, 'index.html'), farmingVideosHtml);
-fs.writeFileSync(path.join(videoBaseDir, 'index.html'), farmingVideosHtml);
 
 videos.forEach((v) => {
   const slug = createSlug(v.title);
@@ -602,6 +930,106 @@ videos.forEach((v) => {
   });
 
   console.log(`✓ Generated physical video routes: dist/${fullSlugRoute}.html, dist/${fullSlugRoute}/index.html, dist/${shortRoute}.html, dist/${shortRoute}/index.html`);
+});
+
+// 3.5 Generate static HTML routes and Product schema for all 24 individual equipment items
+const equipmentBaseDir = path.join(distDir, 'equipment');
+fs.mkdirSync(equipmentBaseDir, { recursive: true });
+
+equipmentList.forEach((eq) => {
+  const eqRoute = `equipment/${eq.slug}`;
+  const eqCanonical = `${BASE_URL}/${eqRoute}`;
+
+  let eqTitle = `${eq.name} Sizing & Specifications | Modern Fisheries`;
+  if (eqTitle.length < 50) {
+    eqTitle = `${eq.name} Sizing & Equipment Specs | Modern Fisheries`;
+  }
+  if (eqTitle.length > 60) {
+    eqTitle = eqTitle.slice(0, 57) + '...';
+  }
+
+  const eqDesc = formatSeoDescription(`${eq.name}: ${eq.tagline}. ${eq.purpose}`);
+
+  const productSchema = `
+  <!-- Schema.org Product Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "${escapeHtml(eq.name)}",
+    "description": "${escapeHtml(eq.tagline)}",
+    "category": "${escapeHtml(eq.category)}",
+    "brand": {
+      "@type": "Brand",
+      "name": "Modern Fisheries"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "INR",
+      "availability": "https://schema.org/InStock",
+      "url": "${eqCanonical}"
+    }
+  }
+  </script>`;
+
+  const eqBodyHtml = `
+    <article style="max-width:1000px;margin:0 auto;color:#1e293b;line-height:1.75;font-size:16px;">
+      <header style="margin-bottom:32px;border-bottom:1px solid #e2e8f0;padding-bottom:20px;">
+        <span style="font-size:13px;font-weight:700;color:#0284c7;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:6px;">Aquaculture Machinery Catalog &bull; ${escapeHtml(eq.category.toUpperCase())}</span>
+        <h1 style="font-size:32px;font-weight:800;color:#0f172a;line-height:1.25;margin:0 0 12px 0;">${escapeHtml(eq.name)}</h1>
+        <p style="font-size:17px;color:#475569;margin:0;line-height:1.6;">${escapeHtml(eq.tagline)}</p>
+      </header>
+
+      <section style="margin-bottom:36px;">
+        <h2 style="font-size:22px;font-weight:700;color:#0f172a;margin-bottom:12px;border-left:4px solid #0284c7;padding-left:12px;">Primary Operating Purpose</h2>
+        <p style="font-size:16px;color:#334155;">${escapeHtml(eq.purpose)}</p>
+      </section>
+
+      <section style="margin-bottom:36px;">
+        <h2 style="font-size:22px;font-weight:700;color:#0f172a;margin-bottom:12px;border-left:4px solid #0284c7;padding-left:12px;">Why Essential for Commercial Aquaculture</h2>
+        <p style="font-size:16px;color:#334155;">${escapeHtml(eq.whyRequired)}</p>
+      </section>
+
+      <div style="background:#f8fafc;border:1px solid #cbd5e1;padding:24px;border-radius:12px;margin-bottom:36px;">
+        <h3 style="font-size:18px;font-weight:700;color:#0369a1;margin:0 0 10px 0;">Technical Sizing &amp; Manufacturer Quotation</h3>
+        <p style="font-size:15px;color:#475569;margin:0 0 16px 0;">Request verified pricing, single vs three-phase motor compatibility, and pan-India freight delivery timelines from Modern Fisheries Engineering Desk.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="/equipment-finder?item=${eq.slug}" style="background:#0284c7;color:#ffffff;padding:10px 20px;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px;">Open Interactive Sizing Finder &rarr;</a>
+          <a href="https://wa.me/919748952342?text=Hello%20Modern%20Fisheries,%20I%20am%20inquiring%20about%20${encodeURIComponent(eq.name)}%20pricing%20and%20specifications." style="background:#16a34a;color:#ffffff;padding:10px 20px;border-radius:6px;font-weight:700;text-decoration:none;font-size:14px;">WhatsApp Technical Desk &rarr;</a>
+        </div>
+      </div>
+    </article>
+  `;
+
+  // Register in RICH_PAGE_BODIES dynamically
+  RICH_PAGE_BODIES[`/${eqRoute}`] = eqBodyHtml;
+
+  const eqMeta = {
+    path: `/${eqRoute}`,
+    canonical: eqCanonical,
+    title: eqTitle,
+    description: eqDesc,
+    keywords: `${eq.name}, ${eq.category}, aquaculture equipment, fish farming machinery, modern fisheries`,
+    h1: `${eq.name} - Commercial Aquaculture Equipment`,
+    bodyText: `${eq.tagline} - ${eq.purpose}`
+  };
+
+  let customEqHtml = renderCustomPageHtml(baseIndexHtml, eqMeta);
+  // Inject Product structured data into head
+  customEqHtml = customEqHtml.replace('</head>', `${productSchema}\n</head>`);
+
+  const eqDir = path.join(distDir, eqRoute);
+  fs.mkdirSync(eqDir, { recursive: true });
+  fs.writeFileSync(path.join(eqDir, 'index.html'), customEqHtml);
+  fs.writeFileSync(path.join(distDir, `${eqRoute}.html`), customEqHtml);
+
+  sitemapUrls.push({
+    url: eqCanonical,
+    changefreq: 'weekly',
+    priority: '0.9'
+  });
+
+  console.log(`✓ Generated equipment route: dist/${eqRoute}/index.html & dist/${eqRoute}.html`);
 });
 
 // 4. Generate XML Sitemap with strict canonical filtering (no trailing slashes except root)

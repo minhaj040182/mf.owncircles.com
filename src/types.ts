@@ -42,3 +42,81 @@ export interface CalculatorResult {
   daysToHarvest: number;
   healthStatus: "Excellent" | "Optimal" | "Warning (Water Temp)" | "Critical (Temp)";
 }
+
+export type FarmingSystemId = "ras" | "biofloc" | "pond" | "aquaponics" | "hatchery" | "cage";
+
+export type EquipmentCategory = 
+  | "aeration" 
+  | "pumping" 
+  | "filtration" 
+  | "monitoring" 
+  | "feeding" 
+  | "handling" 
+  | "processing";
+
+export interface EquipmentItem {
+  id: string;
+  slug: string;
+  name: string;
+  category: EquipmentCategory;
+  tagline: string;
+  purpose: string;
+  whyRequired: string;
+  farmingSystems: FarmingSystemId[];
+  applicableSpecies: string[];
+  whenRequired: string;
+  specificationGuidance: string;
+  sizingGuidance: string;
+  calculateRecommendedCapacity?: (volumeM3: number, biomassKg: number, fishCount: number) => {
+    specification: string;
+    unit: string;
+    rationale: string;
+  };
+  powerConsiderations: string;
+  maintenanceGuidance: string[];
+  buyingChecklist: string[];
+  commonMistakes: string[];
+  relatedCalculatorId?: "volume" | "stocking" | "fcr" | "carbon" | "treatment" | "feed" | "profit" | "water";
+  relatedArticlePath?: string;
+  relatedArticleTitle?: string;
+  importanceTier: "Essential (Core)" | "Highly Recommended" | "Advanced / Commercial";
+}
+
+export type SupplierVerificationStatus = "Verified" | "Approved" | "Pending Review" | "Draft" | "Rejected";
+export type SupplierTier = "Standard" | "Verified" | "Featured";
+
+export interface SupplierItem {
+  id: string;
+  businessName: string;
+  description: string;
+  country: string; // "India"
+  state: string;
+  city: string;
+  address: string;
+  pinCode: string;
+  equipmentCategories: EquipmentCategory[];
+  equipmentSlugs: string[];
+  serviceArea: string;
+  panIndiaDelivery: boolean;
+  phone: string;
+  email: string;
+  website?: string;
+  verificationStatus: SupplierVerificationStatus;
+  tier: SupplierTier;
+  yearEstablished: number;
+}
+
+export interface QuoteRequestInquiry {
+  id: string;
+  timestamp: string;
+  farmerName: string;
+  phone: string;
+  email: string;
+  state: string;
+  city: string;
+  farmingSystem: FarmingSystemId;
+  equipmentSlugs: string[];
+  notes?: string;
+  farmVolumeM3?: number;
+  biomassKg?: number;
+}

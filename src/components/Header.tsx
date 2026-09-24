@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Fish, Video, Calculator, Droplet, Home, Info, Phone, Menu, X, ExternalLink, Sparkles, Sprout, Waves, HeartPulse, Layers, ShoppingBag, ZoomIn, ZoomOut, Type, HelpCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import { Fish, Video, Calculator, Droplet, Home, Info, Phone, Menu, X, ExternalLink, Sparkles, Sprout, Waves, HeartPulse, Layers, ShoppingBag, ZoomIn, ZoomOut, Type, HelpCircle, ChevronLeft, ChevronRight, Wrench } from "lucide-react";
 import LanguageTranslator from "./LanguageTranslator";
 import BrandLogo from "./BrandLogo";
 
 interface HeaderProps {
   currentPage: string;
-  onPageChange: (page: "home" | "ras" | "biofloc" | "aquaponics" | "hydroponics" | "pond" | "diseases" | "feed" | "calculators" | "services" | "about" | "privacy" | "videos" | "faq") => void;
+  onPageChange: (page: "home" | "ras" | "biofloc" | "aquaponics" | "hydroponics" | "pond" | "diseases" | "feed" | "calculators" | "equipment-finder" | "services" | "about" | "privacy" | "videos" | "faq") => void;
 }
 
 export default function Header({ currentPage, onPageChange }: HeaderProps) {
@@ -97,6 +97,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
     { id: "diseases", label: "Fish Pathology", icon: HeartPulse },
     { id: "feed", label: "Feed & FCR Science", icon: Calculator },
     { id: "calculators", label: "Calculators Lab", icon: Calculator },
+    { id: "equipment-finder", label: "Equipment Finder", icon: Wrench },
     { id: "faq", label: "Research FAQ", icon: HelpCircle },
     { id: "services", label: "Engineering Specs", icon: Layers },
     { id: "about", label: "Editorial Board", icon: Info },
