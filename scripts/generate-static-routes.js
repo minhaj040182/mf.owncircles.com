@@ -53,17 +53,18 @@ function extractEquipment() {
   if (!fs.existsSync(eqPath)) return [];
   const content = fs.readFileSync(eqPath, 'utf-8');
   const items = [];
-  const regex = /id:\s*["']([^"']+)["'],\s*slug:\s*["']([^"']+)["'],\s*name:\s*["']([^"']+)["'],\s*category:\s*["']([^"']+)["'][\s\S]*?tagline:\s*["']([^"']+)["'][\s\S]*?purpose:\s*["']([^"']+)["'][\s\S]*?whyRequired:\s*["']([^"']+)["']/g;
+  const regex = /id:\s*["']([^"']+)["'],\s*slug:\s*["']([^"']+)["'],(?:\s*imageUrl:\s*["']([^"']+)["'],)?\s*name:\s*["']([^"']+)["'],\s*category:\s*["']([^"']+)["'][\s\S]*?tagline:\s*["']([^"']+)["'][\s\S]*?purpose:\s*["']([^"']+)["'][\s\S]*?whyRequired:\s*["']([^"']+)["']/g;
   let match;
   while ((match = regex.exec(content)) !== null) {
     items.push({
       id: match[1],
       slug: match[2],
-      name: match[3],
-      category: match[4],
-      tagline: match[5],
-      purpose: match[6],
-      whyRequired: match[7]
+      imageUrl: match[3] || '',
+      name: match[4],
+      category: match[5],
+      tagline: match[6],
+      purpose: match[7],
+      whyRequired: match[8]
     });
   }
   return items;
@@ -977,7 +978,11 @@ equipmentList.forEach((eq) => {
       <header style="margin-bottom:32px;border-bottom:1px solid #e2e8f0;padding-bottom:20px;">
         <span style="font-size:13px;font-weight:700;color:#0284c7;text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:6px;">Aquaculture Machinery Catalog &bull; ${escapeHtml(eq.category.toUpperCase())}</span>
         <h1 style="font-size:32px;font-weight:800;color:#0f172a;line-height:1.25;margin:0 0 12px 0;">${escapeHtml(eq.name)}</h1>
-        <p style="font-size:17px;color:#475569;margin:0;line-height:1.6;">${escapeHtml(eq.tagline)}</p>
+        <p style="font-size:17px;color:#475569;margin:0 0 20px 0;line-height:1.6;">${escapeHtml(eq.tagline)}</p>
+        ${eq.imageUrl ? `
+        <div style="border-radius:16px;overflow:hidden;border:1px solid #cbd5e1;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);margin-bottom:20px;max-height:420px;background:#0f172a;">
+          <img src="${eq.imageUrl}" alt="${escapeHtml(eq.name)}" style="width:100%;height:380px;object-fit:cover;display:block;" loading="lazy" />
+        </div>` : ''}
       </header>
 
       <section style="margin-bottom:36px;">

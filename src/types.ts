@@ -80,6 +80,7 @@ export interface EquipmentItem {
   relatedArticlePath?: string;
   relatedArticleTitle?: string;
   importanceTier: "Essential (Core)" | "Highly Recommended" | "Advanced / Commercial";
+  imageUrl?: string;
 }
 
 export type SupplierVerificationStatus = "Verified" | "Approved" | "Pending Review" | "Draft" | "Rejected";

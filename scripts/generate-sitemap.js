@@ -155,14 +155,15 @@ function extractEquipment() {
   }
   const content = fs.readFileSync(eqPath, 'utf-8');
   const items = [];
-  const regex = /id:\s*["']([^"']+)["'],\s*slug:\s*["']([^"']+)["'],\s*name:\s*["']([^"']+)["'],\s*category:\s*["']([^"']+)["']/g;
+  const regex = /id:\s*["']([^"']+)["'],\s*slug:\s*["']([^"']+)["'],(?:\s*imageUrl:\s*["']([^"']+)["'],)?\s*name:\s*["']([^"']+)["'],\s*category:\s*["']([^"']+)["']/g;
   let match;
   while ((match = regex.exec(content)) !== null) {
     items.push({
       id: match[1],
       slug: match[2],
-      name: match[3],
-      category: match[4]
+      imageUrl: match[3] || '',
+      name: match[4],
+      category: match[5]
     });
   }
   return items;

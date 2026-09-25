@@ -656,21 +656,33 @@ export default function PondFarmingPage({ onVideoClick, onBackToDashboard, onNav
                       onClick={() => setExpandedEquipmentSlug(isExpanded ? null : item.slug)}
                       className="p-4 sm:p-5 flex items-start justify-between gap-4 cursor-pointer select-none bg-white hover:bg-slate-50/80 transition-colors"
                     >
-                      <div className="space-y-1.5 min-w-0">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="text-[10px] font-mono uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800">
-                            {item.category.toUpperCase()}
-                          </span>
-                          <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-100 text-slate-700">
-                            {item.importanceTier}
-                          </span>
+                      <div className="flex items-start gap-3.5 sm:gap-4 min-w-0">
+                        {item.imageUrl && (
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden shrink-0 border border-slate-200/90 bg-slate-900 shadow-2xs relative group">
+                            <img 
+                              src={item.imageUrl} 
+                              alt={item.name} 
+                              className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-300"
+                              loading="lazy"
+                            />
+                          </div>
+                        )}
+                        <div className="space-y-1.5 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-[10px] font-mono uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800">
+                              {item.category.toUpperCase()}
+                            </span>
+                            <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-100 text-slate-700">
+                              {item.importanceTier}
+                            </span>
+                          </div>
+                          <h4 className="text-base sm:text-lg font-sans font-black text-slate-950">
+                            {item.name}
+                          </h4>
+                          <p className="text-xs text-slate-600 line-clamp-2">
+                            {item.tagline}
+                          </p>
                         </div>
-                        <h4 className="text-base sm:text-lg font-sans font-black text-slate-950">
-                          {item.name}
-                        </h4>
-                        <p className="text-xs text-slate-600 line-clamp-2">
-                          {item.tagline}
-                        </p>
                       </div>
 
                       <div className="flex items-center gap-2 shrink-0">

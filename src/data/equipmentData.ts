@@ -163,6 +163,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-air-blower",
     slug: "air-blower",
+    imageUrl: "/images/equipment/roots_air_blower.jpg",
     name: "Roots / Regenerative Ring Air Blower",
     category: "aeration",
     tagline: "Continuous high-volume low-pressure aeration for biofloc and RAS tanks",
@@ -209,6 +210,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-paddle-wheel",
     slug: "paddle-wheel-aerator",
+    imageUrl: "/images/equipment/paddle_aerator.jpg",
     name: "Paddle Wheel Aerator (2HP / 4-Impeller)",
     category: "aeration",
     tagline: "Surface splashing, circular circulation, and rapid oxygenation for earthen ponds",
@@ -253,6 +255,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-diffusers",
     slug: "micro-pore-diffusers",
+    imageUrl: "/images/equipment/diffuser_tubes.jpg",
     name: "Micro-Pore Diffuser Tubes & Ceramic Discs",
     category: "aeration",
     tagline: "Fine-bubble gas transfer elements for maximum standard oxygen transfer efficiency (SOTE)",
@@ -296,6 +299,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-oxygen-cone",
     slug: "oxygen-cone-saturator",
+    imageUrl: "/images/equipment/oxygen_cone.jpg",
     name: "Downflow Pure Oxygen Saturator Cone",
     category: "aeration",
     tagline: "Super-saturates water with pure oxygen for ultra-high-density RAS (>60 kg/m³)",
@@ -333,6 +337,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-submersible-pump",
     slug: "submersible-water-pump",
+    imageUrl: "/images/equipment/axial_flow_pump.jpg",
     name: "Submersible Low-Head Axial/Vortex Circulation Pump",
     category: "pumping",
     tagline: "High-volume, low-energy continuous water movement for RAS and aquaponics",
@@ -375,6 +380,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-fish-transfer-pump",
     slug: "fish-transfer-pump",
+    imageUrl: "/images/equipment/fish_transfer_pump.jpg",
     name: "Non-Clog Gentle Fish Transfer Pump",
     category: "pumping",
     tagline: "High-capacity vacuum & vortex fish transport with zero scale damage or stress",
@@ -408,6 +414,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-sludge-pump",
     slug: "sludge-dewatering-pump",
+    imageUrl: "/images/equipment/sludge_pump.jpg",
     name: "Heavy-Duty Vortex Sludge & Dewatering Pump",
     category: "pumping",
     tagline: "Extracts concentrated settleable fish feces and anaerobic bottom sludge",
@@ -438,6 +445,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-pond-bottom-cleaner",
     slug: "pond-bottom-sludge-cleaner",
+    imageUrl: "/images/equipment/pond_bottom_dredger.jpg",
     name: "Submersible Pond Bottom Sludge Cleaner & Dredger",
     category: "pumping",
     tagline: "Extracts anoxic black sediment, unconsumed feed decay, and toxic hydrogen sulfide (H2S) deposits",
@@ -483,6 +491,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-drum-filter",
     slug: "automatic-rotary-drum-filter",
+    imageUrl: "/images/equipment/drum_filter.jpg",
     name: "Automatic Micro-Screen Rotary Drum Filter",
     category: "filtration",
     tagline: "High-efficiency primary solid-liquid separation removing particles down to 40-70 microns",
@@ -524,6 +533,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-biofilter-mbbr",
     slug: "mbbr-biofilter-reactor",
+    imageUrl: "/images/equipment/mbbr_biofilter.jpg",
     name: "Moving Bed Biofilm Reactor (MBBR) & Media",
     category: "filtration",
     tagline: "Biological nitrification converting toxic ammonia into harmless nitrate",
@@ -571,6 +581,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-uv-sterilizer",
     slug: "uv-c-water-sterilizer",
+    imageUrl: "/images/equipment/uv_water_sterilizer.jpg",
     name: "Industrial Germicidal UV-C Water Sterilizer",
     category: "filtration",
     tagline: "Pathogen and protozoan disinfection with zero chemical residue",
@@ -604,6 +615,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-protein-skimmer",
     slug: "protein-skimmer-fractionator",
+    imageUrl: "/images/equipment/protein_skimmer.jpg",
     name: "Commercial Protein Skimmer / Foam Fractionator",
     category: "filtration",
     tagline: "Extracts dissolved proteins, lipids, and fine colloidal organics via micro-bubbles",
@@ -634,6 +646,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-all-in-one-ras-skid",
     slug: "all-in-one-indoor-ras-skid",
+    imageUrl: "/images/equipment/ras_filtration_skid.jpg",
     name: "All-In-One Compact Modular Indoor RAS Skid",
     category: "filtration",
     tagline: "Factory pre-plumbed plug-and-play filtration station uniting drum filter, protein skimmer, MBBR & UV",
@@ -679,6 +692,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-do-meter",
     slug: "optical-dissolved-oxygen-meter",
+    imageUrl: "/images/equipment/dissolved_oxygen_meter.jpg",
     name: "Optical Dissolved Oxygen (DO) Meter & Probe",
     category: "monitoring",
     tagline: "High-precision luminescent optical DO measurement with zero membrane maintenance",
@@ -712,6 +726,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-ph-temp-meter",
     slug: "digital-ph-ec-temp-meter",
+    imageUrl: "/images/equipment/water_tester.jpg",
     name: "Digital Multi-Parameter Water Quality Tester (pH / Temp / EC)",
     category: "monitoring",
     tagline: "Waterproof digital pocket tester for daily pH, conductivity, and temperature balance",
@@ -744,6 +759,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-ammonia-test-kit",
     slug: "photometric-ammonia-test-kit",
+    imageUrl: "/images/equipment/water_test_kit.jpg",
     name: "Aquaculture Chemical Photometer / Reagent Test Kit",
     category: "monitoring",
     tagline: "Laboratory-grade quantitative testing for Total Ammonia Nitrogen, Nitrite, and Nitrate",
@@ -779,6 +795,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-auto-feeder",
     slug: "automatic-fish-feeder",
+    imageUrl: "/images/equipment/auto_feeder.jpg",
     name: "Solar / Electric Programmable Automatic Fish Feeder",
     category: "feeding",
     tagline: "Frequent micro-rationing feeding automation to boost FCR and growth rates",
@@ -821,6 +838,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-feed-extruder",
     slug: "floating-feed-extruder",
+    imageUrl: "/images/equipment/feed_extruder.jpg",
     name: "Small-Scale On-Farm Floating Feed Pellet Extruder",
     category: "feeding",
     tagline: "Produces floating and slow-sinking customized aquafeed pellets from local raw grains",
@@ -858,6 +876,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-fish-grader",
     slug: "mechanical-fish-grader",
+    imageUrl: "/images/equipment/fish_grader.jpg",
     name: "Adjustable Aluminum Fish Grading Box & Bar Grader",
     category: "handling",
     tagline: "Fast size-sorting of fingerlings to prevent cannibalism and uniform market batches",
@@ -888,6 +907,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-harvest-nets",
     slug: "knotless-harvest-seine-nets",
+    imageUrl: "/images/equipment/harvest_seine_net.jpg",
     name: "Knotless Nylon Seine & Pond Drag Nets",
     category: "handling",
     tagline: "High-strength knotless webbing for stress-free pond harvesting and sampling",
@@ -919,6 +939,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-live-fish-transport-tank",
     slug: "insulated-live-fish-transport-tank",
+    imageUrl: "/images/equipment/fish_transport_tank.jpg",
     name: "Insulated Live Fish Transport Hauling Tank",
     category: "handling",
     tagline: "Double-walled PUF insulated fiberglass transport tank with pure oxygen diffuser grid & quick discharge gate",
@@ -965,6 +986,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-flake-ice-machine",
     slug: "commercial-flake-ice-machine",
+    imageUrl: "/images/equipment/flake_ice_machine.jpg",
     name: "Commercial Industrial Flake Ice Machine (1T - 3T / Day)",
     category: "processing",
     tagline: "Sub-cooled flat dry ice flakes for rapid post-harvest chilling without bruising fish",
@@ -1004,6 +1026,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-processing-table",
     slug: "stainless-fish-processing-table",
+    imageUrl: "/images/equipment/fish_processing_table.jpg",
     name: "Ergonomic SS304 Fish Evisceration & Filleting Table",
     category: "processing",
     tagline: "Food-grade hygienic stainless steel workstation with continuous water spray and waste chute",
@@ -1036,6 +1059,7 @@ export const EQUIPMENT_DATABASE: EquipmentItem[] = [
   {
     id: "eq-scaling-machine",
     slug: "commercial-fish-scaling-machine",
+    imageUrl: "/images/equipment/fish_scaling_machine.jpg",
     name: "Automatic Commercial Rotary Fish Descaler",
     category: "processing",
     tagline: "High-speed scaling of 15-30 kg of fish per batch in under 3 minutes",
