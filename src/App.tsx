@@ -16,7 +16,7 @@ import { getEnrichedVideosList } from "./utils/videoMetrics";
 import { parseUrlPath, getPathForPage, updateSeoMetadata, PageType, PAGE_SEO_PATHS } from "./utils/seoRouting";
 import { ALL_VIDEOS } from "./data";
 import { Video } from "./types";
-import { MessageSquareCode, Calculator, Droplet, ArrowRight, Waves, CheckCircle, TrendingUp, HelpCircle, ShieldAlert, Award, Sprout, ShoppingBag, Briefcase, ChevronRight, Phone, Play, Star, ExternalLink, ShieldCheck, Home, Video as VideoIcon, BookOpen, FileText, Mail, Wrench } from "lucide-react";
+import { MessageSquareCode, Calculator, Droplet, ArrowRight, Waves, CheckCircle, TrendingUp, HelpCircle, ShieldAlert, Award, Sprout, ShoppingBag, Briefcase, ChevronRight, Phone, Play, Star, ExternalLink, ShieldCheck, Home, Video as VideoIcon, BookOpen, FileText, Mail, Wrench, Fish, Sparkles } from "lucide-react";
 
 // ============================================================================
 // Code-Splitting: Lazy-load all heavy subpages and standalone route modules
@@ -33,12 +33,14 @@ const DiseasesPage = lazy(() => import("./components/DiseasesPage"));
 const FeedingPage = lazy(() => import("./components/FeedingPage"));
 const CalculatorsPage = lazy(() => import("./components/CalculatorsPage"));
 const EquipmentFinderPage = lazy(() => import("./components/EquipmentFinderPage"));
+const FarmerEcosystemPage = lazy(() => import("./components/FarmerEcosystemPage"));
 const ServicesPage = lazy(() => import("./components/ServicesPage"));
 const AboutUsPage = lazy(() => import("./components/AboutUsPage"));
 const PrivacyPolicyPage = lazy(() => import("./components/PrivacyPolicyPage"));
 const NotFoundPage = lazy(() => import("./components/NotFoundPage"));
 const Gone410Page = lazy(() => import("./components/Gone410Page"));
 const FaqSection = lazy(() => import("./components/FaqSection"));
+const ActivationPage = lazy(() => import("./components/ActivationPage"));
 
 /**
  * High-performance, zero-CLS skeleton placeholder loader.
@@ -118,11 +120,13 @@ const PAGE_BREADCRUMBS: Record<string, { category: string; categoryUrl: string; 
   diseases: { category: "Aquatic Pathology", categoryUrl: "/fish-diseases", pageName: "Fish Disease Diagnosis & Prevention" },
   feed: { category: "Nutrition & Feed Science", categoryUrl: "/feeding-management", pageName: "FCR & Feeding Management" },
   calculators: { category: "Computational Tools", categoryUrl: "/calculators", pageName: "Precision Aquaculture Calculators Lab" },
+  "farmer-hub": { category: "Farmer Community", categoryUrl: "/farmer-hub", pageName: "Farmer Hub Registration" },
   services: { category: "Technical Services", categoryUrl: "/ourservices", pageName: "Engineering Specifications" },
   about: { category: "Institutional Information", categoryUrl: "/about-us", pageName: "About Modern Fisheries" },
   privacy: { category: "Legal & Disclosures", categoryUrl: "/privacy-policy", pageName: "Privacy Policy & Disclosures" },
   videos: { category: "Multimedia Lectures", categoryUrl: "/farming-videos", pageName: "Aquaculture Video Tutorials" },
   faq: { category: "Knowledge Base", categoryUrl: "/faq", pageName: "Aquaculture FAQ" },
+  activate: { category: "Account Verification", categoryUrl: "/activate", pageName: "Account Activation" },
 };
 
 export default function App() {
@@ -471,6 +475,19 @@ export default function App() {
                     onNavigatePage={handlePageChange} 
                   />
                 )}
+                {currentPage === "farmer-hub" && (
+                  <div className="max-w-2xl mx-auto py-16 px-4 text-center space-y-4">
+                    <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-500">
+                      <Briefcase className="w-8 h-8" />
+                    </div>
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900">FarmConnect Features Temporarily Offline</h2>
+                    <p className="text-xs sm:text-sm text-slate-600">The FarmConnect and marketplace modules are temporarily offline for maintenance updates. Please explore our aquaculture engineering blueprints and calculators.</p>
+                    <button onClick={() => handlePageChange("home")} className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer">
+                      Return to Homepage
+                    </button>
+                  </div>
+                )}
+                {currentPage === "activate" && <ActivationPage onNavigate={handlePageChange} />}
                 {currentPage === "faq" && (
                   <FaqSection onContactClick={() => setShowCallModal(true)} onBackToDashboard={() => setCurrentPage("home")} />
                 )}
@@ -498,33 +515,49 @@ export default function App() {
         )}
       </main>
 
-       {/* Modern Fisheries Editorial & Research Desk Modal */}
+       {/* Modern Fisheries Editorial & Research Desk Modal (Right Side Prompt - Width as per content) */}
        {showCallModal && (
-         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-           <div className="w-full max-w-sm bg-white rounded-3xl p-6 border border-emerald-100 shadow-2xl space-y-4 animate-slide-in text-center">
-             <div className="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto">
-               <Mail className="w-6 h-6" />
-             </div>
-             <div className="space-y-1">
-               <h3 className="font-sans font-black text-slate-900 text-base">Editorial & Research Desk</h3>
-               <p className="text-slate-500 text-xs">Reach out for academic citations, research inquiries, or technical blueprint submissions.</p>
-             </div>
-             
-             <div className="space-y-3 pt-2 text-left text-xs text-slate-600">
-               <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                 <span className="block font-bold text-slate-700 uppercase tracking-wider text-[9px] mb-1">Official Research Desk</span>
-                 <a 
-                   href="mailto:mf@owncircles.com"
-                   className="font-mono font-black text-emerald-800 text-base hover:underline select-all block"
-                   title="Click to open default mail client"
+         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex justify-end overflow-hidden">
+           {/* Backdrop click dismiss */}
+           <div 
+             className="fixed inset-0 -z-10" 
+             onClick={() => setShowCallModal(false)} 
+             aria-hidden="true" 
+           />
+           <div className="relative h-full max-h-screen bg-white shadow-2xl border-l border-slate-200 p-6 space-y-4 overflow-y-auto w-full sm:w-auto min-w-[320px] sm:min-w-[400px] max-w-[95vw] sm:max-w-md animate-slide-right flex flex-col justify-between">
+             <div className="space-y-4">
+               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                 <div className="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center">
+                   <Mail className="w-5 h-5" />
+                 </div>
+                 <button
+                   onClick={() => setShowCallModal(false)}
+                   className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
                  >
-                   mf@owncircles.com
-                 </a>
+                   ✕
+                 </button>
                </div>
-             </div>
+               <div className="space-y-1">
+                 <h3 className="font-sans font-black text-slate-900 text-base">Editorial & Research Desk</h3>
+                 <p className="text-slate-500 text-xs">Reach out for academic citations, research inquiries, or technical blueprint submissions.</p>
+               </div>
+               
+               <div className="space-y-3 pt-2 text-left text-xs text-slate-600">
+                 <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
+                   <span className="block font-bold text-slate-700 uppercase tracking-wider text-[9px] mb-1">Official Research Desk</span>
+                   <a 
+                     href="mailto:mf@owncircles.com"
+                     className="font-mono font-black text-emerald-800 text-base hover:underline select-all block"
+                     title="Click to open default mail client"
+                   >
+                     mf@owncircles.com
+                   </a>
+                 </div>
+               </div>
 
-             <div className="text-[10px] text-slate-400 font-sans pt-1">
-               Review Hours: Monday - Friday (09:00 AM - 05:00 PM IST)
+               <div className="text-[10px] text-slate-400 font-sans pt-1">
+                 Review Hours: Monday - Friday (09:00 AM - 05:00 PM IST)
+               </div>
              </div>
 
              <button 
@@ -583,6 +616,16 @@ export default function App() {
         >
           <Home className="w-5 h-5 shrink-0" />
           <span className="text-[10px]">Home</span>
+        </button>
+
+        <button
+          onClick={() => handlePageChange("equipment-finder")}
+          className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-all ${
+            currentPage === "equipment-finder" ? "text-teal-700 font-bold bg-teal-50" : "hover:text-slate-900"
+          }`}
+        >
+          <Wrench className="w-5 h-5 shrink-0" />
+          <span className="text-[10px]">Equipment</span>
         </button>
 
         <button

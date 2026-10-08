@@ -11,11 +11,13 @@ export type PageType =
   | "feed" 
   | "calculators" 
   | "equipment-finder"
+  | "farmer-hub"
   | "services" 
   | "about" 
   | "privacy"
   | "videos"
   | "faq"
+  | "activate"
   | "404"
   | "410";
 
@@ -44,41 +46,6 @@ export const REMOVED_LEGACY_PDF_AND_DEPRECATED_PATHS = [
   "/download",
   "/410",
   "/410.html",
-  // Decommissioned legacy alias routes that caused redirects in search engines
-  "/pond",
-  "/pond/",
-  "/home",
-  "/home/",
-  "/videos",
-  "/videos/",
-  "/biofloc",
-  "/biofloc/",
-  "/biofloc-farming",
-  "/hydroponics",
-  "/hydroponics/",
-  "/hydroponics-farming",
-  "/soilless",
-  "/feed",
-  "/feed/",
-  "/diseases",
-  "/diseases/",
-  "/ras",
-  "/ras/",
-  "/ras-farming",
-  "/recirculating",
-  "/aquaponics",
-  "/aquaponics/",
-  "/aquaponic-farming",
-  "/calculator",
-  "/calc",
-  "/services",
-  "/shopping",
-  "/shop",
-  "/about",
-  "/about/",
-  "/privacy",
-  "/privacy/",
-  "/frequently-asked-questions"
 ];
 
 // Backwards compatibility alias
@@ -104,11 +71,13 @@ export const PAGE_SEO_PATHS: Record<PageType, string> = {
   feed: "/feeding-management",
   calculators: "/calculators",
   "equipment-finder": "/equipment-finder",
+  "farmer-hub": "/farmer-hub",
   services: "/ourservices",
   about: "/about-us",
   privacy: "/privacy-policy",
   videos: "/farming-videos",
   faq: "/faq",
+  activate: "/activate",
   "404": "/404",
   "410": "/410",
 };
@@ -142,10 +111,9 @@ export function parseUrlPath(pathnameOrHash: string, allVideos: Video[]): { page
     normalized.startsWith("/download") ||
     normalized.startsWith("/ebook") ||
     normalized.endsWith(".pdf") ||
-    normalized.includes(".pdf") ||
     REMOVED_LEGACY_PDF_AND_DEPRECATED_PATHS.some((u) => {
-      const lower = u.toLowerCase();
-      return normalized === lower || normalized.includes(lower);
+      const lower = u.toLowerCase().replace(/\/+$/, "");
+      return normalized === lower;
     });
 
   if (isPermanentlyRemoved) {
@@ -157,8 +125,8 @@ export function parseUrlPath(pathnameOrHash: string, allVideos: Video[]): { page
     return { page: "404", video: null };
   }
 
-  // Video route matching: /video/:slug-id or /video/:id or /video
-  if (normalized === "/video" || normalized === "/video/") {
+  // Video route matching: /videos, /video, /farming-videos
+  if (normalized === "/videos" || normalized === "/video" || normalized === "/farming-videos") {
     return { page: "videos", video: null };
   }
 
@@ -190,22 +158,24 @@ export function parseUrlPath(pathnameOrHash: string, allVideos: Video[]): { page
     return { page: "equipment-finder", video: null };
   }
 
-  // Exact Canonical Path Matches (Legacy aliases removed to eliminate redirects)
-  if (normalized === "/") return { page: "home", video: null };
-  if (normalized === "/aquaponics-farming") return { page: "aquaponics", video: null };
-  if (normalized === "/aquaponic") return { page: "ras", video: null };
-  if (normalized === "/bioflock") return { page: "biofloc", video: null };
-  if (normalized === "/hydroponic") return { page: "hydroponics", video: null };
-  if (normalized === "/pond-farming") return { page: "pond", video: null };
-  if (normalized === "/fish-diseases") return { page: "diseases", video: null };
-  if (normalized === "/feeding-management") return { page: "feed", video: null };
-  if (normalized === "/calculators") return { page: "calculators", video: null };
-  if (normalized === "/equipment-finder") return { page: "equipment-finder", video: null };
-  if (normalized === "/ourservices") return { page: "services", video: null };
-  if (normalized === "/about-us") return { page: "about", video: null };
-  if (normalized === "/privacy-policy") return { page: "privacy", video: null };
-  if (normalized === "/farming-videos") return { page: "videos", video: null };
-  if (normalized === "/faq") return { page: "faq", video: null };
+  // Exact Canonical Path Matches & intuitive aliases
+  if (normalized === "/" || normalized === "/home") return { page: "home", video: null };
+  if (normalized === "/aquaponics-farming" || normalized === "/aquaponics") return { page: "aquaponics", video: null };
+  if (normalized === "/aquaponic" || normalized === "/ras" || normalized === "/ras-farming") return { page: "ras", video: null };
+  if (normalized === "/bioflock" || normalized === "/biofloc" || normalized === "/biofloc-farming") return { page: "biofloc", video: null };
+  if (normalized === "/hydroponic" || normalized === "/hydroponics" || normalized === "/hydroponics-farming" || normalized === "/soilless") return { page: "hydroponics", video: null };
+  if (normalized === "/pond-farming" || normalized === "/pond") return { page: "pond", video: null };
+  if (normalized === "/fish-diseases" || normalized === "/diseases") return { page: "diseases", video: null };
+  if (normalized === "/feeding-management" || normalized === "/feed" || normalized === "/feeding") return { page: "feed", video: null };
+  if (normalized === "/calculators" || normalized === "/calculator" || normalized === "/calc") return { page: "calculators", video: null };
+  if (normalized === "/equipment-finder" || normalized === "/equipment") return { page: "equipment-finder", video: null };
+  if (normalized === "/farmer-hub" || normalized === "/farmer" || normalized === "/kisan") return { page: "home", video: null };
+  if (normalized === "/activate" || normalized === "/account-activation" || normalized.startsWith("/activate")) return { page: "activate", video: null };
+  if (normalized === "/ourservices" || normalized === "/services") return { page: "services", video: null };
+  if (normalized === "/about-us" || normalized === "/about") return { page: "about", video: null };
+  if (normalized === "/privacy-policy" || normalized === "/privacy") return { page: "privacy", video: null };
+  if (normalized === "/farming-videos" || normalized === "/videos" || normalized === "/video") return { page: "videos", video: null };
+  if (normalized === "/faq" || normalized === "/frequently-asked-questions") return { page: "faq", video: null };
 
   // Unknown, moved, or deleted path -> Explicit 404
   return { page: "404", video: null };
@@ -357,6 +327,12 @@ export function getSeoMetaData(page: PageType, video?: Video | null): SeoMetaDat
         description: "Commercial fish farming machinery list & sizing in India: fish processing, transfer pumps, pond bottom cleaners, RAS filters & Biofloc blowers. Direct inquiry.", // 160 chars
         keywords: "fish processing machine india, fish transfer pump, pond bottom cleaner, earthen fish pond equipment, ras fish farming machinery, all in one ras, indoor ras system, biofloc equipment cost, paddle wheel aerator price india, modern fisheries",
       };
+    case "farmer-hub":
+      return {
+        title: "Farmer Hub - Register Farming & Supplier Profile | Modern Fisheries",
+        description: "Register on the 50 KM Regional AquaFarmer Hub. Create your Farming Profile or Supplier Profile to connect with local fish farmers and vendors.",
+        keywords: "farmer hub registration, farming profile, supplier profile, aquaculture community 50km, fish farmers india, modern fisheries",
+      };
     case "services":
       return {
         title: "Turnkey Aquaculture Machinery Setup & RAS Engineering Blueprints", // 65 chars
@@ -386,6 +362,12 @@ export function getSeoMetaData(page: PageType, video?: Video | null): SeoMetaDat
         title: "Fish Farming FAQ & Knowledge Base Guide | Modern Fisheries", // 58 chars
         description: "Get expert answers to Frequently Asked Questions about Biofloc C:N ratios, RAS design, biofilter sizing, fish stocking density, and disease treatments.", // 152 chars
         keywords: "fish farming faq, biofloc questions, RAS design questions, fish disease treatment, FCR calculator, modern fisheries faq",
+      };
+    case "activate":
+      return {
+        title: "Account Activation | Modern Fisheries Regional Hub",
+        description: "Verify your email and activate your Modern Fisheries Farmer Hub account to access verified suppliers and farmers.",
+        keywords: "modern fisheries activation, farmer hub activate account",
       };
     case "404":
       return {

@@ -15,10 +15,39 @@ Options -Indexes
   RewriteCond %{HTTP_HOST} ^www\.modernfisheriese\.com$ [NC]
   RewriteRule ^(.*)$ https://modernfisheriese.com/$1 [L,R=301]
 
-  # 2. Return HTTP 410 Gone for permanently removed PDF documents & deprecated legacy alias routes
+  # 2. Return HTTP 410 Gone for permanently removed PDF documents & deprecated downloads
   RewriteRule ^assets/(docs|Docs)/ - [G,NC,L]
   RewriteRule \.(pdf)$ - [G,NC,L]
-  RewriteRule ^(pond|home|videos|biofloc|hydroponics|diseases|feed|ras|ras-farming|aquaponics|aquaponic-farming|calculator|calc|services|shopping|shop|about|privacy|frequently-asked-questions)(/.*)?$ - [G,NC,L]
+
+  # 3. HTTP 301 Permanent Redirects for trailing slash URLs to non-trailing slash canonicals
+  RewriteRule ^pond-farming/$ /pond-farming [R=301,L,NC]
+  RewriteRule ^feeding-management/$ /feeding-management [R=301,L,NC]
+  RewriteRule ^farming-videos/$ /farming-videos [R=301,L,NC]
+  RewriteCond %{REQUEST_METHOD} =GET
+  RewriteCond %{REQUEST_URI} ^/(.+)/$
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+  # 4. HTTP 301 Permanent Redirects for legacy routes to canonical URLs for Search Engine Crawlers
+  RewriteRule ^video/(pond-water-treatment-with-lime-potassium-permanganate-own-18|own-18|harvesting-rohu-carp-tilapia-from-pond-own-2|own-2|high-density-biofloc-tilapia-farming-cn-ratio-masterclass-idea-2|idea-2)(/.*)?$ /farming-videos [R=301,L,NC]
+  RewriteRule ^videos(/.*)?$ /farming-videos [R=301,L,NC]
+  RewriteRule ^video$ /farming-videos [R=301,L,NC]
+  RewriteRule ^home(/.*)?$ / [R=301,L,NC]
+  RewriteRule ^pond(/.*)?$ /pond-farming [R=301,L,NC]
+  RewriteRule ^biofloc(/.*)?$ /bioflock [R=301,L,NC]
+  RewriteRule ^biofloc-farming(/.*)?$ /bioflock [R=301,L,NC]
+  RewriteRule ^hydroponics(/.*)?$ /hydroponic [R=301,L,NC]
+  RewriteRule ^hydroponics-farming(/.*)?$ /hydroponic [R=301,L,NC]
+  RewriteRule ^feed(/.*)?$ /feeding-management [R=301,L,NC]
+  RewriteRule ^diseases(/.*)?$ /fish-diseases [R=301,L,NC]
+  RewriteRule ^ras(/.*)?$ /aquaponic [R=301,L,NC]
+  RewriteRule ^ras-farming(/.*)?$ /aquaponic [R=301,L,NC]
+  RewriteRule ^aquaponics(/.*)?$ /aquaponics-farming [R=301,L,NC]
+  RewriteRule ^calculator(/.*)?$ /calculators [R=301,L,NC]
+  RewriteRule ^calc(/.*)?$ /calculators [R=301,L,NC]
+  RewriteRule ^services(/.*)?$ /ourservices [R=301,L,NC]
+  RewriteRule ^about(/.*)?$ /about-us [R=301,L,NC]
+  RewriteRule ^privacy(/.*)?$ /privacy-policy [R=301,L,NC]
+  RewriteRule ^frequently-asked-questions(/.*)?$ /faq [R=301,L,NC]
 
   # 3. Serve physical HTML file directly if it exists with .html (e.g. /hydroponic -> hydroponic.html, /home -> home.html)
   RewriteCond %{DOCUMENT_ROOT}/$1.html -f

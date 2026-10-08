@@ -840,10 +840,13 @@ PAGE_METADATA.forEach((page) => {
     fs.mkdirSync(routeDir, { recursive: true });
 
     const customHtml = renderCustomPageHtml(baseIndexHtml, page);
-    fs.writeFileSync(path.join(routeDir, 'index.html'), customHtml);
-    // Standalone .html for direct 200 OK without trailing-slash redirects
+    // Standalone .html for direct 200 OK canonical URL without trailing slash
     fs.writeFileSync(path.join(distDir, `${routeName}.html`), customHtml);
-    console.log(`✓ Generated primary static route: dist/${routeName}/index.html & dist/${routeName}.html`);
+
+    // Trailing-slash subfolder index.html serves 301 Permanent Redirect to canonical non-trailing-slash URL
+    const trailingSlash301Html = render301RedirectHtml(page.path);
+    fs.writeFileSync(path.join(routeDir, 'index.html'), trailingSlash301Html);
+    console.log(`✓ Generated canonical page: dist/${routeName}.html & 301 redirect: dist/${routeName}/index.html -> ${page.path}`);
   }
 
   // Add primary page URL to sitemap
@@ -854,35 +857,54 @@ PAGE_METADATA.forEach((page) => {
   });
 });
 
-// 2.5 Generate static 410 Gone HTML files for decommissioned legacy alias routes
+// 2.5 Generate static 301 Permanent Redirect HTML files for decommissioned legacy routes
 // Clean up any legacy alias directories to eliminate directory trailing-slash redirects
-const DEPRECATED_LEGACY_ROUTES = [
-  'pond',
-  'home',
-  'videos',
-  'biofloc',
-  'hydroponics',
-  'feed',
-  'diseases',
-  'ras',
-  'aquaponics',
-  'calculator',
-  'services',
-  'about',
-  'privacy'
-];
+function render301RedirectHtml(targetPath) {
+  const targetUrl = targetPath.startsWith('http') ? targetPath : `${BASE_URL}${targetPath}`;
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>301 Moved Permanently</title>
+  <meta http-equiv="refresh" content="0; url=${targetUrl}">
+  <link rel="canonical" href="${targetUrl}">
+  <script>window.location.replace("${targetUrl}");</script>
+</head>
+<body style="font-family: system-ui, sans-serif; text-align: center; padding: 50px;">
+  <h1>301 Moved Permanently</h1>
+  <p>The resource has moved <a href="${targetUrl}">here</a>.</p>
+</body>
+</html>`;
+}
 
-DEPRECATED_LEGACY_ROUTES.forEach((legacyRoute) => {
+const LEGACY_301_ROUTES = {
+  videos: '/farming-videos',
+  video: '/farming-videos',
+  home: '/',
+  pond: '/pond-farming',
+  biofloc: '/bioflock',
+  hydroponics: '/hydroponic',
+  feed: '/feeding-management',
+  diseases: '/fish-diseases',
+  ras: '/aquaponic',
+  aquaponics: '/aquaponics-farming',
+  calculator: '/calculators',
+  services: '/ourservices',
+  about: '/about-us',
+  privacy: '/privacy-policy',
+};
+
+Object.entries(LEGACY_301_ROUTES).forEach(([legacyRoute, target]) => {
   // Remove legacy directory if it exists to eliminate directoryslash redirects
   const legacyDir = path.join(distDir, legacyRoute);
   if (fs.existsSync(legacyDir)) {
     fs.rmSync(legacyDir, { recursive: true, force: true });
     console.log(`✓ Cleaned up deprecated directory: dist/${legacyRoute}`);
   }
-  // Write static 410 HTML file
-  const html410 = render410PageHtml(`/${legacyRoute}`);
-  fs.writeFileSync(path.join(distDir, `${legacyRoute}.html`), html410);
-  console.log(`✓ Generated 410 Gone response: dist/${legacyRoute}.html`);
+  // Write static 301 redirect HTML file
+  const html301 = render301RedirectHtml(target);
+  fs.writeFileSync(path.join(distDir, `${legacyRoute}.html`), html301);
+  console.log(`✓ Generated 301 Redirect response: dist/${legacyRoute}.html -> ${target}`);
 });
 
 // Also write dist/410.html and dist/410/index.html
@@ -891,6 +913,29 @@ fs.writeFileSync(path.join(distDir, '410.html'), generic410Html);
 const dist410Dir = path.join(distDir, '410');
 fs.mkdirSync(dist410Dir, { recursive: true });
 fs.writeFileSync(path.join(dist410Dir, 'index.html'), generic410Html);
+
+// Clean up permanently deleted videos and issue 301 redirects to /farming-videos
+const DELETED_VIDEO_ROUTES = [
+  'video/pond-water-treatment-with-lime-potassium-permanganate-own-18',
+  'video/own-18',
+  'video/harvesting-rohu-carp-tilapia-from-pond-own-2',
+  'video/own-2',
+  'video/high-density-biofloc-tilapia-farming-cn-ratio-masterclass-idea-2',
+  'video/idea-2'
+];
+DELETED_VIDEO_ROUTES.forEach((delRoute) => {
+  const fullHtmlPath = path.join(distDir, `${delRoute}.html`);
+  const fullDirPath = path.join(distDir, delRoute);
+  if (fs.existsSync(fullDirPath)) {
+    fs.rmSync(fullDirPath, { recursive: true, force: true });
+  }
+  fs.mkdirSync(path.dirname(fullHtmlPath), { recursive: true });
+  const redirectHtml = render301RedirectHtml('/farming-videos');
+  fs.writeFileSync(fullHtmlPath, redirectHtml);
+  fs.mkdirSync(fullDirPath, { recursive: true });
+  fs.writeFileSync(path.join(fullDirPath, 'index.html'), redirectHtml);
+  console.log(`✓ Generated 301 Redirect for deleted video: dist/${delRoute}.html -> /farming-videos`);
+});
 
 // 3. Generate static HTML files for video pages (full physical pages for all routes)
 const videoBaseDir = path.join(distDir, 'video');

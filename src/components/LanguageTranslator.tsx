@@ -15,7 +15,7 @@ interface LanguageTranslatorProps {
 const LANGUAGE_INFO: Record<string, { name: string; flag: string; code: string }> = {
   en: { name: "English", flag: "🇺🇸", code: "EN" },
   bn: { name: "বাংলা", flag: "🇮🇳", code: "BN" },
-  hi: { name: "हिन्दी", flag: "🇮🇳", code: "HI" },
+  hi: { name: "Hindi", flag: "🇮🇳", code: "HI" },
   es: { name: "Español", flag: "🇪🇸", code: "ES" },
   fr: { name: "Français", flag: "🇫🇷", code: "FR" },
   ar: { name: "العربية", flag: "🇸🇦", code: "AR" },

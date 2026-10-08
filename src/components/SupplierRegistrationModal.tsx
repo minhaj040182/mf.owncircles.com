@@ -72,32 +72,38 @@ export default function SupplierRegistrationModal({ isOpen, onClose }: SupplierR
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs overflow-y-auto">
-      <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-auto animate-fade-in">
-        
-        {/* Header */}
-        <div className="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white p-5 sm:p-6 relative">
-          <button
-            onClick={handleClose}
-            className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-            title="Close modal"
-          >
-            <X className="w-5 h-5" />
-          </button>
-          
-          <div className="flex items-center gap-2 text-blue-400 text-xs font-mono font-bold uppercase tracking-wider mb-1">
-            <Building2 className="w-4 h-4" />
-            <span>Supplier Editorial Verification Portal</span>
+    <div className="fixed inset-0 z-50 flex justify-end overflow-hidden bg-slate-950/70 backdrop-blur-xs">
+      {/* Backdrop click dismiss */}
+      <div 
+        className="fixed inset-0 -z-10" 
+        onClick={handleClose} 
+        aria-hidden="true" 
+      />
+      <div className="relative h-full max-h-screen w-full sm:w-auto min-w-[340px] sm:min-w-[500px] max-w-[95vw] sm:max-w-xl bg-white shadow-2xl border-l border-slate-200 overflow-y-auto animate-slide-right flex flex-col justify-between">
+        <div>
+          {/* Header */}
+          <div className="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white p-5 sm:p-6 relative">
+            <button
+              onClick={handleClose}
+              className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              title="Close modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            <div className="flex items-center gap-2 text-blue-400 text-xs font-mono font-bold uppercase tracking-wider mb-1">
+              <Building2 className="w-4 h-4" />
+              <span>Supplier Editorial Verification Portal</span>
+            </div>
+
+            <h3 className="text-lg sm:text-xl font-black font-sans text-white">
+              Register as an Aquaculture Equipment Supplier
+            </h3>
+
+            <p className="text-slate-300 text-xs mt-1">
+              Modern Fisheries connects verified manufacturers and distributors with commercial aquaculture farmers across India. Free registration under editorial quality standards.
+            </p>
           </div>
-
-          <h3 className="text-lg sm:text-xl font-black font-sans text-white">
-            Register as an Aquaculture Equipment Supplier
-          </h3>
-
-          <p className="text-slate-300 text-xs mt-1">
-            Modern Fisheries connects verified manufacturers and distributors with commercial aquaculture farmers across India. Free registration under editorial quality standards.
-          </p>
-        </div>
 
         {/* Modal Content */}
         <div className="p-5 sm:p-6">
@@ -296,7 +302,7 @@ export default function SupplierRegistrationModal({ isOpen, onClose }: SupplierR
             </form>
           )}
         </div>
-
+        </div>
       </div>
     </div>
   );

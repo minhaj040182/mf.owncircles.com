@@ -64,20 +64,6 @@ export const OWN_VIDEOS: Video[] = [
     likes: 1200
   },
   {
-    id: "own-2",
-    title: "Harvesting Rohu, Carp, & Tilapia from Pond",
-    description: "Complete harvesting video from our main earthen pond, netting a rich yield of Rohu, Carp, and Tilapia. Detailed discussion on pond preparation and feeds.",
-    thumbnail: "https://img.youtube.com/vi/QycqPG5uQOQ/hqdefault.jpg",
-    videoUrl: "https://www.youtube.com/embed/QycqPG5uQOQ",
-    duration: "25:30",
-    views: "21.6K views",
-    type: "own",
-    creator: "Modern Fisheries",
-    publishDate: "4 months ago",
-    category: "Harvesting",
-    likes: 850
-  },
-  {
     id: "own-3",
     title: "Biofloc Water Preparation & Inoculation Masterclass",
     description: "Complete guide to preparing carbon source, probiotic inoculation, and maintaining floc volume in tarpaulin biofloc tanks.",
@@ -288,20 +274,6 @@ export const OWN_VIDEOS: Video[] = [
     likes: 210
   },
   {
-    id: "own-18",
-    title: "Pond Water Treatment with Lime & Potassium Permanganate",
-    description: "Dosage calculations for agricultural lime (calcium carbonate) and potassium permanganate for water disinfection and pH stabilization.",
-    thumbnail: "https://img.youtube.com/vi/rGujFuFq4eg/hqdefault.jpg",
-    videoUrl: "https://www.youtube.com/embed/rGujFuFq4eg",
-    duration: "12:10",
-    views: "5.5K views",
-    type: "own",
-    creator: "Modern Fisheries",
-    publishDate: "4 months ago",
-    category: "Water Quality",
-    likes: 195
-  },
-  {
     id: "own-19",
     title: "Installing Roots Blower & Aeration Grid for Biofloc",
     description: "Setting up a heavy-duty ring/roots blower with uniseal diffusers and air tubing grid for continuous high-DO aeration in biofloc tanks.",
@@ -345,20 +317,6 @@ export const TOP_INNOVATION_IDEAS: Video[] = [
     publishDate: "1 month ago",
     category: "RAS",
     likes: 3400
-  },
-  {
-    id: "idea-2",
-    title: "High-Density Biofloc Tilapia Farming: C/N Ratio Masterclass",
-    description: "Learn how to maintain perfect 15:1 Carbon-Nitrogen ratio using molasses and probiotic inoculants for zero-water-exchange biofloc tanks.",
-    thumbnail: "https://img.youtube.com/vi/i6ZfGWsCS8c/hqdefault.jpg",
-    videoUrl: "https://www.youtube.com/embed/i6ZfGWsCS8c",
-    duration: "22:10",
-    views: "180K views",
-    type: "youtube",
-    creator: "Global Biofloc Expert",
-    publishDate: "2 weeks ago",
-    category: "Biofloc",
-    likes: 2800
   },
   {
     id: "idea-3",

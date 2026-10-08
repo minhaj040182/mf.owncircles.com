@@ -5,7 +5,7 @@ import BrandLogo from "./BrandLogo";
 
 interface HeaderProps {
   currentPage: string;
-  onPageChange: (page: "home" | "ras" | "biofloc" | "aquaponics" | "hydroponics" | "pond" | "diseases" | "feed" | "calculators" | "equipment-finder" | "services" | "about" | "privacy" | "videos" | "faq") => void;
+  onPageChange: (page: "home" | "ras" | "biofloc" | "aquaponics" | "hydroponics" | "pond" | "diseases" | "feed" | "calculators" | "equipment-finder" | "farmer-hub" | "services" | "about" | "privacy" | "videos" | "faq") => void;
 }
 
 export default function Header({ currentPage, onPageChange }: HeaderProps) {
@@ -205,6 +205,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
               const Icon = item.icon;
               const pathMap: Record<string, string> = {
                 home: "/",
+                "farmer-hub": "/farmer-hub",
                 ras: "/aquaponic",
                 biofloc: "/bioflock",
                 aquaponics: "/aquaponics-farming",
@@ -317,6 +318,7 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
               const Icon = item.icon;
               const pathMap: Record<string, string> = {
                 home: "/",
+                "farmer-hub": "/farmer-hub",
                 ras: "/aquaponic",
                 biofloc: "/bioflock",
                 aquaponics: "/aquaponics-farming",

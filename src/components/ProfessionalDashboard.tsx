@@ -920,33 +920,41 @@ export default function ProfessionalDashboard({ onVideoClick, onNavigate, trendi
 
         </div>
 
-      {/* MODAL / DRAWER DIALOG POPUPS */}
+      {/* MODAL / DRAWER DIALOG POPUPS (SLIDE FROM RIGHT) */}
       {/* 1. Article Modal */}
       {activeArticleModal && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4">
-          <div className="w-full max-w-2xl bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-green-100 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto text-left animate-slide-in mx-2">
-            <div className="flex justify-between items-start border-b border-slate-100 pb-3 gap-2">
-              <div>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 inline-block">
-                  {activeArticleModal.category}
-                </span>
-                <h3 className="font-sans font-black text-slate-900 text-base sm:text-xl mt-1 leading-snug">{activeArticleModal.title}</h3>
-                <span className="text-xs text-slate-400 block mt-0.5">{activeArticleModal.readTime}</span>
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex justify-end overflow-hidden">
+          {/* Backdrop click dismiss */}
+          <div
+            className="fixed inset-0 -z-10"
+            onClick={() => setActiveArticleModal(null)}
+            aria-hidden="true"
+          />
+          <div className="relative h-full max-h-screen w-full sm:w-auto min-w-[340px] sm:min-w-[500px] max-w-[95vw] sm:max-w-2xl bg-white shadow-2xl border-l border-slate-200 p-5 sm:p-7 overflow-y-auto animate-slide-right flex flex-col justify-between space-y-4">
+            <div className="space-y-4">
+              <div className="flex justify-between items-start border-b border-slate-100 pb-3 gap-2">
+                <div>
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 inline-block">
+                    {activeArticleModal.category}
+                  </span>
+                  <h3 className="font-sans font-black text-slate-900 text-base sm:text-xl mt-1 leading-snug">{activeArticleModal.title}</h3>
+                  <span className="text-xs text-slate-400 block mt-0.5">{activeArticleModal.readTime}</span>
+                </div>
+                <button 
+                  onClick={() => setActiveArticleModal(null)}
+                  className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg text-xs cursor-pointer font-bold shrink-0"
+                >
+                  ✕
+                </button>
               </div>
-              <button 
-                onClick={() => setActiveArticleModal(null)}
-                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg text-xs cursor-pointer font-bold shrink-0"
-              >
-                ✕
-              </button>
-            </div>
-            
-            <p className="font-sans font-medium text-xs sm:text-sm text-slate-700 italic border-l-4 border-emerald-500 pl-3 py-1 bg-slate-50 rounded-r-xl">
-              "{activeArticleModal.summary}"
-            </p>
+              
+              <p className="font-sans font-medium text-xs sm:text-sm text-slate-700 italic border-l-4 border-emerald-500 pl-3 py-1 bg-slate-50 rounded-r-xl">
+                "{activeArticleModal.summary}"
+              </p>
 
-            <div className="text-slate-600 text-xs sm:text-sm leading-relaxed whitespace-pre-wrap font-sans space-y-4">
-              {activeArticleModal.content}
+              <div className="text-slate-600 text-xs sm:text-sm leading-relaxed whitespace-pre-wrap font-sans space-y-4">
+                {activeArticleModal.content}
+              </div>
             </div>
 
             <div className="border-t border-slate-100 pt-3 mt-4 flex flex-wrap justify-between items-center gap-2 text-xs">
@@ -964,64 +972,72 @@ export default function ProfessionalDashboard({ onVideoClick, onNavigate, trendi
 
       {/* 2. Species Modal */}
       {activeSpeciesModal && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4">
-          <div className="w-full max-w-xl bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-green-100 shadow-2xl space-y-4 text-left animate-slide-in max-h-[90vh] overflow-y-auto mx-2">
-            <div className="flex justify-between items-start border-b border-slate-100 pb-3 gap-2">
-              <div className="flex items-center gap-3">
-                {activeSpeciesModal.image && (
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border border-emerald-200 bg-slate-100 shrink-0 shadow-xs">
-                    <img 
-                      src={activeSpeciesModal.image} 
-                      alt={activeSpeciesModal.name} 
-                      className="w-full h-full object-cover" 
-                    />
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex justify-end overflow-hidden">
+          {/* Backdrop click dismiss */}
+          <div
+            className="fixed inset-0 -z-10"
+            onClick={() => setActiveSpeciesModal(null)}
+            aria-hidden="true"
+          />
+          <div className="relative h-full max-h-screen w-full sm:w-auto min-w-[340px] sm:min-w-[480px] max-w-[95vw] sm:max-w-xl bg-white shadow-2xl border-l border-slate-200 p-5 sm:p-7 overflow-y-auto animate-slide-right flex flex-col justify-between space-y-4">
+            <div className="space-y-4">
+              <div className="flex justify-between items-start border-b border-slate-100 pb-3 gap-2">
+                <div className="flex items-center gap-3">
+                  {activeSpeciesModal.image && (
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border border-emerald-200 bg-slate-100 shrink-0 shadow-xs">
+                      <img 
+                        src={activeSpeciesModal.image} 
+                        alt={activeSpeciesModal.name} 
+                        className="w-full h-full object-cover" 
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-green-100 text-green-800 inline-block">
+                      {activeSpeciesModal.scientific}
+                    </span>
+                    <h3 className="font-sans font-black text-slate-900 text-lg sm:text-xl mt-1 leading-snug">
+                      {activeSpeciesModal.name} Datasheet Profile
+                    </h3>
                   </div>
-                )}
-                <div>
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-green-100 text-green-800 inline-block">
-                    {activeSpeciesModal.scientific}
-                  </span>
-                  <h3 className="font-sans font-black text-slate-900 text-lg sm:text-xl mt-1 leading-snug">
-                    {activeSpeciesModal.name} Datasheet Profile
-                  </h3>
                 </div>
+                <button 
+                  onClick={() => setActiveSpeciesModal(null)}
+                  className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg text-xs cursor-pointer font-bold shrink-0"
+                >
+                  ✕
+                </button>
               </div>
-              <button 
-                onClick={() => setActiveSpeciesModal(null)}
-                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg text-xs cursor-pointer font-bold shrink-0"
-              >
-                ✕
-              </button>
-            </div>
 
-            <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-sans font-medium">
-              {activeSpeciesModal.description}
-            </p>
+              <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-sans font-medium">
+                {activeSpeciesModal.description}
+              </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200 font-sans">
-              <div>
-                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Stocking Density</span>
-                <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.density}</strong>
-              </div>
-              <div>
-                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Growth Sizing</span>
-                <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.growth}</strong>
-              </div>
-              <div>
-                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Crude Protein Target</span>
-                <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.protein}</strong>
-              </div>
-              <div>
-                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Thermic Safe range</span>
-                <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.temp}</strong>
-              </div>
-              <div>
-                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Water Safe pH</span>
-                <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.ph}</strong>
-              </div>
-              <div>
-                <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Commercial Benchmark</span>
-                <strong className="text-emerald-700 font-sans text-sm sm:text-base block mt-0.5 font-bold">{activeSpeciesModal.marketPrice}</strong>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200 font-sans">
+                <div>
+                  <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Stocking Density</span>
+                  <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.density}</strong>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Growth Sizing</span>
+                  <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.growth}</strong>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Crude Protein Target</span>
+                  <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.protein}</strong>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Thermic Safe range</span>
+                  <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.temp}</strong>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Water Safe pH</span>
+                  <strong className="text-slate-900 font-mono text-base sm:text-lg block mt-0.5">{activeSpeciesModal.ph}</strong>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-xs sm:text-[13px] font-bold uppercase tracking-wider">Commercial Benchmark</span>
+                  <strong className="text-emerald-700 font-sans text-sm sm:text-base block mt-0.5 font-bold">{activeSpeciesModal.marketPrice}</strong>
+                </div>
               </div>
             </div>
 

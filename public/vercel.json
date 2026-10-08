@@ -3,6 +3,46 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/video/harvesting-rohu-carp-tilapia-from-pond-own-2",
+      "destination": "/farming-videos",
+      "statusCode": 301
+    },
+    {
+      "source": "/video/own-2",
+      "destination": "/farming-videos",
+      "statusCode": 301
+    },
+    {
+      "source": "/video/high-density-biofloc-tilapia-farming-cn-ratio-masterclass-idea-2",
+      "destination": "/farming-videos",
+      "statusCode": 301
+    },
+    {
+      "source": "/video/idea-2",
+      "destination": "/farming-videos",
+      "statusCode": 301
+    },
+    {
+      "source": "/video/pond-water-treatment-with-lime-potassium-permanganate-own-18",
+      "destination": "/farming-videos",
+      "statusCode": 301
+    },
+    {
+      "source": "/video/own-18",
+      "destination": "/farming-videos",
+      "statusCode": 301
+    },
+    {
+      "source": "/pond-farming/",
+      "destination": "/pond-farming",
+      "statusCode": 301
+    },
+    {
+      "source": "/feeding-management/",
+      "destination": "/feeding-management",
+      "statusCode": 301
+    },
+    {
       "source": "/assets/Docs/:path*",
       "destination": "/410.html",
       "statusCode": 410
@@ -18,54 +58,54 @@
       "statusCode": 410
     },
     {
-      "source": "/pond",
-      "destination": "/410.html",
-      "statusCode": 410
-    },
-    {
-      "source": "/pond/:path*",
-      "destination": "/410.html",
-      "statusCode": 410
-    },
-    {
-      "source": "/home",
-      "destination": "/410.html",
-      "statusCode": 410
-    },
-    {
-      "source": "/home/:path*",
-      "destination": "/410.html",
-      "statusCode": 410
-    },
-    {
       "source": "/videos",
-      "destination": "/410.html",
-      "statusCode": 410
+      "destination": "/farming-videos",
+      "statusCode": 301
     },
     {
       "source": "/videos/:path*",
-      "destination": "/410.html",
-      "statusCode": 410
+      "destination": "/farming-videos",
+      "statusCode": 301
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/home/:path*",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/pond",
+      "destination": "/pond-farming",
+      "statusCode": 301
+    },
+    {
+      "source": "/pond/:path*",
+      "destination": "/pond-farming",
+      "statusCode": 301
     },
     {
       "source": "/biofloc",
-      "destination": "/410.html",
-      "statusCode": 410
+      "destination": "/bioflock",
+      "statusCode": 301
     },
     {
       "source": "/biofloc/:path*",
-      "destination": "/410.html",
-      "statusCode": 410
+      "destination": "/bioflock",
+      "statusCode": 301
     },
     {
       "source": "/hydroponics",
-      "destination": "/410.html",
-      "statusCode": 410
+      "destination": "/hydroponic",
+      "statusCode": 301
     },
     {
       "source": "/hydroponics/:path*",
-      "destination": "/410.html",
-      "statusCode": 410
+      "destination": "/hydroponic",
+      "statusCode": 301
     }
   ],
   "rewrites": [

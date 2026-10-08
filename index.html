@@ -61,7 +61,7 @@
     <!-- MediaElement Resilience & Video Error Shield for Third-Party Ad Networks -->
     <script>
       (function() {
-        // 1. Intercept console.error for video media opening/codec failures
+        // 1. Intercept console.error for video media opening/codec failures and WebSocket transport noise
         if (typeof console !== 'undefined' && console.error) {
           var origConsoleError = console.error;
           console.error = function() {
@@ -72,12 +72,37 @@
             if (str.indexOf('Failed to open media') !== -1 || 
                 str.indexOf('Error on video element') !== -1 || 
                 str.indexOf('MEDIA_ELEMENT_ERROR') !== -1 ||
-                str.indexOf('DEMUXER_ERROR_COULD_NOT_OPEN') !== -1) {
-              return; // Silently swallow media stream / codec errors from external ad scripts
+                str.indexOf('DEMUXER_ERROR_COULD_NOT_OPEN') !== -1 ||
+                str.indexOf('createWebSocketModuleRunnerTransport') !== -1 ||
+                str.indexOf('WebSocket') !== -1 ||
+                str.indexOf('@vite/client') !== -1) {
+              return; // Silently swallow media stream & iframe WebSocket errors
             }
             return origConsoleError.apply(console, arguments);
           };
         }
+
+        // Global unhandled listener for WebSocket reconnection errors in sandboxed iframes
+        window.addEventListener('error', function(e) {
+          var msg = (e && e.message) ? String(e.message) : '';
+          var src = (e && e.filename) ? String(e.filename) : '';
+          if (msg.indexOf('WebSocket') !== -1 || 
+              msg.indexOf('createWebSocketModuleRunnerTransport') !== -1 || 
+              src.indexOf('@vite/client') !== -1) {
+            if (e.preventDefault) e.preventDefault();
+            if (e.stopPropagation) e.stopPropagation();
+            return true;
+          }
+        }, true);
+        window.addEventListener('unhandledrejection', function(e) {
+          var reason = (e && e.reason) ? String(e.reason.message || e.reason) : '';
+          if (reason.indexOf('WebSocket') !== -1 || 
+              reason.indexOf('createWebSocketModuleRunnerTransport') !== -1 ||
+              reason.indexOf('@vite/client') !== -1) {
+            if (e.preventDefault) e.preventDefault();
+            if (e.stopPropagation) e.stopPropagation();
+          }
+        }, true);
 
         // 2. Safe HTMLMediaElement.prototype.error getter
         if (typeof HTMLMediaElement !== 'undefined' && HTMLMediaElement.prototype) {

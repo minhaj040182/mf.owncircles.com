@@ -1,26 +1,55 @@
-# Permanently removed PDF documents & deprecated legacy alias routes - HTTP 410 Gone
-/assets/Docs/*            /410.html  410!
-/assets/docs/*            /410.html  410!
-/*.pdf                    /410.html  410!
-/pond                     /410.html  410!
-/pond/*                   /410.html  410!
-/home                     /410.html  410!
-/home/*                   /410.html  410!
-/videos                   /410.html  410!
-/videos/*                 /410.html  410!
-/biofloc                  /410.html  410!
-/biofloc/*                /410.html  410!
-/hydroponics              /410.html  410!
-/hydroponics/*            /410.html  410!
-/feed                     /410.html  410!
-/feed/*                   /410.html  410!
-/diseases                 /410.html  410!
-/diseases/*               /410.html  410!
-/ras                      /410.html  410!
-/ras/*                    /410.html  410!
-/aquaponics               /410.html  410!
-/aquaponics/*             /410.html  410!
+# Permanent 301 Redirects for Search Engine Crawlers (Googlebot, Bingbot)
+/video/pond-water-treatment-with-lime-potassium-permanganate-own-18    /farming-videos  301!
+/video/pond-water-treatment-with-lime-potassium-permanganate-own-18/*  /farming-videos  301!
+/video/own-18                                                         /farming-videos  301!
+/video/own-18/*                                                       /farming-videos  301!
+/video/harvesting-rohu-carp-tilapia-from-pond-own-2                   /farming-videos  301!
+/video/harvesting-rohu-carp-tilapia-from-pond-own-2/*                 /farming-videos  301!
+/video/own-2                                                          /farming-videos  301!
+/video/own-2/*                                                        /farming-videos  301!
+/video/high-density-biofloc-tilapia-farming-cn-ratio-masterclass-idea-2    /farming-videos  301!
+/video/high-density-biofloc-tilapia-farming-cn-ratio-masterclass-idea-2/*  /farming-videos  301!
+/video/idea-2                                                         /farming-videos  301!
+/video/idea-2/*                                                       /farming-videos  301!
+/pond-farming/        /pond-farming        301!
+/feeding-management/  /feeding-management  301!
+/videos           /farming-videos      301!
+/videos/*         /farming-videos      301!
+/video            /farming-videos      301!
+/home             /                    301!
+/home/*           /                    301!
+/pond             /pond-farming        301!
+/pond/*           /pond-farming        301!
+/biofloc          /bioflock            301!
+/biofloc/*        /bioflock            301!
+/biofloc-farming  /bioflock            301!
+/hydroponics      /hydroponic          301!
+/hydroponics/*    /hydroponic          301!
+/feed             /feeding-management  301!
+/feed/*           /feeding-management  301!
+/diseases         /fish-diseases       301!
+/diseases/*       /fish-diseases       301!
+/ras              /aquaponic           301!
+/ras/*            /aquaponic           301!
+/ras-farming      /aquaponic           301!
+/aquaponics       /aquaponics-farming  301!
+/aquaponics/*     /aquaponics-farming  301!
+/calculator       /calculators         301!
+/calculator/*     /calculators         301!
+/calc             /calculators         301!
+/services         /ourservices         301!
+/services/*       /ourservices         301!
+/about            /about-us            301!
+/about/*          /about-us            301!
+/privacy          /privacy-policy      301!
+/privacy/*        /privacy-policy      301!
+/frequently-asked-questions /faq       301!
+
+# Permanently removed PDF documents & deprecated downloads - HTTP 410 Gone
+/assets/Docs/*    /410.html  410!
+/assets/docs/*    /410.html  410!
+/*.pdf            /410.html  410!
 
 # React SPA Fallback for all routes
-/*              /index.html 200
+/*                /index.html 200
 

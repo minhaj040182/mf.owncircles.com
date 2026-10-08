@@ -120,32 +120,38 @@ export default function QuoteRequestModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs overflow-y-auto">
-      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-auto animate-fade-in">
-        
-        {/* Header */}
-        <div className="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 text-white p-5 sm:p-6 relative">
-          <button
-            onClick={handleResetAndClose}
-            className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
-            title="Close modal"
-          >
-            <X className="w-5 h-5" />
-          </button>
-          
-          <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider mb-1">
-            <ShieldCheck className="w-4 h-4" />
-            <span>Modern Fisheries Inquiry Desk</span>
+    <div className="fixed inset-0 z-50 flex justify-end overflow-hidden bg-slate-950/70 backdrop-blur-xs">
+      {/* Backdrop click dismiss */}
+      <div 
+        className="fixed inset-0 -z-10" 
+        onClick={handleResetAndClose} 
+        aria-hidden="true" 
+      />
+      <div className="relative h-full max-h-screen w-full sm:w-auto min-w-[340px] sm:min-w-[480px] max-w-[95vw] sm:max-w-xl bg-white shadow-2xl border-l border-slate-200 overflow-y-auto animate-slide-right flex flex-col justify-between">
+        <div>
+          {/* Header */}
+          <div className="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 text-white p-5 sm:p-6 relative">
+            <button
+              onClick={handleResetAndClose}
+              className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+              title="Close modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider mb-1">
+              <ShieldCheck className="w-4 h-4" />
+              <span>Modern Fisheries Inquiry Desk</span>
+            </div>
+
+            <h3 className="text-lg sm:text-xl font-black font-sans text-white">
+              Send Equipment &amp; Sizing Inquiry
+            </h3>
+
+            <p className="text-slate-300 text-xs mt-1">
+              Target Equipment: <strong className="text-white">{eqTarget}</strong>
+            </p>
           </div>
-
-          <h3 className="text-lg sm:text-xl font-black font-sans text-white">
-            Send Equipment &amp; Sizing Inquiry
-          </h3>
-
-          <p className="text-slate-300 text-xs mt-1">
-            Target Equipment: <strong className="text-white">{eqTarget}</strong>
-          </p>
-        </div>
 
         {/* Quick Instant Channels Strip */}
         <div className="bg-slate-100/90 border-b border-slate-200 px-5 py-3 flex flex-wrap items-center justify-between gap-2">
@@ -359,7 +365,7 @@ export default function QuoteRequestModal({
             </form>
           )}
         </div>
-
+        </div>
       </div>
     </div>
   );
