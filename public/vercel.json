@@ -33,6 +33,41 @@
       "statusCode": 301
     },
     {
+      "source": "/home/",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/hydroponics/",
+      "destination": "/hydroponic",
+      "statusCode": 301
+    },
+    {
+      "source": "/hydroponic/",
+      "destination": "/hydroponic",
+      "statusCode": 301
+    },
+    {
+      "source": "/fish-diseases/",
+      "destination": "/fish-diseases",
+      "statusCode": 301
+    },
+    {
+      "source": "/aquaponic/",
+      "destination": "/aquaponic",
+      "statusCode": 301
+    },
+    {
+      "source": "/aquaponics-farming/",
+      "destination": "/aquaponics-farming",
+      "statusCode": 301
+    },
+    {
+      "source": "/bioflock/",
+      "destination": "/bioflock",
+      "statusCode": 301
+    },
+    {
       "source": "/pond-farming/",
       "destination": "/pond-farming",
       "statusCode": 301

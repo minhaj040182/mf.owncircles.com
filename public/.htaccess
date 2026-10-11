@@ -20,9 +20,22 @@ Options -Indexes
   RewriteRule \.(pdf)$ - [G,NC,L]
 
   # 3. HTTP 301 Permanent Redirects for trailing slash URLs to non-trailing slash canonicals
+  RewriteRule ^home/$ / [R=301,L,NC]
+  RewriteRule ^hydroponics/$ /hydroponic [R=301,L,NC]
+  RewriteRule ^hydroponic/$ /hydroponic [R=301,L,NC]
+  RewriteRule ^fish-diseases/$ /fish-diseases [R=301,L,NC]
+  RewriteRule ^aquaponic/$ /aquaponic [R=301,L,NC]
+  RewriteRule ^aquaponics-farming/$ /aquaponics-farming [R=301,L,NC]
+  RewriteRule ^bioflock/$ /bioflock [R=301,L,NC]
   RewriteRule ^pond-farming/$ /pond-farming [R=301,L,NC]
   RewriteRule ^feeding-management/$ /feeding-management [R=301,L,NC]
+  RewriteRule ^calculators/$ /calculators [R=301,L,NC]
+  RewriteRule ^equipment-finder/$ /equipment-finder [R=301,L,NC]
   RewriteRule ^farming-videos/$ /farming-videos [R=301,L,NC]
+  RewriteRule ^ourservices/$ /ourservices [R=301,L,NC]
+  RewriteRule ^about-us/$ /about-us [R=301,L,NC]
+  RewriteRule ^privacy-policy/$ /privacy-policy [R=301,L,NC]
+  RewriteRule ^faq/$ /faq [R=301,L,NC]
   RewriteCond %{REQUEST_METHOD} =GET
   RewriteCond %{REQUEST_URI} ^/(.+)/$
   RewriteRule ^(.+)/$ /$1 [R=301,L]

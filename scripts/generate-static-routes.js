@@ -895,16 +895,15 @@ const LEGACY_301_ROUTES = {
 };
 
 Object.entries(LEGACY_301_ROUTES).forEach(([legacyRoute, target]) => {
-  // Remove legacy directory if it exists to eliminate directoryslash redirects
   const legacyDir = path.join(distDir, legacyRoute);
-  if (fs.existsSync(legacyDir)) {
-    fs.rmSync(legacyDir, { recursive: true, force: true });
-    console.log(`✓ Cleaned up deprecated directory: dist/${legacyRoute}`);
-  }
-  // Write static 301 redirect HTML file
+  fs.mkdirSync(legacyDir, { recursive: true });
+
   const html301 = render301RedirectHtml(target);
+  // Standalone .html for direct path requests (e.g. /home -> 301 to /)
   fs.writeFileSync(path.join(distDir, `${legacyRoute}.html`), html301);
-  console.log(`✓ Generated 301 Redirect response: dist/${legacyRoute}.html -> ${target}`);
+  // Directory index.html for trailing-slash path requests (e.g. /home/ -> 301 to /)
+  fs.writeFileSync(path.join(legacyDir, 'index.html'), html301);
+  console.log(`✓ Generated 301 Redirect response: dist/${legacyRoute}.html & dist/${legacyRoute}/index.html -> ${target}`);
 });
 
 // Also write dist/410.html and dist/410/index.html

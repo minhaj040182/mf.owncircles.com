@@ -48,6 +48,24 @@ app.use((req: Request, res: Response, next) => {
   const rawPath = req.path;
 
   // 1. Specific 301 Permanent Redirects for trailing-slash URLs
+  if (rawPath === "/hydroponic/" || originalUrl.startsWith("/hydroponic/")) {
+    const targetUrl = "/hydroponic" + (originalUrl.includes("?") ? `?${originalUrl.split("?")[1]}` : "");
+    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    return res.redirect(301, targetUrl);
+  }
+
+  if (rawPath === "/fish-diseases/" || originalUrl.startsWith("/fish-diseases/")) {
+    const targetUrl = "/fish-diseases" + (originalUrl.includes("?") ? `?${originalUrl.split("?")[1]}` : "");
+    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    return res.redirect(301, targetUrl);
+  }
+
+  if (rawPath === "/aquaponic/" || originalUrl.startsWith("/aquaponic/")) {
+    const targetUrl = "/aquaponic" + (originalUrl.includes("?") ? `?${originalUrl.split("?")[1]}` : "");
+    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    return res.redirect(301, targetUrl);
+  }
+
   if (rawPath === "/pond-farming/" || originalUrl.startsWith("/pond-farming/")) {
     const targetUrl = "/pond-farming" + (originalUrl.includes("?") ? `?${originalUrl.split("?")[1]}` : "");
     res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
@@ -60,14 +78,7 @@ app.use((req: Request, res: Response, next) => {
     return res.redirect(301, targetUrl);
   }
 
-  // 2. Trailing-slash 301 Permanent Redirect for SEO (e.g. /path/ -> /path)
-  if (rawPath.length > 1 && rawPath.endsWith("/")) {
-    const cleanPath = rawPath.replace(/\/+$/, "") + (originalUrl.includes("?") ? `?${originalUrl.split("?")[1]}` : "");
-    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
-    return res.redirect(301, cleanPath);
-  }
-
-  // 3. Mapping of legacy alias paths to canonical URLs
+  // 2. Mapping of legacy alias paths (with or without trailing slash) to canonical URLs
   const reqPath = req.path.toLowerCase().replace(/\/+$/, "") || "/";
   const target = SEO_301_REDIRECT_MAP[reqPath];
   if (target) {
@@ -78,6 +89,13 @@ app.use((req: Request, res: Response, next) => {
   if (reqPath.startsWith("/videos/")) {
     res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
     return res.redirect(301, "/farming-videos");
+  }
+
+  // 3. Generic trailing-slash 301 Permanent Redirect for all other paths (e.g. /path/ -> /path)
+  if (rawPath.length > 1 && rawPath.endsWith("/")) {
+    const cleanPath = rawPath.replace(/\/+$/, "") + (originalUrl.includes("?") ? `?${originalUrl.split("?")[1]}` : "");
+    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    return res.redirect(301, cleanPath);
   }
   next();
 });
