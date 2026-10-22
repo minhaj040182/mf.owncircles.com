@@ -865,14 +865,13 @@ function render301RedirectHtml(targetPath) {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>301 Moved Permanently</title>
-  <meta http-equiv="refresh" content="0; url=${targetUrl}">
+  <title>Redirecting to ${escapeHtml(targetUrl)}</title>
   <link rel="canonical" href="${targetUrl}">
-  <script>window.location.replace("${targetUrl}");</script>
+  <meta http-equiv="refresh" content="0; url=${targetUrl}">
 </head>
-<body style="font-family: system-ui, sans-serif; text-align: center; padding: 50px;">
-  <h1>301 Moved Permanently</h1>
-  <p>The resource has moved <a href="${targetUrl}">here</a>.</p>
+<body style="font-family: system-ui, -apple-system, sans-serif; text-align: center; padding: 40px 20px; line-height: 1.6;">
+  <h1>Redirecting</h1>
+  <p>This page has permanently moved to <a href="${targetUrl}">${escapeHtml(targetUrl)}</a>.</p>
 </body>
 </html>`;
 }
