@@ -1,4 +1,5 @@
 import { Video } from "../types";
+import { EQUIPMENT_DATABASE } from "../data/equipmentData";
 
 export type PageType = 
   | "home" 
@@ -394,6 +395,21 @@ export function getSeoMetaData(page: PageType, video?: Video | null): SeoMetaDat
 export function updateSeoMetadata(page: PageType, video?: Video | null) {
   const meta = getSeoMetaData(page, video);
 
+  // If currently browsing an individual equipment URL (e.g. /equipment/air-blower), resolve its specific SEO metadata
+  let isEquipmentDetail = false;
+  let equipmentCanonicalPath = "";
+  if (page === "equipment-finder" && typeof window !== "undefined" && window.location.pathname.startsWith("/equipment/")) {
+    const eqSlug = window.location.pathname.replace(/^\/equipment\/?/, "").replace(/\/+$/, "");
+    const foundEq = EQUIPMENT_DATABASE.find((item) => item.slug === eqSlug);
+    if (foundEq) {
+      isEquipmentDetail = true;
+      equipmentCanonicalPath = `/equipment/${foundEq.slug}`;
+      meta.title = `${foundEq.name} - Aquaculture Equipment | Modern Fisheries`;
+      meta.description = `${foundEq.name}: ${foundEq.tagline}. ${foundEq.purpose}`;
+      meta.keywords = `${foundEq.name}, ${foundEq.category}, aquaculture equipment, fish farming machinery, modern fisheries`;
+    }
+  }
+
   // Update Title
   document.title = meta.title;
 
@@ -470,7 +486,7 @@ export function updateSeoMetadata(page: PageType, video?: Video | null) {
     canonical.setAttribute("rel", "canonical");
     document.head.appendChild(canonical);
   }
-  const relativePath = getPathForPage(page, video);
+  const relativePath = isEquipmentDetail ? equipmentCanonicalPath : getPathForPage(page, video);
   const currentOrigin = typeof window !== "undefined" && window.location.origin && !window.location.origin.includes("localhost") && !window.location.origin.includes("run.app")
     ? window.location.origin
     : "https://modernfisheriese.com";

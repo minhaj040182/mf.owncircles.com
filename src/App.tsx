@@ -168,6 +168,12 @@ export default function App() {
         return;
       }
 
+      // Do NOT execute pushState for individual equipment URLs (e.g. /equipment/air-blower)
+      // Preserves the individual equipment canonical URL so it never redirects to /equipment-finder
+      if (currentPage === "equipment-finder" && normalizedCurrent.startsWith("/equipment/")) {
+        return;
+      }
+
       if (window.history) {
         try {
           if (window.location.hash) {
