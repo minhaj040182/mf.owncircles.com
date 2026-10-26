@@ -168,6 +168,11 @@ export default function App() {
         return;
       }
 
+      // Do NOT pushState if on /home or /home/ (preserves URL without triggering client-side redirect)
+      if (currentPage === "home" && (normalizedCurrent === "/home" || normalizedCurrent === "/")) {
+        return;
+      }
+
       // Do NOT execute pushState for individual equipment URLs (e.g. /equipment/air-blower)
       // Preserves the individual equipment canonical URL so it never redirects to /equipment-finder
       if (currentPage === "equipment-finder" && normalizedCurrent.startsWith("/equipment/")) {

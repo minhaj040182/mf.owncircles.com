@@ -33,16 +33,6 @@
       "statusCode": 301
     },
     {
-      "source": "/home/",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/hydroponics/",
-      "destination": "/hydroponic",
-      "statusCode": 301
-    },
-    {
       "source": "/hydroponic/",
       "destination": "/hydroponic",
       "statusCode": 301

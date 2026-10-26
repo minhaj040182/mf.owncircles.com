@@ -24,12 +24,9 @@ const SEO_301_REDIRECT_MAP: Record<string, string> = {
   "/video/own-2": "/farming-videos",
   "/video/high-density-biofloc-tilapia-farming-cn-ratio-masterclass-idea-2": "/farming-videos",
   "/video/idea-2": "/farming-videos",
-  "/home": "/",
   "/pond": "/pond-farming",
   "/biofloc": "/bioflock",
   "/biofloc-farming": "/bioflock",
-  "/hydroponics": "/hydroponic",
-  "/hydroponics-farming": "/hydroponic",
   "/feed": "/feeding-management",
   "/diseases": "/fish-diseases",
   "/ras": "/aquaponic",
@@ -43,9 +40,61 @@ const SEO_301_REDIRECT_MAP: Record<string, string> = {
   "/frequently-asked-questions": "/faq",
 };
 
+function render410Html(requestedPath: string): string {
+  const cleanPath = requestedPath.replace(/^\//, "");
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>410 Gone | Resource Permanently Removed - Modern Fisheries</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="googlebot" content="noindex, follow" />
+    <meta name="prerender-status-code" content="410" />
+    <style>
+      body { font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; color: #1e293b; margin: 0; padding: 40px 20px; display: flex; align-items: center; justify-content: center; min-height: 80vh; }
+      .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; max-width: 540px; width: 100%; padding: 36px 28px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+      .badge { display: inline-block; background: #fee2e2; color: #b91c1c; font-weight: 700; font-size: 13px; padding: 4px 12px; border-radius: 9999px; margin-bottom: 14px; text-transform: uppercase; }
+      h1 { font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 12px 0; }
+      p { font-size: 15px; color: #475569; line-height: 1.6; margin: 0 0 24px 0; }
+      .links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+      .btn { display: inline-block; background: #059669; color: #fff; text-decoration: none; font-weight: 600; padding: 10px 18px; border-radius: 8px; font-size: 14px; }
+      .btn-outline { display: inline-block; background: #f1f5f9; color: #334155; text-decoration: none; font-weight: 600; padding: 10px 18px; border-radius: 8px; font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="badge">HTTP 410 Gone</div>
+      <h1>Resource Permanently Removed</h1>
+      <p>The requested URL (<code>/${cleanPath}</code>) has been permanently removed and decommissioned. Explore our official aquaculture guides and calculation tools below.</p>
+      <div class="links">
+        <a href="/" class="btn">Modern Fisheries Home</a>
+        <a href="/pond-farming" class="btn-outline">Pond Limnology</a>
+        <a href="/calculators" class="btn-outline">Calculators</a>
+      </div>
+    </div>
+  </body>
+</html>`;
+}
+
 app.use((req: Request, res: Response, next) => {
   const originalUrl = req.originalUrl || req.url;
   const rawPath = req.path;
+  const normalizedPath = req.path.toLowerCase().replace(/\/+$/, "") || "/";
+
+  // HTTP 410 Gone for permanently removed legacy URLs
+  if (
+    normalizedPath === "/home" ||
+    normalizedPath === "/hydroponics" ||
+    normalizedPath === "/hydroponics-farming" ||
+    normalizedPath === "/soilless" ||
+    normalizedPath.startsWith("/assets/docs") ||
+    normalizedPath.endsWith(".pdf")
+  ) {
+    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    res.setHeader("X-Robots-Tag", "noindex, follow");
+    return res.status(410).send(render410Html(rawPath));
+  }
 
   // 1. Specific 301 Permanent Redirects for trailing-slash URLs
   if (rawPath === "/hydroponic/" || originalUrl.startsWith("/hydroponic/")) {

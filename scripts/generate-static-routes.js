@@ -879,10 +879,8 @@ function render301RedirectHtml(targetPath) {
 const LEGACY_301_ROUTES = {
   videos: '/farming-videos',
   video: '/farming-videos',
-  home: '/',
   pond: '/pond-farming',
   biofloc: '/bioflock',
-  hydroponics: '/hydroponic',
   feed: '/feeding-management',
   diseases: '/fish-diseases',
   ras: '/aquaponic',
@@ -897,12 +895,35 @@ Object.entries(LEGACY_301_ROUTES).forEach(([legacyRoute, target]) => {
   const legacyDir = path.join(distDir, legacyRoute);
   fs.mkdirSync(legacyDir, { recursive: true });
 
-  const html301 = render301RedirectHtml(target);
-  // Standalone .html for direct path requests (e.g. /home -> 301 to /)
-  fs.writeFileSync(path.join(distDir, `${legacyRoute}.html`), html301);
-  // Directory index.html for trailing-slash path requests (e.g. /home/ -> 301 to /)
-  fs.writeFileSync(path.join(legacyDir, 'index.html'), html301);
-  console.log(`✓ Generated 301 Redirect response: dist/${legacyRoute}.html & dist/${legacyRoute}/index.html -> ${target}`);
+  const targetPage = PAGE_METADATA.find(p => p.path === target);
+  if (targetPage) {
+    const fullCanonicalHtml = renderCustomPageHtml(baseIndexHtml, targetPage);
+    fs.writeFileSync(path.join(distDir, `${legacyRoute}.html`), fullCanonicalHtml);
+    fs.writeFileSync(path.join(legacyDir, 'index.html'), fullCanonicalHtml);
+    console.log(`✓ Generated canonical alias page: dist/${legacyRoute}.html & dist/${legacyRoute}/index.html (canonical: ${targetPage.canonical})`);
+  } else {
+    const html301 = render301RedirectHtml(target);
+    fs.writeFileSync(path.join(distDir, `${legacyRoute}.html`), html301);
+    fs.writeFileSync(path.join(legacyDir, 'index.html'), html301);
+    console.log(`✓ Generated 301 Redirect response: dist/${legacyRoute}.html & dist/${legacyRoute}/index.html -> ${target}`);
+  }
+});
+
+// Permanently Decommissioned Routes (HTTP 410 Gone) for Search Engine Crawlers
+const LEGACY_410_ROUTES = [
+  'home',
+  'hydroponics',
+  'hydroponics-farming',
+  'soilless'
+];
+
+LEGACY_410_ROUTES.forEach((route) => {
+  const routeDir = path.join(distDir, route);
+  fs.mkdirSync(routeDir, { recursive: true });
+  const html410 = render410PageHtml(`/${route}`);
+  fs.writeFileSync(path.join(distDir, `${route}.html`), html410);
+  fs.writeFileSync(path.join(routeDir, 'index.html'), html410);
+  console.log(`✓ Generated 410 Gone response: dist/${route}.html & dist/${route}/index.html`);
 });
 
 // Also write dist/410.html and dist/410/index.html

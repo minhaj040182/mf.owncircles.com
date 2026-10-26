@@ -15,13 +15,12 @@ Options -Indexes
   RewriteCond %{HTTP_HOST} ^www\.modernfisheriese\.com$ [NC]
   RewriteRule ^(.*)$ https://modernfisheriese.com/$1 [L,R=301]
 
-  # 2. Return HTTP 410 Gone for permanently removed PDF documents & deprecated downloads
+  # 2. Return HTTP 410 Gone for permanently removed legacy routes, PDF documents & deprecated downloads
+  RewriteRule ^(home|hydroponics|hydroponics-farming|soilless)(/.*)?$ - [G,NC,L]
   RewriteRule ^assets/(docs|Docs)/ - [G,NC,L]
   RewriteRule \.(pdf)$ - [G,NC,L]
 
   # 3. HTTP 301 Permanent Redirects for trailing slash URLs to non-trailing slash canonicals
-  RewriteRule ^home/$ / [R=301,L,NC]
-  RewriteRule ^hydroponics/$ /hydroponic [R=301,L,NC]
   RewriteRule ^hydroponic/$ /hydroponic [R=301,L,NC]
   RewriteRule ^fish-diseases/$ /fish-diseases [R=301,L,NC]
   RewriteRule ^aquaponic/$ /aquaponic [R=301,L,NC]
@@ -44,12 +43,9 @@ Options -Indexes
   RewriteRule ^video/(pond-water-treatment-with-lime-potassium-permanganate-own-18|own-18|harvesting-rohu-carp-tilapia-from-pond-own-2|own-2|high-density-biofloc-tilapia-farming-cn-ratio-masterclass-idea-2|idea-2)(/.*)?$ /farming-videos [R=301,L,NC]
   RewriteRule ^videos(/.*)?$ /farming-videos [R=301,L,NC]
   RewriteRule ^video$ /farming-videos [R=301,L,NC]
-  RewriteRule ^home(/.*)?$ / [R=301,L,NC]
   RewriteRule ^pond(/.*)?$ /pond-farming [R=301,L,NC]
   RewriteRule ^biofloc(/.*)?$ /bioflock [R=301,L,NC]
   RewriteRule ^biofloc-farming(/.*)?$ /bioflock [R=301,L,NC]
-  RewriteRule ^hydroponics(/.*)?$ /hydroponic [R=301,L,NC]
-  RewriteRule ^hydroponics-farming(/.*)?$ /hydroponic [R=301,L,NC]
   RewriteRule ^feed(/.*)?$ /feeding-management [R=301,L,NC]
   RewriteRule ^diseases(/.*)?$ /fish-diseases [R=301,L,NC]
   RewriteRule ^ras(/.*)?$ /aquaponic [R=301,L,NC]

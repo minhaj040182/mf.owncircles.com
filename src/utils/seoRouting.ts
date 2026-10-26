@@ -107,6 +107,10 @@ export function parseUrlPath(pathnameOrHash: string, allVideos: Video[]): { page
   const isPermanentlyRemoved = 
     normalized === "/410" ||
     normalized === "/410.html" ||
+    normalized === "/home" ||
+    normalized === "/hydroponics" ||
+    normalized === "/hydroponics-farming" ||
+    normalized === "/soilless" ||
     normalized.startsWith("/assets/docs") ||
     normalized.startsWith("/downloads") ||
     normalized.startsWith("/download") ||
@@ -160,11 +164,11 @@ export function parseUrlPath(pathnameOrHash: string, allVideos: Video[]): { page
   }
 
   // Exact Canonical Path Matches & intuitive aliases
-  if (normalized === "/" || normalized === "/home") return { page: "home", video: null };
+  if (normalized === "/") return { page: "home", video: null };
   if (normalized === "/aquaponics-farming" || normalized === "/aquaponics") return { page: "aquaponics", video: null };
   if (normalized === "/aquaponic" || normalized === "/ras" || normalized === "/ras-farming") return { page: "ras", video: null };
   if (normalized === "/bioflock" || normalized === "/biofloc" || normalized === "/biofloc-farming") return { page: "biofloc", video: null };
-  if (normalized === "/hydroponic" || normalized === "/hydroponics" || normalized === "/hydroponics-farming" || normalized === "/soilless") return { page: "hydroponics", video: null };
+  if (normalized === "/hydroponic") return { page: "hydroponics", video: null };
   if (normalized === "/pond-farming" || normalized === "/pond") return { page: "pond", video: null };
   if (normalized === "/fish-diseases" || normalized === "/diseases") return { page: "diseases", video: null };
   if (normalized === "/feeding-management" || normalized === "/feed" || normalized === "/feeding") return { page: "feed", video: null };
